@@ -594,6 +594,12 @@ One thing that you must do, however, is try to provide at least a hint of the da
         <div class="entity-cr">CR 2 · 450 XP</div>
       </div>
 
+      <div class="entity-card" onclick="openEntity('drunk-patron')">
+        <div class="entity-name">Drunk Patron</div>
+        <div class="entity-type">Human Commoner <span class="tag badge-cn">CN</span></div>
+        <div class="entity-cr">CR 1/8 · 25 XP</div>
+      </div>
+
     </div>
   </section>
 
@@ -636,6 +642,12 @@ One thing that you must do, however, is try to provide at least a hint of the da
         <div class="entity-name">Gibbering Mouther</div>
         <div class="entity-type">Aberration (Noke's fate)</div>
         <div class="entity-cr">CR 2 · 450 XP</div>
+      </div>
+
+      <div class="entity-card" onclick="openEntity('giant-spider')">
+        <div class="entity-name">Giant Spider</div>
+        <div class="entity-type">Beast (forest encounter)</div>
+        <div class="entity-cr">CR 1 · 200 XP</div>
       </div>
 
     </div>
@@ -828,6 +840,50 @@ const ENTITIES = {
         <strong>Tactics:</strong> Buffs Brown Bear with Enlarge/Reduce first. Uses Ray of Frost to slow retreating players. Flees via Expeditious Retreat when losing — locks door, rides Bed Dragon out of ceiling 3 rounds later. Will use Polymorph on himself as last resort (→ Gibbering Mouther).<br><br>
         <strong>Roleplaying Noke:</strong> Paranoid, rarely sleeps. Genuinely upset if Guz is killed. Will boast of achievements disjointedly. Guilt-ridden but consumed by ambition. Cracked after decades of being treated like a child apprentice.
       </div>
+    `
+  },
+
+  'drunk-patron': {
+    name: "Drunk Patron",
+    imageAlt: "A bleary-eyed tavern drunk with a bottle",
+    html: `
+      <div class="stat-block">
+        <div class="sb-name">Drunk Patron</div>
+        <div class="sb-meta">Medium humanoid (human), chaotic neutral</div>
+        <hr>
+        <div class="sb-row"><strong>AC</strong> 10</div>
+        <div class="sb-row"><strong>HP</strong> 9 (2d8)</div>
+        <div class="sb-row"><strong>Speed</strong> 25 ft. (stumbling)</div>
+        <hr>
+        <div class="sb-abilities">
+          <div><div class="ab-label">STR</div><div class="ab-val">13 (+1)</div></div>
+          <div><div class="ab-label">DEX</div><div class="ab-val">8 (−1)</div></div>
+          <div><div class="ab-label">CON</div><div class="ab-val">12 (+1)</div></div>
+          <div><div class="ab-label">INT</div><div class="ab-val">9 (−1)</div></div>
+          <div><div class="ab-label">WIS</div><div class="ab-val">6 (−2)</div></div>
+          <div><div class="ab-label">CHA</div><div class="ab-val">11 (+0)</div></div>
+        </div>
+        <hr>
+        <div class="sb-row"><strong>Senses</strong> passive Perception 8</div>
+        <div class="sb-row"><strong>Languages</strong> Common</div>
+        <div class="sb-row"><strong>Challenge</strong> 1/8 (25 XP)</div>
+        <hr>
+        <div class="sb-section">
+          <div class="trait"><em>Liquid Courage.</em> The patron has advantage on saving throws against being frightened. They are too drunk to be afraid.</div>
+          <div class="trait"><em>Reckless.</em> At the start of their turn, the patron can choose to gain advantage on all melee weapon attack rolls during that turn, but attack rolls against them also have advantage until the start of their next turn.</div>
+          <div class="trait"><em>Wobbly.</em> Disadvantage on Dexterity saving throws. If they fail a saving throw or miss an attack, they must succeed on a DC 10 Dexterity saving throw or fall prone.</div>
+        </div>
+        <div class="sb-actions-title">Actions</div>
+        <div class="sb-section">
+          <div class="trait"><em>Knife.</em> Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 3 (1d4+1) piercing damage.</div>
+          <div class="trait"><em>Bottle Swing.</em> Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 4 (1d6+1) bludgeoning damage, and the target must succeed on a DC 11 Constitution saving throw or be stunned until the end of their next turn. On a miss, the bottle shatters and this action is lost for the rest of the fight.</div>
+        </div>
+        <div class="sb-actions-title">Roleplaying</div>
+        <div class="sb-section">
+          <div class="trait">Calls himself "Big Mick." Insists the sheep insulted him first. Will back down completely if anyone makes a DC 8 Intimidation or Persuasion check — or if he gets bloodied. Has no memory of this encounter the next morning.</div>
+        </div>
+      </div>
+      <div class="rp-note">A belligerent regular who takes offence at the sheep's presence (or the party's). A warm-up encounter or comic interlude — meant to be embarrassing rather than dangerous. Great for Bram's Intimidation or Medrick's Charm Person. Caves immediately if he takes damage or fails a morale check.</div>
     `
   },
 
@@ -1070,6 +1126,47 @@ const ENTITIES = {
         Noke's final, desperate fate. If he tries to use the wand on himself and fails by more than 5, or if it otherwise goes catastrophically wrong, he becomes this. Attacks mindlessly until destroyed. Transformation can't be undone by any spell below 9th level and can't be cancelled by ending concentration.
       </div>
       <a class="ext-link-btn" href="https://www.aidedd.org/en/rules/monsters/gibbering-mouther/" target="_blank">🔗 Full stats on aidedd.org</a>
+    `
+  },
+
+  'giant-spider': {
+    name: "Giant Spider",
+    imageAlt: "A massive spider with glistening fangs",
+    html: `
+      <div class="stat-block">
+        <div class="sb-name">Giant Spider</div>
+        <div class="sb-meta">Large beast, unaligned — MM p.328</div>
+        <hr>
+        <div class="sb-row"><strong>AC</strong> 14 (natural armor)</div>
+        <div class="sb-row"><strong>HP</strong> 26 (4d10+4)</div>
+        <div class="sb-row"><strong>Speed</strong> 30 ft., climb 30 ft.</div>
+        <hr>
+        <div class="sb-abilities">
+          <div><div class="ab-label">STR</div><div class="ab-val">14 (+2)</div></div>
+          <div><div class="ab-label">DEX</div><div class="ab-val">16 (+3)</div></div>
+          <div><div class="ab-label">CON</div><div class="ab-val">12 (+1)</div></div>
+          <div><div class="ab-label">INT</div><div class="ab-val">2 (−4)</div></div>
+          <div><div class="ab-label">WIS</div><div class="ab-val">11 (+0)</div></div>
+          <div><div class="ab-label">CHA</div><div class="ab-val">4 (−3)</div></div>
+        </div>
+        <hr>
+        <div class="sb-row"><strong>Skills</strong> Stealth +7</div>
+        <div class="sb-row"><strong>Senses</strong> Blindsight 10 ft., Darkvision 60 ft., passive Perception 10</div>
+        <div class="sb-row"><strong>Challenge</strong> 1 (200 XP)</div>
+        <hr>
+        <div class="sb-section">
+          <div class="trait"><em>Spider Climb.</em> Can climb difficult surfaces, including upside down on ceilings, without an ability check.</div>
+          <div class="trait"><em>Web Sense.</em> While in contact with a web, knows the exact location of any creature also in contact with it.</div>
+          <div class="trait"><em>Web Walker.</em> Ignores movement restrictions caused by webbing.</div>
+        </div>
+        <div class="sb-actions-title">Actions</div>
+        <div class="sb-section">
+          <div class="trait"><em>Bite.</em> Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 7 (1d8+3) piercing damage, and the target must make a DC 11 Constitution saving throw, taking 9 (2d8) poison damage on a failed save, or half as much on a success. If the poison damage reduces the target to 0 HP, the target is stable but poisoned for 1 hour, even after regaining HP, and is paralysed while poisoned this way.</div>
+          <div class="trait"><em>Web (Recharge 5–6).</em> Ranged Weapon Attack: +5 to hit, range 30/60 ft., one creature. Hit: The target is restrained by webbing. As an action, the restrained target can make a DC 12 Strength check, bursting the webbing on a success. The webbing can also be attacked and destroyed (AC 10; HP 5; immunity to bludgeoning, poison, and psychic damage).</div>
+        </div>
+      </div>
+      <div class="rp-note">A forest encounter on the road to Noke's tower. Lurks in tree canopy or a silken funnel web among the roots. Will attempt to Web a straggler and drag them into the trees. Retreats if it takes more than half its HP in a single round. Good tension-setter before the tower.</div>
+      <a class="ext-link-btn" href="https://www.aidedd.org/en/rules/monsters/giant-spider/" target="_blank">🔗 Full stats on aidedd.org</a>
     `
   },
 
@@ -1332,7 +1429,8 @@ const HP_KEY = 'twsc-hp-v1';
 const ENTITY_HP = {
   shinebright: 11, guz: 67, noke: 55, wolf: 11,
   'brown-bear': 34, 'brown-bear-enlarged': 34, 'giant-rat': 7,
-  'bed-dragon': 75, 'gibbering-mouther': 67
+  'bed-dragon': 75, 'gibbering-mouther': 67,
+  'drunk-patron': 9, 'giant-spider': 26
 };
 // How many tokens to create when you first start tracking a creature.
 const ENTITY_COUNT = { wolf: 2, 'giant-rat': 2 };
