@@ -328,6 +328,59 @@
     }
     .fulltext-body.open { display: block; }
 
+    /* ── HP TRACKER ── */
+    .hp-tracker {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 12px;
+      margin-bottom: 14px;
+    }
+    .hp-tracker-title {
+      font-size: .78rem;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .hp-tracker-title span { font-size: .66rem; color: var(--text-dim); text-transform: none; letter-spacing: 0; font-style: italic; }
+    .hp-token { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; padding: 6px 0; border-bottom: 1px dashed var(--border); }
+    .hp-token:last-child { border-bottom: none; }
+    .hp-token-label { font-size: .78rem; color: var(--gold-light); width: 34px; flex-shrink: 0; }
+    .hp-btn {
+      background: var(--tag-bg); border: 1px solid var(--border); color: var(--gold);
+      width: 26px; height: 26px; border-radius: 4px; cursor: pointer; font-size: 1rem; line-height: 1;
+    }
+    .hp-btn:hover { background: var(--border); }
+    .hp-cur {
+      width: 46px; text-align: center; background: #1e160a; border: 1px solid var(--border);
+      color: var(--text); border-radius: 4px; padding: 3px; font-family: inherit; font-size: .85rem;
+    }
+    .hp-max { font-size: .82rem; color: var(--text-dim); }
+    .hp-dmg {
+      width: 52px; background: #1e160a; border: 1px solid var(--border); color: var(--text);
+      border-radius: 4px; padding: 3px; font-family: inherit; font-size: .8rem;
+    }
+    .hp-hit { background: var(--red); border: none; color: #fff; border-radius: 4px; padding: 4px 7px; font-size: .72rem; cursor: pointer; }
+    .hp-heal { background: var(--green); border: none; color: #fff; border-radius: 4px; padding: 4px 7px; font-size: .72rem; cursor: pointer; }
+    .hp-remove { background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: .9rem; }
+    .hp-remove:hover { color: var(--red); }
+    .hp-bar { flex-basis: 100%; height: 6px; background: #3a1010; border-radius: 3px; overflow: hidden; margin-top: 2px; }
+    .hp-bar-fill { height: 100%; background: linear-gradient(90deg, #7d2e2e, #7cb342); transition: width .2s; }
+    .hp-token.dead .hp-token-label { color: var(--red); text-decoration: line-through; }
+    .hp-token.dead .hp-bar-fill { background: var(--red); }
+    .hp-actions { margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .hp-actions button {
+      background: var(--tag-bg); border: 1px solid var(--border); color: var(--gold);
+      border-radius: 4px; padding: 4px 10px; font-size: .75rem; cursor: pointer; font-family: inherit;
+    }
+    .hp-actions button:hover { background: var(--border); }
+    .hp-empty { font-size: .78rem; color: var(--text-dim); font-style: italic; padding: 2px 0 4px; }
+    .hp-badge { margin-top: 6px; font-size: .72rem; color: #7cb342; min-height: .9em; }
+    .hp-badge.hurt { color: var(--gold-light); }
+    .hp-badge.dead { color: var(--red); }
+
     /* ── MISC ── */
     .tag { display: inline-block; background: var(--tag-bg); border: 1px solid var(--border); border-radius: 3px; padding: 1px 6px; font-size: .75rem; }
     .badge-evil { border-color: #c0392b; color: #e74c3c; }
@@ -1065,7 +1118,8 @@ function openEntity(id) {
   const entity = ENTITIES[id];
   if (!entity) return;
   document.getElementById('modalTitle').textContent = entity.name;
-  document.getElementById('modalBody').innerHTML = entity.html;
+  document.getElementById('modalBody').innerHTML =
+    '<div id="hpTrackerMount">' + renderHpTracker(id) + '</div>' + entity.html;
   document.getElementById('modalOverlay').classList.add('open');
 }
 
@@ -1125,6 +1179,127 @@ function toggleText(btn) {
   const open = body.classList.toggle('open');
   btn.textContent = (open ? '▾' : '▸') + ' Full text';
 }
+
+/* ── HP TRACKER ── */
+const HP_KEY = 'twsc-hp-v1';
+const ENTITY_HP = {
+  shinebright: 11, guz: 67, noke: 55, wolf: 11,
+  'brown-bear': 34, ape: 19, 'bed-dragon': 75, 'gibbering-mouther': 67
+};
+// How many tokens to create when you first start tracking a creature.
+const ENTITY_COUNT = { wolf: 3, ape: 3 };
+
+function loadHp() { try { return JSON.parse(localStorage.getItem(HP_KEY)) || {}; } catch (e) { return {}; } }
+function saveHp(s) { try { localStorage.setItem(HP_KEY, JSON.stringify(s)); } catch (e) {} }
+function entityMaxHp(id) { return ENTITY_HP[id]; }
+function defaultCount(id) { return ENTITY_COUNT[id] || 1; }
+function getTokens(id) { const s = loadHp(); return Array.isArray(s[id]) ? s[id] : null; }
+function setTokens(id, arr) { const s = loadHp(); s[id] = arr; saveHp(s); }
+function clearTokens(id) { const s = loadHp(); delete s[id]; saveHp(s); }
+function clampHp(id, v) { const m = entityMaxHp(id); v = parseInt(v, 10); if (isNaN(v)) v = 0; return Math.max(0, Math.min(m, v)); }
+
+function adjustHp(id, i, delta) { const t = getTokens(id); if (!t) return; t[i] = clampHp(id, t[i] + delta); setTokens(id, t); refreshTracker(id); }
+function setHp(id, i, val) { const t = getTokens(id); if (!t) return; t[i] = clampHp(id, val); setTokens(id, t); refreshTracker(id); }
+function applyDelta(id, i, inputEl, sign) {
+  const v = parseInt(inputEl.value, 10);
+  if (isNaN(v) || v === 0) return;
+  const t = getTokens(id); if (!t) return;
+  t[i] = clampHp(id, t[i] + sign * v);
+  setTokens(id, t); inputEl.value = ''; refreshTracker(id);
+}
+function addToken(id) {
+  let t = getTokens(id);
+  if (!t) t = Array(defaultCount(id)).fill(entityMaxHp(id));
+  else t.push(entityMaxHp(id));
+  setTokens(id, t); refreshTracker(id);
+}
+function removeToken(id, i) {
+  const t = getTokens(id); if (!t) return;
+  t.splice(i, 1);
+  if (t.length === 0) clearTokens(id); else setTokens(id, t);
+  refreshTracker(id);
+}
+function resetTokens(id) {
+  const t = getTokens(id); if (!t) return;
+  setTokens(id, Array(t.length).fill(entityMaxHp(id)));
+  refreshTracker(id);
+}
+
+function refreshTracker(id) {
+  const mount = document.getElementById('hpTrackerMount');
+  if (mount) mount.innerHTML = renderHpTracker(id);
+  refreshBadge(id);
+}
+
+function renderHpTracker(id) {
+  const max = entityMaxHp(id);
+  if (!max) return ''; // items etc. have no HP
+  const tokens = getTokens(id);
+  let rows = '';
+  if (tokens) {
+    tokens.forEach((hp, i) => {
+      const pct = Math.round(hp / max * 100);
+      const dead = hp <= 0 ? ' dead' : '';
+      rows += `<div class="hp-token${dead}">
+        <span class="hp-token-label">#${i + 1}</span>
+        <button class="hp-btn" onclick="adjustHp('${id}',${i},-1)">−</button>
+        <input class="hp-cur" value="${hp}" onchange="setHp('${id}',${i},this.value)">
+        <span class="hp-max">/ ${max}</span>
+        <button class="hp-btn" onclick="adjustHp('${id}',${i},1)">+</button>
+        <input class="hp-dmg" type="number" placeholder="amt" id="dmg-${id}-${i}">
+        <button class="hp-hit" onclick="applyDelta('${id}',${i},document.getElementById('dmg-${id}-${i}'),-1)">Damage</button>
+        <button class="hp-heal" onclick="applyDelta('${id}',${i},document.getElementById('dmg-${id}-${i}'),1)">Heal</button>
+        <button class="hp-remove" onclick="removeToken('${id}',${i})" title="Remove">✕</button>
+        <div class="hp-bar"><div class="hp-bar-fill" style="width:${pct}%"></div></div>
+      </div>`;
+    });
+  } else {
+    rows = `<div class="hp-empty">Not tracking yet.</div>`;
+  }
+  const actions = tokens
+    ? `<button onclick="addToken('${id}')">+ Add another</button><button onclick="resetTokens('${id}')">Reset to full</button>`
+    : `<button onclick="addToken('${id}')">▶ Start tracking</button>`;
+  return `<div class="hp-tracker">
+    <div class="hp-tracker-title">HP Tracker <span>saved on this device</span></div>
+    <div class="hp-tokens">${rows}</div>
+    <div class="hp-actions">${actions}</div>
+  </div>`;
+}
+
+/* Live HP badges on the entity cards */
+function refreshBadge(id) {
+  const el = document.getElementById('badge-' + id);
+  if (!el) return;
+  const max = entityMaxHp(id);
+  const t = getTokens(id);
+  if (!t || !max) { el.textContent = ''; el.className = 'hp-badge'; return; }
+  if (t.length === 1) {
+    const hp = t[0];
+    el.textContent = `HP ${hp}/${max}`;
+    el.className = 'hp-badge' + (hp <= 0 ? ' dead' : (hp < max ? ' hurt' : ''));
+  } else {
+    const alive = t.filter(h => h > 0).length;
+    el.textContent = `${alive}/${t.length} up · ${t.join('/')}`;
+    el.className = 'hp-badge' + (alive === 0 ? ' dead' : ' hurt');
+  }
+}
+
+function mountBadges() {
+  document.querySelectorAll('.entity-card').forEach(card => {
+    const oc = card.getAttribute('onclick') || '';
+    const m = oc.match(/openEntity\('([^']+)'\)/);
+    if (!m) return;
+    const id = m[1];
+    if (!document.getElementById('badge-' + id)) {
+      const b = document.createElement('div');
+      b.className = 'hp-badge';
+      b.id = 'badge-' + id;
+      card.appendChild(b);
+    }
+  });
+  Object.keys(ENTITY_HP).forEach(refreshBadge);
+}
+document.addEventListener('DOMContentLoaded', mountBadges);
 
 // Close modals with Escape
 document.addEventListener('keydown', function(e) {
