@@ -425,7 +425,7 @@ SHINEBRIGHT'S BACKSTORY (when asked):
         <p>Guz the half-orc and his polymorphed minions demand the sheep be returned. He will bribe, intimidate, or attack. The wolves will try to grab Shinebright; the cloaked Brown Bear joins the front line. The wolves and bear are all polymorphed humans with intelligent minds.</p>
         <div class="creatures">
           <span class="creature-tag" onclick="openEntity('guz')">Guz (Half-Orc)</span>
-          <span class="creature-tag" onclick="openEntity('wolf')">Wolves ×3</span>
+          <span class="creature-tag" onclick="openEntity('wolf')">Wolves ×2</span>
           <span class="creature-tag" onclick="openEntity('brown-bear')">Brown Bear (cloaked)</span>
           <span class="creature-tag" onclick="openEntity('shinebright')">Finethir Shinebright (Pony)</span>
         </div>
@@ -461,7 +461,7 @@ They intend to capture Shinebright, not kill him. If Guz captures him, he and hi
         <div class="scene-title"><span class="scene-num">3</span> The House in the Woods</div>
         <p>A tree-house tower formed from four living oaks, 3 platforms: garden (40ft, 10ft up), main hall (60ft, 20ft up), bedroom (30ft up). Two huts and an outhouse on the ground. Guards playing with oversized dice on the lawn.</p>
         <div class="creatures">
-          <span class="creature-tag" onclick="openEntity('giant-rat')">Giant Rats ×3 (greatswords)</span>
+          <span class="creature-tag" onclick="openEntity('giant-rat')">Giant Rats ×2 (greatswords)</span>
           <span class="creature-tag" onclick="openEntity('brown-bear')">Brown Bear (outhouse)</span>
           <span class="creature-tag" onclick="openEntity('brown-bear-enlarged')">Brown Bear (Enlarged)</span>
           <span class="creature-tag" onclick="openEntity('noke')">Ahmed Noke</span>
@@ -864,7 +864,7 @@ const ENTITIES = {
           <div class="trait"><em>Bite.</em> +4 to hit, 5 ft. Hit: 7 (2d4+2) piercing. DC 11 Str save or knocked prone.</div>
         </div>
       </div>
-      <div class="rp-note">These wolves wear iron collars and have intelligently human minds (polymorphed guards). They aim to grab Shinebright, not kill him. Act with human-level tactics.</div>
+      <div class="rp-note">Two wolves, iron collars, intelligently human minds (polymorphed guards). They aim to grab Shinebright, not kill. Act with human-level tactics but aren't fully committed — the first one bloodied may hesitate, whine, or back off rather than fight to the death.</div>
       <a class="ext-link-btn" href="https://www.aidedd.org/en/rules/monsters/wolf/" target="_blank">🔗 Full stats on aidedd.org</a>
     `
   },
@@ -984,7 +984,7 @@ const ENTITIES = {
           <div class="trait"><em>Greatsword Slash.</em> Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 9 (2d6+2) slashing damage. <em>(Replaces Bite.)</em></div>
         </div>
       </div>
-      <div class="rp-note">Three giant rats on the tower grounds — sleeping or playing dice when the party arrives, greatswords stuck in the ground. Act intelligently (polymorphed guards). Will flee once reduced below half HP.</div>
+      <div class="rp-note">Two giant rats on the tower grounds — sleeping or playing dice when the party arrives, greatswords stuck in the ground. Act intelligently (polymorphed guards, not fully committed). The first one bloodied will flee or hesitate — they didn't choose this.</div>
       <a class="ext-link-btn" href="https://www.aidedd.org/en/rules/monsters/giant-rat/" target="_blank">🔗 Base stats on aidedd.org</a>
     `
   },
@@ -1334,7 +1334,7 @@ const ENTITY_HP = {
   'bed-dragon': 75, 'gibbering-mouther': 67
 };
 // How many tokens to create when you first start tracking a creature.
-const ENTITY_COUNT = { wolf: 3, 'giant-rat': 3 };
+const ENTITY_COUNT = { wolf: 2, 'giant-rat': 2 };
 
 function loadHp() { try { return JSON.parse(localStorage.getItem(HP_KEY)) || {}; } catch (e) { return {}; } }
 function saveHp(s) { try { localStorage.setItem(HP_KEY, JSON.stringify(s)); } catch (e) {} }
