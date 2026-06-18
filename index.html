@@ -130,6 +130,7 @@
       grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
       gap: 10px;
     }
+    .players-grid { grid-template-columns: repeat(3, 1fr); }
     .entity-card {
       background: var(--bg2);
       border: 1px solid var(--border);
@@ -664,7 +665,7 @@ One thing that you must do, however, is try to provide at least a hint of the da
   <!-- ══ PLAYERS ══ -->
   <section id="players">
     <h2>Player Characters</h2>
-    <div class="entity-grid">
+    <div class="entity-grid players-grid">
       <div class="entity-card" onclick="openPC('bram')">
         <div class="entity-name">Bram Thornvale</div>
         <div class="entity-meta">Level 3 Half-Orc Ranger (Fey Wanderer) · Chris</div>
