@@ -640,6 +640,9 @@ One thing that you must do, however, is try to provide at least a hint of the da
       <div class="scene">
         <div class="scene-title">Scroll of Speak With Animals (Modified)</div>
         <p>Carried by Shinebright. Reading it aloud activates the spell, allowing the whole party to understand the sheep. Shinebright stole it from Noke's bookshelf.</p>
+        <div class="creatures">
+          <span class="creature-tag" onclick="showImage('scroll-seal.jpg', 'Scroll of Speak With Animals')">🎭 Show Players</span>
+        </div>
       </div>
       <div class="scene">
         <div class="scene-title" style="cursor:pointer" onclick="openEntity('wand')">Modified Wand of True Polymorph</div>
@@ -1057,6 +1060,13 @@ function closeModal(e) {
   if (!e || e.target === document.getElementById('modalOverlay')) {
     document.getElementById('modalOverlay').classList.remove('open');
   }
+}
+
+function showImage(src, title) {
+  document.getElementById('modalTitle').textContent = title || '';
+  document.getElementById('modalBody').innerHTML =
+    '<img src="' + src + '" alt="' + (title || '') + '" style="display:block;width:100%;height:auto;border-radius:4px;">';
+  document.getElementById('modalOverlay').classList.add('open');
 }
 
 function toggleText(btn) {
