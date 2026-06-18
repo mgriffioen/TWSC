@@ -461,11 +461,12 @@ They intend to capture Shinebright, not kill him. If Guz captures him, he and hi
         <div class="scene-title"><span class="scene-num">3</span> The House in the Woods</div>
         <p>A tree-house tower formed from four living oaks, 3 platforms: garden (40ft, 10ft up), main hall (60ft, 20ft up), bedroom (30ft up). Two huts and an outhouse on the ground. Guards playing with oversized dice on the lawn.</p>
         <div class="creatures">
-          <span class="creature-tag" onclick="openEntity('ape')">Apes ×3 (greatswords)</span>
+          <span class="creature-tag" onclick="openEntity('giant-rat')">Giant Rats ×3 (greatswords)</span>
           <span class="creature-tag" onclick="openEntity('brown-bear')">Brown Bear (outhouse)</span>
+          <span class="creature-tag" onclick="openEntity('brown-bear-enlarged')">Brown Bear (Enlarged)</span>
           <span class="creature-tag" onclick="openEntity('noke')">Ahmed Noke</span>
         </div>
-        <div class="rp-note">Apes use greatswords: Slash +5, 10 (2d6+3) slashing. They flee below half health. Main door: DC 14 Athletics or DC 12 Thieves' Tools. Noke is in the central platform working on spells.</div>
+        <div class="rp-note">Giant rats use greatswords: Slash +4, 9 (2d6+2) slashing. They flee below half health. Noke can cast Enlarge on the outhouse bear (becomes Huge, +1d4 per hit). Main door: DC 14 Athletics or DC 12 Thieves' Tools. Noke is in the central platform working on spells.</div>
         <button class="fulltext-toggle" onclick="toggleText(this)">▸ Full text</button>
         <div class="fulltext-body">The path to Noke's Tower cuts off from a main road a few miles out of town, darting off between a gap in the bushes. It is a well-trodden route that soon begins to weave its way between tall oak trees.
 
@@ -612,10 +613,16 @@ One thing that you must do, however, is try to provide at least a hint of the da
         <div class="entity-cr">CR 1 · 200 XP</div>
       </div>
 
-      <div class="entity-card" onclick="openEntity('ape')">
-        <div class="entity-name">Ape</div>
+      <div class="entity-card" onclick="openEntity('brown-bear-enlarged')">
+        <div class="entity-name">Brown Bear (Enlarged)</div>
+        <div class="entity-type">Beast · Noke's Enlarge</div>
+        <div class="entity-cr">CR 1 · 200 XP</div>
+      </div>
+
+      <div class="entity-card" onclick="openEntity('giant-rat')">
+        <div class="entity-name">Giant Rat</div>
         <div class="entity-type">Beast (polymorphed guard)</div>
-        <div class="entity-cr">CR 1/2 · 100 XP</div>
+        <div class="entity-cr">CR 1/8 · 25 XP</div>
       </div>
 
       <div class="entity-card" onclick="openEntity('bed-dragon')">
@@ -902,40 +909,83 @@ const ENTITIES = {
     `
   },
 
-  ape: {
-    name: "Ape (with Greatsword)",
-    image: "https://www.aidedd.org/dnd/images/monsters/ape.jpg",
-    imageAlt: "A large ape wielding a greatsword",
+  'brown-bear-enlarged': {
+    name: "Brown Bear (Enlarged)",
+    image: "https://www.aidedd.org/dnd/images/monsters/brown-bear.jpg",
+    imageAlt: "A huge, magically enlarged brown bear",
     html: `
       <div class="stat-block">
-        <div class="sb-name">Ape (Modified — Greatsword)</div>
-        <div class="sb-meta">Medium beast, unaligned — MM p.317 (modified)</div>
+        <div class="sb-name">Brown Bear (Modified — Enlarged)</div>
+        <div class="sb-meta">Huge beast, unaligned — MM p.319 + <em>Enlarge</em></div>
         <hr>
-        <div class="sb-row"><strong>AC</strong> 12</div>
-        <div class="sb-row"><strong>HP</strong> 19 (3d8+6)</div>
-        <div class="sb-row"><strong>Speed</strong> 30 ft., climb 30 ft.</div>
+        <div class="sb-row"><strong>AC</strong> 11 (natural armor)</div>
+        <div class="sb-row"><strong>HP</strong> 34 (4d10+12)</div>
+        <div class="sb-row"><strong>Speed</strong> 40 ft., climb 30 ft.</div>
         <hr>
         <div class="sb-abilities">
-          <div><div class="ab-label">STR</div><div class="ab-val">16 (+3)</div></div>
-          <div><div class="ab-label">DEX</div><div class="ab-val">14 (+2)</div></div>
-          <div><div class="ab-label">CON</div><div class="ab-val">14 (+2)</div></div>
-          <div><div class="ab-label">INT</div><div class="ab-val">6 (−2)</div></div>
-          <div><div class="ab-label">WIS</div><div class="ab-val">12 (+1)</div></div>
+          <div><div class="ab-label">STR</div><div class="ab-val">19 (+4)*</div></div>
+          <div><div class="ab-label">DEX</div><div class="ab-val">10 (+0)</div></div>
+          <div><div class="ab-label">CON</div><div class="ab-val">16 (+3)</div></div>
+          <div><div class="ab-label">INT</div><div class="ab-val">2 (−4)</div></div>
+          <div><div class="ab-label">WIS</div><div class="ab-val">13 (+1)</div></div>
           <div><div class="ab-label">CHA</div><div class="ab-val">7 (−2)</div></div>
         </div>
         <hr>
-        <div class="sb-row"><strong>Skills</strong> Athletics +5, Perception +3</div>
-        <div class="sb-row"><strong>Challenge</strong> 1/2 (100 XP)</div>
+        <div class="sb-row"><strong>Skills</strong> Perception +3</div>
+        <div class="sb-row"><strong>Challenge</strong> 1 (200 XP)</div>
         <hr>
+        <div class="sb-section">
+          <div class="trait"><em>Enlarged.</em> Size is Huge. *Advantage on Strength checks and Strength saving throws. Weapon attacks deal an extra 1d4 damage (already included below). Lasts while Noke concentrates (up to 1 min).</div>
+          <div class="trait"><em>Keen Smell.</em> Advantage on Wisdom (Perception) checks using smell.</div>
+        </div>
         <div class="sb-actions-title">Actions</div>
         <div class="sb-section">
-          <div class="trait"><em>Multiattack.</em> Two attacks.</div>
-          <div class="trait"><em>Greatsword Slash.</em> +5 to hit, reach 5 ft. Hit: 10 (2d6+3) slashing damage. <em>(Replaces Fist.)</em></div>
-          <div class="trait"><em>Rock.</em> Ranged Weapon Attack: +5 to hit, range 25/50 ft. Hit: 6 (1d6+3) bludgeoning.</div>
+          <div class="trait"><em>Multiattack.</em> Two attacks: one with bite, one with claws.</div>
+          <div class="trait"><em>Bite.</em> +6 to hit, 5 ft. Hit: 10 (1d8+4 plus 1d4) piercing.</div>
+          <div class="trait"><em>Claws.</em> +6 to hit, 5 ft. Hit: 13 (2d6+4 plus 1d4) slashing.</div>
         </div>
       </div>
-      <div class="rp-note">Three apes on the tower grounds — sleeping or playing dice when the party arrives, greatswords stuck in the ground. Act intelligently (polymorphed guards). Will flee once reduced below half HP.</div>
-      <a class="ext-link-btn" href="https://www.aidedd.org/en/rules/monsters/ape/" target="_blank">🔗 Base stats on aidedd.org</a>
+      <div class="rp-note">The tower (outhouse) bear after Noke casts Enlarge/Reduce on it. Becomes Huge, hits harder, and gains advantage on Strength. Drops back to a normal Brown Bear if Noke loses concentration.</div>
+      <a class="ext-link-btn" href="https://www.aidedd.org/en/rules/monsters/brown-bear/" target="_blank">🔗 Base stats on aidedd.org</a>
+    `
+  },
+
+  'giant-rat': {
+    name: "Giant Rat (with Greatsword)",
+    image: "https://www.aidedd.org/dnd/images/monsters/giant-rat.jpg",
+    imageAlt: "A giant rat wielding a greatsword",
+    html: `
+      <div class="stat-block">
+        <div class="sb-name">Giant Rat (Modified — Greatsword)</div>
+        <div class="sb-meta">Small beast, unaligned — MM p.327 (modified)</div>
+        <hr>
+        <div class="sb-row"><strong>AC</strong> 12</div>
+        <div class="sb-row"><strong>HP</strong> 7 (2d6)</div>
+        <div class="sb-row"><strong>Speed</strong> 30 ft.</div>
+        <hr>
+        <div class="sb-abilities">
+          <div><div class="ab-label">STR</div><div class="ab-val">7 (−2)</div></div>
+          <div><div class="ab-label">DEX</div><div class="ab-val">15 (+2)</div></div>
+          <div><div class="ab-label">CON</div><div class="ab-val">11 (+0)</div></div>
+          <div><div class="ab-label">INT</div><div class="ab-val">2 (−4)</div></div>
+          <div><div class="ab-label">WIS</div><div class="ab-val">10 (+0)</div></div>
+          <div><div class="ab-label">CHA</div><div class="ab-val">4 (−3)</div></div>
+        </div>
+        <hr>
+        <div class="sb-row"><strong>Senses</strong> Darkvision 60 ft., passive Perception 10</div>
+        <div class="sb-row"><strong>Challenge</strong> 1/8 (25 XP)</div>
+        <hr>
+        <div class="sb-section">
+          <div class="trait"><em>Keen Smell.</em> Advantage on Wisdom (Perception) checks that rely on smell.</div>
+          <div class="trait"><em>Pack Tactics.</em> Advantage on an attack roll against a creature if at least one of the rat's allies is within 5 ft of it and not incapacitated.</div>
+        </div>
+        <div class="sb-actions-title">Actions</div>
+        <div class="sb-section">
+          <div class="trait"><em>Greatsword Slash.</em> Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 9 (2d6+2) slashing damage. <em>(Replaces Bite.)</em></div>
+        </div>
+      </div>
+      <div class="rp-note">Three giant rats on the tower grounds — sleeping or playing dice when the party arrives, greatswords stuck in the ground. Act intelligently (polymorphed guards). Will flee once reduced below half HP.</div>
+      <a class="ext-link-btn" href="https://www.aidedd.org/en/rules/monsters/giant-rat/" target="_blank">🔗 Base stats on aidedd.org</a>
     `
   },
 
@@ -1280,10 +1330,11 @@ function openPC(id) {
 const HP_KEY = 'twsc-hp-v1';
 const ENTITY_HP = {
   shinebright: 11, guz: 67, noke: 55, wolf: 11,
-  'brown-bear': 34, ape: 19, 'bed-dragon': 75, 'gibbering-mouther': 67
+  'brown-bear': 34, 'brown-bear-enlarged': 34, 'giant-rat': 7,
+  'bed-dragon': 75, 'gibbering-mouther': 67
 };
 // How many tokens to create when you first start tracking a creature.
-const ENTITY_COUNT = { wolf: 3, ape: 3 };
+const ENTITY_COUNT = { wolf: 3, 'giant-rat': 3 };
 
 function loadHp() { try { return JSON.parse(localStorage.getItem(HP_KEY)) || {}; } catch (e) { return {}; } }
 function saveHp(s) { try { localStorage.setItem(HP_KEY, JSON.stringify(s)); } catch (e) {} }
