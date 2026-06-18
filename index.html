@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Wild Sheep Chase – DM Reference</title>
+  <style>
+    :root {
+      --bg: #1a1208;
+      --bg2: #231a0e;
+      --bg3: #2e2010;
+      --border: #5c3d1a;
+      --gold: #c8973a;
+      --gold-light: #e8b85a;
+      --text: #e8dcc8;
+      --text-dim: #9a8870;
+      --red: #c0392b;
+      --green: #2e7d32;
+      --tag-bg: #3a2510;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Georgia', serif;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    a { color: var(--gold); text-decoration: none; }
+    a:hover { color: var(--gold-light); text-decoration: underline; }
+
+    /* ── HEADER ── */
+    header {
+      background: linear-gradient(180deg, #0d0906 0%, var(--bg2) 100%);
+      border-bottom: 2px solid var(--border);
+      padding: 20px 16px 14px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: clamp(1.5rem, 6vw, 2.4rem);
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-shadow: 0 0 18px rgba(200,151,58,.4);
+    }
+    header p { color: var(--text-dim); font-style: italic; font-size: .9rem; margin-top: 4px; }
+
+    /* ── NAV ── */
+    nav {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      background: var(--bg3);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 12px;
+      position: sticky; top: 0; z-index: 50;
+    }
+    nav a {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: .8rem;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+    nav a:hover { background: var(--border); text-decoration: none; }
+
+    /* ── MAIN LAYOUT ── */
+    main { max-width: 900px; margin: 0 auto; padding: 16px; }
+    section { margin-bottom: 32px; }
+    section h2 {
+      font-size: 1.25rem;
+      color: var(--gold);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+      margin-bottom: 14px;
+      letter-spacing: 1px;
+    }
+    section h3 { color: var(--gold-light); font-size: 1rem; margin: 12px 0 6px; }
+
+    /* ── SUMMARY BOX ── */
+    .summary-box {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 14px 16px;
+      font-size: .9rem;
+    }
+    .summary-box p { margin-bottom: 8px; }
+    .summary-box ul { padding-left: 20px; }
+    .summary-box li { margin-bottom: 4px; }
+
+    /* ── SCENE CARDS ── */
+    .scene-list { display: flex; flex-direction: column; gap: 10px; }
+    .scene {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+    }
+    .scene-title {
+      font-weight: bold;
+      color: var(--gold-light);
+      margin-bottom: 6px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .scene-num {
+      background: var(--border);
+      color: var(--gold);
+      border-radius: 50%;
+      width: 22px; height: 22px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .75rem; flex-shrink: 0;
+    }
+    .scene p { font-size: .88rem; color: var(--text-dim); }
+    .scene .creatures { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+    .creature-tag {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: .78rem;
+      cursor: pointer;
+      color: var(--gold);
+      transition: background .15s;
+    }
+    .creature-tag:hover { background: var(--border); }
+
+    /* ── ENTITY GRID ── */
+    .entity-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px;
+    }
+    .entity-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 10px;
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+      text-align: center;
+    }
+    .entity-card:hover { border-color: var(--gold); background: var(--bg3); }
+    .entity-card .entity-name { font-weight: bold; color: var(--gold-light); font-size: .9rem; margin-bottom: 4px; }
+    .entity-card .entity-type { font-size: .75rem; color: var(--text-dim); font-style: italic; }
+    .entity-card .entity-cr {
+      margin-top: 6px;
+      font-size: .75rem;
+      background: var(--tag-bg);
+      display: inline-block;
+      padding: 1px 7px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      color: var(--gold);
+    }
+    .entity-card .encounter-btn {
+      margin-top: 8px;
+      background: var(--red);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: .72rem;
+      cursor: pointer;
+      width: 100%;
+    }
+    .entity-card .encounter-btn:hover { background: #e74c3c; }
+
+    /* ── MODAL OVERLAY ── */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.82);
+      z-index: 200;
+      overflow-y: auto;
+      padding: 16px;
+    }
+    .modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+    .modal-box {
+      background: var(--bg2);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      max-width: 600px;
+      width: 100%;
+      margin: auto;
+      overflow: hidden;
+    }
+    .modal-header {
+      background: var(--bg3);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .modal-header h2 { color: var(--gold); font-size: 1.1rem; }
+    .modal-header .close-btn {
+      background: none; border: none;
+      color: var(--text-dim); font-size: 1.4rem;
+      cursor: pointer; line-height: 1;
+    }
+    .modal-header .close-btn:hover { color: var(--gold); }
+    .modal-body { padding: 14px 16px; }
+
+    /* ── STAT BLOCK ── */
+    .stat-block {
+      background: #fdf1dc;
+      color: #222;
+      border-radius: 4px;
+      padding: 12px 14px;
+      font-family: 'Georgia', serif;
+      font-size: .88rem;
+    }
+    .stat-block .sb-name { font-size: 1.1rem; font-weight: bold; color: #58180d; }
+    .stat-block .sb-meta { font-style: italic; color: #58180d; font-size: .82rem; margin-bottom: 8px; }
+    .stat-block hr { border: 1px solid #9c2a1a; margin: 8px 0; }
+    .stat-block .sb-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; font-size: .84rem; }
+    .stat-block .sb-row strong { color: #58180d; }
+    .stat-block .sb-abilities {
+      display: grid; grid-template-columns: repeat(6, 1fr);
+      text-align: center; margin: 8px 0;
+    }
+    .stat-block .sb-abilities .ab-label { font-size: .7rem; font-weight: bold; color: #58180d; }
+    .stat-block .sb-abilities .ab-val { font-size: .88rem; }
+    .stat-block .sb-section { margin-top: 8px; }
+    .stat-block .sb-section .trait { margin-bottom: 6px; }
+    .stat-block .sb-section .trait em { font-weight: bold; font-style: italic; color: #58180d; }
+    .stat-block .sb-actions-title {
+      font-variant: small-caps; font-size: 1rem;
+      color: #58180d; border-bottom: 1px solid #9c2a1a;
+      margin: 10px 0 6px;
+    }
+
+    /* ── ENCOUNTER DISPLAY MODE ── */
+    .encounter-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: #000;
+      z-index: 300;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .encounter-overlay.open { display: flex; }
+    .encounter-overlay img {
+      max-width: 100%; max-height: 70vh;
+      object-fit: contain;
+      border: 3px solid var(--gold);
+      border-radius: 6px;
+    }
+    .encounter-overlay .enc-name {
+      color: var(--gold);
+      font-size: clamp(1.4rem, 5vw, 2.2rem);
+      margin-top: 16px;
+      text-align: center;
+      text-shadow: 0 0 20px rgba(200,151,58,.6);
+    }
+    .encounter-overlay .enc-close {
+      position: absolute; top: 16px; right: 16px;
+      background: rgba(0,0,0,.6);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      border-radius: 6px;
+      padding: 6px 14px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .encounter-overlay .enc-close:hover { background: var(--border); }
+    .encounter-overlay .enc-placeholder {
+      width: min(400px, 90vw);
+      height: min(300px, 50vh);
+      background: var(--bg2);
+      border: 3px solid var(--gold);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 12px;
+    }
+    .encounter-overlay .enc-placeholder svg { width: 80px; height: 80px; opacity: .4; }
+    .encounter-overlay .enc-placeholder p { color: var(--text-dim); font-style: italic; }
+
+    /* ── EXTERNAL LINK BUTTON ── */
+    .ext-link-btn {
+      display: inline-block;
+      margin-top: 10px;
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 5px 12px;
+      font-size: .82rem;
+      color: var(--gold);
+      cursor: pointer;
+    }
+    .ext-link-btn:hover { background: var(--border); text-decoration: none; }
+
+    /* ── NOTES / ROLEPLAYING ── */
+    .rp-note {
+      background: var(--bg3);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 4px 4px 0;
+      padding: 8px 12px;
+      font-size: .86rem;
+      font-style: italic;
+      color: var(--text-dim);
+      margin-top: 10px;
+    }
+
+    /* ── MISC ── */
+    .tag { display: inline-block; background: var(--tag-bg); border: 1px solid var(--border); border-radius: 3px; padding: 1px 6px; font-size: .75rem; }
+    .badge-evil { border-color: #c0392b; color: #e74c3c; }
+    .badge-neutral { border-color: #7f8c8d; color: #95a5a6; }
+    .badge-cn { border-color: #8e44ad; color: #9b59b6; }
+    .divider { height: 1px; background: var(--border); margin: 20px 0; }
+
+    @media (max-width: 480px) {
+      .entity-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-block .sb-abilities { font-size: .78rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ ENCOUNTER OVERLAY (fullscreen player display) ══ -->
+<div class="encounter-overlay" id="encounterOverlay">
+  <button class="enc-close" onclick="closeEncounter()">✕ Close</button>
+  <div id="encImgContainer"></div>
+  <div class="enc-name" id="encName"></div>
+</div>
+
+<!-- ══ STAT BLOCK MODAL ══ -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2 id="modalTitle">Creature</h2>
+      <button class="close-btn" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- ══ HEADER ══ -->
+<header>
+  <h1>⚔ A Wild Sheep Chase</h1>
+  <p>DM Reference &mdash; Winghorn Press &mdash; 4th/5th Level</p>
+</header>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <a href="#summary">Summary</a>
+  <a href="#scenes">Scenes</a>
+  <a href="#npcs">NPCs</a>
+  <a href="#monsters">Monsters</a>
+  <a href="#items">Items</a>
+</nav>
+
+<main>
+
+  <!-- ══ SUMMARY ══ -->
+  <section id="summary">
+    <h2>Adventure Summary</h2>
+    <div class="summary-box">
+      <p>The party's downtime is interrupted by a frantic sheep carrying a <em>Scroll of Speak With Animals</em>. The sheep is <strong>Finethir Shinebright</strong>, a high-elf transmutation wizard turned into a sheep by his vengeful apprentice <strong>Ahmed Noke</strong>, who stole the <em>Wand of True Polymorph</em> and took over Shinebright's tower.</p>
+      <p>The party must deal with Noke's polymorphed guards, confront Noke himself, recover the wand, and decide whether to risk using it on Shinebright.</p>
+      <h3>Key Goals</h3>
+      <ul>
+        <li>Protect Shinebright from Noke's goons</li>
+        <li>Travel to <em>Noke's Tower</em> (Shinebright's old home) on the outskirts of town</li>
+        <li>Recover the <em>Modified Wand of True Polymorph</em></li>
+        <li>Deal with Noke (defeat, trick, or negotiate)</li>
+        <li>Decide whether to use the damaged wand on Shinebright</li>
+      </ul>
+      <div style="margin-top:10px; font-size:.85rem; color:var(--text-dim);">
+        <strong style="color:var(--gold)">XP:</strong> 500 XP per adventurer for helping Shinebright deal with Noke.
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SCENES ══ -->
+  <section id="scenes">
+    <h2>Scenes</h2>
+    <div class="scene-list">
+
+      <div class="scene">
+        <div class="scene-title"><span class="scene-num">1</span> Baaaa-d News</div>
+        <p>The party is approached by a sheep carrying a Scroll of Speak With Animals. The sheep is Finethir Shinebright. Once they activate the scroll, he explains his predicament — but before he can finish, howling fills the air...</p>
+      </div>
+
+      <div class="scene">
+        <div class="scene-title"><span class="scene-num">2</span> Shepherds, Crooks</div>
+        <p>Guz the half-orc and his polymorphed minions demand the sheep be returned. He will bribe, intimidate, or attack. The wolves will try to grab Shinebright; the cloaked Brown Bear joins the front line. The wolves and bear are all polymorphed humans with intelligent minds.</p>
+        <div class="creatures">
+          <span class="creature-tag" onclick="openEntity('guz')">Guz (Half-Orc)</span>
+          <span class="creature-tag" onclick="openEntity('wolf')">Wolves ×3</span>
+          <span class="creature-tag" onclick="openEntity('brown-bear')">Brown Bear (cloaked)</span>
+          <span class="creature-tag" onclick="openEntity('shinebright')">Finethir Shinebright (Pony)</span>
+        </div>
+        <div class="rp-note">Shinebright uses Pony stats (MM) but INT 18, WIS 14. All beasts act intelligently — they aim to capture, not kill.</div>
+      </div>
+
+      <div class="scene">
+        <div class="scene-title"><span class="scene-num">3</span> The House in the Woods</div>
+        <p>A tree-house tower formed from four living oaks, 3 platforms: garden (40ft, 10ft up), main hall (60ft, 20ft up), bedroom (30ft up). Two huts and an outhouse on the ground. Guards playing with oversized dice on the lawn.</p>
+        <div class="creatures">
+          <span class="creature-tag" onclick="openEntity('ape')">Apes ×3 (greatswords)</span>
+          <span class="creature-tag" onclick="openEntity('brown-bear')">Brown Bear (outhouse)</span>
+          <span class="creature-tag" onclick="openEntity('noke')">Ahmed Noke</span>
+        </div>
+        <div class="rp-note">Apes use greatswords: Slash +5, 10 (2d6+3) slashing. They flee below half health. Main door: DC 14 Athletics or DC 12 Thieves' Tools. Noke is in the central platform working on spells.</div>
+      </div>
+
+      <div class="scene">
+        <div class="scene-title"><span class="scene-num">4</span> Confronting Noke</div>
+        <p>Noke buffs his allies with Enlarge/Reduce on the Brown Bear and uses Ray of Frost. Once losing, he casts Expeditious Retreat and flees to his bedroom, locking the door. He transforms his bed using True Polymorph → Bed Dragon Wyrmling, bursting through the ceiling on it 3 rounds later.</p>
+        <div class="creatures">
+          <span class="creature-tag" onclick="openEntity('noke')">Ahmed Noke</span>
+          <span class="creature-tag" onclick="openEntity('bed-dragon')">Bed Dragon Wyrmling</span>
+          <span class="creature-tag" onclick="openEntity('gibbering-mouther')">Gibbering Mouther (Noke's last resort)</span>
+        </div>
+        <div class="rp-note">If the wand is overloaded or fails at the end, Noke becomes a Gibbering Mouther — attacks mindlessly until destroyed.</div>
+      </div>
+
+      <div class="scene">
+        <div class="scene-title"><span class="scene-num">5</span> Big Choices</div>
+        <p>The wand is recovered but damaged. Shinebright wants to use it. The party can persuade him not to (DC 15 Charisma/Persuasion). Using it risks failure — Shinebright might die, or be turned into a Gibbering Mouther. If successful, Shinebright is restored.</p>
+        <div class="rp-note">Shinebright's last wish if he dies: send word to his old college. Tower contents worth ~1,000gp to non-transmuters.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ NPCs ══ -->
+  <section id="npcs">
+    <h2>NPCs</h2>
+    <div class="entity-grid">
+
+      <div class="entity-card" onclick="openEntity('shinebright')">
+        <div class="entity-name">Finethir Shinebright</div>
+        <div class="entity-type">High Elf Wizard (Sheep)</div>
+        <div class="entity-cr">CR — / Pony stats</div>
+        <div class="entity-type" style="margin-top:4px; font-size:.72rem;">INT 18 · WIS 14</div>
+        <button class="encounter-btn" onclick="event.stopPropagation(); showEncounter('shinebright')">🎭 Show Players</button>
+      </div>
+
+      <div class="entity-card" onclick="openEntity('guz')">
+        <div class="entity-name">Guz</div>
+        <div class="entity-type">Half-Orc Brute <span class="tag badge-cn">CN</span></div>
+        <div class="entity-cr">CR 2 · 450 XP</div>
+        <button class="encounter-btn" onclick="event.stopPropagation(); showEncounter('guz')">🎭 Show Players</button>
+      </div>
+
+      <div class="entity-card" onclick="openEntity('noke')">
+        <div class="entity-name">Ahmed Noke</div>
+        <div class="entity-type">Human Wizard <span class="tag badge-evil">NE</span></div>
+        <div class="entity-cr">CR 2 · 450 XP</div>
+        <button class="encounter-btn" onclick="event.stopPropagation(); showEncounter('noke')">🎭 Show Players</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ MONSTERS ══ -->
+  <section id="monsters">
+    <h2>Monsters &amp; Creatures</h2>
+    <div class="entity-grid">
+
+      <div class="entity-card" onclick="openEntity('wolf')">
+        <div class="entity-name">Wolf</div>
+        <div class="entity-type">Beast (polymorphed guard)</div>
+        <div class="entity-cr">CR 1/4 · 50 XP</div>
+        <button class="encounter-btn" onclick="event.stopPropagation(); showEncounter('wolf')">🎭 Show Players</button>
+      </div>
+
+      <div class="entity-card" onclick="openEntity('brown-bear')">
+        <div class="entity-name">Brown Bear</div>
+        <div class="entity-type">Beast (polymorphed guard)</div>
+        <div class="entity-cr">CR 1 · 200 XP</div>
+        <button class="encounter-btn" onclick="event.stopPropagation(); showEncounter('brown-bear')">🎭 Show Players</button>
+      </div>
+
+      <div class="entity-card" onclick="openEntity('ape')">
+        <div class="entity-name">Ape</div>
+        <div class="entity-type">Beast (polymorphed guard)</div>
+        <div class="entity-cr">CR 1/2 · 100 XP</div>
+        <button class="encounter-btn" onclick="event.stopPropagation(); showEncounter('ape')">🎭 Show Players</button>
+      </div>
+
+      <div class="entity-card" onclick="openEntity('bed-dragon')">
+        <div class="entity-name">Bed Dragon Wyrmling</div>
+        <div class="entity-type">Dragon (wooden, custom)</div>
+        <div class="entity-cr">CR 4 · 1,100 XP</div>
+        <button class="encounter-btn" onclick="event.stopPropagation(); showEncounter('bed-dragon')">🎭 Show Players</button>
+      </div>
+
+      <div class="entity-card" onclick="openEntity('gibbering-mouther')">
+        <div class="entity-name">Gibbering Mouther</div>
+        <div class="entity-type">Aberration (Noke's fate)</div>
+        <div class="entity-cr">CR 2 · 450 XP</div>
+        <button class="encounter-btn" onclick="event.stopPropagation(); showEncounter('gibbering-mouther')">🎭 Show Players</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ ITEMS ══ -->
+  <section id="items">
+    <h2>Key Items</h2>
+    <div class="scene-list">
+      <div class="scene">
+        <div class="scene-title">Scroll of Speak With Animals (Modified)</div>
+        <p>Carried by Shinebright. Reading it aloud activates the spell, allowing the whole party to understand the sheep. Shinebright stole it from Noke's bookshelf.</p>
+      </div>
+      <div class="scene">
+        <div class="scene-title" style="cursor:pointer" onclick="openEntity('wand')">Modified Wand of True Polymorph</div>
+        <p>Long thin oak twig fitted with a bulbous rune-inscribed iron band. Holds 1d4-1 charges (min 1), resetting at dawn. Extremely unreliable — DC 17 Int (Arcana) on each use or bad things happen.</p>
+        <div class="creatures">
+          <span class="creature-tag" onclick="openEntity('wand')">Full Wand Rules</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ══ ENTITY DATA & SCRIPTS ══ -->
+<script>
+const ENTITIES = {
+
+  shinebright: {
+    name: "Finethir Shinebright",
+    image: "https://www.aidedd.org/dnd/images/monsters/pony.jpg",
+    imageAlt: "A sheep",
+    html: `
+      <div class="stat-block">
+        <div class="sb-name">Finethir Shinebright (Sheep Form)</div>
+        <div class="sb-meta">Medium beast, neutral good — uses Pony statistics</div>
+        <hr>
+        <div class="sb-row"><strong>AC</strong> 10</div>
+        <div class="sb-row"><strong>HP</strong> 11 (2d8+2)</div>
+        <div class="sb-row"><strong>Speed</strong> 40 ft.</div>
+        <hr>
+        <div class="sb-abilities">
+          <div><div class="ab-label">STR</div><div class="ab-val">14 (+2)</div></div>
+          <div><div class="ab-label">DEX</div><div class="ab-val">10 (+0)</div></div>
+          <div><div class="ab-label">CON</div><div class="ab-val">13 (+1)</div></div>
+          <div><div class="ab-label">INT</div><div class="ab-val">18 (+4)</div></div>
+          <div><div class="ab-label">WIS</div><div class="ab-val">14 (+2)</div></div>
+          <div><div class="ab-label">CHA</div><div class="ab-val">7 (−2)</div></div>
+        </div>
+        <hr>
+        <div class="sb-row"><strong>Senses</strong> passive Perception 12</div>
+        <div class="sb-row"><strong>Languages</strong> Common, Elvish (can't speak, but understands)</div>
+        <div class="sb-row"><strong>Challenge</strong> 1/8 (25 XP) — treat as CR —</div>
+        <hr>
+        <div class="sb-actions-title">Actions</div>
+        <div class="sb-section">
+          <div class="trait"><em>Hooves.</em> Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 7 (2d4+2) bludgeoning damage.</div>
+        </div>
+      </div>
+      <div class="rp-note">
+        <strong>Roleplaying Shinebright:</strong> Arrogant, self-obsessed, fussy bookish intellectualism even as a sheep. Good-hearted underneath. Speaks with cultured elven-accented Common with a slight bleat. Will promise rewards he can't necessarily keep. In true form: willow-thin high elf, straw-coloured hair, extremely long nose.
+      </div>
+      <a class="ext-link-btn" href="https://www.aidedd.org/en/rules/monsters/pony/" target="_blank">🔗 Pony stats on aidedd.org</a>
+    `
+  },
+
+  guz: {
+    name: "Guz",
+    image: "https://www.dndbeyond.com/avatars/thumbnails/30834/553/1000/1000/638063869600877174.png",
+    imageAlt: "A hulking half-orc with a greatsword",
+    html: `
+      <div class="stat-block">
+        <div class="sb-name">Guz</div>
+        <div class="sb-meta">Medium humanoid (half-orc), chaotic neutral</div>
+        <hr>
+        <div class="sb-row"><strong>AC</strong> 14 (leather armour)</div>
+        <div class="sb-row"><strong>HP</strong> 67 (9d8+27)</div>
+        <div class="sb-row"><strong>Speed</strong> 30 ft.</div>
+        <hr>
+        <div class="sb-abilities">
+          <div><div class="ab-label">STR</div><div class="ab-val">16 (+3)</div></div>
+          <div><div class="ab-label">DEX</div><div class="ab-val">12 (+1)</div></div>
+          <div><div class="ab-label">CON</div><div class="ab-val">17 (+3)</div></div>
+          <div><div class="ab-label">INT</div><div class="ab-val">8 (−1)</div></div>
+          <div><div class="ab-label">WIS</div><div class="ab-val">11 (+0)</div></div>
+          <div><div class="ab-label">CHA</div><div class="ab-val">8 (−1)</div></div>
+        </div>
+        <hr>
+        <div class="sb-row"><strong>Skills</strong> Intimidation +2</div>
+        <div class="sb-row"><strong>Senses</strong> passive Perception 10</div>
+        <div class="sb-row"><strong>Languages</strong> Common, Orc</div>
+        <div class="sb-row"><strong>Challenge</strong> 2 (450 XP)</div>
+        <hr>
+        <div class="sb-section">
+          <div class="trait"><em>Reckless.</em> Guz can choose to gain advantage on all melee weapon attacks during his turn, but attack rolls against him also have advantage until the start of his next turn.</div>
+        </div>
+        <div class="sb-actions-title">Actions</div>
+        <div class="sb-section">
+          <div class="trait"><em>Whirling Greatsword.</em> Melee Weapon Attack: +5 to hit, reach 5 ft., two separate targets. Hit: 10 (2d6+3) slashing damage.</div>
+        </div>
+      </div>
+      <div class="rp-note">
+        <strong>Roleplaying Guz:</strong> Loves violence and intimidation. Incredibly loyal to Noke. Can be confused by quick-talking foes (just makes him angrier). Fond of using long words he doesn't fully understand. Will bribe if violence isn't working.
+      </div>
+    `
+  },
+
+  noke: {
+    name: "Ahmed Noke",
+    image: "https://www.dndbeyond.com/avatars/thumbnails/30783/850/1000/1000/638063771581770160.png",
+    imageAlt: "A paranoid human wizard",
+    html: `
+      <div class="stat-block">
+        <div class="sb-name">Ahmed Noke</div>
+        <div class="sb-meta">Medium humanoid (human), neutral evil</div>
+        <hr>
+        <div class="sb-row"><strong>AC</strong> 12</div>
+        <div class="sb-row"><strong>HP</strong> 55 (10d8+10)</div>
+        <div class="sb-row"><strong>Speed</strong> 30 ft.</div>
+        <hr>
+        <div class="sb-abilities">
+          <div><div class="ab-label">STR</div><div class="ab-val">9 (−1)</div></div>
+          <div><div class="ab-label">DEX</div><div class="ab-val">14 (+2)</div></div>
+          <div><div class="ab-label">CON</div><div class="ab-val">12 (+1)</div></div>
+          <div><div class="ab-label">INT</div><div class="ab-val">16 (+3)</div></div>
+          <div><div class="ab-label">WIS</div><div class="ab-val">12 (+1)</div></div>
+          <div><div class="ab-label">CHA</div><div class="ab-val">10 (+0)</div></div>
+        </div>
+        <hr>
+        <div class="sb-row"><strong>Saving Throws</strong> Int +5, Wis +4</div>
+        <div class="sb-row"><strong>Skills</strong> Arcana +6</div>
+        <div class="sb-row"><strong>Senses</strong> passive Perception 11</div>
+        <div class="sb-row"><strong>Languages</strong> Common, Elvish, Draconic</div>
+        <div class="sb-row"><strong>Challenge</strong> 2 (450 XP)</div>
+        <hr>
+        <div class="sb-section">
+          <div class="trait"><em>Spellcasting.</em> 7th-level spellcaster. Spell save DC 14, +6 to hit.</div>
+          <div class="trait" style="margin-top:6px; font-size:.82rem;">
+            <strong>Cantrips:</strong> Ray of Frost, Mending, Prestidigitation, Message<br>
+            <strong>1st (4 slots):</strong> Expeditious Retreat, Jump, Thunderwave<br>
+            <strong>2nd (3 slots):</strong> Enlarge/Reduce, Levitate<br>
+            <strong>3rd (3 slots):</strong> Haste, Slow<br>
+            <strong>4th (1 slot):</strong> Polymorph
+          </div>
+        </div>
+        <div class="sb-actions-title">Actions</div>
+        <div class="sb-section">
+          <div class="trait"><em>Dagger.</em> Melee or ranged: +5 to hit, reach 5 ft. or 20/60 ft. Hit: 4 (1d4+2) piercing.</div>
+        </div>
+      </div>
+      <div class="rp-note">
+        <strong>Tactics:</strong> Buffs Brown Bear with Enlarge/Reduce first. Uses Ray of Frost to slow retreating players. Flees via Expeditious Retreat when losing — locks door, rides Bed Dragon out of ceiling 3 rounds later. Will use Polymorph on himself as last resort (→ Gibbering Mouther).<br><br>
+        <strong>Roleplaying Noke:</strong> Paranoid, rarely sleeps. Genuinely upset if Guz is killed. Will boast of achievements disjointedly. Guilt-ridden but consumed by ambition. Cracked after decades of being treated like a child apprentice.
+      </div>
+    `
+  },
+
+  wolf: {
+    name: "Wolf",
+    image: "https://www.aidedd.org/dnd/images/monsters/wolf.jpg",
+    imageAlt: "A large wolf with an iron collar",
+    html: `
+      <div class="stat-block">
+        <div class="sb-name">Wolf</div>
+        <div class="sb-meta">Medium beast, unaligned — MM p.341</div>
+        <hr>
+        <div class="sb-row"><strong>AC</strong> 13 (natural armor)</div>
+        <div class="sb-row"><strong>HP</strong> 11 (2d8+2)</div>
+        <div class="sb-row"><strong>Speed</strong> 40 ft.</div>
+        <hr>
+        <div class="sb-abilities">
+          <div><div class="ab-label">STR</div><div class="ab-val">12 (+1)</div></div>
+          <div><div class="ab-label">DEX</div><div class="ab-val">15 (+2)</div></div>
+          <div><div class="ab-label">CON</div><div class="ab-val">12 (+1)</div></div>
+          <div><div class="ab-label">INT</div><div class="ab-val">3 (−4)</div></div>
+          <div><div class="ab-label">WIS</div><div class="ab-val">12 (+1)</div></div>
+          <div><div class="ab-label">CHA</div><div class="ab-val">6 (−2)</div></div>
+        </div>
+        <hr>
+        <div class="sb-row"><strong>Skills</strong> Perception +3, Stealth +4</div>
+        <div class="sb-row"><strong>Challenge</strong> 1/4 (50 XP)</div>
+        <hr>
+        <div class="sb-section">
+          <div class="trait"><em>Keen Hearing and Smell.</em> Advantage on Wisdom (Perception) checks using hearing or smell.</div>
+          <div class="trait"><em>Pack Tactics.</em> Advantage on attack rolls when an ally is adjacent to the target.</div>
+        </div>
+        <div class="sb-actions-title">Actions</div>
+        <div class="sb-section">
+          <div class="trait"><em>Bite.</em> +4 to hit, 5 ft. Hit: 7 (2d4+2) piercing. DC 11 Str save or knocked prone.</div>
+        </div>
+      </div>
+      <div class="rp-note">These wolves wear iron collars and have intelligently human minds (polymorphed guards). They aim to grab Shinebright, not kill him. Act with human-level tactics.</div>
+      <a class="ext-link-btn" href="https://www.aidedd.org/en/rules/monsters/wolf/" target="_blank">🔗 Full stats on aidedd.org</a>
+    `
+  },
+
+  'brown-bear': {
+    name: "Brown Bear",
+    image: "https://www.aidedd.org/dnd/images/monsters/brown-bear.jpg",
+    imageAlt: "A large brown bear",
+    html: `
+      <div class="stat-block">
+        <div class="sb-name">Brown Bear</div>
+        <div class="sb-meta">Large beast, unaligned — MM p.319</div>
+        <hr>
+        <div class="sb-row"><strong>AC</strong> 11 (natural armor)</div>
+        <div class="sb-row"><strong>HP</strong> 34 (4d10+12)</div>
+        <div class="sb-row"><strong>Speed</strong> 40 ft., climb 30 ft.</div>
+        <hr>
+        <div class="sb-abilities">
+          <div><div class="ab-label">STR</div><div class="ab-val">19 (+4)</div></div>
+          <div><div class="ab-label">DEX</div><div class="ab-val">10 (+0)</div></div>
+          <div><div class="ab-label">CON</div><div class="ab-val">16 (+3)</div></div>
+          <div><div class="ab-label">INT</div><div class="ab-val">2 (−4)</div></div>
+          <div><div class="ab-label">WIS</div><div class="ab-val">13 (+1)</div></div>
+          <div><div class="ab-label">CHA</div><div class="ab-val">7 (−2)</div></div>
+        </div>
+        <hr>
+        <div class="sb-row"><strong>Skills</strong> Perception +3</div>
+        <div class="sb-row"><strong>Challenge</strong> 1 (200 XP)</div>
+        <hr>
+        <div class="sb-section">
+          <div class="trait"><em>Keen Smell.</em> Advantage on Wisdom (Perception) checks using smell.</div>
+        </div>
+        <div class="sb-actions-title">Actions</div>
+        <div class="sb-section">
+          <div class="trait"><em>Multiattack.</em> Two attacks: one with bite, one with claws.</div>
+          <div class="trait"><em>Bite.</em> +6 to hit, 5 ft. Hit: 8 (1d8+4) piercing.</div>
+          <div class="trait"><em>Claws.</em> +6 to hit, 5 ft. Hit: 11 (2d6+4) slashing.</div>
+        </div>
+      </div>
+      <div class="rp-note">Two brown bears in the adventure: one in a dirty brown cloak accompanying Guz (Scene 2), one in the outhouse at the tower. Noke will cast Enlarge/Reduce on the tower bear to increase its size and damage. Both are polymorphed human guards acting intelligently.</div>
+      <a class="ext-link-btn" href="https://www.aidedd.org/en/rules/monsters/brown-bear/" target="_blank">🔗 Full stats on aidedd.org</a>
+    `
+  },
+
+  ape: {
+    name: "Ape (with Greatsword)",
+    image: "https://www.aidedd.org/dnd/images/monsters/ape.jpg",
+    imageAlt: "A large ape wielding a greatsword",
+    html: `
+      <div class="stat-block">
+        <div class="sb-name">Ape (Modified — Greatsword)</div>
+        <div class="sb-meta">Medium beast, unaligned — MM p.317 (modified)</div>
+        <hr>
+        <div class="sb-row"><strong>AC</strong> 12</div>
+        <div class="sb-row"><strong>HP</strong> 19 (3d8+6)</div>
+        <div class="sb-row"><strong>Speed</strong> 30 ft., climb 30 ft.</div>
+        <hr>
+        <div class="sb-abilities">
+          <div><div class="ab-label">STR</div><div class="ab-val">16 (+3)</div></div>
+          <div><div class="ab-label">DEX</div><div class="ab-val">14 (+2)</div></div>
+          <div><div class="ab-label">CON</div><div class="ab-val">14 (+2)</div></div>
+          <div><div class="ab-label">INT</div><div class="ab-val">6 (−2)</div></div>
+          <div><div class="ab-label">WIS</div><div class="ab-val">12 (+1)</div></div>
+          <div><div class="ab-label">CHA</div><div class="ab-val">7 (−2)</div></div>
+        </div>
+        <hr>
+        <div class="sb-row"><strong>Skills</strong> Athletics +5, Perception +3</div>
+        <div class="sb-row"><strong>Challenge</strong> 1/2 (100 XP)</div>
+        <hr>
+        <div class="sb-actions-title">Actions</div>
+        <div class="sb-section">
+          <div class="trait"><em>Multiattack.</em> Two attacks.</div>
+          <div class="trait"><em>Greatsword Slash.</em> +5 to hit, reach 5 ft. Hit: 10 (2d6+3) slashing damage. <em>(Replaces Fist.)</em></div>
+          <div class="trait"><em>Rock.</em> Ranged Weapon Attack: +5 to hit, range 25/50 ft. Hit: 6 (1d6+3) bludgeoning.</div>
+        </div>
+      </div>
+      <div class="rp-note">Three apes on the tower grounds — sleeping or playing dice when the party arrives, greatswords stuck in the ground. Act intelligently (polymorphed guards). Will flee once reduced below half HP.</div>
+      <a class="ext-link-btn" href="https://www.aidedd.org/en/rules/monsters/ape/" target="_blank">🔗 Base stats on aidedd.org</a>
+    `
+  },
+
+  'bed-dragon': {
+    name: "Bed Dragon Wyrmling",
+    image: null,
+    imageAlt: "A dragon made of wood with billowing bedsheet wings",
+    html: `
+      <div class="stat-block">
+        <div class="sb-name">Bed Dragon Wyrmling</div>
+        <div class="sb-meta">Large dragon, chaotic neutral — Custom Creature</div>
+        <hr>
+        <div class="sb-row"><strong>AC</strong> 16 (natural armor)</div>
+        <div class="sb-row"><strong>HP</strong> 75 (10d8+30)</div>
+        <div class="sb-row"><strong>Speed</strong> 30 ft., climb 30 ft., fly 30 ft.</div>
+        <hr>
+        <div class="sb-abilities">
+          <div><div class="ab-label">STR</div><div class="ab-val">19 (+4)</div></div>
+          <div><div class="ab-label">DEX</div><div class="ab-val">14 (+2)</div></div>
+          <div><div class="ab-label">CON</div><div class="ab-val">17 (+3)</div></div>
+          <div><div class="ab-label">INT</div><div class="ab-val">8 (−1)</div></div>
+          <div><div class="ab-label">WIS</div><div class="ab-val">8 (−1)</div></div>
+          <div><div class="ab-label">CHA</div><div class="ab-val">4 (−3)</div></div>
+        </div>
+        <hr>
+        <div class="sb-row"><strong>Skills</strong> Perception +2, Stealth +5</div>
+        <div class="sb-row"><strong>Senses</strong> passive Perception 12</div>
+        <div class="sb-row"><strong>Damage Vulnerabilities</strong> fire</div>
+        <div class="sb-row"><strong>Challenge</strong> 4 (1,100 XP)</div>
+        <hr>
+        <div class="sb-actions-title">Actions</div>
+        <div class="sb-section">
+          <div class="trait"><em>Bite.</em> +6 to hit, reach 5 ft., one target. Hit: 15 (2d10+4) piercing.</div>
+          <div class="trait"><em>Splinter Breath (Recharge 5–6).</em> 15-foot cone. DC 13 Dex save. Fail: 24 (7d6) piercing. Success: half.</div>
+        </div>
+      </div>
+      <div class="rp-note">
+        Looks like a dragon carved from wood with billowing bedsheets for wings and a pillow-tipped tail. Noke bursts through his bedroom ceiling riding it 3 rounds after fleeing. Prioritises fire-using enemies. If Noke loses concentration, it reverts to a thoroughly beaten-up old bed. Acts dumbly — uses Splinter Breath as often as possible, attacks nearest target otherwise.
+      </div>
+    `
+  },
+
+  'gibbering-mouther': {
+    name: "Gibbering Mouther",
+    image: "https://www.aidedd.org/dnd/images/monsters/gibbering-mouther.jpg",
+    imageAlt: "A horrifying mass of mouths and eyes",
+    html: `
+      <div class="stat-block">
+        <div class="sb-name">Gibbering Mouther</div>
+        <div class="sb-meta">Medium aberration, neutral — MM p.157</div>
+        <hr>
+        <div class="sb-row"><strong>AC</strong> 9</div>
+        <div class="sb-row"><strong>HP</strong> 67 (9d8+27)</div>
+        <div class="sb-row"><strong>Speed</strong> 10 ft., swim 10 ft.</div>
+        <hr>
+        <div class="sb-abilities">
+          <div><div class="ab-label">STR</div><div class="ab-val">10 (+0)</div></div>
+          <div><div class="ab-label">DEX</div><div class="ab-val">8 (−1)</div></div>
+          <div><div class="ab-label">CON</div><div class="ab-val">16 (+3)</div></div>
+          <div><div class="ab-label">INT</div><div class="ab-val">3 (−4)</div></div>
+          <div><div class="ab-label">WIS</div><div class="ab-val">10 (+0)</div></div>
+          <div><div class="ab-label">CHA</div><div class="ab-val">6 (−2)</div></div>
+        </div>
+        <hr>
+        <div class="sb-row"><strong>Condition Immunities</strong> prone</div>
+        <div class="sb-row"><strong>Senses</strong> darkvision 60 ft., passive Perception 10</div>
+        <div class="sb-row"><strong>Challenge</strong> 2 (450 XP)</div>
+        <hr>
+        <div class="sb-section">
+          <div class="trait"><em>Aberrant Ground.</em> Ground within 10 ft. is difficult terrain.</div>
+          <div class="trait"><em>Gibbering.</em> Any creature starting its turn within 20 ft. must DC 10 Wis save or be affected (see MM).</div>
+        </div>
+        <div class="sb-actions-title">Actions</div>
+        <div class="sb-section">
+          <div class="trait"><em>Multiattack.</em> One Bite, one Blinding Spittle if available.</div>
+          <div class="trait"><em>Bites.</em> +2 to hit, 5 ft. Hit: 17 (5d6) piercing. DC 10 Con or lose a body part (roll d4).</div>
+          <div class="trait"><em>Blinding Spittle (Recharge 5–6).</em> 15-ft. cube. DC 13 Dex or blinded until end of next turn.</div>
+        </div>
+      </div>
+      <div class="rp-note">
+        Noke's final, desperate fate. If he tries to use the wand on himself and fails by more than 5, or if it otherwise goes catastrophically wrong, he becomes this. Attacks mindlessly until destroyed. Transformation can't be undone by any spell below 9th level and can't be cancelled by ending concentration.
+      </div>
+      <a class="ext-link-btn" href="https://www.aidedd.org/en/rules/monsters/gibbering-mouther/" target="_blank">🔗 Full stats on aidedd.org</a>
+    `
+  },
+
+  wand: {
+    name: "Modified Wand of True Polymorph",
+    image: null,
+    html: `
+      <div class="summary-box" style="font-size:.9rem;">
+        <h3 style="color:var(--gold); margin-bottom:8px;">Modified Wand of True Polymorph</h3>
+        <p><em>A long thin twig from an oak tree, fitted with a bulbous rune-inscribed iron band. Cracks run along its length.</em></p>
+        <br>
+        <ul style="padding-left:18px; line-height:1.9;">
+          <li>Holds <strong>1d4–1 charges</strong> (minimum 1). Resets at dawn.</li>
+          <li>Usable by anyone with a spellcasting ability after 1 hour of attunement.</li>
+          <li>DC 15 Int (Arcana) to identify the instability.</li>
+        </ul>
+        <br>
+        <h3 style="color:#e74c3c; margin-bottom:6px;">On Each Use — DC 17 Int (Arcana)</h3>
+        <ul style="padding-left:18px; line-height:1.9;">
+          <li><strong>Success:</strong> Spell casts normally. DC increases by 1 for next use.</li>
+          <li><strong>Fail by ≤5:</strong> Target becomes a <span style="cursor:pointer;color:var(--gold);text-decoration:underline" onclick="openEntity('gibbering-mouther')">Gibbering Mouther</span> (no save). Attacks nearest. Needs 9th-level spell to reverse.</li>
+          <li><strong>Fail by >5:</strong> As above, plus wand <strong>explodes</strong> — 1d12 force damage per remaining charge to all within 10 ft. Wand is destroyed.</li>
+        </ul>
+      </div>
+    `
+  }
+};
+
+// Image sources for encounter display (fallback chain)
+const ENCOUNTER_IMAGES = {
+  shinebright: [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ovis_aries_%28white_background%29.jpg/640px-Ovis_aries_%28white_background%29.jpg"
+  ],
+  guz: [
+    "https://www.aidedd.org/dnd/images/monsters/half-orc.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Orc_-_Illustration_from_D%26D_5e_Monster_Manual.jpg/320px-Orc_-_Illustration_from_D%26D_5e_Monster_Manual.jpg"
+  ],
+  noke: [
+    "https://www.aidedd.org/dnd/images/monsters/mage.jpg"
+  ],
+  wolf: [
+    "https://www.aidedd.org/dnd/images/monsters/wolf.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Kolm%C3%A5rden_Wolf.jpg/640px-Kolm%C3%A5rden_Wolf.jpg"
+  ],
+  'brown-bear': [
+    "https://www.aidedd.org/dnd/images/monsters/brown-bear.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Kamchatka_Brown_Bear_near_Dvuhyurtochnoe_on_2015-07-23.jpg/640px-Kamchatka_Brown_Bear_near_Dvuhyurtochnoe_on_2015-07-23.jpg"
+  ],
+  ape: [
+    "https://www.aidedd.org/dnd/images/monsters/ape.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Gorilla_gorilla_gorilla_-_Buffalo_Zoo_-_Buffalo%2C_New_York_-_Nov._2007.jpg/640px-Gorilla_gorilla_gorilla_-_Buffalo_Zoo_-_Buffalo%2C_New_York_-_Nov._2007.jpg"
+  ],
+  'bed-dragon': [],
+  'gibbering-mouther': [
+    "https://www.aidedd.org/dnd/images/monsters/gibbering-mouther.jpg"
+  ]
+};
+
+function openEntity(id) {
+  const entity = ENTITIES[id];
+  if (!entity) return;
+  document.getElementById('modalTitle').textContent = entity.name;
+  document.getElementById('modalBody').innerHTML = entity.html;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('modalOverlay')) {
+    document.getElementById('modalOverlay').classList.remove('open');
+  }
+}
+
+function showEncounter(id) {
+  const entity = ENTITIES[id];
+  if (!entity) return;
+  const overlay = document.getElementById('encounterOverlay');
+  document.getElementById('encName').textContent = entity.name;
+  const imgContainer = document.getElementById('encImgContainer');
+  const sources = ENCOUNTER_IMAGES[id] || [];
+
+  if (sources.length > 0) {
+    let currentSrc = 0;
+    const img = document.createElement('img');
+    img.alt = entity.imageAlt || entity.name;
+    img.src = sources[0];
+    img.onerror = function() {
+      currentSrc++;
+      if (currentSrc < sources.length) {
+        img.src = sources[currentSrc];
+      } else {
+        imgContainer.innerHTML = noImageHTML(entity.name);
+      }
+    };
+    imgContainer.innerHTML = '';
+    imgContainer.appendChild(img);
+  } else {
+    imgContainer.innerHTML = noImageHTML(entity.name);
+  }
+
+  overlay.classList.add('open');
+}
+
+function noImageHTML(name) {
+  return `<div class="enc-placeholder">
+    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 20 L80 75 L20 75 Z" stroke="#c8973a" stroke-width="3" fill="none"/>
+      <circle cx="50" cy="45" r="6" fill="#c8973a" opacity=".5"/>
+    </svg>
+    <p>No image available for<br><strong style="color:var(--gold)">${name}</strong></p>
+  </div>`;
+}
+
+function closeEncounter() {
+  document.getElementById('encounterOverlay').classList.remove('open');
+  document.getElementById('encImgContainer').innerHTML = '';
+}
+
+// Close modals with Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeEncounter();
+    document.getElementById('modalOverlay').classList.remove('open');
+  }
+});
+</script>
+</body>
+</html>
