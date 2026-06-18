@@ -1263,7 +1263,7 @@ function openPC(id) {
   document.getElementById('modalBody').innerHTML =
     '<p style="color:var(--gold-light);font-style:italic;margin:0 0 12px">' + pc.quote + '</p>' +
     pc.html;
-  document.getElementById('modalOverlay').style.display = 'flex';
+  document.getElementById('modalOverlay').classList.add('open');
 }
 
 /* ── HP TRACKER ── */
