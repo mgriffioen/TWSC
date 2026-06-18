@@ -152,19 +152,6 @@
       border: 1px solid var(--border);
       color: var(--gold);
     }
-    .entity-card .encounter-btn {
-      margin-top: 8px;
-      background: var(--red);
-      color: white;
-      border: none;
-      border-radius: 4px;
-      padding: 4px 8px;
-      font-size: .72rem;
-      cursor: pointer;
-      width: 100%;
-    }
-    .entity-card .encounter-btn:hover { background: #e74c3c; }
-
     /* ── MODAL OVERLAY ── */
     .modal-overlay {
       display: none;
@@ -227,53 +214,6 @@
       color: #58180d; border-bottom: 1px solid #9c2a1a;
       margin: 10px 0 6px;
     }
-
-    /* ── ENCOUNTER DISPLAY MODE ── */
-    .encounter-overlay {
-      display: none;
-      position: fixed; inset: 0;
-      background: #000;
-      z-index: 300;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    .encounter-overlay.open { display: flex; }
-    .encounter-overlay img {
-      max-width: 100%; max-height: 70vh;
-      object-fit: contain;
-      border: 3px solid var(--gold);
-      border-radius: 6px;
-    }
-    .encounter-overlay .enc-name {
-      color: var(--gold);
-      font-size: clamp(1.4rem, 5vw, 2.2rem);
-      margin-top: 16px;
-      text-align: center;
-      text-shadow: 0 0 20px rgba(200,151,58,.6);
-    }
-    .encounter-overlay .enc-close {
-      position: absolute; top: 16px; right: 16px;
-      background: rgba(0,0,0,.6);
-      border: 1px solid var(--gold);
-      color: var(--gold);
-      border-radius: 6px;
-      padding: 6px 14px;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-    .encounter-overlay .enc-close:hover { background: var(--border); }
-    .encounter-overlay .enc-placeholder {
-      width: min(400px, 90vw);
-      height: min(300px, 50vh);
-      background: var(--bg2);
-      border: 3px solid var(--gold);
-      border-radius: 6px;
-      display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 12px;
-    }
-    .encounter-overlay .enc-placeholder svg { width: 80px; height: 80px; opacity: .4; }
-    .encounter-overlay .enc-placeholder p { color: var(--text-dim); font-style: italic; }
 
     /* ── EXTERNAL LINK BUTTON ── */
     .ext-link-btn {
@@ -395,13 +335,6 @@
   </style>
 </head>
 <body>
-
-<!-- ══ ENCOUNTER OVERLAY (fullscreen player display) ══ -->
-<div class="encounter-overlay" id="encounterOverlay">
-  <button class="enc-close" onclick="closeEncounter()">✕ Close</button>
-  <div id="encImgContainer"></div>
-  <div class="enc-name" id="encName"></div>
-</div>
 
 <!-- ══ STAT BLOCK MODAL ══ -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
@@ -645,21 +578,18 @@ One thing that you must do, however, is try to provide at least a hint of the da
         <div class="entity-type">High Elf Wizard (Sheep)</div>
         <div class="entity-cr">CR — / Pony stats</div>
         <div class="entity-type" style="margin-top:4px; font-size:.72rem;">INT 18 · WIS 14</div>
-        <button class="encounter-btn" onclick="event.stopPropagation(); showEncounter('shinebright')">🎭 Show Players</button>
       </div>
 
       <div class="entity-card" onclick="openEntity('guz')">
         <div class="entity-name">Guz</div>
         <div class="entity-type">Half-Orc Brute <span class="tag badge-cn">CN</span></div>
         <div class="entity-cr">CR 2 · 450 XP</div>
-        <button class="encounter-btn" onclick="event.stopPropagation(); showEncounter('guz')">🎭 Show Players</button>
       </div>
 
       <div class="entity-card" onclick="openEntity('noke')">
         <div class="entity-name">Ahmed Noke</div>
         <div class="entity-type">Human Wizard <span class="tag badge-evil">NE</span></div>
         <div class="entity-cr">CR 2 · 450 XP</div>
-        <button class="encounter-btn" onclick="event.stopPropagation(); showEncounter('noke')">🎭 Show Players</button>
       </div>
 
     </div>
@@ -674,35 +604,30 @@ One thing that you must do, however, is try to provide at least a hint of the da
         <div class="entity-name">Wolf</div>
         <div class="entity-type">Beast (polymorphed guard)</div>
         <div class="entity-cr">CR 1/4 · 50 XP</div>
-        <button class="encounter-btn" onclick="event.stopPropagation(); showEncounter('wolf')">🎭 Show Players</button>
       </div>
 
       <div class="entity-card" onclick="openEntity('brown-bear')">
         <div class="entity-name">Brown Bear</div>
         <div class="entity-type">Beast (polymorphed guard)</div>
         <div class="entity-cr">CR 1 · 200 XP</div>
-        <button class="encounter-btn" onclick="event.stopPropagation(); showEncounter('brown-bear')">🎭 Show Players</button>
       </div>
 
       <div class="entity-card" onclick="openEntity('ape')">
         <div class="entity-name">Ape</div>
         <div class="entity-type">Beast (polymorphed guard)</div>
         <div class="entity-cr">CR 1/2 · 100 XP</div>
-        <button class="encounter-btn" onclick="event.stopPropagation(); showEncounter('ape')">🎭 Show Players</button>
       </div>
 
       <div class="entity-card" onclick="openEntity('bed-dragon')">
         <div class="entity-name">Bed Dragon Wyrmling</div>
         <div class="entity-type">Dragon (wooden, custom)</div>
         <div class="entity-cr">CR 4 · 1,100 XP</div>
-        <button class="encounter-btn" onclick="event.stopPropagation(); showEncounter('bed-dragon')">🎭 Show Players</button>
       </div>
 
       <div class="entity-card" onclick="openEntity('gibbering-mouther')">
         <div class="entity-name">Gibbering Mouther</div>
         <div class="entity-type">Aberration (Noke's fate)</div>
         <div class="entity-cr">CR 2 · 450 XP</div>
-        <button class="encounter-btn" onclick="event.stopPropagation(); showEncounter('gibbering-mouther')">🎭 Show Players</button>
       </div>
 
     </div>
@@ -1119,36 +1044,6 @@ const ENTITIES = {
   }
 };
 
-// Image sources for encounter display (fallback chain)
-const ENCOUNTER_IMAGES = {
-  shinebright: [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ovis_aries_%28white_background%29.jpg/640px-Ovis_aries_%28white_background%29.jpg"
-  ],
-  guz: [
-    "https://www.aidedd.org/dnd/images/monsters/half-orc.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Orc_-_Illustration_from_D%26D_5e_Monster_Manual.jpg/320px-Orc_-_Illustration_from_D%26D_5e_Monster_Manual.jpg"
-  ],
-  noke: [
-    "https://www.aidedd.org/dnd/images/monsters/mage.jpg"
-  ],
-  wolf: [
-    "https://www.aidedd.org/dnd/images/monsters/wolf.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Kolm%C3%A5rden_Wolf.jpg/640px-Kolm%C3%A5rden_Wolf.jpg"
-  ],
-  'brown-bear': [
-    "https://www.aidedd.org/dnd/images/monsters/brown-bear.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Kamchatka_Brown_Bear_near_Dvuhyurtochnoe_on_2015-07-23.jpg/640px-Kamchatka_Brown_Bear_near_Dvuhyurtochnoe_on_2015-07-23.jpg"
-  ],
-  ape: [
-    "https://www.aidedd.org/dnd/images/monsters/ape.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Gorilla_gorilla_gorilla_-_Buffalo_Zoo_-_Buffalo%2C_New_York_-_Nov._2007.jpg/640px-Gorilla_gorilla_gorilla_-_Buffalo_Zoo_-_Buffalo%2C_New_York_-_Nov._2007.jpg"
-  ],
-  'bed-dragon': [],
-  'gibbering-mouther': [
-    "https://www.aidedd.org/dnd/images/monsters/gibbering-mouther.jpg"
-  ]
-};
-
 function openEntity(id) {
   const entity = ENTITIES[id];
   if (!entity) return;
@@ -1162,51 +1057,6 @@ function closeModal(e) {
   if (!e || e.target === document.getElementById('modalOverlay')) {
     document.getElementById('modalOverlay').classList.remove('open');
   }
-}
-
-function showEncounter(id) {
-  const entity = ENTITIES[id];
-  if (!entity) return;
-  const overlay = document.getElementById('encounterOverlay');
-  document.getElementById('encName').textContent = entity.name;
-  const imgContainer = document.getElementById('encImgContainer');
-  const sources = ENCOUNTER_IMAGES[id] || [];
-
-  if (sources.length > 0) {
-    let currentSrc = 0;
-    const img = document.createElement('img');
-    img.alt = entity.imageAlt || entity.name;
-    img.src = sources[0];
-    img.onerror = function() {
-      currentSrc++;
-      if (currentSrc < sources.length) {
-        img.src = sources[currentSrc];
-      } else {
-        imgContainer.innerHTML = noImageHTML(entity.name);
-      }
-    };
-    imgContainer.innerHTML = '';
-    imgContainer.appendChild(img);
-  } else {
-    imgContainer.innerHTML = noImageHTML(entity.name);
-  }
-
-  overlay.classList.add('open');
-}
-
-function noImageHTML(name) {
-  return `<div class="enc-placeholder">
-    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M50 20 L80 75 L20 75 Z" stroke="#c8973a" stroke-width="3" fill="none"/>
-      <circle cx="50" cy="45" r="6" fill="#c8973a" opacity=".5"/>
-    </svg>
-    <p>No image available for<br><strong style="color:var(--gold)">${name}</strong></p>
-  </div>`;
-}
-
-function closeEncounter() {
-  document.getElementById('encounterOverlay').classList.remove('open');
-  document.getElementById('encImgContainer').innerHTML = '';
 }
 
 function toggleText(btn) {
@@ -1540,7 +1390,6 @@ document.addEventListener('DOMContentLoaded', mountBadges);
 // Close modals with Escape
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
-    closeEncounter();
     document.getElementById('modalOverlay').classList.remove('open');
   }
 });
