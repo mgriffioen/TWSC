@@ -427,6 +427,7 @@
   <a href="#npcs">NPCs</a>
   <a href="#monsters">Monsters</a>
   <a href="#items">Items</a>
+  <a href="#players">Players</a>
 </nav>
 
 <main>
@@ -720,6 +721,40 @@ One thing that you must do, however, is try to provide at least a hint of the da
         <p>Long thin oak twig fitted with a bulbous rune-inscribed iron band. Holds 1d4-1 charges (min 1), resetting at dawn. Extremely unreliable — DC 17 Int (Arcana) on each use or bad things happen.</p>
         <div class="creatures">
           <span class="creature-tag" onclick="openEntity('wand')">Full Wand Rules</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PLAYERS ══ -->
+  <section id="players">
+    <h2>Player Characters</h2>
+    <div class="entity-grid">
+      <div class="entity-card" onclick="openPC('bram')">
+        <div class="entity-name">Bram Thornvale</div>
+        <div class="entity-meta">Level 3 Half-Orc Ranger (Fey Wanderer) · Chris</div>
+        <div class="entity-tags">
+          <span class="creature-tag">AC 15</span>
+          <span class="creature-tag">HP 28</span>
+          <span class="creature-tag">Init +3</span>
+        </div>
+      </div>
+      <div class="entity-card" onclick="openPC('dusty')">
+        <div class="entity-name">Dusty Fleetwood</div>
+        <div class="entity-meta">Level 5 Hill Dwarf Druid (Circle of the Coastal) · Emily</div>
+        <div class="entity-tags">
+          <span class="creature-tag">AC 14</span>
+          <span class="creature-tag">HP 48</span>
+          <span class="creature-tag">Init +1</span>
+        </div>
+      </div>
+      <div class="entity-card" onclick="openPC('medrick')">
+        <div class="entity-name">Medrick Bendelroot</div>
+        <div class="entity-meta">Level 3 Lightfoot Halfling Rogue (Arcane Trickster) · Dan</div>
+        <div class="entity-tags">
+          <span class="creature-tag">AC 15</span>
+          <span class="creature-tag">HP 24</span>
+          <span class="creature-tag">Init +3</span>
         </div>
       </div>
     </div>
@@ -1178,6 +1213,207 @@ function toggleText(btn) {
   const body = btn.nextElementSibling;
   const open = body.classList.toggle('open');
   btn.textContent = (open ? '▾' : '▸') + ' Full text';
+}
+
+/* ── PLAYER CHARACTERS ── */
+const PCS = {
+  bram: {
+    name: 'Bram Thornvale',
+    subtitle: 'Level 3 Half-Orc Ranger (Fey Wanderer)',
+    player: 'Chris',
+    quote: '"Family heirloom. Technically not meant for me. But they seem to disagree."',
+    html: `
+      <div class="stat-block">
+        <div class="sb-header"><span class="sb-name">Bram Thornvale</span><span class="sb-type">Level 3 Half-Orc Ranger (Fey Wanderer) · Chaotic Good</span></div>
+        <div class="sb-divider"></div>
+        <div class="sb-prop"><span>Background</span><span>Noble</span></div>
+        <div class="sb-prop"><span>Age / Size</span><span>25 · Medium, 6 ft 4 in</span></div>
+        <div class="sb-prop"><span>Speed</span><span>30 ft</span></div>
+        <div class="sb-prop"><span>Languages</span><span>Common, Orc, Elvish</span></div>
+        <div class="sb-divider"></div>
+        <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:4px;text-align:center;margin:8px 0">
+          <div><div style="font-size:.7em;color:var(--gold)">STR</div><strong>14</strong><div style="font-size:.8em">+2</div></div>
+          <div><div style="font-size:.7em;color:var(--gold)">DEX</div><strong>16</strong><div style="font-size:.8em">+3</div></div>
+          <div><div style="font-size:.7em;color:var(--gold)">CON</div><strong>14</strong><div style="font-size:.8em">+2</div></div>
+          <div><div style="font-size:.7em;color:var(--gold)">INT</div><strong>8</strong><div style="font-size:.8em">-1</div></div>
+          <div><div style="font-size:.7em;color:var(--gold)">WIS</div><strong>14</strong><div style="font-size:.8em">+2</div></div>
+          <div><div style="font-size:.7em;color:var(--gold)">CHA</div><strong>10</strong><div style="font-size:.8em">+0</div></div>
+        </div>
+        <div class="sb-divider"></div>
+        <div class="sb-prop"><span>Armor Class</span><span>15 (studded leather)</span></div>
+        <div class="sb-prop"><span>Max HP</span><span>28</span></div>
+        <div class="sb-prop"><span>Initiative</span><span>+3 (Advantage — Weapon of Warning)</span></div>
+        <div class="sb-prop"><span>Prof. Bonus</span><span>+2</span></div>
+        <div class="sb-prop"><span>Passive Perception</span><span>14 · Insight 12 · Investigation 9</span></div>
+        <div class="sb-prop"><span>Darkvision</span><span>60 ft (Half-Orc)</span></div>
+        <div class="sb-divider"></div>
+        <div class="sb-section">Attacks</div>
+        <div class="sb-prop"><span>Thornwake (main sai)</span><span>+5 · 1d6+3 piercing · Dreadful Strikes +1d4 once/turn</span></div>
+        <div class="sb-prop"><span>Briarbite (off-hand sai)</span><span>+5 · 1d6+3 piercing · Bonus action, adds Dex</span></div>
+        <div class="sb-prop"><span>Longbow</span><span>+5 · 1d8+3 piercing · 150/600 ft</span></div>
+        <div class="sb-divider"></div>
+        <div class="sb-section">Key Proficiencies</div>
+        <div class="sb-prop"><span>Saves</span><span>Strength +4, Dexterity +5</span></div>
+        <div class="sb-prop"><span>Skills (prof.)</span><span>Athletics +4, History +1, Intimidation +2/+4*, Perception +4, Persuasion +2/+4*, Survival +4</span></div>
+        <div style="font-size:.75em;color:var(--text-dim);margin:2px 8px">*Otherworldly Glamour adds Wis to Cha checks</div>
+        <div class="sb-divider"></div>
+        <div class="sb-section">Class Features</div>
+        <div class="sb-prop"><span>Dreadful Strikes</span><span>+1d4 psychic once per turn on a hit</span></div>
+        <div class="sb-prop"><span>Favored Foe</span><span>Mark a target on hit; +1d4 damage once/turn. 2/long rest.</span></div>
+        <div class="sb-prop"><span>Two-Weapon Fighting</span><span>Add Dex to off-hand damage</span></div>
+        <div class="sb-prop"><span>Otherworldly Glamour</span><span>Add Wis (+2) to all Cha checks</span></div>
+        <div class="sb-prop"><span>Relentless Endurance</span><span>Drop to 1 HP instead of 0, once/long rest</span></div>
+        <div class="sb-prop"><span>Savage Attacks</span><span>Crit: roll one extra weapon damage die</span></div>
+        <div class="sb-divider"></div>
+        <div class="sb-section">Spells (Wis, DC 12, +4) · 3 first-level slots</div>
+        <div class="sb-prop"><span>Cure Wounds</span><span>Touch · 1d8+2 HP</span></div>
+        <div class="sb-prop"><span>Ensnaring Strike</span><span>Bonus action, concentration · next hit restrains target</span></div>
+        <div class="sb-prop"><span>Fog Cloud</span><span>Action, conc. up to 1 hr · 20-ft-radius mist</span></div>
+        <div class="sb-prop"><span>Charm Person</span><span>Action · 30 ft · Wis save DC 12 · 1 hour</span></div>
+        <div class="sb-divider"></div>
+        <div class="sb-section">Magic Item: Weapon of Warning (Attuned)</div>
+        <p style="font-size:.85em;padding:4px 8px">Paired sais Thornwake &amp; Briarbite. Advantage on initiative. Bram and allies within 30 ft cannot be surprised while Bram is conscious.</p>
+        <div class="sb-divider"></div>
+        <div class="sb-section">Turn Plan</div>
+        <p style="font-size:.85em;padding:4px 8px">Move → Attack with Thornwake (+5) → Bonus Action Briarbite (+5) → Add Dreadful Strikes +1d4 on a hit. Against big targets: use Favored Foe.</p>
+      </div>
+    `
+  },
+  dusty: {
+    name: 'Dusty Fleetwood',
+    subtitle: 'Level 5 Hill Dwarf Druid (Circle of the Coastal)',
+    player: 'Emily',
+    quote: '"Love yourself with the confidence of a bird stealing lunch."',
+    html: `
+      <div class="stat-block">
+        <div class="sb-header"><span class="sb-name">Dusty Fleetwood</span><span class="sb-type">Level 5 Hill Dwarf Druid (Circle of the Coastal) · Lawful Good</span></div>
+        <div class="sb-divider"></div>
+        <div class="sb-prop"><span>Background</span><span>Hermit</span></div>
+        <div class="sb-prop"><span>Age / Size</span><span>136 · Medium, 4 ft 2 in</span></div>
+        <div class="sb-prop"><span>Speed</span><span>25 ft</span></div>
+        <div class="sb-prop"><span>Languages</span><span>Common, Druidic, Dwarvish, Goblin</span></div>
+        <div class="sb-divider"></div>
+        <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:4px;text-align:center;margin:8px 0">
+          <div><div style="font-size:.7em;color:var(--gold)">STR</div><strong>8</strong><div style="font-size:.8em">-1</div></div>
+          <div><div style="font-size:.7em;color:var(--gold)">DEX</div><strong>13</strong><div style="font-size:.8em">+1</div></div>
+          <div><div style="font-size:.7em;color:var(--gold)">CON</div><strong>16</strong><div style="font-size:.8em">+3</div></div>
+          <div><div style="font-size:.7em;color:var(--gold)">INT</div><strong>10</strong><div style="font-size:.8em">+0</div></div>
+          <div><div style="font-size:.7em;color:var(--gold)">WIS</div><strong>18</strong><div style="font-size:.8em">+4</div></div>
+          <div><div style="font-size:.7em;color:var(--gold)">CHA</div><strong>12</strong><div style="font-size:.8em">+1</div></div>
+        </div>
+        <div class="sb-divider"></div>
+        <div class="sb-prop"><span>Armor Class</span><span>14 (leather + wooden shield)</span></div>
+        <div class="sb-prop"><span>Max HP</span><span>48</span></div>
+        <div class="sb-prop"><span>Initiative</span><span>+1</span></div>
+        <div class="sb-prop"><span>Prof. Bonus</span><span>+3</span></div>
+        <div class="sb-prop"><span>Passive Perception</span><span>14 · Insight 14 · Medicine 17</span></div>
+        <div class="sb-prop"><span>Darkvision</span><span>60 ft · Resistance to poison damage</span></div>
+        <div class="sb-divider"></div>
+        <div class="sb-section">Attacks</div>
+        <div class="sb-prop"><span>Shillelagh (club)</span><span>+7 · 1d8+4 bludgeoning · best melee option</span></div>
+        <div class="sb-prop"><span>Scimitar</span><span>+4 · 1d6+1 slashing · backup</span></div>
+        <div class="sb-prop"><span>Dagger</span><span>+4 · 1d4+1 piercing · melee or 20/60 ft thrown</span></div>
+        <div class="sb-prop"><span>Poison Spray (cantrip)</span><span>DC 15 Con · 2d12 poison · 10 ft</span></div>
+        <div class="sb-divider"></div>
+        <div class="sb-section">Key Proficiencies</div>
+        <div class="sb-prop"><span>Saves</span><span>Intelligence +3, Wisdom +7</span></div>
+        <div class="sb-prop"><span>Skills (prof.)</span><span>Medicine +7, Nature +3, Religion +3, Survival +7</span></div>
+        <div class="sb-divider"></div>
+        <div class="sb-section">Class Features</div>
+        <div class="sb-prop"><span>Wild Shape</span><span>2/short rest · max CR 1/2 · no fly. Signature: Giant Crab</span></div>
+        <div class="sb-prop"><span>Natural Recovery</span><span>Recover spell slots on short rest (Coastal feature)</span></div>
+        <div class="sb-prop"><span>Ritual Casting</span><span>Cast prepared ritual spells without a slot</span></div>
+        <div class="sb-prop"><span>Dwarven Resilience</span><span>Advantage on poison saves; resistance to poison damage</span></div>
+        <div class="sb-divider"></div>
+        <div class="sb-section">Spells (Wis, DC 15, +7) · 4/3/2 slots</div>
+        <div class="sb-prop"><span>Cantrips</span><span>Guidance · Poison Spray · Shillelagh</span></div>
+        <div class="sb-prop"><span>1st</span><span>Detect Magic · Cure Wounds · Charm Person</span></div>
+        <div class="sb-prop"><span>2nd*</span><span>Mirror Image (no conc) · Misty Step · Barkskin (conc) · Lesser Restoration</span></div>
+        <div class="sb-prop"><span>3rd*</span><span>Water Breathing · Water Walk · Dispel Magic · Call Lightning (conc) · Daylight · Meld into Stone</span></div>
+        <div style="font-size:.75em;color:var(--text-dim);margin:2px 8px">*Coastal subclass spells always prepared</div>
+        <div class="sb-divider"></div>
+        <div class="sb-section">Wild Shape: Giant Crab</div>
+        <p style="font-size:.85em;padding:4px 8px">Coastal mascot. Grapple enemies (speed 0), block chokepoints, soak hits. <em>"Everyone wishes to be the eagle. Nobody wishes to be the crab. And yet here we are."</em></p>
+        <div class="sb-divider"></div>
+        <div class="sb-section">Turn Plan</div>
+        <p style="font-size:.85em;padding:4px 8px">R1: Cast Call Lightning / Barkskin / Mirror Image / Cure Wounds as needed. R2+: Wild Shape (Giant Crab) → grapple enemies → protect squishier allies. Use Guidance constantly outside combat.</p>
+      </div>
+    `
+  },
+  medrick: {
+    name: 'Medrick Bendelroot',
+    subtitle: 'Level 3 Lightfoot Halfling Rogue (Arcane Trickster)',
+    player: 'Dan',
+    quote: '"If the gods wanted me to stop asking questions, they should have made the answers less suspicious."',
+    html: `
+      <div class="stat-block">
+        <div class="sb-header"><span class="sb-name">Medrick Bendelroot</span><span class="sb-type">Level 3 Lightfoot Halfling Rogue (Arcane Trickster) · True Neutral</span></div>
+        <div class="sb-divider"></div>
+        <div class="sb-prop"><span>Background</span><span>Charlatan</span></div>
+        <div class="sb-prop"><span>Age / Size</span><span>70s · Small, 3 ft 4 in</span></div>
+        <div class="sb-prop"><span>Speed</span><span>25 ft</span></div>
+        <div class="sb-prop"><span>Languages</span><span>Common, Halfling, Thieves' Cant</span></div>
+        <div class="sb-divider"></div>
+        <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:4px;text-align:center;margin:8px 0">
+          <div><div style="font-size:.7em;color:var(--gold)">STR</div><strong>8</strong><div style="font-size:.8em">-1</div></div>
+          <div><div style="font-size:.7em;color:var(--gold)">DEX</div><strong>17</strong><div style="font-size:.8em">+3</div></div>
+          <div><div style="font-size:.7em;color:var(--gold)">CON</div><strong>14</strong><div style="font-size:.8em">+2</div></div>
+          <div><div style="font-size:.7em;color:var(--gold)">INT</div><strong>14</strong><div style="font-size:.8em">+2</div></div>
+          <div><div style="font-size:.7em;color:var(--gold)">WIS</div><strong>12</strong><div style="font-size:.8em">+1</div></div>
+          <div><div style="font-size:.7em;color:var(--gold)">CHA</div><strong>10</strong><div style="font-size:.8em">+0</div></div>
+        </div>
+        <div class="sb-divider"></div>
+        <div class="sb-prop"><span>Armor Class</span><span>15 (studded leather)</span></div>
+        <div class="sb-prop"><span>Max HP</span><span>24</span></div>
+        <div class="sb-prop"><span>Initiative</span><span>+3</span></div>
+        <div class="sb-prop"><span>Prof. Bonus</span><span>+2</span></div>
+        <div class="sb-prop"><span>Passive Perception</span><span>13 · Passive Investigation 14 · Insight 11</span></div>
+        <div class="sb-prop"><span>Vision</span><span>Normal (Lightfoot Halflings lack darkvision)</span></div>
+        <div class="sb-divider"></div>
+        <div class="sb-section">Attacks (Sneak Attack: +2d6 once/turn when eligible)</div>
+        <div class="sb-prop"><span>Shortbow</span><span>+5 · 1d6+3 piercing · 80/320 ft</span></div>
+        <div class="sb-prop"><span>Rapier</span><span>+5 · 1d8+3 piercing · melee finesse</span></div>
+        <div class="sb-prop"><span>Dagger ×2</span><span>+5 · 1d4+3 piercing · melee or 20/60 ft thrown</span></div>
+        <div class="sb-divider"></div>
+        <div class="sb-section">Key Proficiencies</div>
+        <div class="sb-prop"><span>Saves</span><span>Dexterity +5, Intelligence +4</span></div>
+        <div class="sb-prop"><span>Skills (prof.)</span><span>Acrobatics +5, Deception +2, Investigation +4, Perception +3, Sleight of Hand +5, Stealth +7 (Expertise), Thieves' Tools +7 (Expertise)</span></div>
+        <div class="sb-divider"></div>
+        <div class="sb-section">Class &amp; Race Features</div>
+        <div class="sb-prop"><span>Sneak Attack (2d6)</span><span>Once/turn with finesse or ranged weapon when advantaged or ally adjacent</span></div>
+        <div class="sb-prop"><span>Cunning Action</span><span>Bonus action: Dash, Disengage, or Hide</span></div>
+        <div class="sb-prop"><span>Mage Hand Legerdemain</span><span>Invisible Mage Hand; remote thieves' tool use; bonus-action control</span></div>
+        <div class="sb-prop"><span>Lucky (Halfling)</span><span>Reroll natural 1s on attacks, checks, and saves</span></div>
+        <div class="sb-prop"><span>Brave</span><span>Advantage on saves vs. frightened</span></div>
+        <div class="sb-prop"><span>Halfling Nimbleness</span><span>Move through space of larger creatures</span></div>
+        <div class="sb-prop"><span>Naturally Stealthy</span><span>Can hide behind a creature one size larger</span></div>
+        <div class="sb-divider"></div>
+        <div class="sb-section">Spells (Int, DC 12, +4) · 2 first-level slots</div>
+        <div class="sb-prop"><span>Cantrips</span><span>Mage Hand (invisible) · Minor Illusion · Prestidigitation</span></div>
+        <div class="sb-prop"><span>1st level</span><span>Find Familiar (owl, already summoned) · Disguise Self · Silent Image (conc.)</span></div>
+        <div class="sb-divider"></div>
+        <div class="sb-section">Magic Item: Cloak of Elvenkind (Attuned)</div>
+        <p style="font-size:.85em;padding:4px 8px">Hood up: Advantage on Stealth; observers have Disadvantage on Perception to spot Medrick. Raising/lowering the hood is an action. Does not grant invisibility or silence.</p>
+        <div class="sb-divider"></div>
+        <div class="sb-section">Owl Familiar</div>
+        <div class="sb-prop"><span>AC / HP</span><span>11 / 1 · Fly 60 ft · Darkvision 120 ft · Passive Perception 13</span></div>
+        <p style="font-size:.85em;padding:4px 8px">Can scout and relay information via telepathic link within 100 ft. Cannot attack. Can deliver touch spells.</p>
+        <div class="sb-divider"></div>
+        <div class="sb-section">Turn Plan</div>
+        <p style="font-size:.85em;padding:4px 8px">Bonus Action: Hide (Cloak advantage). Action: Shortbow +5, add 2d6 Sneak Attack on eligible hit. If cornered: Rapier + Bonus Action Disengage.</p>
+      </div>
+    `
+  }
+};
+
+function openPC(id) {
+  const pc = PCS[id];
+  if (!pc) return;
+  document.getElementById('modalTitle').textContent = pc.name;
+  document.getElementById('modalBody').innerHTML =
+    '<p style="color:var(--gold-light);font-style:italic;margin:0 0 12px">' + pc.quote + '</p>' +
+    pc.html;
+  document.getElementById('modalOverlay').style.display = 'flex';
 }
 
 /* ── HP TRACKER ── */
