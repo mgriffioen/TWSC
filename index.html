@@ -301,6 +301,86 @@
       margin-top: 10px;
     }
 
+    /* ── FULL TEXT TOGGLE ── */
+    .fulltext-toggle {
+      margin-top: 10px;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: .78rem;
+      color: var(--text-dim);
+      cursor: pointer;
+      font-family: 'Georgia', serif;
+    }
+    .fulltext-toggle:hover { border-color: var(--gold); color: var(--gold); }
+    .fulltext-body {
+      display: none;
+      margin-top: 10px;
+      background: #1e160a;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 12px 14px;
+      font-size: .84rem;
+      line-height: 1.7;
+      color: var(--text);
+      white-space: pre-wrap;
+    }
+    .fulltext-body.open { display: block; }
+
+    /* ── HP TRACKER ── */
+    .hp-tracker {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 12px;
+      margin-bottom: 14px;
+    }
+    .hp-tracker-title {
+      font-size: .78rem;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .hp-tracker-title span { font-size: .66rem; color: var(--text-dim); text-transform: none; letter-spacing: 0; font-style: italic; }
+    .hp-token { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; padding: 6px 0; border-bottom: 1px dashed var(--border); }
+    .hp-token:last-child { border-bottom: none; }
+    .hp-token-label { font-size: .78rem; color: var(--gold-light); width: 34px; flex-shrink: 0; }
+    .hp-btn {
+      background: var(--tag-bg); border: 1px solid var(--border); color: var(--gold);
+      width: 26px; height: 26px; border-radius: 4px; cursor: pointer; font-size: 1rem; line-height: 1;
+    }
+    .hp-btn:hover { background: var(--border); }
+    .hp-cur {
+      width: 46px; text-align: center; background: #1e160a; border: 1px solid var(--border);
+      color: var(--text); border-radius: 4px; padding: 3px; font-family: inherit; font-size: .85rem;
+    }
+    .hp-max { font-size: .82rem; color: var(--text-dim); }
+    .hp-dmg {
+      width: 52px; background: #1e160a; border: 1px solid var(--border); color: var(--text);
+      border-radius: 4px; padding: 3px; font-family: inherit; font-size: .8rem;
+    }
+    .hp-hit { background: var(--red); border: none; color: #fff; border-radius: 4px; padding: 4px 7px; font-size: .72rem; cursor: pointer; }
+    .hp-heal { background: var(--green); border: none; color: #fff; border-radius: 4px; padding: 4px 7px; font-size: .72rem; cursor: pointer; }
+    .hp-remove { background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: .9rem; }
+    .hp-remove:hover { color: var(--red); }
+    .hp-bar { flex-basis: 100%; height: 6px; background: #3a1010; border-radius: 3px; overflow: hidden; margin-top: 2px; }
+    .hp-bar-fill { height: 100%; background: linear-gradient(90deg, #7d2e2e, #7cb342); transition: width .2s; }
+    .hp-token.dead .hp-token-label { color: var(--red); text-decoration: line-through; }
+    .hp-token.dead .hp-bar-fill { background: var(--red); }
+    .hp-actions { margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .hp-actions button {
+      background: var(--tag-bg); border: 1px solid var(--border); color: var(--gold);
+      border-radius: 4px; padding: 4px 10px; font-size: .75rem; cursor: pointer; font-family: inherit;
+    }
+    .hp-actions button:hover { background: var(--border); }
+    .hp-empty { font-size: .78rem; color: var(--text-dim); font-style: italic; padding: 2px 0 4px; }
+    .hp-badge { margin-top: 6px; font-size: .72rem; color: #7cb342; min-height: .9em; }
+    .hp-badge.hurt { color: var(--gold-light); }
+    .hp-badge.dead { color: var(--red); }
+
     /* ── MISC ── */
     .tag { display: inline-block; background: var(--tag-bg); border: 1px solid var(--border); border-radius: 3px; padding: 1px 6px; font-size: .75rem; }
     .badge-evil { border-color: #c0392b; color: #e74c3c; }
@@ -379,6 +459,31 @@
       <div class="scene">
         <div class="scene-title"><span class="scene-num">1</span> Baaaa-d News</div>
         <p>The party is approached by a sheep carrying a Scroll of Speak With Animals. The sheep is Finethir Shinebright. Once they activate the scroll, he explains his predicament — but before he can finish, howling fills the air...</p>
+        <button class="fulltext-toggle" onclick="toggleText(this)">▸ Full text</button>
+        <div class="fulltext-body">The adventure begins as the party idle away an afternoon. They might be enjoying a drink at a tavern, resting at their base or simply walking down the street without a care in the world. No matter where they are, however, it soon becomes clear that something quite odd is happening.
+
+There is a sound of clattering hooves, surprised yelps and a frantic bleating. Before the party can react, a sheep bounds towards them. The beast appears to be a regular sheep in every way — fluffy white coat, black face, curled horns — but it is carrying an elaborate scroll in its mouth.
+
+The sheep tries to get close to the most magically-gifted member of the party and waves the scroll at them, letting them take it should they reach for it.
+
+A wax seal purports that it is a Scroll of Speak With Animals (Modified). If a character says this out loud — to explain to other party members, for example — the sheep appears to nod and bleat enthusiastically.
+
+Should they use the scroll (simply reading it aloud is enough to activate the spell within), all of them hear the sheep's baaing instantly morph into cultured, elven-accented Common, albeit with a slight hint of a bleat.
+
+After establishing that the player can understand what it's saying, the sheep introduces itself as Finethir Shinebright, a wizard in dire need of aid. If the players are willing to listen, he explains that he recognises them as adventurers and that he is in dire need of their aid.
+
+Specifically, he wants them to help take back an extremely powerful magical artefact from a dangerous, possibly insane wizard.
+
+He will attempt to tell his story, but shortly after he starts the sound of howling fills the air…
+
+SHINEBRIGHT'S BACKSTORY (when asked):
+• Until two years ago he owned and worked out of a tower on the outskirts of town. He was a wizard of no small talent, specialising in transmutation magic. His most prized possession — and probably the key to his success — was an incredibly rare Wand of True Polymorph.
+• One fateful night he ended from his meditative trance to find his apprentice, Ahmed Noke, standing over him, clutching the wand. Shinebright demanded to know what the boy was doing, but the only noise he could produce was an angry 'baaaaah'.
+• The wizard became a virtual prisoner in his own garden. He was forced to graze on nothing but grass and buttercups while hungry wolves and other beasts — actually polymorphed guards — looked on.
+• Last night he felt hope for the first time in many months when Noke left his home without closing the door. Shinebright snuck in, made his way to an old bookshelf and stole the Scroll of Speak to Animals. He then rushed into town with the scroll clenched between his teeth, searching desperately for the aura of magic that would indicate someone able to activate the spell when he found the party.
+• In order to turn back into his original form he needs another dose of True Polymorph. Which means he needs access to his old wand.
+• His former apprentice still dwells in Shinebright's old home, located just to the south-east of town. He keeps the wand on him at all times and only leaves if he absolutely has to.
+• He knows his old home's layout intimately, and is more than happy to describe it in endless detail.</div>
       </div>
 
       <div class="scene">
@@ -391,6 +496,31 @@
           <span class="creature-tag" onclick="openEntity('shinebright')">Finethir Shinebright (Pony)</span>
         </div>
         <div class="rp-note">Shinebright uses Pony stats (MM) but INT 18, WIS 14. All beasts act intelligently — they aim to capture, not kill.</div>
+        <button class="fulltext-toggle" onclick="toggleText(this)">▸ Full text</button>
+        <div class="fulltext-body">A loud howling fills the air, accompanied by the sound of angry yells and the occasional scream that seem to be drawing closer and closer.
+
+The cause quickly becomes apparent as a huge Half-Orc swaggers towards you, pushing his way through the crowd without a care for anybody standing in his way. In front of him walk what appear to be large wolves wearing iron collars, while a hulking figure in a dirty brown cloak travels in his wake with footfalls loud enough to be heard over the ruckus.
+
+The Half-Orc sets his small eyes on you and strides forward with one hand resting on the hilt of a greatsword.
+
+"That sheep is Master Noke's... he desires to have it back."
+
+─────────────────────────────────────
+The Half-Orc, Guz, is accompanied by a trio of collared Wolves (MM p341) with strangely intelligent eyes, while the huge figure behind him is actually a polymorphed Brown Bear (MM p319). He demands that he be given "Master Noke's sheep," which he claims has escaped, and is of great sent-ee-ment-all value to his master. Any mention of Shinebright's true nature is met with hollow, mirthless laughter.
+
+Guz is not a bright fellow, but he is very loyal and determined to complete his task. His trackers know that Shinebright is there, no matter how well the party tries to hide him, and will not take no for an answer.
+
+While he prefers violence and intimidation, he is also willing to offer bribes and promises of magical favours if that looks like the best option.
+
+If he feels like he's not making progress, Guz will simply attack without warning. The wolves will follow him up, while the cloaked figure will let its hood fall and run into combat with a terrible roar.
+
+The exact details of any battle that breaks out will depend on the location. If it takes place in an inn, tables and overturned chairs litter the floor. In a street, you may wish to have frightened passers-by form zones of difficult terrain.
+
+All of the beasts still have an intelligent human mind contained within them, and act intelligently. Guz is happy to charge into the front line and take on any heavy hitters alongside the Brown Bear.
+
+Meanwhile the Wolves will aim to cut round behind the party in a bid to grab Shinebright — he uses the statistics of a Pony (MM p325) but with INT and WIS scores of 18 and 14 respectively.
+
+They intend to capture Shinebright, not kill him. If Guz captures him, he and his allies will set off for Noke's home. The party will have to decide if they follow, potentially launching a chase scene.</div>
       </div>
 
       <div class="scene">
@@ -402,6 +532,41 @@
           <span class="creature-tag" onclick="openEntity('noke')">Ahmed Noke</span>
         </div>
         <div class="rp-note">Apes use greatswords: Slash +5, 10 (2d6+3) slashing. They flee below half health. Main door: DC 14 Athletics or DC 12 Thieves' Tools. Noke is in the central platform working on spells.</div>
+        <button class="fulltext-toggle" onclick="toggleText(this)">▸ Full text</button>
+        <div class="fulltext-body">The path to Noke's Tower cuts off from a main road a few miles out of town, darting off between a gap in the bushes. It is a well-trodden route that soon begins to weave its way between tall oak trees.
+
+Anyone who cares to examine the path for tracks will easily see the impression of many feet and paws, with the most fresh sets appearing to match up with the group led by Guz.
+
+The track continues through sparse woodland for perhaps a mile without any sign of habitation. Unless they know what to look for, the party may be somewhat surprised by the view that awaits them when Shinebright's old house appears through the treetops.
+
+─────────────────────────────────────
+Rather than stone or glass, the house before you seems to have been formed from the living branches of four sturdy oak trees. These have been shaped and woven to create three thick platforms.
+
+The lowest of these platforms is roughly 40ft across and sits about 10ft from the ground. The only obvious route up is a gentle slope formed of roots and branches that connects roughly with the main path. Branches curl around its base, creating a rough bowl shape around it. From where you stand it's possible to see flowers and small trees growing around its edge.
+
+By far the largest of the three platforms is the middle one, which looks to be around 60ft across. It is about 20ft above the ground and is fully enclosed with a wall formed from twisting branches. You can see evenly spaced, window-sized gaps, as well as what appears to be a door at the point closest to the garden platform.
+
+The final, tallest platform is roughly 30ft above the ground, and is much smaller than the others. It looks to be linked to the central platform by another small slope.
+
+Scattered beneath the platforms are two small wooden huts and a large outhouse.
+─────────────────────────────────────
+
+When the party arrives at the compound, there is a trio of Apes (MM p317) either sleeping or playing with an oversized pair of dice on the lawn, with iron greatswords stuck into the ground next to them. A Brown Bear is in the outhouse, taking care of business.
+
+The door to the central platform is almost always locked, requiring a DC14 Strength (Athletics) to break down or a DC12 Thieves' Tools check to pick. Inside, the area is divided up into three sections. One contains a combination library and lab, one a sitting room and one dining room/kitchen. Untidy bookshelves line much of the outer walls and worktables are covered with stacks of ink-spattered notes and complicated anatomical diagrams of various beasts and monsters.
+
+The tallest platform functions as a bedroom for Noke, containing little beyond a wardrobe, a large wooden bed and a cluttered dressing table.
+
+The huts contain one or two beds each, a few of which are oversized, as well as the general detritus of the common men who occupy them.
+
+LURING NOKE AWAY ("Ewe are Very Clever..."):
+Noke is naturally paranoid and Shinebright's recent escape hasn't exactly improved his outlook. This makes luring him away from the safety of his tower an extremely difficult task, though not an impossible one.
+
+Noke's lust for fame and power slightly outweighs his fear of being unseated, for the time being at least. This means that a very, very skilled set of liars with a sufficiently devious plan and a good helping of luck may be able to tempt him with the offer of a particularly prestigious, lucrative contract.
+
+Even so, when Noke leaves he will take all of his remaining bodyguards with him and will be extremely quick to suspect the party of betrayal if there is any hint of a double-cross.
+
+He will, of course, have his wand to hand at all times. Should he be given enough time to cast it, Noke will use a charge of True Polymorph to transmute some nearby item into a Wyrmling.</div>
       </div>
 
       <div class="scene">
@@ -413,12 +578,57 @@
           <span class="creature-tag" onclick="openEntity('gibbering-mouther')">Gibbering Mouther (Noke's last resort)</span>
         </div>
         <div class="rp-note">If the wand is overloaded or fails at the end, Noke becomes a Gibbering Mouther — attacks mindlessly until destroyed.</div>
+        <button class="fulltext-toggle" onclick="toggleText(this)">▸ Full text</button>
+        <div class="fulltext-body">Noke is in the central platform, working furiously on new spells. If he notices the party as they approach he will order them to "return the sheep — in return I will not destroy you all."
+
+If they talk, he will reveal his reasons for hating Shinebright and boast disjointedly of his own achievements. He will also ask if they killed 'my man, Guz,' and be visibly upset if they have. Should they refuse to return Shinebright he will order his men to attack.
+
+COMBAT TACTICS:
+The most important part of any fight that breaks out is Noke, who is offensively weak but can buff his allies dramatically. Once the Brown Bear emerges from the outhouse he will cast Enlarge/Reduce (PHB p237) on it to increase its damage. He will supplement his minions' attacks with Ray of Frost (PHB p271) but will focus on keeping up concentration.
+
+The Apes will act intelligently, and as they are wielding greatswords their Fist attack is replaced by a Slash that deals 10 (2d6+3) slashing damage. They aren't likely to fight to the death and will flee once they fall below half health.
+
+Once it is clear that the fight is lost, or a player simply gets too close to him, Noke will cast Expeditious Retreat (PHB p238) and flee into the central platform, locking the door behind him. He will move to his bedroom as fast as he can and cast True Polymorph on the largest thing he can find — his bed.
+
+THE BED DRAGON:
+Three rounds after he runs away he bursts from the roof of his bedroom riding the Bed Dragon Wyrmling, a beast that looks like a dragon carved from wood, with billowing bedsheets for wings and a tail that ends in a soft pillow. If the party are in the main living area he will crash through the ceiling and attack.
+
+The Wyrmling is not that smart and will use its Splinter Breath as often as possible, simply trying to attack the closest target when it is not available. It will, however, prioritise enemies that use fire against it. While riding the Wyrmling, Noke will simply use Ray of Frost to slow down any party members trying to retreat.
+
+Should the Wyrmling be lost — either to damage or because Noke loses concentration — it will turn back into a thoroughly beaten-up old bed.
+
+NOKE'S LAST RESORT:
+Desperate and unwilling to let his old master win, a babbling Noke will then attempt to use the wand on himself, intending to transmute his form into that of some monstrous creature. However, the over-used wand will crackle, fizz and malfunction with a loud bang, turning Noke into a Gibbering Mouther (MM p157) — a misshapen pile of flesh that bellows incoherently from dozens of mouths. The sad creature will attack mindlessly until completely destroyed.</div>
       </div>
 
       <div class="scene">
         <div class="scene-title"><span class="scene-num">5</span> Big Choices</div>
         <p>The wand is recovered but damaged. Shinebright wants to use it. The party can persuade him not to (DC 15 Charisma/Persuasion). Using it risks failure — Shinebright might die, or be turned into a Gibbering Mouther. If successful, Shinebright is restored.</p>
         <div class="rp-note">Shinebright's last wish if he dies: send word to his old college. Tower contents worth ~1,000gp to non-transmuters.</div>
+        <button class="fulltext-toggle" onclick="toggleText(this)">▸ Full text</button>
+        <div class="fulltext-body">Should the players recover the wand it becomes immediately obvious that it is damaged. Anyone proficient in Arcana can tell that it has been modified so it can be used more often, but overuse has rendered it extremely unreliable.
+
+If they wish to speak to Shinebright, a quick search of the central platform will allow them to find another Scroll of Speak with Animals. At the sight of his former apprentice's ruined corpse, Shinebright may even undergo some realisation of how poorly he treated his former apprentice and turn somber despite his triumph.
+
+Even if he is made aware of the dangers associated with his old wand, Shinebright will still be willing to risk his life in order to be turned back into an Elf. However, he is also open to persuasion if the party try to talk him out of it. A compelling argument and a DC 15 Charisma (Persuasion) will be enough to make the former Wizard reconsider his options.
+
+Before undergoing the risk of having the spell performed on him, Shinebright will ask that if he does die, the party send word to his old college.
+
+─────────────────────────────────────
+CONSEQUENCES
+
+IF THE SPELL SUCCEEDS: Shinebright congratulates the party heartily. He will have to be reminded of anything he actually promised them while he was still a sheep, and cannot actually pay any financial reward, as Noke was virtually bankrupt and had sold most items to pay for research materials and guards. He will, however, be willing to perform transmutations of up to 5th level for them, charging just enough to cover the components. He will also take in any polymorphed guards who fled, promising to work towards returning them to their natural shapes.
+
+IF THE SPELL FAILS: Shinebright dies permanently. The party is free to honour his final wish and leave the tower more-or-less intact, or loot to their hearts' content. The tower is surprisingly empty of anything of benefit to non-transmuters, however, with valuables restricted to expensive lab equipment and arcane paraphernalia estimated to be worth around 1,000gp. If the players wish they can also take the entire tower complex as their own, though this may cause trouble when the local nobles try to pay Noke a visit and find him missing…
+
+IF THE PARTY REFUSES: Shinebright accepts but will not give up his hopes entirely. He will take back his old home and work towards a way to remove his curse. In any case, he heads to the bedroom and slips on one of his old robes, which he wears until he is transformed back to his natural shape. Though he will be upset with them, Shinebright will acknowledge that he owes the party a large debt.
+
+In any case, any adventurers that help Shinebright to deal with Noke each receive 500 XP.
+
+"NOT LIKE THIS..." (Stealing the wand):
+A stealthy party may be able to steal the wand while Noke sleeps or a combination of lucky rolls and inventive tactics may allow a player to disarm the wizard. Should this happen, don't force the story back towards the 'ideal path', but allow it to develop naturally.
+
+One thing that you must do, however, is try to provide at least a hint of the dangers associated with the modified wand before the players try and use it. Possibly it sparks unnaturally when a character touches it, or Noke himself may feel honour-bound to warn them.</div>
       </div>
 
     </div>
@@ -908,7 +1118,8 @@ function openEntity(id) {
   const entity = ENTITIES[id];
   if (!entity) return;
   document.getElementById('modalTitle').textContent = entity.name;
-  document.getElementById('modalBody').innerHTML = entity.html;
+  document.getElementById('modalBody').innerHTML =
+    '<div id="hpTrackerMount">' + renderHpTracker(id) + '</div>' + entity.html;
   document.getElementById('modalOverlay').classList.add('open');
 }
 
@@ -962,6 +1173,133 @@ function closeEncounter() {
   document.getElementById('encounterOverlay').classList.remove('open');
   document.getElementById('encImgContainer').innerHTML = '';
 }
+
+function toggleText(btn) {
+  const body = btn.nextElementSibling;
+  const open = body.classList.toggle('open');
+  btn.textContent = (open ? '▾' : '▸') + ' Full text';
+}
+
+/* ── HP TRACKER ── */
+const HP_KEY = 'twsc-hp-v1';
+const ENTITY_HP = {
+  shinebright: 11, guz: 67, noke: 55, wolf: 11,
+  'brown-bear': 34, ape: 19, 'bed-dragon': 75, 'gibbering-mouther': 67
+};
+// How many tokens to create when you first start tracking a creature.
+const ENTITY_COUNT = { wolf: 3, ape: 3 };
+
+function loadHp() { try { return JSON.parse(localStorage.getItem(HP_KEY)) || {}; } catch (e) { return {}; } }
+function saveHp(s) { try { localStorage.setItem(HP_KEY, JSON.stringify(s)); } catch (e) {} }
+function entityMaxHp(id) { return ENTITY_HP[id]; }
+function defaultCount(id) { return ENTITY_COUNT[id] || 1; }
+function getTokens(id) { const s = loadHp(); return Array.isArray(s[id]) ? s[id] : null; }
+function setTokens(id, arr) { const s = loadHp(); s[id] = arr; saveHp(s); }
+function clearTokens(id) { const s = loadHp(); delete s[id]; saveHp(s); }
+function clampHp(id, v) { const m = entityMaxHp(id); v = parseInt(v, 10); if (isNaN(v)) v = 0; return Math.max(0, Math.min(m, v)); }
+
+function adjustHp(id, i, delta) { const t = getTokens(id); if (!t) return; t[i] = clampHp(id, t[i] + delta); setTokens(id, t); refreshTracker(id); }
+function setHp(id, i, val) { const t = getTokens(id); if (!t) return; t[i] = clampHp(id, val); setTokens(id, t); refreshTracker(id); }
+function applyDelta(id, i, inputEl, sign) {
+  const v = parseInt(inputEl.value, 10);
+  if (isNaN(v) || v === 0) return;
+  const t = getTokens(id); if (!t) return;
+  t[i] = clampHp(id, t[i] + sign * v);
+  setTokens(id, t); inputEl.value = ''; refreshTracker(id);
+}
+function addToken(id) {
+  let t = getTokens(id);
+  if (!t) t = Array(defaultCount(id)).fill(entityMaxHp(id));
+  else t.push(entityMaxHp(id));
+  setTokens(id, t); refreshTracker(id);
+}
+function removeToken(id, i) {
+  const t = getTokens(id); if (!t) return;
+  t.splice(i, 1);
+  if (t.length === 0) clearTokens(id); else setTokens(id, t);
+  refreshTracker(id);
+}
+function resetTokens(id) {
+  const t = getTokens(id); if (!t) return;
+  setTokens(id, Array(t.length).fill(entityMaxHp(id)));
+  refreshTracker(id);
+}
+
+function refreshTracker(id) {
+  const mount = document.getElementById('hpTrackerMount');
+  if (mount) mount.innerHTML = renderHpTracker(id);
+  refreshBadge(id);
+}
+
+function renderHpTracker(id) {
+  const max = entityMaxHp(id);
+  if (!max) return ''; // items etc. have no HP
+  const tokens = getTokens(id);
+  let rows = '';
+  if (tokens) {
+    tokens.forEach((hp, i) => {
+      const pct = Math.round(hp / max * 100);
+      const dead = hp <= 0 ? ' dead' : '';
+      rows += `<div class="hp-token${dead}">
+        <span class="hp-token-label">#${i + 1}</span>
+        <button class="hp-btn" onclick="adjustHp('${id}',${i},-1)">−</button>
+        <input class="hp-cur" value="${hp}" onchange="setHp('${id}',${i},this.value)">
+        <span class="hp-max">/ ${max}</span>
+        <button class="hp-btn" onclick="adjustHp('${id}',${i},1)">+</button>
+        <input class="hp-dmg" type="number" placeholder="amt" id="dmg-${id}-${i}">
+        <button class="hp-hit" onclick="applyDelta('${id}',${i},document.getElementById('dmg-${id}-${i}'),-1)">Damage</button>
+        <button class="hp-heal" onclick="applyDelta('${id}',${i},document.getElementById('dmg-${id}-${i}'),1)">Heal</button>
+        <button class="hp-remove" onclick="removeToken('${id}',${i})" title="Remove">✕</button>
+        <div class="hp-bar"><div class="hp-bar-fill" style="width:${pct}%"></div></div>
+      </div>`;
+    });
+  } else {
+    rows = `<div class="hp-empty">Not tracking yet.</div>`;
+  }
+  const actions = tokens
+    ? `<button onclick="addToken('${id}')">+ Add another</button><button onclick="resetTokens('${id}')">Reset to full</button>`
+    : `<button onclick="addToken('${id}')">▶ Start tracking</button>`;
+  return `<div class="hp-tracker">
+    <div class="hp-tracker-title">HP Tracker <span>saved on this device</span></div>
+    <div class="hp-tokens">${rows}</div>
+    <div class="hp-actions">${actions}</div>
+  </div>`;
+}
+
+/* Live HP badges on the entity cards */
+function refreshBadge(id) {
+  const el = document.getElementById('badge-' + id);
+  if (!el) return;
+  const max = entityMaxHp(id);
+  const t = getTokens(id);
+  if (!t || !max) { el.textContent = ''; el.className = 'hp-badge'; return; }
+  if (t.length === 1) {
+    const hp = t[0];
+    el.textContent = `HP ${hp}/${max}`;
+    el.className = 'hp-badge' + (hp <= 0 ? ' dead' : (hp < max ? ' hurt' : ''));
+  } else {
+    const alive = t.filter(h => h > 0).length;
+    el.textContent = `${alive}/${t.length} up · ${t.join('/')}`;
+    el.className = 'hp-badge' + (alive === 0 ? ' dead' : ' hurt');
+  }
+}
+
+function mountBadges() {
+  document.querySelectorAll('.entity-card').forEach(card => {
+    const oc = card.getAttribute('onclick') || '';
+    const m = oc.match(/openEntity\('([^']+)'\)/);
+    if (!m) return;
+    const id = m[1];
+    if (!document.getElementById('badge-' + id)) {
+      const b = document.createElement('div');
+      b.className = 'hp-badge';
+      b.id = 'badge-' + id;
+      card.appendChild(b);
+    }
+  });
+  Object.keys(ENTITY_HP).forEach(refreshBadge);
+}
+document.addEventListener('DOMContentLoaded', mountBadges);
 
 // Close modals with Escape
 document.addEventListener('keydown', function(e) {
