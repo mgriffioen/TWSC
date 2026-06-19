@@ -320,6 +320,12 @@
       margin-bottom: 10px;
     }
     .init-quick-label { font-size: .78rem; color: var(--text-dim); margin-right: 2px; }
+    .init-roll-prompt {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--bg3); border: 1px solid var(--gold);
+      border-radius: 6px; padding: 8px 10px; margin-bottom: 10px;
+    }
+    .init-roll-label { flex: 1; font-size: .9rem; color: var(--gold-light); }
     .init-quick-btn {
       background: var(--tag-bg); border: 1px solid var(--border);
       color: var(--gold); border-radius: 4px; padding: 4px 9px;
@@ -879,6 +885,14 @@ One thing that you must do, however, is try to provide at least a hint of the da
       <button class="init-quick-btn" onclick="initQuickAdd('Giant Rat', 2)">Rat (+2)</button>
       <button class="init-quick-btn" onclick="initQuickAdd('Giant Spider', 3)">Spider (+3)</button>
       <button class="init-quick-btn" onclick="initQuickAdd('Big Nick', 0)">Big Nick (+0)</button>
+    </div>
+
+    <div class="init-roll-prompt" id="initRollPrompt" style="display:none">
+      <span class="init-roll-label" id="initRollLabel">Roll for …</span>
+      <input class="init-input init-input-num" id="initRollInput" type="number"
+             inputmode="numeric" pattern="[0-9]*" placeholder="d20" min="1" max="20">
+      <button class="init-add-btn" onclick="initQuickConfirm()">✓</button>
+      <button class="init-clear-btn" onclick="initQuickCancel()" style="padding:8px 10px">✕</button>
     </div>
 
     <div class="init-add-row">
@@ -1818,16 +1832,39 @@ function initAdd() {
   initRender();
 }
 
+var _initQuickName = '', _initQuickBonus = 0;
+
 function initQuickAdd(name, bonus) {
-  const roll = parseInt(prompt('Roll for ' + name + ' (d20 + ' + (bonus >= 0 ? '+' : '') + bonus + '):'), 10);
-  if (isNaN(roll)) return;
-  const score = roll + bonus;
-  const s = initLoad();
-  s.combatants.push({ name: name + ' (' + score + ')', score: score });
-  s.combatants.sort(function(a, b) { return b.score - a.score; });
-  s.current = 0;
-  initSave(s);
-  initRender();
+  _initQuickName = name;
+  _initQuickBonus = bonus;
+  const bonusStr = (bonus >= 0 ? '+' : '') + bonus;
+  document.getElementById('initRollLabel').textContent =
+    'Roll for ' + name + ' (d20 ' + bonusStr + '):';
+  const input = document.getElementById('initRollInput');
+  input.value = '';
+  const prompt = document.getElementById('initRollPrompt');
+  prompt.style.display = 'flex';
+  input.focus();
+}
+
+function initQuickConfirm() {
+  const input = document.getElementById('initRollInput');
+  const roll = parseInt(input.value, 10);
+  if (!isNaN(roll) && roll >= 1) {
+    const score = roll + _initQuickBonus;
+    const s = initLoad();
+    s.combatants.push({ name: _initQuickName + ' (' + score + ')', score: score });
+    s.combatants.sort(function(a, b) { return b.score - a.score; });
+    s.current = 0;
+    initSave(s);
+    initRender();
+  }
+  initQuickCancel();
+}
+
+function initQuickCancel() {
+  document.getElementById('initRollPrompt').style.display = 'none';
+  document.getElementById('initRollInput').value = '';
 }
 
 function initNext() {
@@ -1878,6 +1915,10 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   document.getElementById('initName').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') document.getElementById('initScore').focus();
+  });
+  document.getElementById('initRollInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') initQuickConfirm();
+    if (e.key === 'Escape') initQuickCancel();
   });
 });
 </script>
