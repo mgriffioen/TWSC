@@ -216,7 +216,31 @@
       margin: 10px 0 6px;
     }
 
-    /* ── EXTERNAL LINK BUTTON ── */
+    /* ── PC STAT BLOCK LAYOUT ── */
+    .stat-block .sb-header {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: 6px; margin-bottom: 4px;
+    }
+    .stat-block .sb-type {
+      font-size: .78rem; font-style: italic; color: #58180d; font-family: Georgia, serif;
+    }
+    .stat-block .sb-divider {
+      border: none; border-top: 1px solid #9c2a1a; margin: 7px 0;
+    }
+    .stat-block .sb-prop {
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 8px; font-size: .84rem; padding: 2px 0; border-bottom: 1px dotted #d8c8a0;
+    }
+    .stat-block .sb-prop span:first-child {
+      font-weight: bold; color: #58180d; white-space: nowrap; flex-shrink: 0;
+    }
+    .stat-block .sb-prop span:last-child {
+      text-align: right; color: #2b2620;
+    }
+    .stat-block .sb-section {
+      font-variant: small-caps; font-size: .95rem; font-weight: bold;
+      color: #58180d; margin: 8px 0 3px; letter-spacing: .03em;
+    }
     .ext-link-btn {
       display: inline-block;
       margin-top: 10px;
