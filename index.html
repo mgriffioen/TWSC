@@ -1175,21 +1175,58 @@ const ENTITIES = {
     image: null,
     html: `
       <div class="summary-box" style="font-size:.9rem;">
-        <h3 style="color:var(--gold); margin-bottom:8px;">Modified Wand of True Polymorph</h3>
-        <p><em>A long thin twig from an oak tree, fitted with a bulbous rune-inscribed iron band. Cracks run along its length.</em></p>
-        <br>
-        <ul style="padding-left:18px; line-height:1.9;">
-          <li>Holds <strong>1d4–1 charges</strong> (minimum 1). Resets at dawn.</li>
+        <h3 style="color:var(--gold); margin-bottom:6px;">Modified Wand of True Polymorph</h3>
+        <p style="margin-bottom:8px;"><em>A long thin twig from an oak tree, fitted with a bulbous rune-inscribed iron band. Cracks run along its length.</em></p>
+        <ul style="padding-left:18px; line-height:1.8; margin-bottom:12px;">
+          <li>Holds <strong>1d4–1 charges</strong> (min 1). Resets at dawn.</li>
           <li>Usable by anyone with a spellcasting ability after 1 hour of attunement.</li>
           <li>DC 15 Int (Arcana) to identify the instability.</li>
+          <li>Before each use, roll <strong>DC 17 Int (Arcana)</strong>. Then consult the table below.</li>
         </ul>
-        <br>
-        <h3 style="color:#e74c3c; margin-bottom:6px;">On Each Use — DC 17 Int (Arcana)</h3>
-        <ul style="padding-left:18px; line-height:1.9;">
-          <li><strong>Success:</strong> Spell casts normally. DC increases by 1 for next use.</li>
-          <li><strong>Fail by ≤5:</strong> Target becomes a <span style="cursor:pointer;color:var(--gold);text-decoration:underline" onclick="openEntity('gibbering-mouther')">Gibbering Mouther</span> (no save). Attacks nearest. Needs 9th-level spell to reverse.</li>
-          <li><strong>Fail by >5:</strong> As above, plus wand <strong>explodes</strong> — 1d12 force damage per remaining charge to all within 10 ft. Wand is destroyed.</li>
-        </ul>
+
+        <h3 style="color:#e74c3c; margin-bottom:8px;">⚡ Wand Misfire Table — roll d20 before casting</h3>
+        <table style="width:100%; border-collapse:collapse; font-size:.82rem;">
+          <thead>
+            <tr style="background:var(--bg3); color:var(--gold);">
+              <th style="padding:5px 8px; text-align:left; border-bottom:1px solid var(--border); width:22%;">Roll (d20)</th>
+              <th style="padding:5px 8px; text-align:left; border-bottom:1px solid var(--border);">Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:rgba(46,204,113,.12);">
+              <td style="padding:5px 8px; border-bottom:1px solid var(--border); font-weight:bold;">20 (nat)</td>
+              <td style="padding:5px 8px; border-bottom:1px solid var(--border);"><strong>Surge of Power.</strong> Spell casts perfectly. Target also regains 2d8 HP and glows faintly gold for 1 minute. DC resets to 17.</td>
+            </tr>
+            <tr>
+              <td style="padding:5px 8px; border-bottom:1px solid var(--border); font-weight:bold;">17–19</td>
+              <td style="padding:5px 8px; border-bottom:1px solid var(--border);"><strong>Clean cast.</strong> Spell works normally. DC increases by 1 for the next use this session.</td>
+            </tr>
+            <tr style="background:rgba(200,151,58,.07);">
+              <td style="padding:5px 8px; border-bottom:1px solid var(--border); font-weight:bold;">13–16</td>
+              <td style="padding:5px 8px; border-bottom:1px solid var(--border);"><strong>Sputter.</strong> Spell casts but the effect lasts only 1 minute, then reverses. Everyone nearby hears a loud crack. DC increases by 2.</td>
+            </tr>
+            <tr>
+              <td style="padding:5px 8px; border-bottom:1px solid var(--border); font-weight:bold;">9–12</td>
+              <td style="padding:5px 8px; border-bottom:1px solid var(--border);"><strong>Wrong target.</strong> The spell fires but strikes a random creature within 30 ft (roll randomly, including allies). Effect is otherwise normal.</td>
+            </tr>
+            <tr style="background:rgba(200,151,58,.07);">
+              <td style="padding:5px 8px; border-bottom:1px solid var(--border); font-weight:bold;">5–8</td>
+              <td style="padding:5px 8px; border-bottom:1px solid var(--border);"><strong>Wild polymorph.</strong> Target is transformed into a random CR ≤ 1 beast (roll 1d6: 1 frog, 2 cat, 3 crab, 4 goat, 5 raven, 6 rat) for 1 hour. Not what was intended.</td>
+            </tr>
+            <tr>
+              <td style="padding:5px 8px; border-bottom:1px solid var(--border); font-weight:bold;">2–4</td>
+              <td style="padding:5px 8px; border-bottom:1px solid var(--border);"><strong>Gibbering Mouther.</strong> Target transforms into a <span style="cursor:pointer;color:var(--gold-light);text-decoration:underline" onclick="openEntity('gibbering-mouther')">Gibbering Mouther</span> (no save). Attacks the nearest creature. Requires a 9th-level spell to reverse.</td>
+            </tr>
+            <tr style="background:rgba(231,76,60,.12);">
+              <td style="padding:5px 8px; font-weight:bold;">1 (nat)</td>
+              <td style="padding:5px 8px;"><strong>Catastrophic failure.</strong> Target becomes a Gibbering Mouther <em>and</em> the wand explodes — <strong>2d12 force damage</strong> to all within 10 ft (DC 13 Dex save for half). Wand is destroyed.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="margin-top:12px; padding:8px; background:var(--bg3); border-left:3px solid var(--gold); border-radius:3px; font-size:.8rem; color:var(--text-dim);">
+          <strong style="color:var(--gold);">DM note — Shinebright's roll:</strong> DC 17 Int (Arcana). Shinebright is a wizard but he's a <em>sheep</em> with no hands — ruling suggestion: disadvantage, or let a PC roll on his behalf. The drama is the point. If the party persuades him not to try (DC 15 Persuasion), he reluctantly agrees and heads back into the world as a very wise, slightly wooly old man.
+        </div>
       </div>
     `
   }
