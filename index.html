@@ -499,10 +499,10 @@
 <nav>
   <a href="#summary">Summary</a>
   <a href="#scenes">Scenes</a>
+  <a href="#players">Players</a>
   <a href="#npcs">NPCs</a>
   <a href="#monsters">Monsters</a>
   <a href="#items">Items</a>
-  <a href="#players">Players</a>
   <a href="#initiative">Initiative</a>
 </nav>
 
@@ -712,6 +712,40 @@ One thing that you must do, however, is try to provide at least a hint of the da
     </div>
   </section>
 
+  <!-- ══ PLAYERS ══ -->
+  <section id="players">
+    <h2>Player Characters</h2>
+    <div class="entity-grid players-grid">
+      <div class="entity-card" onclick="openPC('bram')">
+        <div class="entity-name">Bram Thornvale</div>
+        <div class="entity-meta">Level 3 Half-Orc Ranger (Fey Wanderer) · Chris</div>
+        <div class="entity-tags">
+          <span class="creature-tag">AC 15</span>
+          <span class="creature-tag">HP 28</span>
+          <span class="creature-tag">Init +3</span>
+        </div>
+      </div>
+      <div class="entity-card" onclick="openPC('dusty')">
+        <div class="entity-name">Dusty Fleetwood</div>
+        <div class="entity-meta">Level 5 Hill Dwarf Druid (Circle of the Coastal) · Emily</div>
+        <div class="entity-tags">
+          <span class="creature-tag">AC 14</span>
+          <span class="creature-tag">HP 48</span>
+          <span class="creature-tag">Init +1</span>
+        </div>
+      </div>
+      <div class="entity-card" onclick="openPC('medrick')">
+        <div class="entity-name">Medrick Bendelroot</div>
+        <div class="entity-meta">Level 3 Lightfoot Halfling Rogue (Arcane Trickster) · Dan</div>
+        <div class="entity-tags">
+          <span class="creature-tag">AC 15</span>
+          <span class="creature-tag">HP 24</span>
+          <span class="creature-tag">Init +3</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ══ NPCs ══ -->
   <section id="npcs">
     <h2>NPCs</h2>
@@ -811,40 +845,6 @@ One thing that you must do, however, is try to provide at least a hint of the da
         <p>Long thin oak twig fitted with a bulbous rune-inscribed iron band. Holds 1d4-1 charges (min 1), resetting at dawn. Extremely unreliable — DC 17 Int (Arcana) on each use or bad things happen.</p>
         <div class="creatures">
           <span class="creature-tag" onclick="openEntity('wand')">Full Wand Rules</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ PLAYERS ══ -->
-  <section id="players">
-    <h2>Player Characters</h2>
-    <div class="entity-grid players-grid">
-      <div class="entity-card" onclick="openPC('bram')">
-        <div class="entity-name">Bram Thornvale</div>
-        <div class="entity-meta">Level 3 Half-Orc Ranger (Fey Wanderer) · Chris</div>
-        <div class="entity-tags">
-          <span class="creature-tag">AC 15</span>
-          <span class="creature-tag">HP 28</span>
-          <span class="creature-tag">Init +3</span>
-        </div>
-      </div>
-      <div class="entity-card" onclick="openPC('dusty')">
-        <div class="entity-name">Dusty Fleetwood</div>
-        <div class="entity-meta">Level 5 Hill Dwarf Druid (Circle of the Coastal) · Emily</div>
-        <div class="entity-tags">
-          <span class="creature-tag">AC 14</span>
-          <span class="creature-tag">HP 48</span>
-          <span class="creature-tag">Init +1</span>
-        </div>
-      </div>
-      <div class="entity-card" onclick="openPC('medrick')">
-        <div class="entity-name">Medrick Bendelroot</div>
-        <div class="entity-meta">Level 3 Lightfoot Halfling Rogue (Arcane Trickster) · Dan</div>
-        <div class="entity-tags">
-          <span class="creature-tag">AC 15</span>
-          <span class="creature-tag">HP 24</span>
-          <span class="creature-tag">Init +3</span>
         </div>
       </div>
     </div>
