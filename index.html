@@ -832,6 +832,12 @@ One thing that you must do, however, is try to provide at least a hint of the da
         <div class="entity-cr">CR 1 · 200 XP</div>
       </div>
 
+      <div class="entity-card" onclick="openEntity('seagull')">
+        <div class="entity-name">Seagull</div>
+        <div class="entity-type">Beast (coastal/common)</div>
+        <div class="entity-cr">CR 0 · 0 XP</div>
+      </div>
+
     </div>
   </section>
 
@@ -1363,6 +1369,40 @@ const ENTITIES = {
       </div>
       <div class="rp-note">A forest encounter on the road to Noke's tower. Lurks in tree canopy or a silken funnel web among the roots. Will attempt to Web a straggler and drag them into the trees. Retreats if it takes more than half its HP in a single round. Good tension-setter before the tower.</div>
       <a class="ext-link-btn" href="https://www.aidedd.org/en/rules/monsters/giant-spider/" target="_blank">🔗 Full stats on aidedd.org</a>
+    `
+  },
+
+  seagull: {
+    name: "Seagull",
+    imageAlt: "A white seagull with a yellow beak",
+    html: `
+      <div class="stat-block">
+        <div class="sb-name">Seagull</div>
+        <div class="sb-meta">Tiny beast, unaligned</div>
+        <hr>
+        <div class="sb-row"><strong>AC</strong> 12</div>
+        <div class="sb-row"><strong>HP</strong> 1 (1d4−1)</div>
+        <div class="sb-row"><strong>Speed</strong> 10 ft., fly 50 ft., swim 10 ft.</div>
+        <hr>
+        <div class="sb-abilities">
+          <div><div class="ab-label">STR</div><div class="ab-val">6 (−2)</div></div>
+          <div><div class="ab-label">DEX</div><div class="ab-val">14 (+2)</div></div>
+          <div><div class="ab-label">CON</div><div class="ab-val">9 (−1)</div></div>
+          <div><div class="ab-label">INT</div><div class="ab-val">2 (−4)</div></div>
+          <div><div class="ab-label">WIS</div><div class="ab-val">12 (+1)</div></div>
+          <div><div class="ab-label">CHA</div><div class="ab-val">7 (−2)</div></div>
+        </div>
+        <hr>
+        <div class="sb-row"><strong>Skills</strong> Perception +3</div>
+        <div class="sb-row"><strong>Senses</strong> Passive Perception 13</div>
+        <div class="sb-row"><strong>Challenge</strong> 0 (0 XP)</div>
+        <hr>
+        <div class="sb-actions-title">Actions</div>
+        <div class="sb-section">
+          <div class="trait"><em>Beak.</em> Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 1 piercing damage.</div>
+        </div>
+      </div>
+      <div class="rp-note">Found near docks, markets, or anywhere food is out in the open. Can be used as a familiar or ambient encounter flavour. If Dusty has her Bead of Sending, flavour it as a gull delivering the message. An adventuring party getting dive-bombed by gulls after someone leaves fish out is good chaos.</div>
     `
   },
 
