@@ -838,6 +838,12 @@ One thing that you must do, however, is try to provide at least a hint of the da
         <div class="entity-cr">CR 0 · 0 XP</div>
       </div>
 
+      <div class="entity-card" onclick="openEntity('owl')">
+        <div class="entity-name">Owl (Familiar)</div>
+        <div class="entity-type">Beast · Medrick's familiar</div>
+        <div class="entity-cr">CR 0 · 10 XP</div>
+      </div>
+
     </div>
   </section>
 
@@ -1369,6 +1375,44 @@ const ENTITIES = {
       </div>
       <div class="rp-note">A forest encounter on the road to Noke's tower. Lurks in tree canopy or a silken funnel web among the roots. Will attempt to Web a straggler and drag them into the trees. Retreats if it takes more than half its HP in a single round. Good tension-setter before the tower.</div>
       <a class="ext-link-btn" href="https://www.aidedd.org/en/rules/monsters/giant-spider/" target="_blank">🔗 Full stats on aidedd.org</a>
+    `
+  },
+
+  owl: {
+    name: "Owl (Familiar)",
+    imageAlt: "A small brown owl with large amber eyes",
+    html: `
+      <div class="stat-block">
+        <div class="sb-name">Owl</div>
+        <div class="sb-meta">Tiny beast, unaligned — MM p.333</div>
+        <hr>
+        <div class="sb-row"><strong>AC</strong> 11</div>
+        <div class="sb-row"><strong>HP</strong> 1 (1d4−1)</div>
+        <div class="sb-row"><strong>Speed</strong> 5 ft., fly 60 ft.</div>
+        <hr>
+        <div class="sb-abilities">
+          <div><div class="ab-label">STR</div><div class="ab-val">3 (−4)</div></div>
+          <div><div class="ab-label">DEX</div><div class="ab-val">13 (+1)</div></div>
+          <div><div class="ab-label">CON</div><div class="ab-val">8 (−1)</div></div>
+          <div><div class="ab-label">INT</div><div class="ab-val">2 (−4)</div></div>
+          <div><div class="ab-label">WIS</div><div class="ab-val">12 (+1)</div></div>
+          <div><div class="ab-label">CHA</div><div class="ab-val">7 (−2)</div></div>
+        </div>
+        <hr>
+        <div class="sb-row"><strong>Skills</strong> Perception +3, Stealth +3</div>
+        <div class="sb-row"><strong>Senses</strong> Darkvision 120 ft., passive Perception 13</div>
+        <div class="sb-row"><strong>Challenge</strong> 0 (10 XP)</div>
+        <hr>
+        <div class="sb-section">
+          <div class="trait"><em>Flyby.</em> The owl doesn't provoke opportunity attacks when it flies out of an enemy's reach.</div>
+          <div class="trait"><em>Keen Hearing and Sight.</em> The owl has advantage on Wisdom (Perception) checks that rely on hearing or sight.</div>
+        </div>
+        <div class="sb-actions-title">Actions</div>
+        <div class="sb-section">
+          <div class="trait"><em>Talons.</em> Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 1 slashing damage.</div>
+        </div>
+      </div>
+      <div class="rp-note">Medrick's familiar, bound via Find Familiar. As a familiar it cannot attack, but Medrick can use its senses (action), communicate with it telepathically within 100 ft., and deliver touch spells through it. The owl can scout ahead silently, deliver a Shocking Grasp, or act as a lookout perched in the rafters. If slain it simply vanishes — Medrick can re-summon it with another casting of Find Familiar (10 gp, 1 hour).</div>
     `
   },
 
