@@ -63,6 +63,53 @@
     }
     nav a:hover { background: var(--border); text-decoration: none; }
 
+    /* ── CAMPAIGN TABS ── */
+    .campaign-tabs {
+      display: flex; gap: 0;
+      background: #0d0906;
+      border-bottom: 2px solid var(--border);
+    }
+    .camp-tab {
+      flex: 1;
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      color: var(--text-dim);
+      font-family: 'Georgia', serif;
+      font-size: clamp(.78rem, 3vw, .95rem);
+      padding: 12px 10px;
+      cursor: pointer;
+      letter-spacing: .5px;
+      transition: color .15s, border-color .15s, background .15s;
+    }
+    .camp-tab:hover { color: var(--gold-light); background: var(--bg2); }
+    .camp-tab.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+      background: var(--bg2);
+    }
+    .campaign-view[hidden] { display: none; }
+
+    /* ── HEIST CARDS ── */
+    .heist-level {
+      background: var(--border);
+      color: var(--gold);
+      border-radius: 10px;
+      padding: 1px 9px;
+      font-size: .72rem;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+    .heist-premise { font-size: .88rem; color: var(--text); margin-bottom: 4px; }
+    .kftgv-disclaimer {
+      font-size: .8rem;
+      color: var(--text-dim);
+      font-style: italic;
+      border-left: 3px solid var(--border);
+      padding: 6px 12px;
+      margin-top: 10px;
+    }
+
     /* ── MAIN LAYOUT ── */
     main { max-width: 900px; margin: 0 auto; padding: 16px; }
     section { margin-bottom: 32px; }
@@ -495,6 +542,15 @@
   </div>
 </div>
 
+<!-- ══ CAMPAIGN TABS ══ -->
+<div class="campaign-tabs">
+  <button class="camp-tab active" data-camp="twsc" onclick="switchCampaign('twsc')">⚔ A Wild Sheep Chase</button>
+  <button class="camp-tab" data-camp="kftgv" onclick="switchCampaign('kftgv')">🗝 Keys from the Golden Vault</button>
+</div>
+
+<!-- ══════════ CAMPAIGN: A WILD SHEEP CHASE ══════════ -->
+<div class="campaign-view" id="camp-twsc">
+
 <!-- ══ HEADER ══ -->
 <header>
   <h1>⚔ A Wild Sheep Chase</h1>
@@ -919,6 +975,197 @@ One thing that you must do, however, is try to provide at least a hint of the da
   </section>
 
 </main>
+</div><!-- /camp-twsc -->
+
+<!-- ══════════ CAMPAIGN: KEYS FROM THE GOLDEN VAULT ══════════ -->
+<div class="campaign-view" id="camp-kftgv" hidden>
+
+  <header>
+    <h1>🗝 Keys from the Golden Vault</h1>
+    <p>DM Reference &mdash; Wizards of the Coast &mdash; 13 Heists, Levels 1&ndash;11</p>
+  </header>
+
+  <nav>
+    <a href="#gv-overview">Overview</a>
+    <a href="#gv-adventures">Heists</a>
+    <a href="#gv-roster">Roster</a>
+  </nav>
+
+  <main>
+
+    <!-- ══ OVERVIEW ══ -->
+    <section id="gv-overview">
+      <h2>Campaign Overview</h2>
+      <div class="summary-box">
+        <p><em>Keys from the Golden Vault</em> is a collection of 13 standalone heist adventures. Each is a self-contained job handed down by the <strong>Golden Vault</strong> — a secretive, benevolent organization that recruits skilled operatives to pull off morally-justified heists. A glowing <em>golden key</em> delivers each mission briefing.</p>
+        <p>The heists are designed to be run in any order as one-shots, or strung together into a campaign by promoting the party from rookie thieves to the Vault's elite. Running them in level order (below) makes a natural progression from level&nbsp;1 to level&nbsp;11.</p>
+        <h3>Linking to A Wild Sheep Chase</h3>
+        <p>After Shinebright is restored, the Golden Vault could recruit the party on the strength of how they handled Noke — discreet, capable, and willing to do the right thing. The first golden key arrives during downtime, just as the sheep once did.</p>
+        <div class="kftgv-disclaimer">The briefings below are original high-level summaries written for table reference — they are not reproduced from the book. Use the ▸ toggles to jot your own run notes (objective, layout, key NPCs, complications, reward) from your D&amp;D&nbsp;Beyond copy. Stat blocks and trackers get filled in per heist as you prep each one.</div>
+      </div>
+    </section>
+
+    <!-- ══ HEISTS ══ -->
+    <section id="gv-adventures">
+      <h2>The 13 Heists</h2>
+      <div class="scene-list">
+
+        <div class="scene">
+          <div class="scene-title"><span class="scene-num">1</span> The Murkmire Malevolence <span class="heist-level">Lvl 1</span></div>
+          <div class="heist-premise">The Vault sends the crew into a natural-history museum to recover a dangerous relic before a rival cell can weaponize it. A tight, low-stakes infiltration that teaches the heist format: scout the exhibit, slip past the night guards, lift the prize, and get out clean.</div>
+          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
+          <div class="fulltext-body">Objective: …
+Target / location: …
+Key NPCs: …
+Security & complications: …
+Reward / fallout: …</div>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="scene-num">2</span> The Stygian Gambit <span class="heist-level">Lvl 2</span></div>
+          <div class="heist-premise">A robbery of the Stygian Dream, a glittering gambling hall fronted by a scheming, devil-touched owner. The crew works the casino floor, finds the way into the count room, and walks out with the take before security tightens the net.</div>
+          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
+          <div class="fulltext-body">Objective: …
+Target / location: …
+Key NPCs: …
+Security & complications: …
+Reward / fallout: …</div>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="scene-num">3</span> Reach for the Stars <span class="heist-level">Lvl 3</span></div>
+          <div class="heist-premise">A reclusive cult guards a fallen fragment of a star at a remote retreat. The party infiltrates the compound and steals the celestial relic before the cult can complete the ritual they have planned for it.</div>
+          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
+          <div class="fulltext-body">Objective: …
+Target / location: …
+Key NPCs: …
+Security & complications: …
+Reward / fallout: …</div>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="scene-num">4</span> Prisoner 13 <span class="heist-level">Lvl 4</span></div>
+          <div class="heist-premise">A prison break. The crew infiltrates a fortress jail to extract a specific inmate — Prisoner&nbsp;13 — who holds knowledge the Vault needs. Breaking in is the easy part; getting both the party and the prisoner back out is the real job.</div>
+          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
+          <div class="fulltext-body">Objective: …
+Target / location: …
+Key NPCs: …
+Security & complications: …
+Reward / fallout: …</div>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="scene-num">5</span> Tockworth's Clockworks <span class="heist-level">Lvl 5</span></div>
+          <div class="heist-premise">An eccentric gnome's toy-and-automaton factory hides something the Vault wants. The party slips past clockwork guardians and Tockworth's whimsical-but-deadly traps to retrieve the prize from the workshop floor.</div>
+          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
+          <div class="fulltext-body">Objective: …
+Target / location: …
+Key NPCs: …
+Security & complications: …
+Reward / fallout: …</div>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="scene-num">6</span> Masterpiece Imbroglio <span class="heist-level">Lvl 5</span></div>
+          <div class="heist-premise">A high-end art heist. A coveted magical artwork hangs in a private gallery, and the crew must lift it — juggling forgery, distraction, and gallery security — without the swap being noticed until they are long gone.</div>
+          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
+          <div class="fulltext-body">Objective: …
+Target / location: …
+Key NPCs: …
+Security & complications: …
+Reward / fallout: …</div>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="scene-num">7</span> Axe from the Grave <span class="heist-level">Lvl 6</span></div>
+          <div class="heist-premise">A legendary enchanted instrument — "the Axe" — was entombed with its late owner. The crew must recover it from a haunted crypt ahead of a rival claimant, contending with the undead and the instrument's lingering magic.</div>
+          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
+          <div class="fulltext-body">Objective: …
+Target / location: …
+Key NPCs: …
+Security & complications: …
+Reward / fallout: …</div>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="scene-num">8</span> Vidorant's Vault <span class="heist-level">Lvl 7</span></div>
+          <div class="heist-premise">A classic master-thief job: break into the personal vault of the renowned thief Vidorant, beat her layered defenses, and take what's inside — ideally before she returns to find it missing.</div>
+          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
+          <div class="fulltext-body">Objective: …
+Target / location: …
+Key NPCs: …
+Security & complications: …
+Reward / fallout: …</div>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="scene-num">9</span> Shard of the Accursed <span class="heist-level">Lvl 8</span></div>
+          <div class="heist-premise">A cursed crystal shard radiating malevolence sits in a heavily warded site. The crew must steal the shard while resisting — and containing — the corrupting influence it presses on everyone nearby.</div>
+          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
+          <div class="fulltext-body">Objective: …
+Target / location: …
+Key NPCs: …
+Security & complications: …
+Reward / fallout: …</div>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="scene-num">10</span> Heart of Ashes <span class="heist-level">Lvl 8</span></div>
+          <div class="heist-premise">Deep in a volcanic stronghold lies a fiery relic — the Heart of Ashes. The party braves searing heat, fire creatures, and a powerful guardian to claim it and escape before the mountain decides to keep them.</div>
+          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
+          <div class="fulltext-body">Objective: …
+Target / location: …
+Key NPCs: …
+Security & complications: …
+Reward / fallout: …</div>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="scene-num">11</span> Affair on the Concordant Express <span class="heist-level">Lvl 9</span></div>
+          <div class="heist-premise">A heist aboard a planar train crossing the multiverse. The crew works the moving cars, eludes conductors and curious passengers, and cracks the secured car before the Express reaches its next stop.</div>
+          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
+          <div class="fulltext-body">Objective: …
+Target / location: …
+Key NPCs: …
+Security & complications: …
+Reward / fallout: …</div>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="scene-num">12</span> Party at Paliset Hall <span class="heist-level">Lvl 10</span></div>
+          <div class="heist-premise">An infiltration of a lavish high-society gala at a grand manor. Disguised as guests, the party works the room, slips into the restricted wings, and lifts the target — all without ever breaking cover.</div>
+          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
+          <div class="fulltext-body">Objective: …
+Target / location: …
+Key NPCs: …
+Security & complications: …
+Reward / fallout: …</div>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="scene-num">13</span> Fire and Darkness <span class="heist-level">Lvl 11</span></div>
+          <div class="heist-premise">The capstone. A daring strike against a powerful, well-defended foe wreathed in fire and shadow — the Vault's biggest job, demanding everything the crew has learned across the previous twelve.</div>
+          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
+          <div class="fulltext-body">Objective: …
+Target / location: …
+Key NPCs: …
+Security & complications: …
+Reward / fallout: …</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══ ROSTER ══ -->
+    <section id="gv-roster">
+      <h2>Heist Roster</h2>
+      <div class="summary-box">
+        <p>Stat blocks for each heist's guards, NPCs, and monsters get added here as you prep them. Most opposition in <em>Keys from the Golden Vault</em> uses standard <em>Monster Manual</em> creatures, so many can reuse the compendium and trackers under the Wild Sheep Chase tab. Tell me which heist you're prepping and I'll build out its roster and add the creatures to the initiative tracker.</p>
+      </div>
+    </section>
+
+  </main>
+</div><!-- /camp-kftgv -->
 
 <!-- ══ ENTITY DATA & SCRIPTS ══ -->
 <script>
@@ -1992,9 +2239,23 @@ function initToggleFullscreen() {
   }
 }
 
+const CAMPAIGN_KEY = 'twsc-campaign-v1';
+function switchCampaign(camp) {
+  document.getElementById('camp-twsc').hidden = (camp !== 'twsc');
+  document.getElementById('camp-kftgv').hidden = (camp !== 'kftgv');
+  document.querySelectorAll('.camp-tab').forEach(function(t) {
+    t.classList.toggle('active', t.getAttribute('data-camp') === camp);
+  });
+  try { localStorage.setItem(CAMPAIGN_KEY, camp); } catch (e) {}
+  window.scrollTo(0, 0);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   mountBadges();
   initRender();
+  let savedCamp = 'twsc';
+  try { savedCamp = localStorage.getItem(CAMPAIGN_KEY) || 'twsc'; } catch (e) {}
+  switchCampaign(savedCamp);
   // Allow Enter key to add a combatant
   document.getElementById('initScore').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') initAdd();
