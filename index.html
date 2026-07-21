@@ -318,6 +318,21 @@
     .stat-block .sb-prop span:last-child {
       text-align: right; color: #2b2620;
     }
+    /* sb-prop inside spell/item cards (dark themed background) */
+    .summary-box .sb-prop {
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 14px; font-size: .86rem; padding: 3px 0;
+      border-bottom: 1px dotted var(--border);
+    }
+    .summary-box .sb-prop span:first-child {
+      font-weight: bold; color: var(--gold-light); white-space: nowrap; flex-shrink: 0;
+    }
+    .summary-box .sb-prop span:last-child {
+      text-align: right; color: var(--text);
+    }
+    .summary-box .sb-divider {
+      border: none; border-top: 1px solid var(--border); margin: 8px 0;
+    }
     .stat-block .sb-section {
       /* font-variant: small-caps; */ font-size: .95rem; /* font-weight: bold; */
       color: #58180d; margin: 8px 0 3px; letter-spacing: .03em;
