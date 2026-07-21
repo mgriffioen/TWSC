@@ -91,15 +91,16 @@
     .campaign-view[hidden] { display: none; }
 
     /* ── CAMPAIGN COLOR THEMES ── */
+    /* Set on <body> so the global modal inherits the active palette too. */
     /* A Wild Sheep Chase — forest: greens, yellows, browns */
-    #camp-twsc {
+    body.theme-twsc {
       --bg:#13170b; --bg2:#1d2411; --bg3:#2a3319;
       --border:#4d5e26; --gold:#cda92f; --gold-light:#e9d15a;
       --text:#e9e4cc; --text-dim:#9aa274; --red:#b5472b;
       --green:#7cb342; --tag-bg:#2a3218;
     }
     /* The Murkmire Malevolence — royal: reds, blues, purples */
-    #camp-murkmire {
+    body.theme-murkmire {
       --bg:#120b1f; --bg2:#1b1030; --bg3:#271843;
       --border:#6a2f7a; --gold:#d1b24a; --gold-light:#f0d572;
       --text:#ece5f4; --text-dim:#a99cc2; --red:#d0413f;
@@ -2574,6 +2575,7 @@ function switchCampaign(camp) {
   document.querySelectorAll('.camp-tab').forEach(function(t) {
     t.classList.toggle('active', t.getAttribute('data-camp') === camp);
   });
+  CAMPAIGNS.forEach(function(c) { document.body.classList.toggle('theme-' + c, c === camp); });
   try { localStorage.setItem(CAMPAIGN_KEY, camp); } catch (e) {}
   window.scrollTo(0, 0);
 }
