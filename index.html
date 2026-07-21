@@ -90,6 +90,39 @@
     }
     .campaign-view[hidden] { display: none; }
 
+    /* ── CAMPAIGN COLOR THEMES ── */
+    /* A Wild Sheep Chase — forest: greens, yellows, browns */
+    #camp-twsc {
+      --bg:#13170b; --bg2:#1d2411; --bg3:#2a3319;
+      --border:#4d5e26; --gold:#cda92f; --gold-light:#e9d15a;
+      --text:#e9e4cc; --text-dim:#9aa274; --red:#b5472b;
+      --green:#7cb342; --tag-bg:#2a3218;
+    }
+    /* The Murkmire Malevolence — royal: reds, blues, purples */
+    #camp-murkmire {
+      --bg:#120b1f; --bg2:#1b1030; --bg3:#271843;
+      --border:#6a2f7a; --gold:#d1b24a; --gold-light:#f0d572;
+      --text:#ece5f4; --text-dim:#a99cc2; --red:#d0413f;
+      --green:#5b83c4; --tag-bg:#291842;
+    }
+    #camp-murkmire header h1 { text-shadow: 0 0 18px rgba(120,90,200,.45); }
+
+    /* ── RESOURCE TABLES ── */
+    .res-table { width:100%; border-collapse:collapse; font-size:.85rem; margin-top:6px; }
+    .res-table th {
+      text-align:left; color:var(--gold);
+      border-bottom:1px solid var(--border); padding:6px 8px;
+    }
+    .res-table td {
+      padding:6px 8px; border-bottom:1px solid var(--bg3);
+      color:var(--text); vertical-align:top;
+    }
+    .res-table td.res-roll {
+      color:var(--gold-light); font-weight:bold;
+      width:2.6em; text-align:center; white-space:nowrap;
+    }
+    .res-table tr:nth-child(even) td { background:rgba(255,255,255,.03); }
+
     /* ── HEIST CARDS ── */
     .heist-level {
       background: var(--border);
@@ -324,9 +357,9 @@
     /* Full-screen mode: body gets .init-fs class */
     body.init-fs nav,
     body.init-fs header,
-    body.init-fs main > section:not(#initiative) { display: none !important; }
+    body.init-fs main > section:not(.init-section) { display: none !important; }
     body.init-fs main { padding: 0; }
-    body.init-fs #initiative {
+    body.init-fs .init-section {
       position: fixed; inset: 0; z-index: 400;
       background: var(--bg); overflow-y: auto;
       padding: 16px; margin: 0;
@@ -545,7 +578,7 @@
 <!-- ══ CAMPAIGN TABS ══ -->
 <div class="campaign-tabs">
   <button class="camp-tab active" data-camp="twsc" onclick="switchCampaign('twsc')">⚔ A Wild Sheep Chase</button>
-  <button class="camp-tab" data-camp="kftgv" onclick="switchCampaign('kftgv')">🗝 Keys from the Golden Vault</button>
+  <button class="camp-tab" data-camp="murkmire" onclick="switchCampaign('murkmire')">🏛 The Murkmire Malevolence</button>
 </div>
 
 <!-- ══════════ CAMPAIGN: A WILD SHEEP CHASE ══════════ -->
@@ -565,7 +598,7 @@
   <a href="#npcs">NPCs</a>
   <a href="#monsters">Monsters</a>
   <a href="#items">Items</a>
-  <a href="#initiative">Initiative</a>
+  <a href="#initiative-twsc">Initiative</a>
 </nav>
 
 <main>
@@ -924,248 +957,179 @@ One thing that you must do, however, is try to provide at least a hint of the da
     </div>
   </section>
 
-  <!-- ══ INITIATIVE TRACKER ══ -->
-  <section id="initiative">
-    <div class="init-header-row">
-      <h2 style="margin:0">Initiative Tracker</h2>
-      <button class="init-fullscreen-btn" id="initFsBtn" onclick="initToggleFullscreen()">⛶ Full Screen</button>
-    </div>
-    <button class="init-back-btn" id="initBackBtn" onclick="initToggleFullscreen()">← Back to Guide</button>
-
-    <div class="init-controls">
-      <div class="init-round-box">
-        <span class="init-round-label">Round</span>
-        <span class="init-round-num" id="initRound">1</span>
-      </div>
-      <button class="init-next-btn" onclick="initNext()">▶ Next Turn</button>
-      <button class="init-clear-btn" onclick="initClear()">✕ Clear All</button>
-    </div>
-
-    <div class="init-quick-add">
-      <span class="init-quick-label">Quick add:</span>
-      <button class="init-quick-btn" onclick="initQuickAdd('Bram', 3)">Bram (+3)</button>
-      <button class="init-quick-btn" onclick="initQuickAdd('Dusty', 1)">Dusty (+1)</button>
-      <button class="init-quick-btn" onclick="initQuickAdd('Medrick', 3)">Medrick (+3)</button>
-      <button class="init-quick-btn" onclick="initQuickAdd('Guz', 0)">Guz (+0)</button>
-      <button class="init-quick-btn" onclick="initQuickAdd('Noke', 2)">Noke (+2)</button>
-      <button class="init-quick-btn" onclick="initQuickAdd('Wolf', 2)">Wolf (+2)</button>
-      <button class="init-quick-btn" onclick="initQuickAdd('Brown Bear', 0)">Bear (+0)</button>
-      <button class="init-quick-btn" onclick="initQuickAdd('Giant Rat', 2)">Rat (+2)</button>
-      <button class="init-quick-btn" onclick="initQuickAdd('Giant Spider', 3)">Spider (+3)</button>
-      <button class="init-quick-btn" onclick="initQuickAdd('Big Nick', 0)">Big Nick (+0)</button>
-      <button class="init-quick-btn" onclick="initQuickAdd('Seagull', 2)">Seagull (+2)</button>
-      <button class="init-quick-btn" onclick="initQuickAdd('Owl', 1)">Owl (+1)</button>
-    </div>
-
-    <div class="init-roll-prompt" id="initRollPrompt" style="display:none">
-      <span class="init-roll-label" id="initRollLabel">Roll for …</span>
-      <input class="init-input init-input-num" id="initRollInput" type="number"
-             inputmode="numeric" pattern="[0-9]*" placeholder="d20" min="1" max="20">
-      <button class="init-add-btn" onclick="initQuickConfirm()">✓</button>
-      <button class="init-clear-btn" onclick="initQuickCancel()" style="padding:8px 10px">✕</button>
-    </div>
-
-    <div class="init-add-row">
-      <input class="init-input" id="initName" type="text" placeholder="Name" maxlength="30">
-      <input class="init-input init-input-num" id="initScore" type="number" placeholder="Roll" min="1" max="30">
-      <button class="init-add-btn" onclick="initAdd()">+ Add</button>
-    </div>
-
-    <div id="initList" class="init-list"></div>
-  </section>
+  <!-- ══ INITIATIVE TRACKER (generated by JS) ══ -->
+  <section class="init-section" id="initiative-twsc"></section>
 
 </main>
 </div><!-- /camp-twsc -->
 
-<!-- ══════════ CAMPAIGN: KEYS FROM THE GOLDEN VAULT ══════════ -->
-<div class="campaign-view" id="camp-kftgv" hidden>
+<!-- ══════════ CAMPAIGN: THE MURKMIRE MALEVOLENCE ══════════ -->
+<div class="campaign-view" id="camp-murkmire" hidden>
 
   <header>
-    <h1>🗝 Keys from the Golden Vault</h1>
-    <p>DM Reference &mdash; Wizards of the Coast &mdash; 13 Heists, Levels 1&ndash;11</p>
+    <h1>🏛 The Murkmire Malevolence</h1>
+    <p>DM Reference &mdash; Keys from the Golden Vault &mdash; 1st Level</p>
   </header>
 
   <nav>
-    <a href="#gv-overview">Overview</a>
-    <a href="#gv-adventures">Heists</a>
-    <a href="#gv-roster">Roster</a>
+    <a href="#mk-overview">Overview</a>
+    <a href="#mk-tables">Tables</a>
+    <a href="#mk-spells">Spells</a>
+    <a href="#mk-monsters">Monsters</a>
+    <a href="#mk-items">Items</a>
+    <a href="#initiative-murkmire">Initiative</a>
   </nav>
 
   <main>
 
     <!-- ══ OVERVIEW ══ -->
-    <section id="gv-overview">
-      <h2>Campaign Overview</h2>
+    <section id="mk-overview">
+      <h2>Overview</h2>
       <div class="summary-box">
-        <p><em>Keys from the Golden Vault</em> is a collection of 13 standalone heist adventures. Each is a self-contained job handed down by the <strong>Golden Vault</strong> — a secretive, benevolent organization that recruits skilled operatives to pull off morally-justified heists. A glowing <em>golden key</em> delivers each mission briefing.</p>
-        <p>The heists are designed to be run in any order as one-shots, or strung together into a campaign by promoting the party from rookie thieves to the Vault's elite. Running them in level order (below) makes a natural progression from level&nbsp;1 to level&nbsp;11.</p>
-        <h3>Linking to A Wild Sheep Chase</h3>
-        <p>After Shinebright is restored, the Golden Vault could recruit the party on the strength of how they handled Noke — discreet, capable, and willing to do the right thing. The first golden key arrives during downtime, just as the sheep once did.</p>
-        <div class="kftgv-disclaimer">The briefings below are original high-level summaries written for table reference — they are not reproduced from the book. Use the ▸ toggles to jot your own run notes (objective, layout, key NPCs, complications, reward) from your D&amp;D&nbsp;Beyond copy. Stat blocks and trackers get filled in per heist as you prep each one.</div>
+        <p>The Golden Vault's first job for the crew: recover a stolen relic from a natural-history museum before it can be misused. The heist plays out across a glittering gala upstairs and the locked-down exhibits and basement below &mdash; slipping past guards, an animatronic dinosaur, and a few nastier surprises.</p>
+        <p>Run the full story, maps, and room keys from your D&amp;D&nbsp;Beyond copy. The tables, spell cards, stat blocks, and item details below are quick at-the-table references pulled together for this adventure.</p>
       </div>
     </section>
 
-    <!-- ══ HEISTS ══ -->
-    <section id="gv-adventures">
-      <h2>The 13 Heists</h2>
+    <!-- ══ TABLES ══ -->
+    <section id="mk-tables">
+      <h2>Reference Tables</h2>
       <div class="scene-list">
 
         <div class="scene">
-          <div class="scene-title"><span class="scene-num">1</span> The Murkmire Malevolence <span class="heist-level">Lvl 1</span></div>
-          <div class="heist-premise">The Vault sends the crew into a natural-history museum to recover a dangerous relic before a rival cell can weaponize it. A tight, low-stakes infiltration that teaches the heist format: scout the exhibit, slip past the night guards, lift the prize, and get out clean.</div>
-          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
-          <div class="fulltext-body">Objective: …
-Target / location: …
-Key NPCs: …
-Security & complications: …
-Reward / fallout: …</div>
+          <div class="scene-title">Museum Guards (d12)</div>
+          <table class="res-table">
+            <tr><th>d12</th><th>Guard Description</th></tr>
+            <tr><td class="res-roll">1</td><td>Darrison Blackwaters (neutral human), a former soldier who takes everything literally</td></tr>
+            <tr><td class="res-roll">2</td><td>Franceena Van Lictor (neutral good elf), a sarcastic newbie who respects history</td></tr>
+            <tr><td class="res-roll">3</td><td>Billie Quartermile (lawful neutral halfling), who loves policy and procedure</td></tr>
+            <tr><td class="res-roll">4</td><td>Milanova Wumplestocking (lawful good gnome), who is very serious but loves a good pun</td></tr>
+            <tr><td class="res-roll">5</td><td>Garent Millaneff (neutral evil human), a bully who loves money and bragging rights</td></tr>
+            <tr><td class="res-roll">6</td><td>Violet Pendergilt (neutral good human), a wistful dreamer who plans to quit soon</td></tr>
+            <tr><td class="res-roll">7</td><td>Sureth Dhanvhal (neutral human), a reserve soldier who is always pressed for time</td></tr>
+            <tr><td class="res-roll">8</td><td>Brendara Valindril (lawful neutral elf), a graduate student in history at the university</td></tr>
+            <tr><td class="res-roll">9</td><td>Grendor Battleaxe (neutral good dwarf), a wanderer paying off a debt to the museum</td></tr>
+            <tr><td class="res-roll">10</td><td>Clark Jonathan Vanth (lawful good human), a young and naive individual</td></tr>
+            <tr><td class="res-roll">11</td><td>Sareena Shu (chaotic neutral tiefling), an overeager lover of history and learning</td></tr>
+            <tr><td class="res-roll">12</td><td>Maryam Bikram (lawful neutral human), a city watch veteran who rigidly enforces the rules</td></tr>
+          </table>
         </div>
 
         <div class="scene">
-          <div class="scene-title"><span class="scene-num">2</span> The Stygian Gambit <span class="heist-level">Lvl 2</span></div>
-          <div class="heist-premise">A robbery of the Stygian Dream, a glittering gambling hall fronted by a scheming, devil-touched owner. The crew works the casino floor, finds the way into the count room, and walks out with the take before security tightens the net.</div>
-          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
-          <div class="fulltext-body">Objective: …
-Target / location: …
-Key NPCs: …
-Security & complications: …
-Reward / fallout: …</div>
+          <div class="scene-title">Guard Locations After Hours</div>
+          <table class="res-table">
+            <tr><th>Area</th><th>Guards</th></tr>
+            <tr><td class="res-roll">V1</td><td>2</td></tr>
+            <tr><td class="res-roll">V3</td><td>1</td></tr>
+            <tr><td class="res-roll">V4</td><td>1</td></tr>
+            <tr><td class="res-roll">V8</td><td>1</td></tr>
+            <tr><td class="res-roll">V9&ndash;V10</td><td>2</td></tr>
+            <tr><td class="res-roll">V11</td><td>1</td></tr>
+            <tr><td class="res-roll">V12</td><td>2</td></tr>
+            <tr><td class="res-roll">V13</td><td>2</td></tr>
+          </table>
         </div>
 
         <div class="scene">
-          <div class="scene-title"><span class="scene-num">3</span> Reach for the Stars <span class="heist-level">Lvl 3</span></div>
-          <div class="heist-premise">A reclusive cult guards a fallen fragment of a star at a remote retreat. The party infiltrates the compound and steals the celestial relic before the cult can complete the ritual they have planned for it.</div>
-          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
-          <div class="fulltext-body">Objective: …
-Target / location: …
-Key NPCs: …
-Security & complications: …
-Reward / fallout: …</div>
+          <div class="scene-title">Gala Attendees (d4)</div>
+          <table class="res-table">
+            <tr><th>d4</th><th>Attendee</th></tr>
+            <tr><td class="res-roll">1</td><td>Captain Frankheim Walters (chaotic neutral human), who never served in the military but implies he did</td></tr>
+            <tr><td class="res-roll">2</td><td>Georgina Lucina Vandylarahal (neutral evil elf), a sneering heir to a mining fortune</td></tr>
+            <tr><td class="res-roll">3</td><td>Countess Helene Danforth (neutral good human), a member of an ancient, titled family with little actual wealth</td></tr>
+            <tr><td class="res-roll">4</td><td>Dr. Horthnar Stonecrusher (lawful good dwarf), a surgeon who loves natural history and gemstones</td></tr>
+          </table>
         </div>
 
         <div class="scene">
-          <div class="scene-title"><span class="scene-num">4</span> Prisoner 13 <span class="heist-level">Lvl 4</span></div>
-          <div class="heist-premise">A prison break. The crew infiltrates a fortress jail to extract a specific inmate — Prisoner&nbsp;13 — who holds knowledge the Vault needs. Breaking in is the easy part; getting both the party and the prisoner back out is the real job.</div>
-          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
-          <div class="fulltext-body">Objective: …
-Target / location: …
-Key NPCs: …
-Security & complications: …
-Reward / fallout: …</div>
-        </div>
-
-        <div class="scene">
-          <div class="scene-title"><span class="scene-num">5</span> Tockworth's Clockworks <span class="heist-level">Lvl 5</span></div>
-          <div class="heist-premise">An eccentric gnome's toy-and-automaton factory hides something the Vault wants. The party slips past clockwork guardians and Tockworth's whimsical-but-deadly traps to retrieve the prize from the workshop floor.</div>
-          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
-          <div class="fulltext-body">Objective: …
-Target / location: …
-Key NPCs: …
-Security & complications: …
-Reward / fallout: …</div>
-        </div>
-
-        <div class="scene">
-          <div class="scene-title"><span class="scene-num">6</span> Masterpiece Imbroglio <span class="heist-level">Lvl 5</span></div>
-          <div class="heist-premise">A high-end art heist. A coveted magical artwork hangs in a private gallery, and the crew must lift it — juggling forgery, distraction, and gallery security — without the swap being noticed until they are long gone.</div>
-          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
-          <div class="fulltext-body">Objective: …
-Target / location: …
-Key NPCs: …
-Security & complications: …
-Reward / fallout: …</div>
-        </div>
-
-        <div class="scene">
-          <div class="scene-title"><span class="scene-num">7</span> Axe from the Grave <span class="heist-level">Lvl 6</span></div>
-          <div class="heist-premise">A legendary enchanted instrument — "the Axe" — was entombed with its late owner. The crew must recover it from a haunted crypt ahead of a rival claimant, contending with the undead and the instrument's lingering magic.</div>
-          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
-          <div class="fulltext-body">Objective: …
-Target / location: …
-Key NPCs: …
-Security & complications: …
-Reward / fallout: …</div>
-        </div>
-
-        <div class="scene">
-          <div class="scene-title"><span class="scene-num">8</span> Vidorant's Vault <span class="heist-level">Lvl 7</span></div>
-          <div class="heist-premise">A classic master-thief job: break into the personal vault of the renowned thief Vidorant, beat her layered defenses, and take what's inside — ideally before she returns to find it missing.</div>
-          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
-          <div class="fulltext-body">Objective: …
-Target / location: …
-Key NPCs: …
-Security & complications: …
-Reward / fallout: …</div>
-        </div>
-
-        <div class="scene">
-          <div class="scene-title"><span class="scene-num">9</span> Shard of the Accursed <span class="heist-level">Lvl 8</span></div>
-          <div class="heist-premise">A cursed crystal shard radiating malevolence sits in a heavily warded site. The crew must steal the shard while resisting — and containing — the corrupting influence it presses on everyone nearby.</div>
-          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
-          <div class="fulltext-body">Objective: …
-Target / location: …
-Key NPCs: …
-Security & complications: …
-Reward / fallout: …</div>
-        </div>
-
-        <div class="scene">
-          <div class="scene-title"><span class="scene-num">10</span> Heart of Ashes <span class="heist-level">Lvl 8</span></div>
-          <div class="heist-premise">Deep in a volcanic stronghold lies a fiery relic — the Heart of Ashes. The party braves searing heat, fire creatures, and a powerful guardian to claim it and escape before the mountain decides to keep them.</div>
-          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
-          <div class="fulltext-body">Objective: …
-Target / location: …
-Key NPCs: …
-Security & complications: …
-Reward / fallout: …</div>
-        </div>
-
-        <div class="scene">
-          <div class="scene-title"><span class="scene-num">11</span> Affair on the Concordant Express <span class="heist-level">Lvl 9</span></div>
-          <div class="heist-premise">A heist aboard a planar train crossing the multiverse. The crew works the moving cars, eludes conductors and curious passengers, and cracks the secured car before the Express reaches its next stop.</div>
-          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
-          <div class="fulltext-body">Objective: …
-Target / location: …
-Key NPCs: …
-Security & complications: …
-Reward / fallout: …</div>
-        </div>
-
-        <div class="scene">
-          <div class="scene-title"><span class="scene-num">12</span> Party at Paliset Hall <span class="heist-level">Lvl 10</span></div>
-          <div class="heist-premise">An infiltration of a lavish high-society gala at a grand manor. Disguised as guests, the party works the room, slips into the restricted wings, and lifts the target — all without ever breaking cover.</div>
-          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
-          <div class="fulltext-body">Objective: …
-Target / location: …
-Key NPCs: …
-Security & complications: …
-Reward / fallout: …</div>
-        </div>
-
-        <div class="scene">
-          <div class="scene-title"><span class="scene-num">13</span> Fire and Darkness <span class="heist-level">Lvl 11</span></div>
-          <div class="heist-premise">The capstone. A daring strike against a powerful, well-defended foe wreathed in fire and shadow — the Vault's biggest job, demanding everything the crew has learned across the previous twelve.</div>
-          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Run notes</button>
-          <div class="fulltext-body">Objective: …
-Target / location: …
-Key NPCs: …
-Security & complications: …
-Reward / fallout: …</div>
+          <div class="scene-title">Museum Gossip (d4)</div>
+          <table class="res-table">
+            <tr><th>d4</th><th>Juicy Tidbit</th></tr>
+            <tr><td class="res-roll">1</td><td>The curator has been fidgeting with her clutch all night. Has she gotten some sort of bad news? Maybe she&rsquo;s about to fire someone!</td></tr>
+            <tr><td class="res-roll">2</td><td>Sometimes the museum keeps displays hidden in the basement at night. The curator must think her own guards might steal something!</td></tr>
+            <tr><td class="res-roll">3</td><td>It&rsquo;s unfortunate that the museum has fallen on hard financial times. If only they sold all those ore and gem samples they keep in the basement. I&rsquo;ve heard there&rsquo;s a fortune down there!</td></tr>
+            <tr><td class="res-roll">4</td><td>The curator adores oversized vintage dolls. I&rsquo;ve heard she keeps one in her office that&rsquo;s as big as a grown human!</td></tr>
+          </table>
         </div>
 
       </div>
     </section>
 
-    <!-- ══ ROSTER ══ -->
-    <section id="gv-roster">
-      <h2>Heist Roster</h2>
-      <div class="summary-box">
-        <p>Stat blocks for each heist's guards, NPCs, and monsters get added here as you prep them. Most opposition in <em>Keys from the Golden Vault</em> uses standard <em>Monster Manual</em> creatures, so many can reuse the compendium and trackers under the Wild Sheep Chase tab. Tell me which heist you're prepping and I'll build out its roster and add the creatures to the initiative tracker.</p>
+    <!-- ══ SPELLS ══ -->
+    <section id="mk-spells">
+      <h2>Spell Cards</h2>
+      <div class="entity-grid">
+        <div class="entity-card" onclick="openEntity('spell-alarm')">
+          <div class="entity-name">Alarm</div>
+          <div class="entity-type">1st &middot; Abjuration (ritual)</div>
+        </div>
+        <div class="entity-card" onclick="openEntity('spell-arcane-lock')">
+          <div class="entity-name">Arcane Lock</div>
+          <div class="entity-type">2nd &middot; Abjuration</div>
+        </div>
+        <div class="entity-card" onclick="openEntity('spell-continual-flame')">
+          <div class="entity-name">Continual Flame</div>
+          <div class="entity-type">2nd &middot; Evocation</div>
+        </div>
       </div>
     </section>
+
+    <!-- ══ MONSTERS ══ -->
+    <section id="mk-monsters">
+      <h2>Monsters &amp; NPCs</h2>
+      <div class="entity-grid">
+        <div class="entity-card" onclick="openEntity('guard')">
+          <div class="entity-name">Guard</div>
+          <div class="entity-type">Humanoid</div>
+          <div class="entity-cr">CR 1/8 &middot; 25 XP</div>
+        </div>
+        <div class="entity-card" onclick="openEntity('animated-armor')">
+          <div class="entity-name">Animated Armor</div>
+          <div class="entity-type">Construct</div>
+          <div class="entity-cr">CR 1 &middot; 200 XP</div>
+        </div>
+        <div class="entity-card" onclick="openEntity('scarecrow')">
+          <div class="entity-name">Scarecrow</div>
+          <div class="entity-type">Construct</div>
+          <div class="entity-cr">CR 1 &middot; 200 XP</div>
+        </div>
+        <div class="entity-card" onclick="openEntity('animatronic-allosaurus')">
+          <div class="entity-name">Animatronic Allosaurus</div>
+          <div class="entity-type">Construct</div>
+          <div class="entity-cr">CR 2 &middot; 450 XP</div>
+        </div>
+        <div class="entity-card" onclick="openEntity('mimic')">
+          <div class="entity-name">Mimic</div>
+          <div class="entity-type">Monstrosity (shapechanger)</div>
+          <div class="entity-cr">CR 2 &middot; 450 XP</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ ITEMS ══ -->
+    <section id="mk-items">
+      <h2>Items</h2>
+      <div class="entity-grid">
+        <div class="entity-card" onclick="openEntity('potion-vitality')">
+          <div class="entity-name">Potion of Vitality</div>
+          <div class="entity-type">Potion &middot; Very Rare</div>
+        </div>
+        <div class="entity-card" onclick="openEntity('dagger-plus-1')">
+          <div class="entity-name">+1 Dagger</div>
+          <div class="entity-type">Weapon (dagger) &middot; Uncommon</div>
+        </div>
+        <div class="entity-card" onclick="openEntity('handaxe-plus-1')">
+          <div class="entity-name">+1 Handaxe</div>
+          <div class="entity-type">Weapon (handaxe) &middot; Uncommon</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ INITIATIVE TRACKER (generated by JS) ══ -->
+    <section class="init-section" id="initiative-murkmire"></section>
 
   </main>
-</div><!-- /camp-kftgv -->
+</div><!-- /camp-murkmire -->
 
 <!-- ══ ENTITY DATA & SCRIPTS ══ -->
 <script>
@@ -1758,6 +1722,295 @@ const ENTITIES = {
         </div>
       </div>
     `
+  },
+
+  /* ── MURKMIRE: SPELL CARDS ── */
+  'spell-alarm': {
+    name: "Alarm",
+    html: `
+      <div class="summary-box" style="font-size:.9rem;">
+        <h3 style="color:var(--gold); margin-bottom:6px;">Alarm</h3>
+        <div class="sb-prop"><span>Level / School</span><span>1st &middot; Abjuration (ritual)</span></div>
+        <div class="sb-prop"><span>Casting Time</span><span>1 minute</span></div>
+        <div class="sb-prop"><span>Range</span><span>30 feet</span></div>
+        <div class="sb-prop"><span>Components</span><span>V, S, M (a tiny bell and a piece of fine silver wire)</span></div>
+        <div class="sb-prop"><span>Duration</span><span>8 hours</span></div>
+        <div class="sb-divider"></div>
+        <p style="font-size:.86rem;">You set an alarm against unwanted intrusion. Choose a door, a window, or an area within range no larger than a 20-foot cube. Until the spell ends, an alarm alerts you whenever a Tiny or larger creature touches or enters the warded area. When you cast the spell, you can designate creatures that won't set off the alarm.</p>
+        <p style="font-size:.86rem; margin-top:6px;">Choose whether the alarm is mental or audible. A <strong>mental</strong> alarm pings your mind if you are within 1 mile of the warded area, waking you if asleep. An <strong>audible</strong> alarm rings a hand bell for 10 seconds within 60 feet of the warded area.</p>
+      </div>
+    `
+  },
+
+  'spell-arcane-lock': {
+    name: "Arcane Lock",
+    html: `
+      <div class="summary-box" style="font-size:.9rem;">
+        <h3 style="color:var(--gold); margin-bottom:6px;">Arcane Lock</h3>
+        <div class="sb-prop"><span>Level / School</span><span>2nd &middot; Abjuration</span></div>
+        <div class="sb-prop"><span>Casting Time</span><span>1 action</span></div>
+        <div class="sb-prop"><span>Range</span><span>Touch</span></div>
+        <div class="sb-prop"><span>Components</span><span>V, S, M (gold dust worth at least 25 gp, consumed)</span></div>
+        <div class="sb-prop"><span>Duration</span><span>Until dispelled</span></div>
+        <div class="sb-divider"></div>
+        <p style="font-size:.86rem;">You touch a closed door, window, gate, chest, or other entryway and it becomes locked for the duration. You and the creatures you designate when you cast it can open the object normally. You can also set a password that, spoken within 5 feet of the object, suppresses the lock for 1 minute.</p>
+        <p style="font-size:.86rem; margin-top:6px;">Otherwise the object is impassable until broken or the spell is dispelled or suppressed. Casting <em>knock</em> on it suppresses the lock for 10 minutes. While locked, the DC to break the object or pick its locks increases by 10.</p>
+      </div>
+    `
+  },
+
+  'spell-continual-flame': {
+    name: "Continual Flame",
+    html: `
+      <div class="summary-box" style="font-size:.9rem;">
+        <h3 style="color:var(--gold); margin-bottom:6px;">Continual Flame</h3>
+        <div class="sb-prop"><span>Level / School</span><span>2nd &middot; Evocation</span></div>
+        <div class="sb-prop"><span>Casting Time</span><span>1 action</span></div>
+        <div class="sb-prop"><span>Range</span><span>Touch</span></div>
+        <div class="sb-prop"><span>Components</span><span>V, S, M (ruby dust worth 50 gp, consumed)</span></div>
+        <div class="sb-prop"><span>Duration</span><span>Until dispelled</span></div>
+        <div class="sb-divider"></div>
+        <p style="font-size:.86rem;">A flame, equivalent in brightness to a torch, springs forth from an object that you touch. The effect looks like a regular flame, but it creates no heat and consumes no oxygen. A continual flame can be covered or hidden but not smothered or quenched.</p>
+      </div>
+    `
+  },
+
+  /* ── MURKMIRE: STAT BLOCKS ── */
+  guard: {
+    name: "Guard",
+    html: `
+      <div class="stat-block">
+        <div class="sb-name">Guard</div>
+        <div class="sb-meta">Medium humanoid (any race), any alignment</div>
+        <hr>
+        <div class="sb-row"><strong>AC</strong> 16 (chain shirt, shield)</div>
+        <div class="sb-row"><strong>HP</strong> 11 (2d8+2)</div>
+        <div class="sb-row"><strong>Speed</strong> 30 ft.</div>
+        <hr>
+        <div class="sb-abilities">
+          <div><div class="ab-label">STR</div><div class="ab-val">13 (+1)</div></div>
+          <div><div class="ab-label">DEX</div><div class="ab-val">12 (+1)</div></div>
+          <div><div class="ab-label">CON</div><div class="ab-val">12 (+1)</div></div>
+          <div><div class="ab-label">INT</div><div class="ab-val">10 (+0)</div></div>
+          <div><div class="ab-label">WIS</div><div class="ab-val">11 (+0)</div></div>
+          <div><div class="ab-label">CHA</div><div class="ab-val">10 (+0)</div></div>
+        </div>
+        <hr>
+        <div class="sb-row"><strong>Skills</strong> Perception +2</div>
+        <div class="sb-row"><strong>Senses</strong> passive Perception 12</div>
+        <div class="sb-row"><strong>Challenge</strong> 1/8 (25 XP)</div>
+        <hr>
+        <div class="sb-actions-title">Actions</div>
+        <div class="sb-section">
+          <div class="trait"><em>Spear.</em> Melee or Ranged Weapon Attack: +3 to hit, reach 5 ft. or range 20/60 ft., one target. Hit: 4 (1d6+1) piercing damage, or 5 (1d8+1) piercing if used with two hands to make a melee attack.</div>
+        </div>
+      </div>
+      <div class="rp-note">Museum night guards. Most would rather talk than fight &mdash; roll on the Museum Guards table for personality and lean on it before initiative.</div>
+    `
+  },
+
+  'animated-armor': {
+    name: "Animated Armor",
+    html: `
+      <div class="stat-block">
+        <div class="sb-name">Animated Armor</div>
+        <div class="sb-meta">Medium construct, unaligned</div>
+        <hr>
+        <div class="sb-row"><strong>AC</strong> 18 (natural armor)</div>
+        <div class="sb-row"><strong>HP</strong> 33 (6d8+6)</div>
+        <div class="sb-row"><strong>Speed</strong> 25 ft.</div>
+        <hr>
+        <div class="sb-abilities">
+          <div><div class="ab-label">STR</div><div class="ab-val">14 (+2)</div></div>
+          <div><div class="ab-label">DEX</div><div class="ab-val">11 (+0)</div></div>
+          <div><div class="ab-label">CON</div><div class="ab-val">13 (+1)</div></div>
+          <div><div class="ab-label">INT</div><div class="ab-val">1 (&minus;5)</div></div>
+          <div><div class="ab-label">WIS</div><div class="ab-val">3 (&minus;4)</div></div>
+          <div><div class="ab-label">CHA</div><div class="ab-val">1 (&minus;5)</div></div>
+        </div>
+        <hr>
+        <div class="sb-row"><strong>Damage Immunities</strong> poison, psychic</div>
+        <div class="sb-row"><strong>Condition Immunities</strong> blinded, charmed, deafened, exhaustion, frightened, paralyzed, petrified, poisoned</div>
+        <div class="sb-row"><strong>Senses</strong> blindsight 60 ft. (blind beyond), passive Perception 6</div>
+        <div class="sb-row"><strong>Challenge</strong> 1 (200 XP)</div>
+        <hr>
+        <div class="sb-section">
+          <div class="trait"><em>Antimagic Susceptibility.</em> The armor is incapacitated while in the area of an antimagic field. If targeted by dispel magic, it must succeed on a Constitution save against the caster's spell save DC or fall unconscious for 1 minute.</div>
+          <div class="trait"><em>False Appearance.</em> While motionless, the armor is indistinguishable from a normal suit of armor.</div>
+        </div>
+        <div class="sb-actions-title">Actions</div>
+        <div class="sb-section">
+          <div class="trait"><em>Multiattack.</em> The armor makes two melee attacks.</div>
+          <div class="trait"><em>Slam.</em> Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6+2) bludgeoning damage.</div>
+        </div>
+      </div>
+    `
+  },
+
+  scarecrow: {
+    name: "Scarecrow",
+    html: `
+      <div class="stat-block">
+        <div class="sb-name">Scarecrow</div>
+        <div class="sb-meta">Medium construct, chaotic evil</div>
+        <hr>
+        <div class="sb-row"><strong>AC</strong> 11</div>
+        <div class="sb-row"><strong>HP</strong> 36 (8d8)</div>
+        <div class="sb-row"><strong>Speed</strong> 30 ft.</div>
+        <hr>
+        <div class="sb-abilities">
+          <div><div class="ab-label">STR</div><div class="ab-val">11 (+0)</div></div>
+          <div><div class="ab-label">DEX</div><div class="ab-val">13 (+1)</div></div>
+          <div><div class="ab-label">CON</div><div class="ab-val">11 (+0)</div></div>
+          <div><div class="ab-label">INT</div><div class="ab-val">10 (+0)</div></div>
+          <div><div class="ab-label">WIS</div><div class="ab-val">10 (+0)</div></div>
+          <div><div class="ab-label">CHA</div><div class="ab-val">13 (+1)</div></div>
+        </div>
+        <hr>
+        <div class="sb-row"><strong>Damage Vulnerabilities</strong> fire</div>
+        <div class="sb-row"><strong>Damage Immunities</strong> poison</div>
+        <div class="sb-row"><strong>Condition Immunities</strong> charmed, exhaustion, frightened, paralyzed, poisoned, unconscious</div>
+        <div class="sb-row"><strong>Senses</strong> darkvision 60 ft., passive Perception 10</div>
+        <div class="sb-row"><strong>Challenge</strong> 1 (200 XP)</div>
+        <hr>
+        <div class="sb-section">
+          <div class="trait"><em>False Appearance.</em> While motionless, the scarecrow is indistinguishable from an ordinary, inanimate scarecrow.</div>
+        </div>
+        <div class="sb-actions-title">Actions</div>
+        <div class="sb-section">
+          <div class="trait"><em>Multiattack.</em> The scarecrow makes two claw attacks.</div>
+          <div class="trait"><em>Claw.</em> Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 6 (2d4+1) slashing damage.</div>
+          <div class="trait"><em>Terrifying Glare.</em> The scarecrow targets one creature it can see within 30 ft. If the target can see the scarecrow, it must succeed on a DC 11 Wisdom saving throw or be magically frightened until the end of the scarecrow's next turn. On a success, the target is immune to this scarecrow's glare for 24 hours.</div>
+        </div>
+      </div>
+    `
+  },
+
+  'animatronic-allosaurus': {
+    name: "Animatronic Allosaurus",
+    html: `
+      <div class="stat-block">
+        <div class="sb-name">Animatronic Allosaurus</div>
+        <div class="sb-meta">Large construct, unaligned</div>
+        <hr>
+        <div class="sb-row"><strong>AC</strong> 13 (natural armor)</div>
+        <div class="sb-row"><strong>HP</strong> 51 (6d10+18)</div>
+        <div class="sb-row"><strong>Speed</strong> 60 ft.</div>
+        <hr>
+        <div class="sb-abilities">
+          <div><div class="ab-label">STR</div><div class="ab-val">19 (+4)</div></div>
+          <div><div class="ab-label">DEX</div><div class="ab-val">13 (+1)</div></div>
+          <div><div class="ab-label">CON</div><div class="ab-val">17 (+3)</div></div>
+          <div><div class="ab-label">INT</div><div class="ab-val">2 (&minus;4)</div></div>
+          <div><div class="ab-label">WIS</div><div class="ab-val">12 (+1)</div></div>
+          <div><div class="ab-label">CHA</div><div class="ab-val">5 (&minus;3)</div></div>
+        </div>
+        <hr>
+        <div class="sb-row"><strong>Skills</strong> Perception +5</div>
+        <div class="sb-row"><strong>Damage Immunities</strong> poison, psychic</div>
+        <div class="sb-row"><strong>Condition Immunities</strong> charmed, frightened, paralyzed, poisoned</div>
+        <div class="sb-row"><strong>Senses</strong> passive Perception 15</div>
+        <div class="sb-row"><strong>Challenge</strong> 2 (450 XP) &middot; <strong>PB</strong> +2</div>
+        <hr>
+        <div class="sb-section">
+          <div class="trait"><em>Pounce.</em> If the allosaurus moves at least 30 feet straight toward a creature and then hits it with a claw attack on the same turn, that target must succeed on a DC 13 Strength saving throw or be knocked prone. If the target is prone, the allosaurus can make one bite attack against it as a bonus action.</div>
+        </div>
+        <div class="sb-actions-title">Actions</div>
+        <div class="sb-section">
+          <div class="trait"><em>Bite.</em> Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 15 (2d10+4) piercing damage.</div>
+          <div class="trait"><em>Claw.</em> Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 8 (1d8+4) slashing damage.</div>
+        </div>
+      </div>
+      <div class="rp-note">A clockwork museum exhibit built to look and move like a real predatory dinosaur &mdash; fast, strong, and immune to fear or poison. Keys from the Golden Vault, pg. 22.</div>
+    `
+  },
+
+  mimic: {
+    name: "Mimic",
+    html: `
+      <div class="stat-block">
+        <div class="sb-name">Mimic</div>
+        <div class="sb-meta">Medium monstrosity (shapechanger), neutral</div>
+        <hr>
+        <div class="sb-row"><strong>AC</strong> 12 (natural armor)</div>
+        <div class="sb-row"><strong>HP</strong> 58 (9d8+18)</div>
+        <div class="sb-row"><strong>Speed</strong> 15 ft.</div>
+        <hr>
+        <div class="sb-abilities">
+          <div><div class="ab-label">STR</div><div class="ab-val">17 (+3)</div></div>
+          <div><div class="ab-label">DEX</div><div class="ab-val">12 (+1)</div></div>
+          <div><div class="ab-label">CON</div><div class="ab-val">15 (+2)</div></div>
+          <div><div class="ab-label">INT</div><div class="ab-val">5 (&minus;3)</div></div>
+          <div><div class="ab-label">WIS</div><div class="ab-val">13 (+1)</div></div>
+          <div><div class="ab-label">CHA</div><div class="ab-val">8 (&minus;1)</div></div>
+        </div>
+        <hr>
+        <div class="sb-row"><strong>Skills</strong> Stealth +5</div>
+        <div class="sb-row"><strong>Damage Immunities</strong> acid</div>
+        <div class="sb-row"><strong>Condition Immunities</strong> prone</div>
+        <div class="sb-row"><strong>Senses</strong> darkvision 60 ft., passive Perception 11</div>
+        <div class="sb-row"><strong>Challenge</strong> 2 (450 XP)</div>
+        <hr>
+        <div class="sb-section">
+          <div class="trait"><em>Shapechanger.</em> The mimic can use its action to polymorph into an object or back into its true, amorphous form. Its statistics are the same in each form. It reverts to its true form if it dies.</div>
+          <div class="trait"><em>Adhesive (Object Form Only).</em> The mimic adheres to anything that touches it. A Huge or smaller creature adhered to it is also grappled (escape DC 13); checks to escape have disadvantage.</div>
+          <div class="trait"><em>False Appearance (Object Form Only).</em> While motionless, the mimic is indistinguishable from an ordinary object.</div>
+          <div class="trait"><em>Grappler.</em> The mimic has advantage on attack rolls against any creature grappled by it.</div>
+        </div>
+        <div class="sb-actions-title">Actions</div>
+        <div class="sb-section">
+          <div class="trait"><em>Pseudopod.</em> Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 7 (1d8+3) bludgeoning damage. If the mimic is in object form, the target is subjected to its Adhesive trait.</div>
+          <div class="trait"><em>Bite.</em> Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 7 (1d8+3) piercing damage plus 4 (1d8) acid damage.</div>
+        </div>
+      </div>
+    `
+  },
+
+  /* ── MURKMIRE: ITEMS ── */
+  'potion-vitality': {
+    name: "Potion of Vitality",
+    html: `
+      <div class="summary-box" style="font-size:.9rem;">
+        <h3 style="color:var(--gold); margin-bottom:6px;">Potion of Vitality</h3>
+        <div class="sb-prop"><span>Type</span><span>Potion (wondrous item)</span></div>
+        <div class="sb-prop"><span>Rarity</span><span>Very Rare</span></div>
+        <div class="sb-divider"></div>
+        <p style="font-size:.86rem;">When you drink this potion, it removes any exhaustion you are suffering and cures any disease or poison affecting you. For the next 24 hours, you regain the maximum number of hit points for any Hit Die you spend at the end of a short rest.</p>
+        <p style="font-size:.82rem; color:var(--text-dim); margin-top:6px;">The potion's red liquid regularly pulses with dull light, calling to mind a heartbeat.</p>
+      </div>
+    `
+  },
+
+  'dagger-plus-1': {
+    name: "+1 Dagger",
+    html: `
+      <div class="summary-box" style="font-size:.9rem;">
+        <h3 style="color:var(--gold); margin-bottom:6px;">+1 Dagger</h3>
+        <div class="sb-prop"><span>Type</span><span>Weapon (dagger)</span></div>
+        <div class="sb-prop"><span>Rarity</span><span>Uncommon</span></div>
+        <div class="sb-prop"><span>Attunement</span><span>Not required</span></div>
+        <div class="sb-divider"></div>
+        <p style="font-size:.86rem;">You have a +1 bonus to attack and damage rolls made with this magic weapon.</p>
+        <div class="sb-prop"><span>Base damage</span><span>1d4 piercing (1d4+1 with the bonus)</span></div>
+        <div class="sb-prop"><span>Properties</span><span>Finesse, light, thrown (range 20/60)</span></div>
+      </div>
+    `
+  },
+
+  'handaxe-plus-1': {
+    name: "+1 Handaxe",
+    html: `
+      <div class="summary-box" style="font-size:.9rem;">
+        <h3 style="color:var(--gold); margin-bottom:6px;">+1 Handaxe</h3>
+        <div class="sb-prop"><span>Type</span><span>Weapon (handaxe)</span></div>
+        <div class="sb-prop"><span>Rarity</span><span>Uncommon</span></div>
+        <div class="sb-prop"><span>Attunement</span><span>Not required</span></div>
+        <div class="sb-divider"></div>
+        <p style="font-size:.86rem;">You have a +1 bonus to attack and damage rolls made with this magic weapon.</p>
+        <div class="sb-prop"><span>Base damage</span><span>1d6 slashing (1d6+1 with the bonus)</span></div>
+        <div class="sb-prop"><span>Properties</span><span>Light, thrown (range 20/60)</span></div>
+      </div>
+    `
   }
 };
 
@@ -1996,7 +2249,10 @@ const ENTITY_HP = {
   shinebright: 11, guz: 67, noke: 55, wolf: 11,
   'brown-bear': 34, 'brown-bear-enlarged': 34, 'giant-rat': 7,
   'bed-dragon': 75, 'gibbering-mouther': 67,
-  'drunk-patron': 9, 'giant-spider': 26
+  'drunk-patron': 9, 'giant-spider': 26,
+  // Murkmire Malevolence
+  guard: 11, 'animated-armor': 33, scarecrow: 36,
+  'animatronic-allosaurus': 51, mimic: 58
 };
 // How many tokens to create when you first start tracking a creature.
 const ENTITY_COUNT = { wolf: 2, 'giant-rat': 2 };
@@ -2115,23 +2371,97 @@ function mountBadges() {
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
     document.getElementById('modalOverlay').classList.remove('open');
-    if (document.body.classList.contains('init-fs')) initToggleFullscreen();
+    if (document.body.classList.contains('init-fs') && _initFsNs) initToggleFullscreen(_initFsNs);
   }
 });
 
-/* ── INITIATIVE TRACKER ── */
-const INIT_KEY = 'twsc-init-v1';
+/* ── INITIATIVE TRACKER (per-page, namespaced) ── */
+const INIT_TRACKERS = {
+  twsc: {
+    key: 'twsc-init-v1',
+    quick: [
+      ['Bram',3],['Dusty',1],['Medrick',3],['Guz',0],['Noke',2],
+      ['Wolf',2],['Brown Bear',0,'Bear'],['Giant Rat',2,'Rat'],
+      ['Giant Spider',3,'Spider'],['Big Nick',0],['Seagull',2],['Owl',1]
+    ]
+  },
+  murkmire: {
+    key: 'twsc-init-murkmire-v1',
+    quick: [
+      ['Bram',3],['Dusty',1],['Medrick',3],
+      ['Guard',1],['Animated Armor',0,'Armor'],['Scarecrow',1],
+      ['Animatronic Allosaurus',1,'Allosaurus'],['Mimic',1]
+    ]
+  }
+};
 
-function initLoad() {
-  try { return JSON.parse(localStorage.getItem(INIT_KEY)) || { round: 1, current: 0, combatants: [] }; }
-  catch (e) { return { round: 1, current: 0, combatants: [] }; }
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
-function initSave(s) { try { localStorage.setItem(INIT_KEY, JSON.stringify(s)); } catch (e) {} }
 
-function initRender() {
-  const s = initLoad();
-  document.getElementById('initRound').textContent = s.round;
-  const list = document.getElementById('initList');
+function initState(ns) {
+  const key = INIT_TRACKERS[ns].key;
+  try { return JSON.parse(localStorage.getItem(key)) || { round:1, current:0, combatants:[] }; }
+  catch (e) { return { round:1, current:0, combatants:[] }; }
+}
+function initSaveState(ns, s) {
+  try { localStorage.setItem(INIT_TRACKERS[ns].key, JSON.stringify(s)); } catch (e) {}
+}
+
+function mountTracker(ns) {
+  const cfg = INIT_TRACKERS[ns];
+  const quick = cfg.quick.map(function(q) {
+    const name = q[0], bonus = q[1], label = q[2] || q[0];
+    const bs = (bonus >= 0 ? '+' : '') + bonus;
+    return '<button class="init-quick-btn" onclick="initQuickAdd(\'' + ns + '\',&quot;' +
+      escHtml(name) + '&quot;,' + bonus + ')">' + escHtml(label) + ' (' + bs + ')</button>';
+  }).join('');
+  const sec = document.getElementById('initiative-' + ns);
+  if (!sec) return;
+  sec.innerHTML =
+    '<div class="init-header-row">' +
+      '<h2 style="margin:0">Initiative Tracker</h2>' +
+      '<button class="init-fullscreen-btn" id="initFsBtn-' + ns + '" onclick="initToggleFullscreen(\'' + ns + '\')">⛶ Full Screen</button>' +
+    '</div>' +
+    '<button class="init-back-btn" onclick="initToggleFullscreen(\'' + ns + '\')">← Back to Guide</button>' +
+    '<div class="init-controls">' +
+      '<div class="init-round-box"><span class="init-round-label">Round</span><span class="init-round-num" id="initRound-' + ns + '">1</span></div>' +
+      '<button class="init-next-btn" onclick="initNext(\'' + ns + '\')">▶ Next Turn</button>' +
+      '<button class="init-clear-btn" onclick="initClear(\'' + ns + '\')">✕ Clear All</button>' +
+    '</div>' +
+    '<div class="init-quick-add"><span class="init-quick-label">Quick add:</span>' + quick + '</div>' +
+    '<div class="init-roll-prompt" id="initRollPrompt-' + ns + '" style="display:none">' +
+      '<span class="init-roll-label" id="initRollLabel-' + ns + '">Roll for …</span>' +
+      '<input class="init-input init-input-num" id="initRollInput-' + ns + '" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="d20" min="1" max="40">' +
+      '<button class="init-add-btn" onclick="initQuickConfirm(\'' + ns + '\')">✓</button>' +
+      '<button class="init-clear-btn" onclick="initQuickCancel(\'' + ns + '\')" style="padding:8px 10px">✕</button>' +
+    '</div>' +
+    '<div class="init-add-row">' +
+      '<input class="init-input" id="initName-' + ns + '" type="text" placeholder="Name" maxlength="30">' +
+      '<input class="init-input init-input-num" id="initScore-' + ns + '" type="number" placeholder="Roll" min="1" max="40">' +
+      '<button class="init-add-btn" onclick="initAdd(\'' + ns + '\')">+ Add</button>' +
+    '</div>' +
+    '<div id="initList-' + ns + '" class="init-list"></div>';
+
+  document.getElementById('initScore-' + ns).addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') initAdd(ns);
+  });
+  document.getElementById('initName-' + ns).addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('initScore-' + ns).focus();
+  });
+  document.getElementById('initRollInput-' + ns).addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') initQuickConfirm(ns);
+    if (e.key === 'Escape') initQuickCancel(ns);
+  });
+
+  initRender(ns);
+}
+
+function initRender(ns) {
+  const s = initState(ns);
+  document.getElementById('initRound-' + ns).textContent = s.round;
+  const list = document.getElementById('initList-' + ns);
   if (!s.combatants.length) {
     list.innerHTML = '<div style="color:var(--text-dim);font-style:italic;padding:12px 0;">No combatants yet — add the party and monsters above.</div>';
     return;
@@ -2142,107 +2472,105 @@ function initRender() {
     return '<div class="init-entry' + (active ? ' active' : '') + (done ? ' done' : '') + '">' +
       '<span class="init-turn-arrow">' + (active ? '▶' : '') + '</span>' +
       '<span class="init-score">' + c.score + '</span>' +
-      '<span class="init-name">' + c.name + '</span>' +
-      '<button class="init-remove-btn" onclick="initRemove(' + i + ')" title="Remove">✕</button>' +
+      '<span class="init-name">' + escHtml(c.name) + '</span>' +
+      '<button class="init-remove-btn" onclick="initRemove(\'' + ns + '\',' + i + ')" title="Remove">✕</button>' +
     '</div>';
   }).join('');
 }
 
-function initAdd() {
-  const nameEl = document.getElementById('initName');
-  const scoreEl = document.getElementById('initScore');
+function initAdd(ns) {
+  const nameEl = document.getElementById('initName-' + ns);
+  const scoreEl = document.getElementById('initScore-' + ns);
   const name = nameEl.value.trim();
   const score = parseInt(scoreEl.value, 10);
   if (!name || isNaN(score)) return;
-  const s = initLoad();
+  const s = initState(ns);
   s.combatants.push({ name: name, score: score });
   s.combatants.sort(function(a, b) { return b.score - a.score; });
   s.current = 0;
-  initSave(s);
+  initSaveState(ns, s);
   nameEl.value = '';
   scoreEl.value = '';
   nameEl.focus();
-  initRender();
+  initRender(ns);
 }
 
-var _initQuickName = '', _initQuickBonus = 0;
-
-function initQuickAdd(name, bonus) {
-  _initQuickName = name;
-  _initQuickBonus = bonus;
-  const bonusStr = (bonus >= 0 ? '+' : '') + bonus;
-  document.getElementById('initRollLabel').textContent =
-    'Roll for ' + name + ' (d20 ' + bonusStr + '):';
-  const input = document.getElementById('initRollInput');
+var _initQuick = {};
+function initQuickAdd(ns, name, bonus) {
+  _initQuick[ns] = { name: name, bonus: bonus };
+  const bs = (bonus >= 0 ? '+' : '') + bonus;
+  document.getElementById('initRollLabel-' + ns).textContent = 'Roll for ' + name + ' (d20 ' + bs + '):';
+  const input = document.getElementById('initRollInput-' + ns);
   input.value = '';
-  const prompt = document.getElementById('initRollPrompt');
-  prompt.style.display = 'flex';
+  document.getElementById('initRollPrompt-' + ns).style.display = 'flex';
   input.focus();
 }
-
-function initQuickConfirm() {
-  const input = document.getElementById('initRollInput');
+function initQuickConfirm(ns) {
+  const input = document.getElementById('initRollInput-' + ns);
   const roll = parseInt(input.value, 10);
-  if (!isNaN(roll) && roll >= 1) {
-    const score = roll + _initQuickBonus;
-    const s = initLoad();
-    s.combatants.push({ name: _initQuickName + ' (' + score + ')', score: score });
+  const q = _initQuick[ns];
+  if (q && !isNaN(roll) && roll >= 1) {
+    const score = roll + q.bonus;
+    const s = initState(ns);
+    s.combatants.push({ name: q.name + ' (' + score + ')', score: score });
     s.combatants.sort(function(a, b) { return b.score - a.score; });
     s.current = 0;
-    initSave(s);
-    initRender();
+    initSaveState(ns, s);
+    initRender(ns);
   }
-  initQuickCancel();
+  initQuickCancel(ns);
+}
+function initQuickCancel(ns) {
+  document.getElementById('initRollPrompt-' + ns).style.display = 'none';
+  document.getElementById('initRollInput-' + ns).value = '';
 }
 
-function initQuickCancel() {
-  document.getElementById('initRollPrompt').style.display = 'none';
-  document.getElementById('initRollInput').value = '';
-}
-
-function initNext() {
-  const s = initLoad();
+function initNext(ns) {
+  const s = initState(ns);
   if (!s.combatants.length) return;
   s.current++;
-  if (s.current >= s.combatants.length) {
-    s.current = 0;
-    s.round++;
-  }
-  initSave(s);
-  initRender();
-  // Scroll active entry into view
-  const active = document.querySelector('.init-entry.active');
+  if (s.current >= s.combatants.length) { s.current = 0; s.round++; }
+  initSaveState(ns, s);
+  initRender(ns);
+  const active = document.querySelector('#initiative-' + ns + ' .init-entry.active');
   if (active) active.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
 }
-
-function initRemove(i) {
-  const s = initLoad();
+function initRemove(ns, i) {
+  const s = initState(ns);
   s.combatants.splice(i, 1);
   if (s.current >= s.combatants.length) s.current = 0;
-  initSave(s);
-  initRender();
+  initSaveState(ns, s);
+  initRender(ns);
 }
-
-function initClear() {
+function initClear(ns) {
   if (!confirm('Clear all combatants and reset the round counter?')) return;
-  initSave({ round: 1, current: 0, combatants: [] });
-  initRender();
+  initSaveState(ns, { round: 1, current: 0, combatants: [] });
+  initRender(ns);
 }
 
-function initToggleFullscreen() {
-  document.body.classList.toggle('init-fs');
-  const fs = document.body.classList.contains('init-fs');
-  document.getElementById('initFsBtn').textContent = fs ? '✕ Exit Full Screen' : '⛶ Full Screen';
-  if (fs) {
-    document.getElementById('initiative').scrollTop = 0;
+var _initFsNs = null;
+function initToggleFullscreen(ns) {
+  const on = !document.body.classList.contains('init-fs');
+  document.body.classList.toggle('init-fs', on);
+  _initFsNs = on ? ns : null;
+  const btn = document.getElementById('initFsBtn-' + ns);
+  if (btn) btn.textContent = on ? '✕ Exit Full Screen' : '⛶ Full Screen';
+  if (on) {
+    const sec = document.getElementById('initiative-' + ns);
+    if (sec) sec.scrollTop = 0;
     window.scrollTo(0, 0);
   }
 }
 
 const CAMPAIGN_KEY = 'twsc-campaign-v1';
+const CAMPAIGNS = ['twsc', 'murkmire'];
 function switchCampaign(camp) {
-  document.getElementById('camp-twsc').hidden = (camp !== 'twsc');
-  document.getElementById('camp-kftgv').hidden = (camp !== 'kftgv');
+  if (CAMPAIGNS.indexOf(camp) < 0) camp = 'twsc';
+  if (document.body.classList.contains('init-fs') && _initFsNs) initToggleFullscreen(_initFsNs);
+  CAMPAIGNS.forEach(function(c) {
+    const el = document.getElementById('camp-' + c);
+    if (el) el.hidden = (c !== camp);
+  });
   document.querySelectorAll('.camp-tab').forEach(function(t) {
     t.classList.toggle('active', t.getAttribute('data-camp') === camp);
   });
@@ -2252,21 +2580,10 @@ function switchCampaign(camp) {
 
 document.addEventListener('DOMContentLoaded', function() {
   mountBadges();
-  initRender();
+  CAMPAIGNS.forEach(mountTracker);
   let savedCamp = 'twsc';
   try { savedCamp = localStorage.getItem(CAMPAIGN_KEY) || 'twsc'; } catch (e) {}
   switchCampaign(savedCamp);
-  // Allow Enter key to add a combatant
-  document.getElementById('initScore').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') initAdd();
-  });
-  document.getElementById('initName').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') document.getElementById('initScore').focus();
-  });
-  document.getElementById('initRollInput').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') initQuickConfirm();
-    if (e.key === 'Escape') initQuickCancel();
-  });
 });
 </script>
 </body>
