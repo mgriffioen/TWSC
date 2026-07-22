@@ -1068,6 +1068,26 @@ One thing that you must do, however, is try to provide at least a hint of the da
           </table>
         </div>
 
+        <div class="scene">
+          <div class="scene-title">Murkmire Stone Effects (d12)</div>
+          <p style="margin-bottom:6px;">On each 10-minute pulse, every creature within 20 ft. makes a DC 10 Wisdom save (the holder has disadvantage). On a failure, roll here — a new effect ends the previous one.</p>
+          <table class="res-table">
+            <tr><th>d12</th><th>Effect</th></tr>
+            <tr><td class="res-roll">1</td><td>Harsh whispers in an unknown language assault your consciousness. You gain vulnerability to psychic damage and can&rsquo;t maintain concentration on spells.</td></tr>
+            <tr><td class="res-roll">2</td><td>Adrenaline courses through your veins. You have advantage on Strength checks and Strength saving throws.</td></tr>
+            <tr><td class="res-roll">3</td><td>Your limbs feel leaden, and your body responds sluggishly. You have disadvantage on Dexterity checks and Dexterity saving throws.</td></tr>
+            <tr><td class="res-roll">4</td><td>Your skin takes on a weird sheen. You gain resistance to piercing and slashing damage.</td></tr>
+            <tr><td class="res-roll">5</td><td>Your walking speed increases by 5 feet.</td></tr>
+            <tr><td class="res-roll">6</td><td>Your mind is pulled in a thousand directions, making it difficult to focus. You have disadvantage on attack rolls.</td></tr>
+            <tr><td class="res-roll">7</td><td>Ripples pulse underneath your skin like vermin are skittering inside your flesh. You have disadvantage on Charisma checks and Charisma saving throws.</td></tr>
+            <tr><td class="res-roll">8</td><td>Your joints stiffen. You have disadvantage on Dexterity checks and Dexterity saving throws.</td></tr>
+            <tr><td class="res-roll">9</td><td>You receive premonitions of attacks made against you. Attack rolls against you have disadvantage.</td></tr>
+            <tr><td class="res-roll">10</td><td>Your thought processes are sluggish, as if you just awoke from terrible nightmares. You have disadvantage on Intelligence checks and Intelligence saving throws.</td></tr>
+            <tr><td class="res-roll">11</td><td>Your senses are dulled, as if an invisible barrier sits between you and reality. You have disadvantage on Wisdom (Perception) checks.</td></tr>
+            <tr><td class="res-roll">12</td><td>A shimmery film covers you. You gain a +2 bonus to AC.</td></tr>
+          </table>
+        </div>
+
       </div>
     </section>
 
@@ -1126,6 +1146,10 @@ One thing that you must do, however, is try to provide at least a hint of the da
     <section id="mk-items">
       <h2>Items</h2>
       <div class="entity-grid">
+        <div class="entity-card" onclick="openEntity('murkmire-stone')">
+          <div class="entity-name">The Murkmire Stone</div>
+          <div class="entity-type">Eldritch egg &middot; the objective</div>
+        </div>
         <div class="entity-card" onclick="openEntity('potion-vitality')">
           <div class="entity-name">Potion of Vitality</div>
           <div class="entity-type">Potion &middot; Very Rare</div>
@@ -1983,6 +2007,23 @@ const ENTITIES = {
   },
 
   /* ── MURKMIRE: ITEMS ── */
+  'murkmire-stone': {
+    name: "The Murkmire Stone",
+    html: `
+      <div class="summary-box" style="font-size:.9rem;">
+        <h3 style="color:var(--gold); margin-bottom:6px;">The Murkmire Stone</h3>
+        <div class="sb-prop"><span>Type</span><span>Nonmagical object (eldritch egg)</span></div>
+        <div class="sb-prop"><span>Weight</span><span>10 lbs.</span></div>
+        <div class="sb-prop"><span>The job</span><span>Recover it from the museum</span></div>
+        <div class="sb-divider"></div>
+        <p style="font-size:.86rem;">Recently unearthed from the Murkmire outside the city of Varkenbluff, the object called the Murkmire Stone is the egg of an eldritch creature. The opaque, light-green stone weighs 10 pounds and has abstract furrows on its surface.</p>
+        <p style="font-size:.86rem; margin-top:6px;">Its removal from the Murkmire rapidly accelerated the creature developing inside. Starting at <strong>10:30 p.m.</strong>, the stony shell becomes translucent, revealing the horror inside, and it emits a pulse of magical energy <strong>every 10 minutes</strong>.</p>
+        <p style="font-size:.86rem; margin-top:6px;">On each pulse, every creature within <strong>20 feet</strong> must make a <strong>DC 10 Wisdom saving throw</strong> — a creature holding the egg has disadvantage. If the egg is in a <em>bag of holding</em> or other extradimensional space, the effect radiates from the container instead. On a failure, roll on the <strong>Murkmire Stone Effects</strong> table (in Tables). Rolling a new effect ends the previous one.</p>
+        <p style="font-size:.86rem; margin-top:6px;">The effects end when the egg hatches or when it is encased in the crystal box Dr. Dannell provides.</p>
+      </div>
+    `
+  },
+
   'potion-vitality': {
     name: "Potion of Vitality",
     html: `
