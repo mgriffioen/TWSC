@@ -124,6 +124,32 @@
     }
     .res-table tr:nth-child(even) td { background:rgba(255,255,255,.03); }
 
+    /* ── PULSE TIMER ── */
+    .pulse-timer {
+      display:flex; align-items:center; flex-wrap:wrap; gap:10px;
+      background:var(--bg3); border:1px solid var(--border);
+      border-radius:8px; padding:10px 14px; margin:8px 0 4px;
+    }
+    .pulse-clock {
+      font-family:'Courier New', monospace; font-size:1.5rem; font-weight:bold;
+      color:var(--gold-light); letter-spacing:1px; min-width:3.4em; text-align:center;
+    }
+    .pulse-btn {
+      background:var(--bg2); border:1px solid var(--border); color:var(--gold);
+      border-radius:6px; padding:6px 12px; font-size:.85rem; cursor:pointer;
+    }
+    .pulse-btn:hover { background:var(--border); }
+    .pulse-status { font-size:.82rem; color:var(--text-dim); }
+    .pulse-timer.pulsing {
+      animation:pulseFlash .6s ease-in-out 6;
+      border-color:var(--red);
+    }
+    .pulse-timer.pulsing .pulse-clock { color:var(--red); }
+    @keyframes pulseFlash {
+      0%,100% { background:var(--bg3); }
+      50% { background:rgba(208,65,63,.35); }
+    }
+
     /* ── HEIST CARDS ── */
     .heist-level {
       background: var(--border);
@@ -1071,6 +1097,12 @@ One thing that you must do, however, is try to provide at least a hint of the da
         <div class="scene">
           <div class="scene-title">Murkmire Stone Effects (d12)</div>
           <p style="margin-bottom:6px;">On each 10-minute pulse, every creature within 20 ft. makes a DC 10 Wisdom save (the holder has disadvantage). On a failure, roll here — a new effect ends the previous one.</p>
+          <div class="pulse-timer" id="pulseTimer">
+            <span class="pulse-clock" id="pulseClock">10:00</span>
+            <button class="pulse-btn" id="pulseStartBtn" onclick="pulseToggle()">▶ Start</button>
+            <button class="pulse-btn" onclick="pulseReset()">↺ Reset</button>
+            <span class="pulse-status" id="pulseStatus">Next pulse in 10:00</span>
+          </div>
           <table class="res-table">
             <tr><th>d12</th><th>Effect</th></tr>
             <tr><td class="res-roll">1</td><td>Harsh whispers in an unknown language assault your consciousness. You gain vulnerability to psychic damage and can&rsquo;t maintain concentration on spells.</td></tr>
@@ -2617,6 +2649,61 @@ function initToggleFullscreen(ns) {
     if (sec) sec.scrollTop = 0;
     window.scrollTo(0, 0);
   }
+}
+
+/* ── MURKMIRE PULSE TIMER (10-minute countdown) ── */
+var _pulseSecs = 600, _pulseTimer = null;
+function pulseFmt(s) {
+  const m = Math.floor(s / 60), r = s % 60;
+  return m + ':' + (r < 10 ? '0' : '') + r;
+}
+function pulsePaint() {
+  document.getElementById('pulseClock').textContent = pulseFmt(_pulseSecs);
+  // Don't clobber the "⚡ Pulse!" message while the flash is active.
+  if (document.getElementById('pulseTimer').classList.contains('pulsing')) return;
+  if (!_pulseTimer) document.getElementById('pulseStatus').textContent = 'Paused at ' + pulseFmt(_pulseSecs);
+  else document.getElementById('pulseStatus').textContent = 'Next pulse in ' + pulseFmt(_pulseSecs);
+}
+function pulseTick() {
+  _pulseSecs--;
+  if (_pulseSecs <= 0) {
+    pulseFire();
+    _pulseSecs = 600; // auto-arm the next pulse
+  }
+  pulsePaint();
+}
+function pulseToggle() {
+  const btn = document.getElementById('pulseStartBtn');
+  if (_pulseTimer) {
+    clearInterval(_pulseTimer); _pulseTimer = null;
+    btn.textContent = '▶ Start';
+  } else {
+    _pulseTimer = setInterval(pulseTick, 1000);
+    btn.textContent = '⏸ Pause';
+  }
+  pulsePaint();
+}
+function pulseReset() {
+  if (_pulseTimer) { clearInterval(_pulseTimer); _pulseTimer = null; }
+  _pulseSecs = 600;
+  document.getElementById('pulseStartBtn').textContent = '▶ Start';
+  pulsePaint();
+}
+function pulseFire() {
+  const el = document.getElementById('pulseTimer');
+  el.classList.remove('pulsing'); void el.offsetWidth; el.classList.add('pulsing');
+  setTimeout(function(){ el.classList.remove('pulsing'); }, 3600);
+  document.getElementById('pulseStatus').textContent = '⚡ Pulse! DC 10 Wis save — failures roll on the table.';
+  try {
+    const ac = new (window.AudioContext || window.webkitAudioContext)();
+    const o = ac.createOscillator(), g = ac.createGain();
+    o.connect(g); g.connect(ac.destination);
+    o.frequency.value = 440; o.type = 'sine';
+    g.gain.setValueAtTime(0.001, ac.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.3, ac.currentTime + 0.05);
+    g.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 0.9);
+    o.start(); o.stop(ac.currentTime + 0.95);
+  } catch (e) {}
 }
 
 const CAMPAIGN_KEY = 'twsc-campaign-v1';
