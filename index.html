@@ -217,7 +217,28 @@
       display: flex; align-items: center; justify-content: center;
       font-size: .75rem; flex-shrink: 0;
     }
+    .area-num {
+      background: var(--border);
+      color: var(--gold);
+      border-radius: 10px;
+      padding: 2px 9px;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: .72rem; letter-spacing: .5px; flex-shrink: 0;
+    }
     .scene p { font-size: .88rem; color: var(--text-dim); }
+    .scene .beats { margin: 8px 0 0; padding-left: 18px; font-size: .86rem; color: var(--text-dim); }
+    .scene .beats li { margin-bottom: 5px; }
+    .scene .beats strong { color: var(--gold-light); font-weight: bold; }
+    .read-aloud {
+      background: #1e160a;
+      border-left: 3px solid var(--gold-light);
+      border-radius: 0 4px 4px 0;
+      padding: 9px 12px;
+      margin-top: 8px;
+      font-size: .86rem;
+      font-style: italic;
+      color: var(--text);
+    }
     .scene .creatures { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
     .creature-tag {
       background: var(--tag-bg);
@@ -1015,6 +1036,8 @@ One thing that you must do, however, is try to provide at least a hint of the da
 
   <nav>
     <a href="#mk-overview">Overview</a>
+    <a href="#mk-story">Story</a>
+    <a href="#mk-museum">Museum</a>
     <a href="#mk-tables">Tables</a>
     <a href="#mk-spells">Spells</a>
     <a href="#mk-monsters">Monsters</a>
@@ -1028,8 +1051,421 @@ One thing that you must do, however, is try to provide at least a hint of the da
     <section id="mk-overview">
       <h2>Overview</h2>
       <div class="summary-box">
-        <p>The Golden Vault's first job for the crew: recover a stolen relic from a natural-history museum before it can be misused. The heist plays out across a glittering gala upstairs and the locked-down exhibits and basement below &mdash; slipping past guards, an animatronic dinosaur, and a few nastier surprises.</p>
-        <p>Run the full story, maps, and room keys from your D&amp;D&nbsp;Beyond copy. The tables, spell cards, stat blocks, and item details below are quick at-the-table references pulled together for this adventure.</p>
+        <p>Archaeologists working the Murkmire outside Varkenbluff recently dug up a curiosity: a light-green, furrowed ovoid the papers are calling the <strong>Murkmire Stone</strong>. It is not a stone. It is the egg of an eldritch creature, and unearthing it kicked the thing inside into rapid development.</p>
+        <p>Only <strong>Dr. Cassee Dannell</strong> &mdash; the anthropologist who was on the dig &mdash; worked out what it is. The university called her research pseudoscience, she was caught trying to steal the egg from the museum, and she was fired for it. The egg hatches <strong>at midnight tonight</strong>, and the Varkenbluff Museum of Natural History is throwing a gala to celebrate it.</p>
+        <p><strong>The job:</strong> get inside the museum, steal the Murkmire Stone, and hand it to Dr. Dannell before midnight so she can seal it in a crystal box. If it hatches, it starts eating.</p>
+      </div>
+
+      <div class="scene-list" style="margin-top:10px;">
+        <div class="scene">
+          <div class="scene-title">Timeline of the Night</div>
+          <table class="res-table">
+            <tr><th>Time</th><th>What Happens</th></tr>
+            <tr><td class="res-roll">Morning</td><td>A halfling messenger delivers Dr. Dannell's note. She briefs the party at the Sage's Quill and hands over gala tickets, her map, formal clothes, and her <em>bag of holding</em>.</td></tr>
+            <tr><td class="res-roll">6 p.m.</td><td>The private gala opens in the Gemstone Wing (V13). The stone sits on a rigged pedestal. Curator Alda Arkin mingles with a fat clutch under her arm.</td></tr>
+            <tr><td class="res-roll">8 p.m.</td><td>The museum closes. Alarms arm, the statues go live, the net trap in V1 is switched on, and eleven guards take up their posts.</td></tr>
+            <tr><td class="res-roll">10:30 p.m.</td><td>The shell turns translucent. From here the egg pulses <strong>every 10 minutes</strong> &mdash; start the pulse timer under Tables.</td></tr>
+            <tr><td class="res-roll">Midnight</td><td><strong>Deadline.</strong> Delivered to Dr. Dannell, the egg goes inert in her crystal box. Still in the museum, it hatches.</td></tr>
+          </table>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title">The Golden Vault Briefing</div>
+          <p>If the Golden Vault is the party's patron, a golden key arrives however you like. Turned in the music box, the lid pops and a soothing voice delivers the job.</p>
+          <div class="read-aloud">&ldquo;Greetings, operatives. The Golden Vault has learned that the egg of an eldritch horror has been mistaken for a historical object and is about to go on display at the Varkenbluff Museum of Natural History. The anthropologist Dr. Cassee Dannell tried to warn officials about this egg, known as the Murkmire Stone, but none believed her. We do, and we know that if this egg hatches, many will die &mdash; or worse. This quest, should you choose to undertake it, requires you to infiltrate the museum, steal the egg, and return it to Dr. Dannell, who will neutralize it. There's no time to waste; the egg could hatch at any moment. Start by meeting with Dr. Dannell. Good luck, operatives.&rdquo;</div>
+          <p style="margin-top:8px;">Closing the box makes the golden key vanish. Vault payment is an uncommon magic item of each character's choice, delivered the next day.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ STORY ══ -->
+    <section id="mk-story">
+      <h2>Story</h2>
+      <div class="scene-list">
+
+        <div class="scene">
+          <div class="scene-title"><span class="scene-num">1</span> A Cry for Help</div>
+          <p>A grave halfling messenger presses a sealed parchment into a character's hand and wanders off. The note asks them to meet at the Sage's Quill &mdash; a plush academics' tavern next door to the museum &mdash; and to look for a purple hooded robe.</p>
+          <div class="creatures">
+            <span class="creature-tag" onclick="openEntity('dannell')">Dr. Cassee Dannell</span>
+          </div>
+          <div class="rp-note">Before play, have the players pick their connection to Dannell: family friend of the Dannell clan, a fan she corresponds with, or a former student of hers at Varkenbluff University. She is neutral good, uses <em>commoner</em> stats with INT 18, and is out of options &mdash; not a fighter, and not subtle.</div>
+          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Full text</button>
+          <div class="fulltext-body">READ ALOUD — THE MESSENGER:
+No matter your business this morning, a grave halfling messenger finds you and hands you a sealed parchment.
+
+"Meet me at the Sage's Quill today as soon as you can," the missive reads. "I beg your help in a delicate matter whose importance cannot be overstated. I shall await you in a purple hooded robe."
+
+The note is signed, "Dr. Cassee Dannell."
+
+When you look up, the halfling has wandered off.
+
+─────────────────────────────
+READ ALOUD — THE SAGE'S QUILL:
+As you enter the Sage's Quill, soft light reveals mahogany furniture and luxurious carpets. A few genteel patrons murmur in the lounge. You soon notice a purple-hooded figure tucked into a corner booth.
+
+Dr. Dannell gestures for you to sit. You notice lines of worry etched into her normally cheerful face.
+
+─────────────────────────────
+HER PITCH:
+"Thank you for coming so quickly. A few weeks ago, I attended a dig in the Murkmire that unearthed a furrowed, light-green stone. I'll give you all the details, but the bottom line is that it isn't a stone at all — it's the egg of an eldritch horror. Moreover, my research indicates it'll hatch at midnight tonight.
+
+"Trouble is, no one will listen to me. The university ignored me, and I was caught trying to steal the egg from the museum so I could contain it. Now I've been fired, the Murkmire Stone display at the museum opens tomorrow, and the egg is about to hatch.
+
+"You've got to steal the Murkmire Stone and bring it back so I can save the city!"
+
+─────────────────────────────
+WHAT DR. DANNELL KNOWS:
+• GETTING THE EGG — Scout the museum for security measures, steal the stone at an opportune moment, and bring it to her. She will wait in the alley between the museum and the Sage's Quill.
+• TRAITS OF THE EGG — It cannot be damaged or destroyed. Digging it up triggered the rapid development of the creature inside.
+• CONTAINING THE EGG — The only remaining option is a specially prepared crystal container. She has built a crystal box but is still sealing cracks in it, so the party cannot take it on the heist.
+• WHAT'S IN THE EGG — Her occult sources say something extremely dangerous, unless it is safely contained.
+
+DANNELL'S TOOLS:
+• TICKETS — One gala ticket per character. Formal dress is required; she has an outfit for each of them.
+• BAG OF HOLDING — Her heirloom bag, lent to the party to smuggle in adventuring gear (weapons and visible armor are barred from the museum). Track who is carrying it.
+• THE MAP — Her sketch of the museum (players' map 1.1), drawn from the public exhibit map plus guesses about the nonpublic areas. It is incomplete and shows no security measures. She knows the museum has alarms after hours but not where they are or how to bypass them.
+• MUSEUM STAFF — Twelve guards. The curator, an elf named Alda Arkin, likely keeps a record of the guards' night patrol areas in her office somewhere in the eastern wing of the first floor. Arkin will be at the gala.
+
+THE REWARD:
+Her bag of holding plus 20 gp per character. On a successful DC 13 Charisma (Persuasion) check, she raises it to 30 gp per character. Golden Vault operatives also receive an uncommon magic item of their choice the next day.</div>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="scene-num">2</span> The Opening Gala <span class="area-num">6–8 p.m.</span></div>
+          <p>The gala fills the Gemstone Wing (<strong>V13</strong>) on the second floor. Maryam Bikram works the door and admits anyone in formal dress with a ticket. Twenty other attendees &mdash; unarmed, unarmored nobles, mostly long-time donors &mdash; mill about. The Murkmire Stone sits on a marble pedestal at the wing's center.</p>
+          <div class="creatures">
+            <span class="creature-tag" onclick="openEntity('alda-arkin')">Alda Arkin (Curator)</span>
+            <span class="creature-tag" onclick="openEntity('guard')">Maryam Bikram (Guard)</span>
+            <span class="creature-tag" onclick="openEntity('noble')">Nobles ×20</span>
+            <span class="creature-tag" onclick="openEntity('murkmire-stone')">The Murkmire Stone</span>
+          </div>
+          <ul class="beats">
+            <li><strong>Working the room.</strong> Roll on the <em>Gala Attendees</em> table for whoever a character corners. They know nothing beyond the basics of the stone's discovery &mdash; but a <strong>DC 12 Charisma (Persuasion)</strong> check shakes loose one random entry from the <em>Museum Gossip</em> table.</li>
+            <li><strong>Alda's clutch.</strong> Anyone watching the curator closely notices the fancy clutch she keeps behind her back. Inside: <strong>the guards' after-hours station map, a master key to every locked door, and an alarm pass card</strong>. That clutch is the whole heist in one bag.</li>
+            <li><strong>The pedestal.</strong> A character who studies it for at least 1 minute realizes it has an elaborate defense mechanism (see V13). This is the only chance to learn about it before the grab.</li>
+          </ul>
+          <div class="rp-note">Alda assumes the party are wealthy donors and chats happily. She knows Dr. Dannell and detests her over the occult research — mention Dannell's warnings and Alda snorts, dismisses it, and walks off to find better company.</div>
+          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Full text</button>
+          <div class="fulltext-body">READ ALOUD — ARRIVING AT THE MUSEUM:
+The facade of the Varkenbluff Museum of Natural History boasts enormous columns and elegant archways hewn from marble. Cosmopolitan visitors bustle about the entrance, including some clad in sleek formal wear.
+
+The museum is open to the public today; only the Gemstone Wing on the second floor is closed for the ticketed gala.
+
+─────────────────────────────
+READ ALOUD — ENTERING THE GALA:
+The Gemstone Wing's oak doors open into a luxuriously appointed ballroom. Crimson tablecloths and fine china adorn dining tables, and chandeliers sparkle overhead. Cabinets with glittering gemstones surround the space. At the wing's center is a marble pedestal bearing a peculiar, light-green stone.
+
+─────────────────────────────
+AT THE DOOR:
+Maryam Bikram (lawful neutral human guard), captain of the museum's security force and a veteran of the city watch, is a serious woman. Formal dress plus a ticket gets a character in. Everyone else is turned away.
+
+CURATOR ALDA ARKIN:
+Alda Arkin (neutral evil elf noble) is unarmed and unarmored tonight. A retired university professor, she is responsible for the museum's close ties to Varkenbluff University's anthropology and archaeology departments. She takes the characters for wealthy donors and welcomes them warmly.
+
+EXAMINING THE MURKMIRE STONE:
+The stone sits on its pedestal in area V13, flanked by placards about its discovery and theories about its use — Dr. Dannell's occult theory is conspicuously absent.
+
+GEMSTONE WING SECURITY:
+Spend 1 minute studying the pedestal to notice the elaborate defense mechanism built into it. See area V13 for what it does.</div>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="scene-num">3</span> Casing the Museum <span class="area-num">before 8 p.m.</span></div>
+          <p>The whole museum is public today except the offices (<strong>V5&ndash;V7</strong>), the basement (<strong>V16</strong>), and the attic (<strong>V17</strong>). The party has roughly two hours to prepare before closing. Guards ignore them as long as they don't get caught in a restricted area or cause a public incident.</p>
+          <ul class="beats">
+            <li><strong>Getting caught.</strong> Roll on the <em>Museum Guards</em> table for who turns up. Characters in formal dress are escorted back to the Gemstone Wing; anyone improperly dressed is told to leave. Protest and the guard turns hostile and shouts for backup &mdash; then <strong>1d4 more guards</strong> arrive at the end of each of its turns until all twelve are accounted for.</li>
+            <li><strong>Talking them down.</strong> Before a guard shouts, one character can take an action and make a <strong>DC 10 Charisma (Deception, Intimidation, or Persuasion)</strong> check to send them looking for trouble elsewhere. On a failure the guard turns hostile, and that character can't try again on that guard.</li>
+            <li><strong>Nudged along.</strong> If the party dawdles instead of heading up to the Gemstone Wing, guards spot the formal attire and keep politely suggesting they do so.</li>
+          </ul>
+          <div class="rp-note">This is the reconnaissance window. Everything they learn here — alarms, statues, the pedestal, patrol routes, the fake stone in V9, the pass cards in V7 — is what makes the after-hours run survivable. See the <a href="#mk-museum" style="color:var(--gold-light)">Museum</a> section for the security systems and every area.</div>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="scene-num">4</span> Lights Out <span class="area-num">8 p.m.</span></div>
+          <p>The gala ends, the museum closes, and the staff switch everything on. The party either went to ground inside or has to break back in.</p>
+          <ul class="beats">
+            <li><strong>Cleaning-supply hallways.</strong> Short halls behind secret doors in <strong>V3, V4, V8, V9, V12,</strong> and <strong>V13</strong>. Secret doors are found with a <strong>DC 12 Wisdom (Perception)</strong> check; from inside the hall, the far door needs no check.</li>
+            <li><strong>Privies (V15).</strong> Guards nominally check them at closing, but anyone hiding here avoids detection.</li>
+            <li><strong>Attic or basement.</strong> The guards don't enter <strong>V16</strong> or <strong>V17</strong> before closing at all.</li>
+            <li><strong>Front doors (V1).</strong> Locked from the inside &mdash; <strong>DC 16 Dexterity</strong> with thieves' tools, plus the alarm, the net trap, and two animated statues waiting just inside.</li>
+            <li><strong>Attic skylight (V17).</strong> Unlock it with a <strong>DC 14 Dexterity</strong> check using thieves' tools, then <strong>DC 12 Strength (Athletics)</strong> to lift. Needs rope and grappling hooks to scale the building, but by the end of the gala it is dark enough to climb unseen. Loose bricks on the roof can prop it open.</li>
+            <li><strong>Basement (V16).</strong> Pry open the loading dock doors, or prop open the secret tunnel door if they found it.</li>
+          </ul>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="scene-num">5</span> The Heist <span class="area-num">after 8 p.m.</span></div>
+          <p>Maryam Bikram holds the entrance to the Gemstone Wing. Eleven other guards take the posts on the <em>Guard Locations After Hours</em> table. Alarms are armed, the statues are live, and the net trap inside the front doors is switched on.</p>
+          <div class="creatures">
+            <span class="creature-tag" onclick="openEntity('guard')">Guards ×12</span>
+            <span class="creature-tag" onclick="openEntity('animated-armor')">Animated Statues ×3</span>
+            <span class="creature-tag" onclick="openEntity('scarecrow')">Marigold (V5)</span>
+            <span class="creature-tag" onclick="openEntity('animatronic-allosaurus')">Animatronic Allosaurus (V12)</span>
+            <span class="creature-tag" onclick="openEntity('mimic')">Mimic (V16)</span>
+          </div>
+          <ul class="beats">
+            <li><strong>Noise draws a crowd.</strong> In a noisy fight, <strong>1d4 more guards</strong> arrive each round until every remaining museum guard is accounted for.</li>
+            <li><strong>Getting caught.</strong> A character who is incapacitated or surrenders is hauled off to the city watch headquarters. <strong>If all the characters are caught, the mission fails and the adventure ends.</strong></li>
+            <li><strong>The diversion.</strong> A <strong>DC 10 Intelligence (Arcana)</strong> check with tinker's or thieves' tools overloads the allosaurus controls in V12. It breaks loose, rampages for 10 minutes through the exhibit and down the grand staircase into V1, and then goes inert. Loud, dangerous, and extremely effective at pulling guards.</li>
+          </ul>
+          <div class="rp-note">Reward planning over rolls. A party that lifted Alda's clutch at the gala walks the museum with the patrol map, a master key, and a pass card — that is the intended payoff for paying attention upstairs.</div>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="scene-num">6</span> Taking the Stone <span class="area-num">V13</span></div>
+          <p>Two guards patrol the Gemstone Wing. The pedestal is bolted to the floor and rigged: lift the stone off it carelessly and <em>arcane lock</em> slams and seals every door into the room, secret doors included.</p>
+          <ul class="beats">
+            <li><strong>Spotting the trap.</strong> <em>Detect magic</em> shows an aura of transmutation around the pedestal. A character who examines it sees tiny glyphs at its base and can make a <strong>DC 12 Intelligence (Arcana)</strong> check to work out what they do.</li>
+            <li><strong>The swap.</strong> The central display cabinet in the easternmost room of <strong>V9</strong> holds a chunk of jade the same size and weight as the egg. Swapping it in without triggering the locks is a <strong>DC 10 Dexterity (Sleight of Hand)</strong> check.</li>
+            <li><strong>Sealed in.</strong> If the locks do trigger: <strong>DC 20 Dexterity</strong> with thieves' tools, or <strong>DC 20 Strength (Athletics)</strong> to force a door. The <em>arcane lock</em> doesn't hinder the curator or the guards, who can simply walk in.</li>
+            <li><strong>Back doors.</strong> A 3-ft. air vent in the west wall, 10 ft. up, runs to <strong>V12</strong> &mdash; <strong>DC 10 Strength (Athletics)</strong> to reach it, no check to drop down. A secret door in the south wall leads through a cleaning-supply hall to the corridor between <strong>V9</strong> and <strong>V10</strong>.</li>
+          </ul>
+          <div class="rp-note">The moment they have the egg, start the pulse timer under Tables. From 10:30 p.m. the shell turns translucent and pulses every 10 minutes: DC 10 Wisdom save within 20 ft., disadvantage for whoever is carrying it. Stuffing it in the bag of holding doesn't help — the pulse just radiates from the bag instead.</div>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="scene-num">7</span> The Getaway</div>
+          <p>Out the way they came in, or out through the basement. Dr. Dannell is waiting in the alley between the museum and the Sage's Quill.</p>
+          <ul class="beats">
+            <li><strong>Secret tunnel (V16).</strong> The quietest exit: a 50-ft. tunnel behind a secret door in the basement's northwest corner, surfacing in a copse of trees near the museum.</li>
+            <li><strong>Loading dock (V16).</strong> <strong>DC 14 Dexterity</strong> with thieves' tools, then <strong>DC 15 Strength (Athletics)</strong> to shove the stiff doors open. Noisy &mdash; it draws one guard down from V1.</li>
+            <li><strong>Skylight (V17)</strong> or straight out the <strong>front doors (V1)</strong>, past the net trap and the statues.</li>
+            <li><strong>The handoff.</strong> Dannell locks the egg in her crystal box and it goes inert on the spot &mdash; the pulses stop immediately. Pay out the <em>bag of holding</em> and 20 gp each (30 gp on a DC 13 Persuasion), plus the Vault's uncommon magic item the next day.</li>
+          </ul>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="scene-num">8</span> Conclusion &amp; Aftermath</div>
+          <p>If the egg reaches Dr. Dannell before midnight, it is contained and she sets about clawing back her position at the university. If it doesn't, it hatches in the Gemstone Wing into a nascent eldritch horror &mdash; and Alda Arkin's own secrets start surfacing.</p>
+          <div class="rp-note">The hatchling uses the <em>ankheg</em> stat block, except its bite deals poison damage instead of acid damage.</div>
+          <button class="fulltext-toggle" onclick="toggleText(this)">▸ Full text</button>
+          <div class="fulltext-body">SUCCESS:
+Dr. Dannell locks the Murkmire Stone in a box made of crystal, whereupon the stone becomes inert and its effects stop immediately. She assures the characters the egg will be safe in her care for the time being, pays the reward, and sets about regaining her position at the university while making provisions to keep the egg boxed.
+
+FAILURE:
+If the characters don't bring the stone to Dr. Dannell by midnight, it hatches. Alda Arkin may also be revealed as a syndicate head.
+
+─────────────────────────────
+FURTHER ADVENTURES — IF THE MISSION SUCCEEDED
+
+ANOTHER STONE:
+Dannell hears from a colleague that another expedition in the Murkmire has unearthed a similar object. This one is closer to hatching, and strange things are happening to the excavation crew. With Dannell still discredited, the party must venture into the Murkmire, find the crew, and contain the egg — but on arrival it has already hatched, and the hatchling must be put down.
+
+INVESTIGATE THE HATCHLING:
+A strange creature has appeared in the crocodile enclosure at the Varkenbluff Zoo, hatched from an egg like the Murkmire Stone and already nearly 8 feet long. The baby crocodiles are gone, animals nearby have turned violent, and zookeepers who tried to capture it are plagued by headaches. It grows by the hour.
+
+REINSTATE DR. DANNELL:
+Vindicated, Dannell assembles proof and bids for reinstatement at Varkenbluff University — but the curator blocks her, then goes missing, casting suspicion on Dannell. She offers a share of her future earnings for help. The trail runs through Varkenbluff's high society and reveals Alda Arkin as the head of an illegal syndicate fencing stolen objects.
+
+─────────────────────────────
+FURTHER ADVENTURES — IF THE MISSION FAILED
+
+A STOLEN STONE:
+Shortly after the failed heist, Alda Arkin steals the stone herself — she secretly leads an illegal syndicate fencing stolen historical objects and thinks the piece will fetch a high price. An arcane ritual keeps the egg from hatching, but its effects persist. When its energy transforms Alda into a Monstrosity, she holes up in her manor with it, unable to think straight. The party must confront the warped creatures inside — including the curator.
+
+MUSEUM FEEDING FRENZY:
+The stone hatches into an eight-foot-long nascent eldritch horror and its pulses cease. The staff assume theft and close the building; the hatchling then terrorizes and eats the guards one by one. Alda Arkin concedes Dannell might have been right and hires the characters to stop it. Now pony-sized, it uses the ankheg stat block (poison damage instead of acid), has laid traps from the slime it secretes while metabolizing food, and treats the whole museum as its habitat.
+
+If it isn't defeated within a few days, it smashes out the front doors and bolts for Varkenbluff University. Grown enormous, the juvenile eldritch horror uses the behir stat block but speaks no languages and has INT 18, plus an additional action:
+
+SPELLCASTING. The eldritch horror casts one of the following spells, requiring no components and using Intelligence as the spellcasting ability (save DC 14):
+2/day each: blindness/deafness, blur
+1/day: project image</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══ MUSEUM ══ -->
+    <section id="mk-museum">
+      <h2>Varkenbluff Museum of Natural History</h2>
+      <div class="summary-box">
+        <p><strong>General features.</strong> Stone walls, tiled floors, <strong>30-ft. ceilings</strong>. Interior doors are closed and locked (except the privies in V15): <strong>DC 12 Dexterity</strong> with thieves' tools unless noted &mdash; and picking a door with a live <em>alarm</em> triggers it. Most of the first two floors is lit by <em>continual flame</em> sconces; <strong>V1, V12, V16,</strong> and <strong>V17</strong> are in <strong>dim light</strong> (guards in V1 and V12 carry hooded lanterns). Secret doors are found with a <strong>DC 12 Wisdom (Perception)</strong> check.</p>
+      </div>
+
+      <div class="scene-list" style="margin-top:10px;">
+
+        <div class="scene">
+          <div class="scene-title">Security Systems (after 8 p.m.)</div>
+          <p><strong>Alarms.</strong> Audible <em>alarm</em> spells. Touching an alarmed door sets it off; entering an alarmed 5-ft. square sets it off. When one sounds, any guards in the area plus <strong>1d3 more guards on that floor</strong> come to investigate. Not armed while the museum is open.</p>
+          <table class="res-table">
+            <tr><th>Where</th><th>Alarm</th></tr>
+            <tr><td class="res-roll">V1</td><td>The front doors (extends 10 ft., covering the whole doorway)</td></tr>
+            <tr><td class="res-roll">V1</td><td>The bottom of the grand staircase</td></tr>
+            <tr><td class="res-roll">V1&rarr;V3</td><td>Each connecting hallway</td></tr>
+            <tr><td class="res-roll">V1&rarr;V5&ndash;V7</td><td>The office doors</td></tr>
+            <tr><td class="res-roll">V11&rarr;V12</td><td>The connecting hall</td></tr>
+            <tr><td class="res-roll">V12&rarr;V13</td><td>The door to the Gemstone Wing hallway</td></tr>
+          </table>
+          <p style="margin-top:10px;"><strong>Animated statues.</strong> The two statues flanking the front desk in <strong>V1</strong> and the winged satyr beside the stairs in <strong>V12</strong> animate if a character comes within 5 ft., using the <em>animated armor</em> stat block, fighting until destroyed, and alerting any guards in the area. <em>Detect magic</em> shows a transmutation aura; a <strong>DC 10 Intelligence (Arcana)</strong> check then reveals what they are. Stay more than 5 ft. away and they stay put.</p>
+          <p style="margin-top:8px;"><strong>Pass cards.</strong> The curator and every guard carries a palm-sized pass card embossed with the museum's logo (divination aura) that bypasses any museum alarm. Three spares sit in a box in <strong>V7</strong>. A hidden character within reach of a guard can lift a card &mdash; or that guard's key &mdash; with a <strong>DC 14 Dexterity (Sleight of Hand)</strong> check.</p>
+          <p style="margin-top:8px;"><strong>Keys.</strong> Alda carries a master key to every locked door. Each guard carries a key to their own posted area; the guards in <strong>V1</strong> also hold a key to the break room (<strong>V7</strong>).</p>
+          <p style="margin-top:8px;"><strong>Patrol routes.</strong> The guards' after-hours stations are written up on a document in Alda's clutch during the gala, and left on her desk in <strong>V5</strong> under loose paperwork afterward. Study it for 1 minute and gain <strong>advantage on Dexterity (Stealth) checks to sneak past guards</strong> for the rest of the night.</p>
+          <p style="margin-top:8px;"><strong>Alarm records.</strong> The museum's payment record for the <em>alarm</em> spells &mdash; including their exact locations &mdash; is filed in the records room (<strong>V6</strong>). <em>Detect magic</em> also finds them.</p>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="area-num">V1</span> Grand Entrance</div>
+          <div class="read-aloud">Statues depicting robed human women flank the sides of this public mingling space, which boasts a marble column in the center. The museum's information desk is situated just inside the front doors. To the north is a grand staircase draped in rich carpet.</div>
+          <ul class="beats">
+            <li><strong>2 guards</strong> patrol. Both flanking statues animate within 5 ft. (<em>animated armor</em>, fight until destroyed).</li>
+            <li><strong>Alarms</strong> on the front doors and at the bottom of the grand staircase.</li>
+            <li><strong>Front doors</strong> are locked from the inside: <strong>DC 16 Dexterity</strong> with thieves' tools.</li>
+            <li><strong>Net trap (T).</strong> A pressure plate under a rug in the 5&times;10-ft. section just north of the doors, toggled by a switch hidden under the information desk (on when closed, off when open). Lifting or shoving the rug reveals it. First creature to step on it drops a weighted net over the 10-ft. square between doors and desk: creatures there are <strong>restrained</strong>, and those failing a <strong>DC 10 Strength save</strong> are also <strong>prone</strong>. Freeing yourself or an adjacent creature is a <strong>DC 10 Strength</strong> check as an action; the net is AC 10, 12 hp.</li>
+          </ul>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="area-num">V2</span> Museum Shops</div>
+          <div class="read-aloud">Display racks here are filled with tunics, bandannas, books, and bric-a-brac, most emblazoned with the museum's logo. Plush benches serve as seating areas.</div>
+          <ul class="beats">
+            <li>East shop: cheap souvenirs, &ldquo;The Historian's Gifts.&rdquo; West shop: books and artifact replicas, &ldquo;The Archaeologist's Spade.&rdquo;</li>
+            <li><strong>Treasure.</strong> Each shop has a locked back room (<strong>DC 16 Dexterity</strong>, thieves' tools) with a till holding <strong>1d6 gp, 2d6 sp, 3d6 cp</strong>. One set of <strong>thieves' tools</strong> can be cobbled together from the supplies back there.</li>
+          </ul>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="area-num">V3</span> Ancient Plants Exhibit</div>
+          <div class="read-aloud">Artificial plants made of wood, silk, and other materials sprout from artfully arranged planters. Tall ferns, bushes with strange berries, and slender trees are represented alongside placards about ancient plant life.</div>
+          <ul class="beats">
+            <li><strong>1 guard</strong> patrols. Hallways north and south connect to V4, and both connecting halls to V1 are alarmed.</li>
+            <li><strong>Secret doors</strong> in the west wall of the northern and central exhibit rooms open into cleaning-supply hallways that come out in V4.</li>
+          </ul>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="area-num">V4</span> Ancient Cultures Exhibit</div>
+          <div class="read-aloud">Glass display cases boast objects related to life in ancient Varkenbluff. Clay pots, stone tools, and scraps of leather clothes are interspersed with informational placards about their historical use.</div>
+          <ul class="beats">
+            <li><strong>1 guard</strong> patrols. Hallways north and south connect to V3.</li>
+            <li><strong>Secret doors</strong> in the east wall of the northern and central exhibit rooms open into cleaning-supply hallways that come out in V3.</li>
+          </ul>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="area-num">V5</span> Curator's Office</div>
+          <div class="read-aloud">A solid oak desk stands on a plush carpet in the center of this office. In the southeast corner, a strange, human-sized doll is posed in an elaborate silk dress.</div>
+          <ul class="beats">
+            <li><strong>Alarm</strong> on the door to V1.</li>
+            <li><strong>Marigold.</strong> After hours Alda arms her office's defense: a five-foot-tall doll with &ldquo;Marigold&rdquo; sewn onto its vintage dress. Anyone but Alda entering the room makes it animate and attack &mdash; <em>scarecrow</em> stat block, fights until destroyed. A noisy fight may draw the guards in V1.</li>
+            <li><strong>Patrol routes.</strong> If they didn't lift Alda's clutch at the gala, a copy of the guards' after-hours stations is on the desk under loose paperwork.</li>
+          </ul>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="area-num">V6</span> Records Room</div>
+          <div class="read-aloud">Filing cabinets stand in this records room.</div>
+          <ul class="beats">
+            <li><strong>Alarm</strong> on the door to V1.</li>
+            <li>Records of past and current exhibits plus the museum's finances &mdash; including the placement of every <em>alarm</em> spell in the building.</li>
+          </ul>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="area-num">V7</span> Break Room &amp; Storage</div>
+          <div class="read-aloud">Boxes of display supplies are stacked into this room's corners. Chairs surround a circular table in the middle.</div>
+          <ul class="beats">
+            <li><strong>Alarm</strong> on the door to V1. The guards in V1 carry a key to this room.</li>
+            <li><strong>Pass card stash.</strong> A minute of searching the boxes turns up a small, partly open box in the southwest corner holding <strong>three pass cards</strong> and a scrap of paper reading &ldquo;spare alarm pass cards.&rdquo;</li>
+            <li><strong>Treasure.</strong> A vial of <em>potion of vitality</em> tucked between supply boxes in the northwest corner.</li>
+          </ul>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="area-num">V8</span> Creatures of the Past Exhibit</div>
+          <div class="read-aloud">Fossils of small prehistoric creatures are arranged here, some as fully reconstructed skeletons. The exhibit includes microraptors, ornithopods, dwarf elephants, and an ancestor of the cockatrice. Informational placards tell the stories of these creatures and their bones' discovery.</div>
+          <ul class="beats">
+            <li><strong>1 guard</strong> patrols.</li>
+            <li><strong>Secret door</strong> between two of the 15-ft.-square exhibit rooms opens into a cleaning-supply hallway running north, coming out in <strong>V12</strong>.</li>
+          </ul>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="area-num">V9</span> Underground Wonders Exhibit</div>
+          <div class="read-aloud">Glittering ore and gemstones are arranged in velvet-backed display cases. Informational placards explain local geologic history.</div>
+          <ul class="beats">
+            <li><strong>2 guards</strong> cover this room and V10, swapping between them <strong>every 5 minutes</strong>.</li>
+            <li>The gems here are near worthless &mdash; the precious stones are all in the Gemstone Wing (V13).</li>
+            <li><strong>Fake Murkmire Stone.</strong> A character examining the easternmost room's stones spots a chunk of jade in the central cabinet, matching the egg in size and weight. The case is locked: <strong>DC 10 Dexterity</strong> with thieves' tools. Smashing the glass instead draws the patrolling guards.</li>
+            <li><strong>Secret door</strong> between this exhibit and V10 opens into a cleaning-supply hallway running north, coming out in <strong>V13</strong>.</li>
+          </ul>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="area-num">V10</span> Archaeology Display</div>
+          <div class="read-aloud">Picks, trowels, brushes, and other archaeological tools are on display here. Informational placards label them as tools famous local experts used to dig up the wonders found in the museum. Murals along the south wall depict famous digs.</div>
+          <ul class="beats">
+            <li><strong>2 guards</strong> cover this room and V9, swapping every 5 minutes.</li>
+            <li>The exhibit tells the story of the infamous Rogerson dig, where most of the Prehistoric Predators creatures were found &mdash; the placards dismiss the local legend that the excavators were cursed.</li>
+            <li><strong>Treasure.</strong> A <strong>DC 10 Wisdom (Perception)</strong> check while studying the exhibit reveals two flawless weapons among the tools: a <strong>+1 dagger</strong> and a <strong>+1 handaxe</strong>. Their case has a jammed lock, so the glass must be broken or cut &mdash; breaking it draws the patrolling guards.</li>
+          </ul>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="area-num">V11</span> Unearthed Café</div>
+          <div class="read-aloud">This space holds a mix of cafeteria-style tables and lounge furniture. A counter in the northeast corner sits underneath a sign that reads, &ldquo;Unearthed Café.&rdquo;</div>
+          <ul class="beats">
+            <li><strong>1 guard</strong> patrols.</li>
+            <li><strong>Treasure.</strong> A lockbox stashed under the counter &mdash; <strong>DC 14 Dexterity</strong> with thieves' tools &mdash; holds <strong>15 gp, 7 sp, 24 cp</strong>.</li>
+          </ul>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="area-num">V12</span> Prehistoric Predators Exhibit</div>
+          <div class="read-aloud">The intact skeletons of several large prehistoric monsters are on display here, including the museum's most famous display: the beautifully preserved body of an allosaurus, its leathery skin appearing supple to the touch. An informational placard next to the dinosaur explains it died in the Murkmire millennia ago and was naturally preserved. Display cases along the room's walls hold fossils of other ancient local predators.</div>
+          <ul class="beats">
+            <li><strong>2 guards</strong> patrol. Dim light.</li>
+            <li><strong>Winged satyr statue</strong> west of the stairs springs to life within 5 ft. (<em>animated armor</em>, fights until destroyed).</li>
+            <li><strong>Alarms</strong> in the hallway to the Unearthed Café (V11) and on the door in the middle of the east wall (to V13).</li>
+            <li><strong>The allosaurus</strong> is not a specimen &mdash; rock gnomes turned it into a harmless animatronic. A hatch in the display base hides a button panel. Switching it on alerts the guards in V12, V11, <em>and</em> V13. Instead, a <strong>DC 10 Intelligence (Arcana)</strong> check with tinker's or thieves' tools overloads the magic powering the controls: it breaks free of its base and <strong>rampages for 10 minutes</strong>, stomping through the exhibit and down the grand staircase into V1 before going inert. It uses the <em>allosaurus</em> stat block as a <strong>Construct</strong>, immune to poison and psychic damage and to the charmed, frightened, paralyzed, and poisoned conditions.</li>
+            <li><strong>Vent.</strong> A 3-ft. high, 3-ft. wide, 5-ft. deep air vent in the east wall, 10 ft. up, leads to V13 &mdash; <strong>DC 10 Strength (Athletics)</strong> to reach it; no check to get back down.</li>
+            <li><strong>Secret door</strong> to the cleaning-supply hall from V8.</li>
+          </ul>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="area-num">V13</span> Gemstone Wing &mdash; the objective</div>
+          <div class="read-aloud">Chairs surround several tables cluttered with crystal and silver tableware. Against the east wall, a light-green stone rests atop a marble pedestal.</div>
+          <ul class="beats">
+            <li><strong>2 guards</strong> patrol; Maryam Bikram holds the entrance. Staff plan to clear the tables and restore the gemstone exhibits in the morning &mdash; those exhibits are currently boxed in the basement (V16).</li>
+            <li><strong>The light-green stone</strong> is the Murkmire Stone. Its pulses start at <strong>10:30 p.m.</strong>; it hatches at <strong>midnight</strong>.</li>
+            <li><strong>Rigged pedestal.</strong> Bolted to the floor, can't be moved, transmutation aura under <em>detect magic</em>. Tiny glyphs at the base plus a <strong>DC 12 Intelligence (Arcana)</strong> check reveal that removing the stone locks every door to the room. If triggered, <em>arcane lock</em> seals all doors including secret ones: <strong>DC 20 Dexterity</strong> with thieves' tools or <strong>DC 20 Strength (Athletics)</strong> to force. It doesn't hinder the curator or the guards.</li>
+            <li><strong>The swap.</strong> The fake from V9 prevents the trap &mdash; <strong>DC 10 Dexterity (Sleight of Hand)</strong>.</li>
+            <li><strong>Vent</strong> in the west wall (10 ft. up, <strong>DC 10 Athletics</strong>) to V12. <strong>Secret door</strong> in the south wall to a cleaning-supply hall coming out in the corridor between V9 and V10.</li>
+          </ul>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="area-num">V14</span> Access Hallway</div>
+          <p>Connects the Unearthed Café (V11) to the Prehistoric Predators exhibit (V12) and the privies (V15).</p>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="area-num">V15</span> Privies</div>
+          <p>Five stalls, each with a simple latch that locks from the inside &mdash; the one set of interior doors that isn't locked. Guards nominally check here at closing, but anyone hiding avoids detection. East of the privies, a staircase climbs to the attic (V17).</p>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="area-num">V16</span> Basement</div>
+          <div class="read-aloud">Boxes and crates are piled here in groups. Enormous warehouse doors take up much of the basement's northern wall.</div>
+          <ul class="beats">
+            <li>Dim light. Objects formerly on display or not yet prepped are stored here, and the area is rarely visited. A <strong>mimic</strong> has taken up residence in the centermost pile of boxes &mdash; it waits until a character comes within 5 ft., then fights until destroyed.</li>
+            <li><strong>Loading docks.</strong> The warehouse doors open onto an underground ramp up to street level (easy to spot from outside if they've walked the building). Locked, stiff hinges: <strong>DC 14 Dexterity</strong> with thieves' tools, then <strong>DC 15 Strength (Athletics)</strong> to shove open. Noisy &mdash; it draws one guard down from V1.</li>
+            <li><strong>Secret door</strong> in the northwest corner opens onto a 50-ft. tunnel emerging in a copse of trees near the museum.</li>
+            <li><strong>Treasure.</strong> Most crated items are unsellable &mdash; instantly identifiable as stolen museum property. The boxes in the southeastern corner, though, hold the Gemstone Wing's displaced exhibits: <strong>20 pounds of local gemstones and raw silver ore worth 150 gp total</strong>.</li>
+          </ul>
+        </div>
+
+        <div class="scene">
+          <div class="scene-title"><span class="area-num">V17</span> Attic</div>
+          <div class="read-aloud">A winding staircase leads up to this cramped space filled with haphazardly stacked boxes. Starlight pours into the space through a large skylight.</div>
+          <ul class="beats">
+            <li>Dim light. Event supplies &mdash; lecterns, linens, tableware &mdash; are stored here. Guards don't come up before closing.</li>
+            <li><strong>Skylight.</strong> Locked: <strong>DC 14 Dexterity</strong> with thieves' tools to unlock, then <strong>DC 12 Strength (Athletics)</strong> to lift. Loose bricks on the roof nearby can prop it open.</li>
+          </ul>
+        </div>
+
       </div>
     </section>
 
@@ -1146,6 +1582,21 @@ One thing that you must do, however, is try to provide at least a hint of the da
     <section id="mk-monsters">
       <h2>Monsters &amp; NPCs</h2>
       <div class="entity-grid">
+        <div class="entity-card" onclick="openEntity('dannell')">
+          <div class="entity-name">Dr. Cassee Dannell</div>
+          <div class="entity-type">NPC &middot; the patron</div>
+          <div class="entity-cr">Commoner &middot; INT 18</div>
+        </div>
+        <div class="entity-card" onclick="openEntity('alda-arkin')">
+          <div class="entity-name">Alda Arkin</div>
+          <div class="entity-type">NPC &middot; museum curator</div>
+          <div class="entity-cr">Noble &middot; CR 1/8</div>
+        </div>
+        <div class="entity-card" onclick="openEntity('noble')">
+          <div class="entity-name">Noble</div>
+          <div class="entity-type">Humanoid &middot; gala attendee</div>
+          <div class="entity-cr">CR 1/8 &middot; 25 XP</div>
+        </div>
         <div class="entity-card" onclick="openEntity('guard')">
           <div class="entity-name">Guard</div>
           <div class="entity-type">Humanoid</div>
@@ -1848,6 +2299,99 @@ const ENTITIES = {
   },
 
   /* ── MURKMIRE: STAT BLOCKS ── */
+  dannell: {
+    name: "Dr. Cassee Dannell",
+    html: `
+      <div class="summary-box" style="font-size:.9rem;">
+        <h3 style="color:var(--gold); margin-bottom:6px;">Dr. Cassee Dannell</h3>
+        <div class="sb-prop"><span>Role</span><span>Patron &mdash; the one who hires them</span></div>
+        <div class="sb-prop"><span>Stats</span><span>Neutral good human <em>commoner</em>, INT 18</span></div>
+        <div class="sb-prop"><span>Where</span><span>The Sage's Quill, then the alley by the museum</span></div>
+        <div class="sb-divider"></div>
+        <p style="font-size:.86rem;">A brilliant anthropologist who learned young to hide her interest in the occult. She earned her doctorate at Varkenbluff University by twenty-four and joined the faculty as a field scientist, unmatched at connecting local finds to their cultural context &mdash; while researching the occult in secret.</p>
+        <p style="font-size:.86rem; margin-top:6px;">She was on the Murkmire dig that turned up the stone, and she alone recognized it from her occult tomes: an eldritch creature's egg, dormant for generations, developing fast now that it has been unearthed. Such creatures hatch ravenous for raw meat and grow exponentially as they feed, eventually overwhelming whole villages. The eggs are near-indestructible, but the tomes say crystal can neutralize them.</p>
+        <p style="font-size:.86rem; margin-top:6px;">She tried to have the stone isolated at the dig; the museum outbid the argument. She brought her findings to the university administrators, who called it pseudoscience. She snuck into the museum to steal the egg herself, was caught, was disavowed, and was fired. The party is her last option.</p>
+        <div class="rp-note" style="margin-top:10px;">Anxious, exhausted, and completely sincere. She hands over gala tickets, formal clothes, her heirloom <em>bag of holding</em>, and a hand-drawn map that is honest about what she doesn't know. Reward: the bag plus 20 gp each &mdash; 30 gp on a DC 13 Persuasion check.</div>
+      </div>
+    `
+  },
+
+  'alda-arkin': {
+    name: "Alda Arkin, Curator",
+    html: `
+      <div class="stat-block">
+        <div class="sb-name">Alda Arkin</div>
+        <div class="sb-meta">Neutral evil elf noble &mdash; museum curator</div>
+        <hr>
+        <div class="sb-row"><strong>AC</strong> 15 (breastplate) &mdash; unarmed and unarmored at the gala</div>
+        <div class="sb-row"><strong>HP</strong> 9 (2d8)</div>
+        <div class="sb-row"><strong>Speed</strong> 30 ft.</div>
+        <hr>
+        <div class="sb-abilities">
+          <div><div class="ab-label">STR</div><div class="ab-val">11 (+0)</div></div>
+          <div><div class="ab-label">DEX</div><div class="ab-val">12 (+1)</div></div>
+          <div><div class="ab-label">CON</div><div class="ab-val">11 (+0)</div></div>
+          <div><div class="ab-label">INT</div><div class="ab-val">12 (+1)</div></div>
+          <div><div class="ab-label">WIS</div><div class="ab-val">14 (+2)</div></div>
+          <div><div class="ab-label">CHA</div><div class="ab-val">16 (+3)</div></div>
+        </div>
+        <hr>
+        <div class="sb-row"><strong>Skills</strong> Deception +5, Insight +4, Persuasion +5</div>
+        <div class="sb-row"><strong>Senses</strong> passive Perception 12</div>
+        <div class="sb-row"><strong>Challenge</strong> 1/8 (25 XP)</div>
+        <hr>
+        <div class="sb-actions-title">Actions</div>
+        <div class="sb-section">
+          <div class="trait"><em>Rapier.</em> Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 5 (1d8+1) piercing damage.</div>
+        </div>
+        <div class="sb-actions-title">Reactions</div>
+        <div class="sb-section">
+          <div class="trait"><em>Parry.</em> The noble adds 2 to its AC against one melee attack that would hit it. To do so, the noble must see the attacker and be wielding a melee weapon.</div>
+        </div>
+      </div>
+      <div class="rp-note">A retired university professor responsible for the museum's close ties to Varkenbluff University. She takes the party for wealthy donors and welcomes them warmly. She knows Dr. Dannell and deeply dislikes her over the occult research &mdash; raise Dannell's warnings and Alda snorts, dismisses them, and leaves to mingle.</div>
+      <div class="rp-note" style="margin-top:8px;"><strong>Her clutch</strong> (held behind her back, noticed by anyone watching closely) holds the guards' after-hours station map, the <strong>master key</strong> to every locked door, and an <strong>alarm pass card</strong>. DC 14 Dexterity (Sleight of Hand) while hidden and within reach.</div>
+      <div class="rp-note" style="margin-top:8px;"><strong>Secret.</strong> Alda heads an illegal syndicate fencing stolen historical objects &mdash; a thread the adventure only pulls on afterward, in the Further Adventures hooks.</div>
+    `
+  },
+
+  noble: {
+    name: "Noble",
+    html: `
+      <div class="stat-block">
+        <div class="sb-name">Noble</div>
+        <div class="sb-meta">Medium humanoid (any race), any alignment</div>
+        <hr>
+        <div class="sb-row"><strong>AC</strong> 15 (breastplate)</div>
+        <div class="sb-row"><strong>HP</strong> 9 (2d8)</div>
+        <div class="sb-row"><strong>Speed</strong> 30 ft.</div>
+        <hr>
+        <div class="sb-abilities">
+          <div><div class="ab-label">STR</div><div class="ab-val">11 (+0)</div></div>
+          <div><div class="ab-label">DEX</div><div class="ab-val">12 (+1)</div></div>
+          <div><div class="ab-label">CON</div><div class="ab-val">11 (+0)</div></div>
+          <div><div class="ab-label">INT</div><div class="ab-val">12 (+1)</div></div>
+          <div><div class="ab-label">WIS</div><div class="ab-val">14 (+2)</div></div>
+          <div><div class="ab-label">CHA</div><div class="ab-val">16 (+3)</div></div>
+        </div>
+        <hr>
+        <div class="sb-row"><strong>Skills</strong> Deception +5, Insight +4, Persuasion +5</div>
+        <div class="sb-row"><strong>Senses</strong> passive Perception 12</div>
+        <div class="sb-row"><strong>Challenge</strong> 1/8 (25 XP)</div>
+        <hr>
+        <div class="sb-actions-title">Actions</div>
+        <div class="sb-section">
+          <div class="trait"><em>Rapier.</em> Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 5 (1d8+1) piercing damage.</div>
+        </div>
+        <div class="sb-actions-title">Reactions</div>
+        <div class="sb-section">
+          <div class="trait"><em>Parry.</em> The noble adds 2 to its AC against one melee attack that would hit it. To do so, the noble must see the attacker and be wielding a melee weapon.</div>
+        </div>
+      </div>
+      <div class="rp-note">Twenty of these fill the gala &mdash; unarmed and unarmored, in elaborate finery, most of them long-time museum donors. Roll on the <em>Gala Attendees</em> table for whoever the party corners. They know nothing about the stone beyond its discovery, but a DC 12 Charisma (Persuasion) check shakes loose one entry from the <em>Museum Gossip</em> table.</div>
+    `
+  },
+
   guard: {
     name: "Guard",
     html: `
@@ -2341,7 +2885,8 @@ const ENTITY_HP = {
   'drunk-patron': 9, 'giant-spider': 26,
   // Murkmire Malevolence
   guard: 11, 'animated-armor': 33, scarecrow: 36,
-  'animatronic-allosaurus': 51, mimic: 58
+  'animatronic-allosaurus': 51, mimic: 58,
+  noble: 9, 'alda-arkin': 9
 };
 // How many tokens to create when you first start tracking a creature.
 const ENTITY_COUNT = { wolf: 2, 'giant-rat': 2 };
@@ -2479,7 +3024,8 @@ const INIT_TRACKERS = {
     quick: [
       ['Bram',3],['Dusty',1],['Medrick',3],
       ['Guard',1],['Animated Armor',0,'Armor'],['Scarecrow',1],
-      ['Animatronic Allosaurus',1,'Allosaurus'],['Mimic',1]
+      ['Animatronic Allosaurus',1,'Allosaurus'],['Mimic',1],
+      ['Noble',1],['Alda Arkin',1,'Alda']
     ]
   }
 };
