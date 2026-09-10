@@ -1570,7 +1570,7 @@ SPELLCASTING. The eldritch horror casts one of the following spells, requiring n
             <tr><td class="res-roll">5</td><td><strong>The Quiet Shroud.</strong> A moth-eaten grey funeral veil embroidered with closed eyes. Draw it over your head and for 10 minutes sound refuses to happen within 10 feet of you &mdash; footsteps, breathing, a dropped lantern, a shout for help, anything caught inside the radius. You also can&rsquo;t speak or cast spells with verbal components while it holds. Once per dawn. <em>Banned</em> after the previous curator wore it to a board meeting and would not take it off.</td></tr>
             <tr><td class="res-roll">6</td><td><strong>The Drowned Saint&rsquo;s Reliquary.</strong> A silver locket on a long chain, holding one finger bone in murk-water that never drains. It attunes the moment it is put on &mdash; no rest, no hands needed &mdash; and carries 3 charges, all regained at dawn. Spend 1 charge as a bonus action to vanish in a curl of grey mist and reappear in an unoccupied space you can see within 30 feet (<em>misty step</em>); ropes, manacles, and anything else binding you stay behind. Once per long rest, when you would drop to 0 hit points, you drop to 1 instead and the bone inside cracks a little further. <em>Banned</em> because three separate churches have written the museum demanding it back.</td></tr>
           </table>
-          <p style="margin-top:6px;"><strong>DM notes.</strong> Every result is an out, not just the high ones &mdash; 1 and 2 are lobbed or rung down the stairwell to move the guard, 3 and 4 get the hands free, 5 and 6 walk past him. If a low roll lands and the scene needs the help, the crate is <em>also</em> full of table linens: rope, a distraction, and a halfling-sized hiding place. The reliquary is the only permanent, attuned item here &mdash; hand it out knowing it keeps working after tonight.</p>
+          <p style="margin-top:6px;"><strong>DM notes.</strong> Every result is an out, not just the high ones &mdash; 1 and 2 are lobbed or rung down the stairwell to move the guard, 3 and 4 get the hands free, 5 and 6 walk past him. If a low roll lands and the scene needs the help, the crate is <em>also</em> full of table linens: rope, a distraction, and a halfling-sized hiding place. The reliquary is the only permanent, attuned item here &mdash; hand it out knowing it keeps working after tonight. Full cards for all six are in <strong>Items</strong>.</p>
         </div>
 
       </div>
@@ -1661,6 +1661,30 @@ SPELLCASTING. The eldritch horror casts one of the following spells, requiring n
         <div class="entity-card" onclick="openEntity('handaxe-plus-1')">
           <div class="entity-name">+1 Handaxe</div>
           <div class="entity-type">Weapon (handaxe) &middot; Uncommon</div>
+        </div>
+        <div class="entity-card" onclick="openEntity('fen-sigh')">
+          <div class="entity-name">Jar of Fen-Sigh</div>
+          <div class="entity-type">Banned collection &middot; d6: 1</div>
+        </div>
+        <div class="entity-card" onclick="openEntity('mourners-bell')">
+          <div class="entity-name">The Mourner&rsquo;s Bell</div>
+          <div class="entity-type">Banned collection &middot; d6: 2</div>
+        </div>
+        <div class="entity-card" onclick="openEntity('scrimshaw-tooth')">
+          <div class="entity-name">Scrimshaw Tooth</div>
+          <div class="entity-type">Banned collection &middot; d6: 3</div>
+        </div>
+        <div class="entity-card" onclick="openEntity('fen-wisp')">
+          <div class="entity-name">Bottled Fen-Wisp</div>
+          <div class="entity-type">Banned collection &middot; d6: 4</div>
+        </div>
+        <div class="entity-card" onclick="openEntity('quiet-shroud')">
+          <div class="entity-name">The Quiet Shroud</div>
+          <div class="entity-type">Banned collection &middot; d6: 5</div>
+        </div>
+        <div class="entity-card" onclick="openEntity('drowned-saint-reliquary')">
+          <div class="entity-name">The Drowned Saint&rsquo;s Reliquary</div>
+          <div class="entity-type">Banned collection &middot; d6: 6</div>
         </div>
       </div>
     </section>
@@ -2659,6 +2683,116 @@ const ENTITIES = {
         <p style="font-size:.86rem;">You have a +1 bonus to attack and damage rolls made with this magic weapon.</p>
         <div class="sb-prop"><span>Base damage</span><span>1d6 slashing (1d6+1 with the bonus)</span></div>
         <div class="sb-prop"><span>Properties</span><span>Light, thrown (range 20/60)</span></div>
+      </div>
+    `
+  },
+
+  /* ── MURKMIRE: THE BANNED COLLECTION (attic crates, d6) ── */
+  'fen-sigh': {
+    name: "Jar of Fen-Sigh",
+    html: `
+      <div class="summary-box" style="font-size:.9rem;">
+        <h3 style="color:var(--gold); margin-bottom:6px;">Jar of Fen-Sigh</h3>
+        <div class="sb-prop"><span>Type</span><span>Wondrous item (single use)</span></div>
+        <div class="sb-prop"><span>Rarity</span><span>Common</span></div>
+        <div class="sb-prop"><span>Attunement</span><span>Not required</span></div>
+        <div class="sb-prop"><span>Found on</span><span>Banned Collection, d6: 1</span></div>
+        <div class="sb-divider"></div>
+        <p style="font-size:.86rem;">A thumb-sized clay jar sealed in black wax, labeled in a dig hand: <em>Murkmire — bog gas — do not open indoors.</em></p>
+        <p style="font-size:.86rem; margin-top:6px;">Uncorking the jar as an action, or shattering it against a surface within 20 feet, fills a <strong>5-foot cube</strong> with reeking green vapor for <strong>1 minute</strong>. The area is <strong>lightly obscured</strong>, and a creature that starts its turn in the cloud must succeed on a <strong>DC 10 Constitution saving throw</strong> or spend its action retching. A moderate wind disperses the cloud in 1 round.</p>
+        <p style="font-size:.82rem; color:var(--text-dim); margin-top:6px;">Banned after a docent uncorked one during a donors' luncheon. Thrown down a stairwell, it buys a round or two — and a very annoyed guard.</p>
+      </div>
+    `
+  },
+
+  'mourners-bell': {
+    name: "The Mourner's Bell",
+    html: `
+      <div class="summary-box" style="font-size:.9rem;">
+        <h3 style="color:var(--gold); margin-bottom:6px;">The Mourner's Bell</h3>
+        <div class="sb-prop"><span>Type</span><span>Wondrous item</span></div>
+        <div class="sb-prop"><span>Rarity</span><span>Common</span></div>
+        <div class="sb-prop"><span>Attunement</span><span>Not required</span></div>
+        <div class="sb-prop"><span>Charges</span><span>Once per hour</span></div>
+        <div class="sb-prop"><span>Found on</span><span>Banned Collection, d6: 2</span></div>
+        <div class="sb-divider"></div>
+        <p style="font-size:.86rem;">A tarnished handbell the size of a plum. Its clapper is a human knucklebone, worn smooth.</p>
+        <p style="font-size:.86rem; margin-top:6px;">Ring the bell as an action and no sound leaves your hand. Instead the noise happens at a point you can see <strong>within 60 feet</strong>: a dropped tray, a footstep on a stair, a door easing shut, or a single word spoken in a voice you have heard before. The sound is convincing enough that a listener must succeed on a <strong>DC 13 Wisdom (Insight)</strong> check to suspect it was anything but real.</p>
+        <p style="font-size:.82rem; color:var(--text-dim); margin-top:6px;">Banned as necromantic paraphernalia after a night guard chased one into the basement for three hours.</p>
+      </div>
+    `
+  },
+
+  'scrimshaw-tooth': {
+    name: "Scrimshaw Tooth",
+    html: `
+      <div class="summary-box" style="font-size:.9rem;">
+        <h3 style="color:var(--gold); margin-bottom:6px;">Scrimshaw Tooth</h3>
+        <div class="sb-prop"><span>Type</span><span>Weapon (dagger)</span></div>
+        <div class="sb-prop"><span>Rarity</span><span>Uncommon</span></div>
+        <div class="sb-prop"><span>Attunement</span><span>Not required</span></div>
+        <div class="sb-prop"><span>Found on</span><span>Banned Collection, d6: 3</span></div>
+        <div class="sb-divider"></div>
+        <p style="font-size:.86rem;">A seven-inch allosaurus tooth, its root wrapped in cracked leather, its enamel carved with a spiral of tiny bog-cult figures walking into water.</p>
+        <p style="font-size:.86rem; margin-top:6px;">The tooth counts as a <strong>magic dagger</strong> (no bonus to attack or damage rolls) for the purpose of overcoming resistance and immunity to nonmagical attacks. It also parts <strong>nonmagical rope, leather, cloth, and hide</strong> as though they were smoke: cutting yourself or a willing creature free of such bindings takes <strong>one action</strong> and makes no sound.</p>
+        <div class="sb-prop"><span>Base damage</span><span>1d4 piercing</span></div>
+        <div class="sb-prop"><span>Properties</span><span>Finesse, light, thrown (range 20/60)</span></div>
+        <p style="font-size:.82rem; color:var(--text-dim); margin-top:6px;">Banned because the cult that carved it pried the tooth from the museum's own famous allosaurus — the display in V12 is missing one, if anyone looks closely.</p>
+      </div>
+    `
+  },
+
+  'fen-wisp': {
+    name: "Bottled Fen-Wisp",
+    html: `
+      <div class="summary-box" style="font-size:.9rem;">
+        <h3 style="color:var(--gold); margin-bottom:6px;">Bottled Fen-Wisp</h3>
+        <div class="sb-prop"><span>Type</span><span>Potion (single use)</span></div>
+        <div class="sb-prop"><span>Rarity</span><span>Rare</span></div>
+        <div class="sb-prop"><span>Attunement</span><span>Not required</span></div>
+        <div class="sb-prop"><span>Found on</span><span>Banned Collection, d6: 4</span></div>
+        <div class="sb-divider"></div>
+        <p style="font-size:.86rem;">A stoppered flask of pale drifting light that never holds still, casting slow shadows on whatever it is set beside.</p>
+        <p style="font-size:.86rem; margin-top:6px;">Drinking it grants the effect of <em>gaseous form</em> for <strong>10 minutes</strong>, requiring no concentration. You and everything you wear and carry become a glowing mist: you have <strong>resistance to nonmagical damage</strong>, can pass through a space as narrow as <strong>1 inch</strong> without squeezing, have a <strong>flying speed of 10 feet</strong> and can hover, and can't attack, cast spells, or manipulate objects. Anything <em>binding</em> you — rope, manacles, a net — drops to the floor as you slip out of it.</p>
+        <p style="font-size:.82rem; color:var(--text-dim); margin-top:6px;">Banned after an assistant curator drank one on a dare and spent an afternoon inside a chimney flue. A keyhole, the skylight's gap, and the crack under the attic door are all wide enough.</p>
+      </div>
+    `
+  },
+
+  'quiet-shroud': {
+    name: "The Quiet Shroud",
+    html: `
+      <div class="summary-box" style="font-size:.9rem;">
+        <h3 style="color:var(--gold); margin-bottom:6px;">The Quiet Shroud</h3>
+        <div class="sb-prop"><span>Type</span><span>Wondrous item (veil)</span></div>
+        <div class="sb-prop"><span>Rarity</span><span>Rare</span></div>
+        <div class="sb-prop"><span>Attunement</span><span>Not required</span></div>
+        <div class="sb-prop"><span>Charges</span><span>Once per dawn</span></div>
+        <div class="sb-prop"><span>Found on</span><span>Banned Collection, d6: 5</span></div>
+        <div class="sb-divider"></div>
+        <p style="font-size:.86rem;">A moth-eaten grey funeral veil, embroidered along its hem with a row of closed eyes.</p>
+        <p style="font-size:.86rem; margin-top:6px;">Draw it over your head as an action and, for <strong>10 minutes</strong>, sound refuses to happen within <strong>10 feet</strong> of you — your footsteps, your breathing, a dropped lantern, a shout for help, anything at all caught inside the radius, including other creatures. The silence moves with you. While the veil holds you <strong>can't speak or cast spells with verbal components</strong>, and you are <strong>deafened to sounds originating inside the radius</strong>. Removing the veil ends the effect early.</p>
+        <p style="font-size:.82rem; color:var(--text-dim); margin-top:6px;">Banned after the previous curator wore it to a board meeting and would not take it off. A guard grabbed inside the radius cannot call for help.</p>
+      </div>
+    `
+  },
+
+  'drowned-saint-reliquary': {
+    name: "The Drowned Saint's Reliquary",
+    html: `
+      <div class="summary-box" style="font-size:.9rem;">
+        <h3 style="color:var(--gold); margin-bottom:6px;">The Drowned Saint's Reliquary</h3>
+        <div class="sb-prop"><span>Type</span><span>Wondrous item (amulet)</span></div>
+        <div class="sb-prop"><span>Rarity</span><span>Rare</span></div>
+        <div class="sb-prop"><span>Attunement</span><span>Required — see below</span></div>
+        <div class="sb-prop"><span>Charges</span><span>3, all regained at dawn</span></div>
+        <div class="sb-prop"><span>Found on</span><span>Banned Collection, d6: 6</span></div>
+        <div class="sb-divider"></div>
+        <p style="font-size:.86rem;">A tarnished silver locket on a long chain, holding one finger bone suspended in murk-water that never drains and never clouds.</p>
+        <p style="font-size:.86rem; margin-top:6px;">The reliquary <strong>attunes the moment it is put on</strong> — no short rest, and the chain is long enough to drop over a head with bound hands. It holds <strong>3 charges</strong> and regains all of them at dawn.</p>
+        <p style="font-size:.86rem; margin-top:6px;"><strong>Saint's Step.</strong> Spend 1 charge as a bonus action to vanish in a curl of grey mist and reappear in an unoccupied space you can see within <strong>30 feet</strong> (as <em>misty step</em>). Ropes, manacles, nets, and anything else binding you stay behind in the space you left.</p>
+        <p style="font-size:.86rem; margin-top:6px;"><strong>The Bone Remembers.</strong> Once per long rest, when you would drop to 0 hit points, you drop to <strong>1 hit point</strong> instead and the bone inside the locket cracks a little further. It has cracked four times already.</p>
+        <p style="font-size:.82rem; color:var(--text-dim); margin-top:6px;">Banned because three separate churches have written the museum demanding it back. The only permanent item in the attic crates — it keeps working long after tonight.</p>
       </div>
     `
   }
