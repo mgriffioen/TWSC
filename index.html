@@ -414,6 +414,13 @@
       white-space: nowrap; transition: background .15s;
     }
     .init-print-btn:hover { background: var(--border); }
+    .sm-print-row { display: flex; justify-content: flex-end; margin-bottom: 10px; }
+    .sm-print-btn {
+      background: var(--bg3); border: 1px solid var(--border); color: var(--gold);
+      border-radius: 6px; padding: 8px 12px; font: inherit; font-size: .85rem;
+      cursor: pointer; transition: background .15s;
+    }
+    .sm-print-btn:hover { background: var(--border); }
     .init-back-btn {
       display: none;
       background: var(--gold); color: #1a1410; border: none;
@@ -2809,6 +2816,10 @@ function openEntity(id) {
   if (!entity) return;
   document.getElementById('modalTitle').textContent = entity.name;
   document.getElementById('modalBody').innerHTML =
+    '<div class="sm-print-row">' +
+      '<button class="sm-print-btn" onclick="smPrintEntity(&quot;' + id + '&quot;)" ' +
+      'title="Print this as a card on the thermal printer">🖨 Print card</button>' +
+    '</div>' +
     '<div id="hpTrackerMount">' + renderHpTracker(id) + '</div>' + entity.html;
   document.getElementById('modalOverlay').classList.add('open');
 }
@@ -3411,6 +3422,132 @@ function initPrint(ns) {
   const url = SPELLMASTER_URL + '#init=' + initToBase64Url(JSON.stringify(payload));
   // A named target reuses one tab, so repeated prints do not pile up.
   window.open(url, 'spellmaster');
+}
+
+/* ── SEND A STAT BLOCK TO SPELLMASTER ──
+   Entities here are stored as rendered HTML, not structured data, and much of
+   the content is not SRD-shaped anyway (the Murkmire Stone has rows like
+   "Weight" and "The job"). So rather than reconstruct a data model, the already
+   rendered markup is walked and flattened into SpellMaster's generic card
+   shape: title, label/value rows, an optional ability line, named sections and
+   prose. Contract: src/lib/cardLink.ts in that project. */
+
+function smText(el) {
+  return (el.textContent || '').replace(/\s+/g, ' ').trim();
+}
+
+/* Inline <strong>/<em> become markdown, so emphasis survives into print. */
+function smMarkdown(el) {
+  let out = '';
+  el.childNodes.forEach(function (n) {
+    if (n.nodeType === 3) { out += n.textContent; return; }
+    if (n.nodeType !== 1) return;
+    const tag = n.tagName.toLowerCase();
+    const inner = smMarkdown(n);
+    if (tag === 'strong' || tag === 'b') out += '**' + inner + '**';
+    else if (tag === 'em' || tag === 'i') out += '*' + inner + '*';
+    else if (tag === 'br') out += ' ';
+    else out += inner;
+  });
+  return out.replace(/\s+/g, ' ').trim();
+}
+
+/* A ".sb-row" is "<strong>Label</strong> value"; split it into a pair. */
+function smRowPair(el) {
+  const strong = el.querySelector('strong');
+  if (!strong) return ['', smMarkdown(el)];
+  const label = smText(strong);
+  const clone = el.cloneNode(true);
+  const s2 = clone.querySelector('strong');
+  if (s2) s2.remove();
+  return [label, smMarkdown(clone)];
+}
+
+/* A ".trait" is "<em>Name.</em> description". */
+function smTraitPair(el) {
+  const em = el.querySelector('em, strong');
+  if (!em) return ['', smMarkdown(el)];
+  const name = smText(em).replace(/\.$/, '');
+  const clone = el.cloneNode(true);
+  const e2 = clone.querySelector('em, strong');
+  if (e2) e2.remove();
+  return [name, smMarkdown(clone).replace(/^[.\s]+/, '')];
+}
+
+/* Flattens one entity's HTML into the generic card payload. */
+function smBuildCard(id) {
+  const entity = ENTITIES[id];
+  if (!entity) return null;
+
+  const host = document.createElement('div');
+  host.innerHTML = entity.html;
+
+  const card = { title: entity.name || id, rows: [], sections: [], src: 'Murkmire' };
+
+  const block = host.querySelector('.stat-block');
+  if (block) {
+    // Creature-style block.
+    const meta = block.querySelector('.sb-meta');
+    if (meta) card.sub = smText(meta);
+
+    const ab = block.querySelector('.sb-abilities');
+    if (ab) {
+      card.ab = [].slice.call(ab.children).map(function (col) {
+        const l = col.querySelector('.ab-label');
+        const v = col.querySelector('.ab-val');
+        return [l ? smText(l) : '', v ? smText(v) : ''];
+      });
+    }
+
+    block.querySelectorAll('.sb-row').forEach(function (row) {
+      card.rows.push(smRowPair(row));
+    });
+
+    // Each ".sb-actions-title" heads the ".sb-section" that follows it.
+    block.querySelectorAll('.sb-actions-title').forEach(function (title) {
+      const section = { h: smText(title), items: [] };
+      let sib = title.nextElementSibling;
+      while (sib && !sib.classList.contains('sb-actions-title')) {
+        sib.querySelectorAll('.trait').forEach(function (tr) { section.items.push(smTraitPair(tr)); });
+        sib = sib.nextElementSibling;
+      }
+      if (section.items.length) card.sections.push(section);
+    });
+  } else {
+    // Spell or item card: ".sb-prop" label/value pairs plus paragraphs.
+    host.querySelectorAll('.sb-prop').forEach(function (prop) {
+      const spans = prop.querySelectorAll('span');
+      if (spans.length >= 2) card.rows.push([smText(spans[0]), smText(spans[1])]);
+    });
+    const paras = [];
+    host.querySelectorAll('.summary-box p, .summary-box > div:not(.sb-prop):not(.sb-divider)')
+      .forEach(function (para) {
+        const txt = smMarkdown(para);
+        if (txt) paras.push(txt);
+      });
+    if (paras.length) card.body = paras.join('\n\n');
+  }
+
+  // The DM note is kept apart; SpellMaster only prints it when asked.
+  const note = host.querySelector('.rp-note');
+  if (note) card.note = smMarkdown(note);
+
+  if (!card.rows.length) delete card.rows;
+  if (!card.sections.length) delete card.sections;
+  return card;
+}
+
+function smToBase64Url(text) {
+  const bytes = new TextEncoder().encode(text);
+  let binary = '';
+  for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function smPrintEntity(id) {
+  const card = smBuildCard(id);
+  if (!card) return;
+  window.open(SPELLMASTER_URL + '#card=' + smToBase64Url(JSON.stringify(card)), 'spellmaster');
 }
 
 var _initFsNs = null;
