@@ -3196,10 +3196,30 @@ function escHtml(s) {
     .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 
+/* Strips a trailing rolled total, e.g. "Bram (17)" -> "Bram". Only digits in
+   parentheses match, so a real name like "Wolf (Dire)" is left alone. */
+function initStripRoll(name) {
+  return String(name).replace(/\s*\(-?\d+\)\s*$/, '').trim();
+}
+
 function initState(ns) {
   const key = INIT_TRACKERS[ns].key;
-  try { return JSON.parse(localStorage.getItem(key)) || { round:1, current:0, combatants:[] }; }
-  catch (e) { return { round:1, current:0, combatants:[] }; }
+  let s = null;
+  try { s = JSON.parse(localStorage.getItem(key)); } catch (e) { s = null; }
+  if (!s) return { v:2, round:1, current:0, combatants:[] };
+
+  // Quick-add used to append the rolled total to the name, duplicating the
+  // score already shown alongside it. Strip it once from encounters saved
+  // before that changed, then mark the state so a name typed with brackets
+  // on purpose is never touched again.
+  if (!s.v) {
+    s.combatants = (s.combatants || []).map(function (c) {
+      return { name: initStripRoll(c.name), score: c.score };
+    });
+    s.v = 2;
+    initSaveState(ns, s);
+  }
+  return s;
 }
 function initSaveState(ns, s) {
   try { localStorage.setItem(INIT_TRACKERS[ns].key, JSON.stringify(s)); } catch (e) {}
@@ -3309,7 +3329,7 @@ function initQuickConfirm(ns) {
   if (q && !isNaN(roll) && roll >= 1) {
     const score = roll + q.bonus;
     const s = initState(ns);
-    s.combatants.push({ name: q.name + ' (' + score + ')', score: score });
+    s.combatants.push({ name: q.name, score: score });
     s.combatants.sort(function(a, b) { return b.score - a.score; });
     s.current = 0;
     initSaveState(ns, s);
@@ -3364,8 +3384,8 @@ function initToBase64Url(text) {
 
 function initIsPc(ns, name) {
   const pcs = INIT_TRACKERS[ns].pcs || [];
-  // Quick-add appends the rolled total, so "Bram (17)" must still match "Bram".
-  const bare = String(name).replace(/\s*\(-?\d+\)\s*$/, '').trim().toLowerCase();
+  // Names are stored bare now, but stay tolerant in case one was typed by hand.
+  const bare = initStripRoll(name).toLowerCase();
   return pcs.some(function (pc) { return bare === pc.toLowerCase(); });
 }
 
