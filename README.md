@@ -9,6 +9,7 @@ A single-file, mobile-friendly DM reference site for running [A Wild Sheep Chase
 - **Live HP trackers** — per-creature HP tracking with +/− buttons, persisted to `localStorage`; supports multiple tokens for grouped creatures (wolves, giant rats)
 - **Player character sheets** — quick-reference cards for Bram, Dusty, and Medrick with key stats, abilities, and equipment
 - **Initiative tracker** — add combatants manually or via quick-add buttons (one per PC and common monster); numeric keypad auto-opens on mobile/tablet; full-screen mode hides the rest of the page
+- **Print the turn order** — `🖨 Print` hands the current initiative order to [SpellMaster](https://spellmaster.mgriffioen.com/), which prints it on a Bluetooth thermal printer as a strip with a writable rule under each combatant; the encounter travels in the URL fragment, so nothing is sent to a server
 - **Key items** — Scroll of Speak With Animals (with player-facing seal image), Modified Wand of True Polymorph with full d20 misfire table
 - **Beginner cheat sheet** — embedded PDF link for new players
 

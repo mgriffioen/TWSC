@@ -408,6 +408,12 @@
       font-size: .85rem; cursor: pointer;
     }
     .init-fullscreen-btn:hover { background: var(--border); }
+    .init-print-btn {
+      background: var(--bg3); border: 1px solid var(--border); color: var(--gold);
+      border-radius: 6px; padding: 10px 14px; font: inherit; cursor: pointer;
+      white-space: nowrap; transition: background .15s;
+    }
+    .init-print-btn:hover { background: var(--border); }
     .init-back-btn {
       display: none;
       background: var(--gold); color: #1a1410; border: none;
@@ -3164,6 +3170,8 @@ document.addEventListener('keydown', function(e) {
 const INIT_TRACKERS = {
   twsc: {
     key: 'twsc-init-v1',
+    title: 'A Wild Sheep Chase',
+    pcs: ['Bram', 'Dusty', 'Medrick'],
     quick: [
       ['Bram',3],['Dusty',1],['Medrick',3],['Guz',0],['Noke',2],
       ['Wolf',2],['Brown Bear',0,'Bear'],['Giant Rat',2,'Rat'],
@@ -3172,6 +3180,8 @@ const INIT_TRACKERS = {
   },
   murkmire: {
     key: 'twsc-init-murkmire-v1',
+    title: 'Murkmire',
+    pcs: ['Bram', 'Dusty', 'Medrick'],
     quick: [
       ['Bram',3],['Dusty',1],['Medrick',3],
       ['Guard',1],['Animated Armor',0,'Armor'],['Scarecrow',1],
@@ -3214,6 +3224,7 @@ function mountTracker(ns) {
     '<div class="init-controls">' +
       '<div class="init-round-box"><span class="init-round-label">Round</span><span class="init-round-num" id="initRound-' + ns + '">1</span></div>' +
       '<button class="init-next-btn" onclick="initNext(\'' + ns + '\')">▶ Next Turn</button>' +
+      '<button class="init-print-btn" onclick="initPrint(\'' + ns + '\')" title="Print the turn order on the thermal printer">🖨 Print</button>' +
       '<button class="init-clear-btn" onclick="initClear(\'' + ns + '\')">✕ Clear All</button>' +
     '</div>' +
     '<div class="init-quick-add"><span class="init-quick-label">Quick add:</span>' + quick + '</div>' +
@@ -3332,6 +3343,54 @@ function initClear(ns) {
   if (!confirm('Clear all combatants and reset the round counter?')) return;
   initSaveState(ns, { round: 1, current: 0, combatants: [] });
   initRender(ns);
+}
+
+/* ── SEND TURN ORDER TO SPELLMASTER ──
+   SpellMaster (spellmaster.mgriffioen.com) prints cards and initiative strips on
+   a Bluetooth thermal printer. It accepts an encounter as base64url JSON in the
+   URL *fragment* — the fragment is never sent to a server, so party details stay
+   on the device. Contract: { t: title, c: [{ n, i, ac?, hp?, p? }] } where `p`
+   marks a player character. See src/lib/initiativeLink.ts in that project. */
+const SPELLMASTER_URL = 'https://spellmaster.mgriffioen.com/';
+
+function initToBase64Url(text) {
+  // Encode as UTF-8 first: btoa throws on characters above U+00FF, and names
+  // can contain anything the DM typed.
+  const bytes = new TextEncoder().encode(text);
+  let binary = '';
+  for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function initIsPc(ns, name) {
+  const pcs = INIT_TRACKERS[ns].pcs || [];
+  // Quick-add appends the rolled total, so "Bram (17)" must still match "Bram".
+  const bare = String(name).replace(/\s*\(-?\d+\)\s*$/, '').trim().toLowerCase();
+  return pcs.some(function (pc) { return bare === pc.toLowerCase(); });
+}
+
+function initPrint(ns) {
+  const s = initState(ns);
+  if (!s.combatants.length) {
+    alert('Add some combatants first.');
+    return;
+  }
+  const cfg = INIT_TRACKERS[ns];
+  const payload = {
+    t: cfg.title || '',
+    // Already sorted highest-first by initAdd/initQuickConfirm; SpellMaster
+    // sorts again anyway, so order here is not load-bearing.
+    c: s.combatants.map(function (c) {
+      const row = { n: c.name, i: c.score };
+      // AC and HP are not part of initiative state, so they are left out
+      // rather than guessed at; the strip prints a writable rule regardless.
+      if (initIsPc(ns, c.name)) row.p = true;
+      return row;
+    })
+  };
+  const url = SPELLMASTER_URL + '#init=' + initToBase64Url(JSON.stringify(payload));
+  // A named target reuses one tab, so repeated prints do not pile up.
+  window.open(url, 'spellmaster');
 }
 
 var _initFsNs = null;
