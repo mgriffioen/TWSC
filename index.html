@@ -3178,10 +3178,26 @@ document.addEventListener('keydown', function(e) {
 });
 
 /* ── INITIATIVE TRACKER (per-page, namespaced) ── */
+/* Chapter display names, used for initiative strips and printed card footers.
+   Declared here rather than beside switchCampaign because INIT_TRACKERS below
+   reads it while being defined. */
+const CAMPAIGN_TITLES = {
+  twsc: 'A Wild Sheep Chase',
+  murkmire: 'The Murkmire Malevolence'
+};
+
+/* Which chapter is on screen. An entity modal can only be opened from the
+   visible chapter, so this is also the chapter that entity belongs to. */
+function activeCampaign() {
+  const tab = document.querySelector('.camp-tab.active');
+  const camp = tab && tab.getAttribute('data-camp');
+  return camp && CAMPAIGN_TITLES[camp] ? camp : 'twsc';
+}
+
 const INIT_TRACKERS = {
   twsc: {
     key: 'twsc-init-v1',
-    title: 'A Wild Sheep Chase',
+    title: CAMPAIGN_TITLES.twsc,
     pcs: ['Bram', 'Dusty', 'Medrick'],
     quick: [
       ['Bram',3],['Dusty',1],['Medrick',3],['Guz',0],['Noke',2],
@@ -3191,7 +3207,7 @@ const INIT_TRACKERS = {
   },
   murkmire: {
     key: 'twsc-init-murkmire-v1',
-    title: 'Murkmire',
+    title: CAMPAIGN_TITLES.murkmire,
     pcs: ['Bram', 'Dusty', 'Medrick'],
     quick: [
       ['Bram',3],['Dusty',1],['Medrick',3],
@@ -3482,7 +3498,12 @@ function smBuildCard(id) {
   const host = document.createElement('div');
   host.innerHTML = entity.html;
 
-  const card = { title: entity.name || id, rows: [], sections: [], src: 'Murkmire' };
+  const card = {
+    title: entity.name || id,
+    rows: [],
+    sections: [],
+    src: CAMPAIGN_TITLES[activeCampaign()]
+  };
 
   const block = host.querySelector('.stat-block');
   if (block) {
@@ -3620,7 +3641,7 @@ function pulseFire() {
 }
 
 const CAMPAIGN_KEY = 'twsc-campaign-v1';
-const CAMPAIGNS = ['twsc', 'murkmire'];
+const CAMPAIGNS = Object.keys(CAMPAIGN_TITLES);
 function switchCampaign(camp) {
   if (CAMPAIGNS.indexOf(camp) < 0) camp = 'twsc';
   if (document.body.classList.contains('init-fs') && _initFsNs) initToggleFullscreen(_initFsNs);
