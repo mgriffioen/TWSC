@@ -9,6 +9,7 @@ A single-file, mobile-friendly DM reference site for running [A Wild Sheep Chase
 - **Live HP trackers** — per-creature HP tracking with +/− buttons, persisted to `localStorage`; supports multiple tokens for grouped creatures (wolves, giant rats)
 - **Player character sheets** — quick-reference cards for Bram, Dusty, and Medrick with key stats, abilities, and equipment
 - **Initiative tracker** — add combatants manually or via quick-add buttons (one per PC and common monster); numeric keypad auto-opens on mobile/tablet; full-screen mode hides the rest of the page
+- **Virtual dice** — `🎲 Dice` in the top-right corner opens a port of the [Playdate dice roller](https://github.com/mgriffioen/dice-roller): choose the die, how many, a `+N` modifier and advantage or disadvantage on a d20, then drag across the tray to throw. The dice scatter, bounce off the walls and off each other, land one by one and the total slides up on an overlay. d100 rolls as a tens/units pair, a natural 20 gets a banner, and the last 20 rolls are kept and can be thrown again
 - **Print the turn order** — `🖨 Print` hands the current initiative order to [SpellMaster](https://spellmaster.mgriffioen.com/), which prints it on a Bluetooth thermal printer as a strip with a writable rule under each combatant; the encounter travels in the URL fragment, so nothing is sent to a server
 - **Print any stat block** — every NPC, monster, spell and item modal has a `🖨 Print card` button that sends it to SpellMaster to print as a card; DM-only notes are held back unless you tick the box
 - **Key items** — Scroll of Speak With Animals (with player-facing seal image), Modified Wand of True Polymorph with full d20 misfire table
@@ -31,7 +32,7 @@ A single-file, mobile-friendly DM reference site for running [A Wild Sheep Chase
 
 Open `index.html` in any modern browser. Everything is self-contained — no build step, no dependencies, no server needed.
 
-For tablet use at the table, add it to your home screen or bookmark it locally. The initiative tracker's full-screen mode (`⛶ Full Screen`) is designed for keeping the tracker visible during combat without the rest of the page.
+The dice roller needs nothing either — it draws to a canvas and keeps its settings and roll history in `localStorage`. For tablet use at the table, add it to your home screen or bookmark it locally. The initiative tracker's full-screen mode (`⛶ Full Screen`) is designed for keeping the tracker visible during combat without the rest of the page.
 
 ## Adventure
 

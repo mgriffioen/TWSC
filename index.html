@@ -68,6 +68,8 @@
       display: flex; gap: 0;
       background: #0d0906;
       border-bottom: 2px solid var(--border);
+      /* Room at the right for the floating dice launcher. */
+      padding-right: 92px;
     }
     .camp-tab {
       flex: 1;
@@ -625,6 +627,103 @@
     .hp-badge.hurt { color: var(--gold-light); }
     .hp-badge.dead { color: var(--red); }
 
+    /* ── DICE ROLLER ── */
+    /* The launcher sits in the top-right corner over the chapter tabs, which
+       keep clear of it with their own padding. */
+    .dice-launch {
+      position: fixed; top: 7px; right: 10px; z-index: 150;
+      display: flex; align-items: center; gap: 6px;
+      background: var(--bg3); border: 1px solid var(--border);
+      color: var(--gold); border-radius: 6px;
+      padding: 6px 12px;
+      font-family: 'Georgia', serif; font-size: .85rem;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(0,0,0,.55);
+      transition: background .15s, color .15s;
+    }
+    .dice-launch:hover { background: var(--border); color: var(--gold-light); }
+
+    .dice-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.86);
+      z-index: 300;
+      overflow-y: auto;
+      padding: 12px;
+    }
+    .dice-overlay.open { display: flex; align-items: center; justify-content: center; }
+    .dice-box {
+      background: var(--bg2);
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      width: 100%;
+      /* Keep the whole device — screen, buttons and menu — on screen without
+         scrolling, however short the window is. */
+      max-width: min(640px, calc((100vh - 200px) * 1.667));
+      margin: auto;
+      overflow: hidden;
+    }
+    .dice-body { padding: 12px 14px 14px; }
+
+    /* The screen itself: 400x240, drawn at whatever size it ends up. */
+    .dice-screen {
+      display: block; width: 100%;
+      aspect-ratio: 400 / 240;
+      background: #b7bba9;
+      border: 3px solid #0d0906;
+      border-radius: 6px;
+      box-shadow: inset 0 0 14px rgba(0,0,0,.28), 0 4px 14px rgba(0,0,0,.5);
+      /* Every gesture on the tray is the crank; none of them scroll the page. */
+      touch-action: none;
+      cursor: grab;
+      outline: none;
+    }
+    .dice-screen:active { cursor: grabbing; }
+    .dice-screen:focus-visible { border-color: var(--gold); }
+
+    .dice-controls { display: flex; gap: 8px; margin-top: 10px; }
+    .dice-btn {
+      flex: 1;
+      background: var(--bg3); border: 1px solid var(--border); color: var(--gold);
+      border-radius: 6px; padding: 11px 12px;
+      font: inherit; font-size: .9rem; cursor: pointer;
+      transition: background .15s;
+    }
+    .dice-btn:hover { background: var(--border); }
+    .dice-btn-a {
+      flex: 1.4;
+      background: var(--gold); border-color: var(--gold); color: #1a1410; font-weight: bold;
+    }
+    .dice-btn-a:hover { background: var(--gold-light); }
+    .dice-btn:disabled { opacity: .45; cursor: default; }
+    .dice-btn:disabled:hover { background: var(--bg3); }
+
+    .dice-menu { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .dice-menu-btn {
+      background: var(--bg3); border: 1px solid var(--border); color: var(--text-dim);
+      border-radius: 6px; padding: 5px 10px;
+      font: inherit; font-size: .78rem; cursor: pointer;
+    }
+    .dice-menu-btn:hover { background: var(--border); color: var(--gold); }
+    .dice-tip { font-size: .78rem; color: var(--text-dim); font-style: italic; margin-top: 8px; }
+
+    @media (max-width: 520px) {
+      .dice-launch-label { display: none; }
+      .dice-launch { padding: 6px 9px; }
+      .campaign-tabs { padding-right: 46px; }
+    }
+    /* A phone on its side has no room for anything optional, and the screen is
+       the one part that must not be shrunk to make space. */
+    @media (max-height: 520px) {
+      .dice-overlay { padding: 6px; }
+      .dice-box { max-width: min(640px, calc((100vh - 150px) * 1.667)); }
+      .dice-body { padding: 8px 10px 10px; }
+      .dice-controls { margin-top: 7px; }
+      .dice-btn { padding: 7px 10px; }
+      .dice-menu { margin-top: 6px; }
+      .dice-tip { display: none; }
+    }
+
     /* ── MISC ── */
     .tag { display: inline-block; background: var(--tag-bg); border: 1px solid var(--border); border-radius: 3px; padding: 1px 6px; font-size: .75rem; }
     .badge-evil { border-color: #c0392b; color: #e74c3c; }
@@ -648,6 +747,34 @@
       <button class="close-btn" onclick="closeModal()">✕</button>
     </div>
     <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- ══ DICE ROLLER ══ -->
+<button class="dice-launch" onclick="diceOpen()" title="Roll some dice">
+  🎲<span class="dice-launch-label">Dice</span>
+</button>
+
+<div class="dice-overlay" id="diceOverlay" onclick="diceClose(event)">
+  <div class="dice-box">
+    <div class="modal-header">
+      <h2>🎲 Dice Roller</h2>
+      <button class="close-btn" onclick="diceClose()">✕</button>
+    </div>
+    <div class="dice-body">
+      <canvas class="dice-screen" id="diceCanvas" width="400" height="240"
+              tabindex="0" aria-label="Dice tray"></canvas>
+      <div class="dice-controls">
+        <button class="dice-btn" id="diceBtnB" onclick="diceButton('b')">🕘 History</button>
+        <button class="dice-btn dice-btn-a" id="diceBtnA" onclick="diceButton('a')">🎲 Roll</button>
+      </div>
+      <div class="dice-menu">
+        <button class="dice-menu-btn" id="diceSoundBtn" onclick="diceToggleSound()">🔊 Sound: on</button>
+        <button class="dice-menu-btn" id="diceStyleBtn" onclick="diceToggleStyle()">Roll: scatter</button>
+        <button class="dice-menu-btn" onclick="diceClearHistory()">🗑 Clear history</button>
+      </div>
+      <p class="dice-tip">Drag across the tray to throw the dice — or press Roll and it winds itself up.</p>
+    </div>
   </div>
 </div>
 
@@ -3639,6 +3766,2075 @@ function pulseFire() {
     o.start(); o.stop(ac.currentTime + 0.95);
   } catch (e) {}
 }
+
+/* ══ DICE ROLLER ══════════════════════════════════════════════════════════════
+   A port of the Playdate dice roller (github.com/mgriffioen/dice-roller) into
+   this page. The screen is still 400x240, the physics constants are still the
+   ones tuned by eye for 30fps, and the three scenes — pick your dice, throw
+   them, browse what you threw — are the same ones.
+
+   What could not come over is the hardware. There is no crank, so the throw is
+   wound up by dragging a finger across the tray, by the scroll wheel, or by the
+   Roll button winding itself up at the same steady rate the docked-crank
+   fallback used. There is no system menu either, so sound, roll style and
+   clearing the history are the row of buttons under the tray.
+
+   Drawing is immediate-mode on a canvas, as it was on the device: clear, then
+   draw everything, once per frame. A dozen polygons do not need anything
+   cleverer. The canvas is scaled up from a 400x240 coordinate space, so every
+   position and size below is exactly the number the Playdate version used. */
+
+const DICE_SCREEN_W = 400, DICE_SCREEN_H = 240;
+
+/* The Playdate's reflective LCD: dark ink on a pale grey-green, no greys in
+   between. "Grey" here is a dither pattern, same as it was there. */
+const DICE_PAPER = '#b7bba9';
+const DICE_INK = '#1e1c17';
+const DICE_FONT = '"Courier New", ui-monospace, monospace';
+
+/* ---------------------------------------------------------------------------
+   Dice types
+   ---------------------------------------------------------------------------
+   `percentile` dice (d100) are not one physical die: they are a pair of d10s,
+   one reading 00..90 and one reading 0..9, added together, where 00 + 0 is 100. */
+const DICE_TYPES = [
+  { key:'d2',   sides:2,   shape:'coin',     maxCount:12 },
+  { key:'d4',   sides:4,   shape:'tri',      maxCount:12 },
+  { key:'d6',   sides:6,   shape:'square',   maxCount:12 },
+  { key:'d8',   sides:8,   shape:'diamond',  maxCount:12 },
+  { key:'d10',  sides:10,  shape:'kite',     maxCount:12 },
+  { key:'d12',  sides:12,  shape:'pentagon', maxCount:12 },
+  { key:'d20',  sides:20,  shape:'hexagon',  maxCount:12, allowAdvantage:true },
+  { key:'d100', sides:100, shape:'kite',     maxCount:6,  percentile:true }
+];
+
+/* ---------------------------------------------------------------------------
+   Numerals
+   ---------------------------------------------------------------------------
+   Digits as polylines on a unit-height grid: x runs 0..WIDTH, y runs 0..1 with
+   0 at the top. The dice faces and the result total use these rather than text,
+   because a number that has to fit inside a die whose size the layout picks
+   freely needs to be drawable at any height — and because chamfered corners and
+   no curves sit properly with the faceted dice. */
+const DNUM_W = 0.62, DNUM_GAP = 0.18, DNUM_C = 0.20;
+
+const DICE_GLYPHS = (function () {
+  const W = DNUM_W, C = DNUM_C;
+  return {
+    '0': [[[C,0],[W-C,0],[W,C],[W,1-C],[W-C,1],[C,1],[0,1-C],[0,C],[C,0]]],
+    '1': [[[0.04,0.26],[W*0.5,0]], [[W*0.5,0],[W*0.5,1]], [[W*0.14,1],[W*0.86,1]]],
+    '2': [[[0,C],[C,0],[W-C,0],[W,C],[W,0.36],[0.02,1],[W,1]]],
+    '3': [[[0,C],[C,0],[W-C,0],[W,C],[W,0.36],[W-C,0.5],[W,0.64],[W,1-C],[W-C,1],[C,1],[0,1-C]],
+          [[W*0.32,0.5],[W-C,0.5]]],
+    '4': [[[W*0.74,0],[0,0.68],[W,0.68]], [[W*0.74,0],[W*0.74,1]]],
+    '5': [[[W,0],[0,0],[0,0.40],[W-C,0.40],[W,0.40+C],[W,1-C],[W-C,1],[C,1],[0,1-C]]],
+    '6': [[[W,C*0.9],[W-C,0],[C,0],[0,C],[0,1-C],[C,1],[W-C,1],[W,1-C],[W,0.60],[W-C,0.46],[C,0.46],[0,0.58]]],
+    '7': [[[0,0],[W,0],[W*0.30,1]]],
+    '8': [[[C,0],[W-C,0],[W,C],[W,0.38],[W-C,0.5],[W,0.62],[W,1-C],[W-C,1],[C,1],[0,1-C],[0,0.62],[C,0.5],[0,0.38],[0,C],[C,0]],
+          [[C,0.5],[W-C,0.5]]],
+    '9': [[[0,1-C*0.9],[C,1],[W-C,1],[W,1-C],[W,C],[W-C,0],[C,0],[0,C],[0,0.40],[C,0.54],[W-C,0.54],[W,0.42]]],
+    /* The Playdate version has no minus: a total can only go negative here
+       because the modifier can, and a total drawn without its sign is a lie. */
+    '-': [[[0.06,0.52],[W-0.06,0.52]]]
+  };
+})();
+
+function diceNumWidth(text, height) {
+  const n = text.length;
+  if (n === 0) return 0;
+  return (n * DNUM_W + (n - 1) * DNUM_GAP) * height;
+}
+
+/* The largest height at which `text` fits the given box. */
+function diceNumFit(text, maxWidth, maxHeight) {
+  const perUnit = diceNumWidth(text, 1);
+  if (perUnit > 0 && diceNumWidth(text, maxHeight) > maxWidth) return maxWidth / perUnit;
+  return maxHeight;
+}
+
+/* Centred on (cx, cy). Round caps and joins do the job the Playdate version
+   needed a dot at every corner for: thick strokes meeting without notches. */
+function diceNumDraw(ctx, text, cx, cy, height) {
+  if (!text.length) return;
+  const weight = Math.max(2, Math.floor(height * 0.17));
+  let x = cx - diceNumWidth(text, height) / 2;
+  const top = cy - height / 2;
+
+  ctx.save();
+  ctx.strokeStyle = DICE_INK;
+  ctx.lineWidth = weight;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  for (let i = 0; i < text.length; i++) {
+    const glyph = DICE_GLYPHS[text.charAt(i)];
+    if (glyph) {
+      ctx.beginPath();
+      for (const stroke of glyph) {
+        ctx.moveTo(x + stroke[0][0] * height, top + stroke[0][1] * height);
+        for (let p = 1; p < stroke.length; p++) {
+          ctx.lineTo(x + stroke[p][0] * height, top + stroke[p][1] * height);
+        }
+      }
+      ctx.stroke();
+    }
+    x += (DNUM_W + DNUM_GAP) * height;
+  }
+  ctx.restore();
+}
+
+/* ---------------------------------------------------------------------------
+   Shapes
+   ---------------------------------------------------------------------------
+   Every shape is a list of unit-circle points centred on the origin. At draw
+   time we rotate them, scale them by the die size and translate them into
+   place, so one table works at any size. */
+function diceRegularPolygon(sides, startAngle) {
+  const pts = [];
+  for (let i = 0; i < sides; i++) {
+    const a = (startAngle + i * 360 / sides) * Math.PI / 180;
+    pts.push([Math.cos(a), Math.sin(a)]);
+  }
+  return pts;
+}
+
+const DICE_SHAPES = {
+  tri:      diceRegularPolygon(3, -90),   // d4
+  square:   diceRegularPolygon(4, -45),   // d6
+  diamond:  diceRegularPolygon(4, -90),   // d8
+  pentagon: diceRegularPolygon(5, -90),   // d12
+  hexagon:  diceRegularPolygon(6, -90),   // d20
+  // The classic pentagonal-trapezohedron silhouette of a d10.
+  kite:     [[0,-1],[0.74,-0.14],[0.45,0.94],[-0.45,0.94],[-0.74,-0.14]]
+};
+
+/* Interior detail. A die reads as a die because of its facets, not its
+   silhouette — an outline on its own is just a polygon. */
+const DICE_SHOW_FACETS = true;
+const DICE_SHOW_SHADOW = true;
+const DICE_FACET_INSET = 0.62;   // far enough in that the number lands on clean face
+
+const DICE_FACETS = (function () {
+  const out = {};
+  for (const name in DICE_SHAPES) {
+    const pts = DICE_SHAPES[name], face = [], spokes = [];
+    for (let i = 0; i < pts.length; i++) {
+      face[i] = [pts[i][0] * DICE_FACET_INSET, pts[i][1] * DICE_FACET_INSET];
+      spokes[i] = [face[i], pts[i]];
+    }
+    out[name] = { face: face, spokes: spokes };
+  }
+  /* The d20 is the one silhouette everybody recognises, so it gets its real
+     face-on projection instead of the generic inset: a central triangle with
+     three spokes. The hexagon's vertices start at -90 and step 60 degrees, so
+     the -90/30/150 corners are entries 1, 3 and 5. */
+  const hexagon = DICE_SHAPES.hexagon, face = [], spokes = [];
+  [-90, 30, 150].forEach(function (angle, i) {
+    const a = angle * Math.PI / 180;
+    face[i] = [Math.cos(a) * 0.62, Math.sin(a) * 0.62];
+    spokes[i] = [face[i], hexagon[i * 2]];
+  });
+  out.hexagon = { face: face, spokes: spokes };
+  return out;
+})();
+
+/* ---------------------------------------------------------------------------
+   Physics
+   ---------------------------------------------------------------------------
+   A thrown die is not a spinning icon: it travels, it bounces off the walls of
+   the tray and off the other dice, and it loses speed to the table until it
+   stops. All of it runs in pixels-per-frame at 30fps and all of it is tuned by
+   eye — the point is that it *reads* as a real throw, not that it is correct. */
+const DICE_GRAVITY = 1.0;         // vertical pull, in pixels per frame squared
+const DICE_FLOOR_BOUNCE = 0.52;   // how much drop is kept on hitting the table
+const DICE_FLOOR_MIN = 1.2;       // below this the die stays down instead of buzzing
+const DICE_WALL_BOUNCE = 0.66;
+const DICE_DIE_BOUNCE = 0.85;     // two equal masses swapping their head-on velocity
+const DICE_GROUND_DRAG = 0.93;
+const DICE_AIR_DRAG = 0.995;
+const DICE_MAX_SPEED = 11;
+const DICE_MAX_RISE = 7;          // without a ceiling a violent throw fires dice off-screen
+const DICE_KICK_TURN = 0.9;       // radians a shove may swing the heading by
+const DICE_WALL_TURN = 1.0;       // and a wall, which is hit corner-first
+const DICE_MAX_SPIN = 42;         // degrees per frame
+const DICE_SPIN_PER_PIXEL = 2.4;  // a die crossing the tray fast is tumbling fast
+
+/* Gathering back into the reading position, timed by distance rather than
+   fixed, so a die that stopped next to its slot nudges into it and one that
+   stopped across the tray takes longer. */
+const DICE_GLIDE_SPEED = 16;
+const DICE_GLIDE_MIN = 5;
+const DICE_GLIDE_MAX = 16;
+const DICE_LAND_FRAMES = 8;
+
+/* Rotating a regular polygon by this much leaves it looking identical, so a die
+   can seat itself on the nearest one instead of unwinding all the way to zero. */
+const DICE_SYMMETRY = {
+  tri:120, square:90, diamond:90, pentagon:72, hexagon:60, kite:360, coin:360
+};
+
+function diceRand(lo, hi) { return lo + Math.floor(Math.random() * (hi - lo + 1)); }
+function diceClamp(v, lo, hi) { return v < lo ? lo : (v > hi ? hi : v); }
+
+/* ---------------------------------------------------------------------------
+   Die
+   ---------------------------------------------------------------------------
+   `role` is "normal", or "tens"/"units" for the two halves of a d100 pair. */
+class Die {
+  constructor(spec, role) {
+    this.spec = spec;
+    this.role = role || 'normal';
+    this.size = 48;
+    this.x = 200; this.y = 120;
+
+    this.value = this.randomValue();
+    this.angle = Math.random() * 360;
+    this.spin = 0;                 // degrees per frame, signed
+
+    // Where the layout wants this die read from, and the tray it is free to
+    // career around inside until it settles.
+    this.homeX = this.x; this.homeY = this.y;
+    this.trayL = 8; this.trayT = 28; this.trayR = 392; this.trayB = 192;
+
+    this.vx = 0; this.vy = 0;      // across the table
+    this.z = 0; this.zv = 0;       // and above it: z is height, 0 is resting
+    this.spinBias = Math.random() < 0.5 ? -1 : 1;
+    this.hopPhase = Math.random() * Math.PI * 2;   // the "in place" style's bounce
+    this.lastEnergy = 0;
+    this.impacts = 0;              // collisions since the scene last looked
+
+    this.settled = false;
+    this.glideFrames = 0;          // counts down while gathering back into position
+    this.landFrames = 0;           // counts down through the squash-and-settle bounce
+    this.dropped = false;          // the loser of an advantage/disadvantage pair
+  }
+
+  setHome(x, y) { this.homeX = x; this.homeY = y; this.x = x; this.y = y; }
+
+  setTray(x, y, w, h) {
+    this.trayL = x; this.trayT = y; this.trayR = x + w; this.trayB = y + h;
+  }
+
+  /* Back to the reading position with nothing left over, ready to be thrown again. */
+  rest() {
+    this.x = this.homeX; this.y = this.homeY;
+    this.vx = 0; this.vy = 0; this.z = 0; this.zv = 0;
+    this.spin = 0;
+    this.spinBias = Math.random() < 0.5 ? -1 : 1;
+    this.hopPhase = Math.random() * Math.PI * 2;
+    this.lastEnergy = 0;
+    this.impacts = 0;
+    this.settled = false;
+    this.glideFrames = 0;
+    this.landFrames = 0;
+    this.dropped = false;
+    this.angle = Math.random() * 360;
+  }
+
+  /* Raw value in "die units": 1..sides normally, 0/10/20..90 for a tens die,
+     0..9 for a units die. */
+  randomValue() {
+    if (this.role === 'tens') return diceRand(0, 9) * 10;
+    if (this.role === 'units') return diceRand(0, 9);
+    return diceRand(1, this.spec.sides);
+  }
+
+  label() {
+    if (this.role === 'tens') return (this.value < 10 ? '0' : '') + this.value;
+    return String(this.value);
+  }
+
+  speed() { return Math.sqrt(this.vx * this.vx + this.vy * this.vy); }
+
+  capSpeed() {
+    const s = this.speed();
+    if (s > DICE_MAX_SPEED) {
+      this.vx = this.vx / s * DICE_MAX_SPEED;
+      this.vy = this.vy / s * DICE_MAX_SPEED;
+    }
+  }
+
+  /* Turn the whole velocity without changing how fast the die is going. */
+  steer(radians) {
+    const speed = this.speed();
+    if (speed < 0.01) return;
+    const heading = Math.atan2(this.vy, this.vx) + radians;
+    this.vx = Math.cos(heading) * speed;
+    this.vy = Math.sin(heading) * speed;
+  }
+
+  /* One shove from the throw: faster, and pointed somewhere near but never
+     exactly where the die was already going.
+
+     It has to steer rather than just add speed along the heading. A shove that
+     only pushed forwards would be capped back to the same vector every frame,
+     and the die would end up running on rails, bouncing between two walls in a
+     straight line — which is the one thing a thrown die never does. */
+  kick(strength) {
+    let speed = this.speed(), heading;
+    if (speed > 0.6) {
+      heading = Math.atan2(this.vy, this.vx) + (Math.random() - 0.5) * DICE_KICK_TURN;
+    } else {
+      heading = Math.random() * Math.PI * 2;
+      speed = 0;
+    }
+
+    speed = Math.min(speed + strength, DICE_MAX_SPEED);
+    this.vx = Math.cos(heading) * speed;
+    this.vy = Math.sin(heading) * speed;
+
+    this.spin += (Math.random() - 0.5) * strength * 9;
+    if (this.z <= 0) {
+      // A shove only lifts a die that is on the table; one already in the air
+      // keeps the arc it is on.
+      this.zv = Math.min(Math.max(this.zv, strength * 2.2 + Math.random() * 2), DICE_MAX_RISE);
+    }
+  }
+
+  /* The walls of the tray. A die never leaves it, and every edge it clips knocks
+     it off its line — which is most of what keeps a long throw unpredictable. */
+  bounceWalls() {
+    const r = this.size * 0.45;
+    const left = this.trayL + r, top = this.trayT + r;
+    const right = this.trayR - r, bottom = this.trayB - r;
+    let awayX = 0, awayY = 0;
+
+    if (this.x < left) { this.x = left; this.vx = -this.vx * DICE_WALL_BOUNCE; awayX = 1; }
+    else if (this.x > right) { this.x = right; this.vx = -this.vx * DICE_WALL_BOUNCE; awayX = -1; }
+    if (this.y < top) { this.y = top; this.vy = -this.vy * DICE_WALL_BOUNCE; awayY = 1; }
+    else if (this.y > bottom) { this.y = bottom; this.vy = -this.vy * DICE_WALL_BOUNCE; awayY = -1; }
+
+    if (awayX === 0 && awayY === 0) return;
+
+    // A tumbling die clips the wall on a corner, so it comes off at an angle
+    // rather than mirroring cleanly. Whichever component has to point away from
+    // the wall is then put back, in case the turn was steep enough to aim the
+    // die straight back into it.
+    this.steer((Math.random() - 0.5) * DICE_WALL_TURN);
+    if (awayX !== 0) this.vx = Math.abs(this.vx) * awayX;
+    if (awayY !== 0) this.vy = Math.abs(this.vy) * awayY;
+
+    this.spin = -this.spin * 0.7;
+    this.spinBias = -this.spinBias;
+    if (this.z <= 0) this.zv = Math.max(this.zv, Math.random() * 2.2);
+    this.impacts += 1;
+  }
+
+  /* Put the die back inside the tray without bouncing it: separating a pile of
+     dice can shove one through a wall, and a die that is merely in the wrong
+     place should be moved, not fired off in the opposite direction. */
+  clampToTray() {
+    const r = this.size * 0.45;
+    this.x = Math.max(this.trayL + r, Math.min(this.trayR - r, this.x));
+    this.y = Math.max(this.trayT + r, Math.min(this.trayB - r, this.y));
+  }
+
+  /* One frame of falling, sliding and tumbling. */
+  integrate() {
+    this.zv -= DICE_GRAVITY;
+    this.z += this.zv;
+
+    if (this.z <= 0) {
+      this.z = 0;
+      if (this.zv < -DICE_FLOOR_MIN) {
+        // Still some drop left in it: bounce, and come off the table a little
+        // further out of true than it went in.
+        this.zv = -this.zv * DICE_FLOOR_BOUNCE;
+        this.spin += (Math.random() - 0.5) * this.zv * 9;
+        this.impacts += 1;
+      } else {
+        this.zv = 0;
+      }
+      this.vx *= DICE_GROUND_DRAG;
+      this.vy *= DICE_GROUND_DRAG;
+      this.spin *= DICE_GROUND_DRAG;
+    } else {
+      this.vx *= DICE_AIR_DRAG;
+      this.vy *= DICE_AIR_DRAG;
+      this.spin *= DICE_AIR_DRAG;
+    }
+
+    this.x += this.vx;
+    this.y += this.vy;
+    this.bounceWalls();
+
+    // A die crossing the tray quickly is a die that is tumbling quickly, so the
+    // spin never lags behind the travel however the last few hits left it.
+    const rolling = this.speed() * DICE_SPIN_PER_PIXEL;
+    if (Math.abs(this.spin) < rolling) this.spin = rolling * this.spinBias;
+    this.spin = Math.max(-DICE_MAX_SPIN, Math.min(DICE_MAX_SPIN, this.spin));
+    this.angle = (this.angle + this.spin) % 360;
+  }
+
+  /* The thrown style. Only the energy that is *new* this frame becomes a shove,
+     so winding up keeps feeding the dice rather than pinning them at one speed,
+     and the moment you stop they are coasting on what they already have. */
+  throwAround(energy) {
+    const gained = energy - this.lastEnergy;
+    this.lastEnergy = energy;
+    if (gained > 0.05) {
+      this.kick(gained * 2.2 + 0.4);
+    } else if (energy > 1 && this.z <= 0 && this.speed() < 0.5) {
+      // Nothing should sit dead still while the rest of the handful is live.
+      this.kick(0.9);
+    }
+    this.integrate();
+  }
+
+  /* The "in place" style: the die holds its reading position and spins on the
+     spot, hopping up and down. Spin and hop are both read straight off the
+     shared energy, which is what makes the whole handful move as one. */
+  spinInPlace(energy) {
+    this.spin = energy * (2.4 + (this.hopPhase % 1) * 1.6);
+    this.angle = (this.angle + this.spin) % 360;
+
+    const was = this.hopPhase;
+    this.hopPhase += 0.34;
+
+    // Height off a sine rather than out of gravity, which is exactly why the
+    // hop is even and repetitive instead of a bounce that decays.
+    this.z = Math.abs(Math.sin(this.hopPhase)) * Math.min(energy * 2.2, 22);
+
+    // The die touches down every time the sine crosses zero. Reporting that as
+    // an impact means the clatter is timed off the hops in this style just as
+    // it is timed off real collisions in the other one.
+    if (energy > 1 && Math.floor(was / Math.PI) !== Math.floor(this.hopPhase / Math.PI)) {
+      this.impacts += 1;
+    }
+  }
+
+  /* energy is the shared "how hard was this thrown" number owned by the roll
+     scene; every die reads from it so the whole handful moves together. */
+  update(energy) {
+    if (this.settled) { this.updateLanding(); return; }
+
+    if (DiceLib.style === DiceLib.IN_PLACE) this.spinInPlace(energy);
+    else this.throwAround(energy);
+
+    // Re-roll the face every few frames so the numbers blur while in motion.
+    if (energy > 0.6 && Math.random() < 0.5) this.value = this.randomValue();
+  }
+
+  /* The angle this die will come to rest at: the nearest orientation that leaves
+     its silhouette looking the same as square-on. */
+  restAngle() {
+    const step = DICE_SYMMETRY[this.spec.shape] || 360;
+    return Math.floor(this.angle / step + 0.5) * step;
+  }
+
+  settle(value) {
+    this.value = value;
+    this.settled = true;
+    this.vx = 0; this.vy = 0; this.zv = 0;
+    this.spin = 0;
+    this.fromX = this.x; this.fromY = this.y; this.fromZ = this.z;
+    this.fromAngle = this.angle; this.toAngle = this.restAngle();
+
+    const dx = this.homeX - this.x, dy = this.homeY - this.y;
+    const away = Math.sqrt(dx * dx + dy * dy);
+    this.glideFrames = Math.max(DICE_GLIDE_MIN,
+      Math.min(DICE_GLIDE_MAX, Math.ceil(away / DICE_GLIDE_SPEED)));
+    this.glideTotal = this.glideFrames;
+    this.landFrames = 0;
+  }
+
+  /* A die that stopped wherever the physics left it would be honest and
+     unreadable — twelve of them would be a pile. So a landed die takes one
+     short, eased slide back to the slot the layout picked for it, then squashes
+     as it arrives. */
+  updateLanding() {
+    if (this.glideFrames > 0) {
+      this.glideFrames -= 1;
+      const t = 1 - this.glideFrames / this.glideTotal;
+      const e = 1 - (1 - t) * (1 - t) * (1 - t);
+      this.x = this.fromX + (this.homeX - this.fromX) * e;
+      this.y = this.fromY + (this.homeY - this.fromY) * e;
+      this.z = this.fromZ * (1 - e);
+      this.angle = (this.fromAngle + (this.toAngle - this.fromAngle) * e) % 360;
+      if (this.glideFrames === 0) {
+        this.x = this.homeX; this.y = this.homeY; this.z = 0;
+        this.angle = this.toAngle % 360;
+        this.landFrames = DICE_LAND_FRAMES;
+      }
+    } else if (this.landFrames > 0) {
+      this.landFrames -= 1;
+    }
+  }
+
+  /* Height above the table while it is in the air, plus a short squash on
+     landing: 8 -> 0 becomes a quick squeeze back out to full height. */
+  visualOffsets() {
+    let squash = 1;
+    if (this.landFrames > 0) squash = 1 - (this.landFrames / DICE_LAND_FRAMES) * 0.25;
+    return [-this.z, squash];
+  }
+
+  draw(ctx) {
+    const off = this.visualOffsets(), dy = off[0], squash = off[1];
+    const cx = this.x, cy = this.y + dy;
+    const r = this.size / 2;
+
+    if (DICE_SHOW_SHADOW) this.drawShadow(ctx, r, dy);
+
+    if (this.spec.shape === 'coin') this.drawCoin(ctx, cx, cy, r, squash);
+    else this.drawPolygonDie(ctx, cx, cy, r, squash);
+
+    // Advantage and disadvantage each throw one of the pair away. Crossing it
+    // out is the clearest way to show which face actually counted.
+    if (this.dropped) {
+      ctx.strokeStyle = DICE_INK;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(cx - r * 0.85, cy - r * 0.85);
+      ctx.lineTo(cx + r * 0.85, cy + r * 0.85);
+      ctx.stroke();
+    }
+  }
+
+  /* A d2 is a coin, so it flips instead of tumbling: squeeze its width by the
+     cosine of the spin angle and it reads as edge-on at 90 degrees. */
+  drawCoin(ctx, cx, cy, r, squash) {
+    const flip = this.settled ? 1 : Math.abs(Math.cos(this.angle * Math.PI / 180));
+    const w = Math.max(r * 2 * flip, 3);
+    const h = r * 2 * squash;
+
+    ctx.beginPath();
+    ctx.ellipse(cx, cy, w / 2, h / 2, 0, 0, Math.PI * 2);
+    ctx.fillStyle = DICE_PAPER;
+    ctx.fill();
+    ctx.strokeStyle = DICE_INK;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // The coin's equivalent of a facet: a rim just inside the edge.
+    if (DICE_SHOW_FACETS && flip > 0.4) {
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, w * 0.39, h * 0.39, 0, 0, Math.PI * 2);
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    if (flip > 0.55) this.drawFace(ctx, cx, cy);
+  }
+
+  /* A dithered ellipse on the ground that stays put while the die hops above it.
+     Shrinking it as the die rises is what makes the hop read as height rather
+     than as the whole die sliding up the screen. */
+  drawShadow(ctx, r, dy) {
+    const lift = Math.min(-dy / (r * 0.9), 1);
+    const w = r * (1.5 - lift * 0.5);
+    const h = r * 0.34 * (1 - lift * 0.4);
+    ctx.beginPath();
+    ctx.ellipse(this.x, this.y + r * 0.86, w / 2, h / 2, 0, 0, Math.PI * 2);
+    ctx.fillStyle = dicePattern(ctx, 'shadow');
+    ctx.fill();
+  }
+
+  drawPolygonDie(ctx, cx, cy, r, squash) {
+    const rad = this.angle * Math.PI / 180;
+    const cosA = Math.cos(rad), sinA = Math.sin(rad);
+
+    // One transform for the silhouette and the facets alike, so the interior
+    // detail tumbles and squashes with the body instead of sliding around on it.
+    function place(p) {
+      const px = p[0] * r, py = p[1] * r * squash;
+      return [cx + px * cosA - py * sinA, cy + px * sinA + py * cosA];
+    }
+    function path(pts) {
+      ctx.beginPath();
+      for (let i = 0; i < pts.length; i++) {
+        const q = place(pts[i]);
+        if (i === 0) ctx.moveTo(q[0], q[1]); else ctx.lineTo(q[0], q[1]);
+      }
+      ctx.closePath();
+    }
+
+    const body = DICE_SHAPES[this.spec.shape];
+
+    path(body);
+    ctx.fillStyle = DICE_PAPER;
+    ctx.fill();
+
+    // Facets first and thin, then the silhouette over them and thick: the
+    // outline stays the strongest edge, which is what holds the shape together
+    // at the sizes a crowded roll uses.
+    ctx.strokeStyle = DICE_INK;
+    ctx.lineJoin = 'miter';
+    if (DICE_SHOW_FACETS) {
+      const facets = DICE_FACETS[this.spec.shape];
+      ctx.lineWidth = 1;
+      path(facets.face);
+      ctx.stroke();
+      ctx.beginPath();
+      for (const spoke of facets.spokes) {
+        const a = place(spoke[0]), b = place(spoke[1]);
+        ctx.moveTo(a[0], a[1]);
+        ctx.lineTo(b[0], b[1]);
+      }
+      ctx.stroke();
+    }
+
+    ctx.lineWidth = 2;
+    path(body);
+    ctx.stroke();
+
+    this.drawFace(ctx, cx, cy);
+  }
+
+  /* How much of the die the number takes up. Drawing numerals as shapes means
+     any height is available, so these are a look rather than a compromise: the
+     number should read as sitting on the die, not filling it. Two digits are
+     nearly twice the width of one, so a wide label is shrunk to fit rather than
+     allowed to spill over the outline. */
+  faceHeight(text) {
+    return diceNumFit(text, this.size * 0.56, this.size * 0.40);
+  }
+
+  drawFace(ctx, cx, cy) {
+    const text = this.label();
+    diceNumDraw(ctx, text, cx, cy, this.faceHeight(text));
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Dice: styles, collisions, and describing a throw
+   --------------------------------------------------------------------------- */
+const DiceLib = {
+  SCATTER: 'scatter',
+  IN_PLACE: 'in place',
+  style: 'scatter',
+  MOD_MIN: -20,
+  MOD_MAX: 20
+};
+DiceLib.STYLES = [DiceLib.SCATTER, DiceLib.IN_PLACE];
+
+/* Anything that is not one of the two is ignored, so a hand-edited setting or a
+   key left over from an older version cannot leave the dice in a style that
+   nothing knows how to draw. Returns the style actually in force. */
+DiceLib.setStyle = function (style) {
+  if (DiceLib.STYLES.indexOf(style) >= 0) DiceLib.style = style;
+  return DiceLib.style;
+};
+
+/* Dice bumping into each other is most of what makes a handful look chaotic
+   rather than like a dozen dice each doing its own tidy thing. Push any
+   overlapping pair apart, then swap the part of their velocity that lies along
+   the line between them — an elastic bounce between two equal masses.
+
+   Returns how many impacts happened this frame, walls included, so the scene
+   can clatter in time with the collisions instead of on a timer. */
+DiceLib.collide = function (dice) {
+  let impacts = 0;
+  for (const d of dice) { impacts += d.impacts; d.impacts = 0; }
+
+  // Dice that hold their positions can never run into each other, so the
+  // "in place" style skips the whole pass and keeps its lower cost.
+  if (DiceLib.style === DiceLib.IN_PLACE) return impacts;
+
+  for (let i = 0; i < dice.length - 1; i++) {
+    const a = dice[i];
+    if (a.settled) continue;
+    for (let j = i + 1; j < dice.length; j++) {
+      const b = dice[j];
+      if (b.settled) continue;
+      let dx = b.x - a.x, dy = b.y - a.y;
+      const reach = (a.size + b.size) * 0.45;
+      const sq = dx * dx + dy * dy;
+      if (sq >= reach * reach) continue;
+
+      let dist = Math.sqrt(sq);
+      if (dist < 0.01) { dx = 1; dy = 0; dist = 1; }   // exactly on top: any side will do
+      const nx = dx / dist, ny = dy / dist;
+      const push = (reach - dist) * 0.5;
+      a.x -= nx * push; a.y -= ny * push;
+      b.x += nx * push; b.y += ny * push;
+      a.clampToTray(); b.clampToTray();
+
+      // Only closing dice bounce; two that already overlap and are separating
+      // just need the shove above.
+      const closing = (b.vx - a.vx) * nx + (b.vy - a.vy) * ny;
+      if (closing < 0) {
+        const p = closing * DICE_DIE_BOUNCE;
+        a.vx += p * nx; a.vy += p * ny;
+        b.vx -= p * nx; b.vy -= p * ny;
+        a.spin = -a.spin * 0.6 + closing * 2.5;
+        b.spin = -b.spin * 0.6 - closing * 2.5;
+        if (a.z <= 0) a.zv = Math.max(a.zv, -closing * 0.35);
+        if (b.z <= 0) b.zv = Math.max(b.zv, -closing * 0.35);
+        a.capSpeed(); b.capSpeed();
+        impacts += 1;
+      }
+    }
+  }
+  return impacts;
+};
+
+/* Everything below takes a `config`: the whole description of one throw.
+
+     { spec: <entry from DICE_TYPES>, count: 3, modifier: 2, mode: 'normal' }
+
+   `mode` is 'normal', 'advantage' or 'disadvantage', and only means anything
+   for a die type flagged allowAdvantage (the d20). */
+DiceLib.newConfig = function () {
+  return { spec: DICE_TYPES[2], count: 1, modifier: 0, mode: 'normal' };
+};
+
+DiceLib.usesAdvantage = function (config) {
+  return config.spec.allowAdvantage === true && config.mode !== 'normal';
+};
+
+/* How many physical dice make up one result. Two for a percentile pair, and two
+   for advantage/disadvantage — which is why both fall out of the same code. */
+DiceLib.groupSize = function (config) {
+  return (config.spec.percentile || DiceLib.usesAdvantage(config)) ? 2 : 1;
+};
+
+/* Returns the flat list of physical dice, and a list of groups. A group is one
+   "roll" the player asked for: one die normally, a tens/units pair for a d100,
+   a pair to choose between under advantage or disadvantage. */
+DiceLib.build = function (config) {
+  const all = [], groups = [];
+  for (let n = 0; n < config.count; n++) {
+    const group = [];
+    if (config.spec.percentile) {
+      group.push(new Die(config.spec, 'tens'));
+      group.push(new Die(config.spec, 'units'));
+    } else {
+      for (let i = 0; i < DiceLib.groupSize(config); i++) group.push(new Die(config.spec));
+    }
+    for (const die of group) all.push(die);
+    groups.push(group);
+  }
+  return [all, groups];
+};
+
+/* Which die of an advantage/disadvantage pair counts. Ties keep the first,
+   which is arbitrary but means the crossed-out die is always the second. */
+function diceKeptIndex(config, group) {
+  const a = group[0].value, b = group[1].value;
+  if (config.mode === 'advantage') return b > a ? 1 : 0;
+  return b < a ? 1 : 0;
+}
+
+/* The score of one group, before any modifier: a plain die's face value, a
+   percentile pair added together with 00 + 0 reading as 100, or the kept die of
+   an advantage/disadvantage pair. */
+DiceLib.groupValue = function (config, group) {
+  if (config.spec.percentile) {
+    const tens = group[0].value, units = group[1].value;
+    if (tens === 0 && units === 0) return 100;
+    return tens + units;
+  }
+  if (DiceLib.usesAdvantage(config)) return group[diceKeptIndex(config, group)].value;
+  return group[0].value;
+};
+
+DiceLib.groupLabel = function (config, group) {
+  if (config.spec.percentile) {
+    return group[0].label() + '+' + group[1].value + '=' + DiceLib.groupValue(config, group);
+  }
+  if (DiceLib.usesAdvantage(config)) {
+    const kept = diceKeptIndex(config, group);
+    return group[kept].value + '(' + group[1 - kept].value + ')';
+  }
+  return String(group[0].value);
+};
+
+/* Flag the die each advantage/disadvantage pair discards, as soon as both dice
+   in that pair have landed, so it can be crossed out while the rest are still
+   in the air. */
+DiceLib.markDropped = function (config, groups) {
+  if (!DiceLib.usesAdvantage(config)) return;
+  for (const group of groups) {
+    if (!group.marked && group[0].settled && group[1].settled) {
+      group.marked = true;
+      group[1 - diceKeptIndex(config, group)].dropped = true;
+    }
+  }
+};
+
+/* Sum of every group plus the modifier, with the dice-only subtotal alongside
+   it: a natural 20 is about the die, not about the total. */
+DiceLib.total = function (config, groups) {
+  let diceTotal = 0;
+  for (const group of groups) diceTotal += DiceLib.groupValue(config, group);
+  return [diceTotal + config.modifier, diceTotal];
+};
+
+DiceLib.notation = function (config) {
+  let text = config.count + config.spec.key;
+  if (config.modifier > 0) text += '+' + config.modifier;
+  else if (config.modifier < 0) text += '-' + (-config.modifier);
+  if (DiceLib.usesAdvantage(config)) text += config.mode === 'advantage' ? ' adv' : ' dis';
+  return text;
+};
+
+/* Advantage narrows which results are likely but not which are possible, so it
+   does not move the ends of the range. */
+DiceLib.range = function (config) {
+  return [config.count + config.modifier,
+          config.count * config.spec.sides + config.modifier];
+};
+
+/* Plain dice add up, so " + " reads correctly between them. Pairs already carry
+   their own arithmetic inside each label, so they get a list separator instead. */
+DiceLib.separator = function (config) {
+  return (config.spec.percentile || DiceLib.usesAdvantage(config)) ? ',  ' : ' + ';
+};
+
+/* "4 + 2 + 6" on its own, or "(4 + 2 + 6)  + 3" once a modifier is involved —
+   the brackets keep it honest about what was added to what. */
+DiceLib.breakdownText = function (config, parts) {
+  let dice = parts.join(DiceLib.separator(config));
+  if (config.modifier === 0) return dice;
+  if (parts.length > 1) dice = '(' + dice + ')';
+  return dice + (config.modifier > 0 ? '  + ' : '  - ') + Math.abs(config.modifier);
+};
+
+/* ---------------------------------------------------------------------------
+   Layout
+   ---------------------------------------------------------------------------
+   The rectangle does double duty: it is the grid the dice are read from once
+   they stop, and it is the tray they career around inside while they are still
+   moving.
+
+   Rather than hard-coding a grid per count, try every column count and keep
+   whichever produces the largest dice. Cheap — there are at most 12 groups —
+   and the layout stays sensible if the count limits ever change. */
+const DiceLayout = {};
+DiceLayout.arrange = function (groups, x, y, w, h) {
+  const n = groups.length;
+  if (n === 0) return;
+
+  const pair = groups[0].length === 2;
+  const cellRatioW = pair ? 1.95 : 1.18;   // cell width in die-sizes
+  const cellRatioH = 1.30;                 // cell height in die-sizes
+
+  let best = { size: 0, cols: 1, rows: n };
+  for (let cols = 1; cols <= n; cols++) {
+    const rows = Math.ceil(n / cols);
+    const size = Math.min(w / cols / cellRatioW, h / rows / cellRatioH);
+    if (size > best.size) best = { size: size, cols: cols, rows: rows };
+  }
+
+  const size = Math.max(Math.min(best.size, 78), 20);
+  const cellW = size * cellRatioW, cellH = size * cellRatioH;
+  const top = y + (h - cellH * best.rows) / 2;
+
+  let index = 0;
+  for (let row = 0; row < best.rows; row++) {
+    const inRow = Math.min(best.cols, n - row * best.cols);
+    const left = x + (w - cellW * inRow) / 2;
+    for (let col = 0; col < inRow; col++) {
+      const group = groups[index];
+      const cx = left + cellW * (col + 0.5);
+      const cy = top + cellH * (row + 0.5);
+      if (pair) {
+        // Side by side and slightly smaller, so the two dice read as one result
+        // rather than two.
+        const half = size * 0.86;
+        group[0].size = half; group[0].setHome(cx - half * 0.56, cy);
+        group[1].size = half; group[1].setHome(cx + half * 0.56, cy);
+      } else {
+        group[0].size = size;
+        group[0].setHome(cx, cy);
+      }
+      for (const die of group) die.setTray(x, y, w, h);
+      index++;
+    }
+  }
+};
+
+/* ---------------------------------------------------------------------------
+   Sound
+   ---------------------------------------------------------------------------
+   The Playdate has synthesisers built in; a browser has an AudioContext, which
+   comes to the same thing — a square wave for the blips, filtered noise for the
+   clatter, and no audio files to ship. The context cannot be created until the
+   page has been interacted with, so it is built on the first roll. */
+const DiceSfx = { enabled: true };
+var _diceAudio = null, _diceNoiseBuffer = null;
+
+function diceAudio() {
+  if (!_diceAudio) {
+    try { _diceAudio = new (window.AudioContext || window.webkitAudioContext)(); }
+    catch (e) { return null; }
+  }
+  if (_diceAudio.state === 'suspended') _diceAudio.resume();
+  return _diceAudio;
+}
+
+function diceTone(freq, volume, length) {
+  if (!DiceSfx.enabled) return;
+  const ac = diceAudio();
+  if (!ac) return;
+  const o = ac.createOscillator(), g = ac.createGain();
+  o.type = 'square';
+  o.frequency.value = freq;
+  o.connect(g); g.connect(ac.destination);
+  g.gain.setValueAtTime(0.0001, ac.currentTime);
+  g.gain.exponentialRampToValueAtTime(Math.max(volume, 0.001), ac.currentTime + 0.008);
+  g.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + length);
+  o.start();
+  o.stop(ac.currentTime + length + 0.02);
+}
+
+function diceNoise(freq, volume, length) {
+  if (!DiceSfx.enabled) return;
+  const ac = diceAudio();
+  if (!ac) return;
+  if (!_diceNoiseBuffer) {
+    _diceNoiseBuffer = ac.createBuffer(1, ac.sampleRate * 0.5, ac.sampleRate);
+    const data = _diceNoiseBuffer.getChannelData(0);
+    for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+  }
+  const src = ac.createBufferSource(), band = ac.createBiquadFilter(), g = ac.createGain();
+  src.buffer = _diceNoiseBuffer;
+  src.loop = true;
+  band.type = 'bandpass';
+  band.frequency.value = freq;
+  band.Q.value = 1.4;
+  src.connect(band); band.connect(g); g.connect(ac.destination);
+  g.gain.setValueAtTime(Math.max(volume, 0.001), ac.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + length);
+  src.start();
+  src.stop(ac.currentTime + length + 0.02);
+}
+
+DiceSfx.move = function () { diceTone(660, 0.10, 0.03); };
+DiceSfx.select = function () { diceTone(880, 0.13, 0.05); };
+DiceSfx.back = function () { diceTone(440, 0.11, 0.05); };
+
+/* The clatter of a die hitting the table: a noise burst plus a low click. */
+DiceSfx.land = function () {
+  diceNoise(1200 + diceRand(-200, 200), 0.12, 0.05);
+  diceTone(180 + diceRand(0, 120), 0.08, 0.04);
+};
+
+/* Called while the dice are in the air, at a rate set by the impacts. */
+DiceSfx.tumble = function () { diceNoise(2000 + diceRand(-600, 600), 0.05, 0.03); };
+
+DiceSfx.reveal = function () { diceTone(523, 0.12, 0.09); diceTone(784, 0.12, 0.14); };
+
+/* ---------------------------------------------------------------------------
+   Settings and history
+   ---------------------------------------------------------------------------
+   The Playdate version writes both with playdate.datastore, one file each, so a
+   corrupt or cleared history never costs you your settings. localStorage, two
+   keys, same reasoning — and the same version stamp, so a format change is
+   discarded rather than half-read into a crash. */
+const DICE_SETTINGS_KEY = 'twsc-dice-settings-v1';
+const DICE_HISTORY_KEY = 'twsc-dice-history-v1';
+const DICE_HISTORY_MAX = 20;
+
+const DiceSettings = { values: {} };
+
+DiceSettings.load = function () {
+  let data = null;
+  try { data = JSON.parse(localStorage.getItem(DICE_SETTINGS_KEY)); } catch (e) { data = null; }
+  DiceSettings.values = (data && data.version === 1 && data.values) ? data.values : {};
+};
+DiceSettings.save = function () {
+  try {
+    localStorage.setItem(DICE_SETTINGS_KEY,
+      JSON.stringify({ version: 1, values: DiceSettings.values }));
+  } catch (e) {}
+};
+DiceSettings.get = function (key, fallback) {
+  const v = DiceSettings.values[key];
+  return v === undefined ? fallback : v;
+};
+DiceSettings.set = function (key, value) {
+  DiceSettings.values[key] = value;
+  DiceSettings.save();
+};
+
+const DiceHistory = { entries: [] };
+
+DiceHistory.load = function () {
+  let data = null;
+  try { data = JSON.parse(localStorage.getItem(DICE_HISTORY_KEY)); } catch (e) { data = null; }
+  DiceHistory.entries = (data && data.version === 1 && Array.isArray(data.entries))
+    ? data.entries : [];
+};
+DiceHistory.save = function () {
+  try {
+    localStorage.setItem(DICE_HISTORY_KEY,
+      JSON.stringify({ version: 1, entries: DiceHistory.entries }));
+  } catch (e) {}
+};
+
+/* Written on every roll rather than only on the way out: the whole thing is a
+   few hundred bytes, and a history that loses the last few rolls to a closed
+   tab is not much of a history. */
+DiceHistory.record = function (config, result) {
+  DiceHistory.entries.unshift({
+    notation: result.notation,
+    total: result.total,
+    breakdown: DiceLib.breakdownText(config, result.parts),
+    // Enough to rebuild the throw, so a past roll can be thrown again.
+    typeKey: config.spec.key,
+    count: config.count,
+    modifier: config.modifier,
+    mode: config.mode
+  });
+  while (DiceHistory.entries.length > DICE_HISTORY_MAX) DiceHistory.entries.pop();
+  DiceHistory.save();
+};
+
+DiceHistory.latest = function () { return DiceHistory.entries[0]; };
+DiceHistory.clear = function () { DiceHistory.entries = []; DiceHistory.save(); };
+
+/* Rebuild a config from a stored entry. Returns null if the entry cannot be
+   honoured — it outlived whichever version wrote it, so a die type that no
+   longer exists is a real possibility rather than paranoia. Anything rebuilt is
+   re-validated on the way out. */
+DiceHistory.configOf = function (entry) {
+  const valid = { normal: true, advantage: true, disadvantage: true };
+  for (const spec of DICE_TYPES) {
+    if (spec.key === entry.typeKey) {
+      return {
+        spec: spec,
+        count: diceClamp(entry.count || 1, 1, spec.maxCount),
+        modifier: diceClamp(entry.modifier || 0, DiceLib.MOD_MIN, DiceLib.MOD_MAX),
+        mode: (spec.allowAdvantage && valid[entry.mode]) ? entry.mode : 'normal'
+      };
+    }
+  }
+  return null;
+};
+
+/* ---------------------------------------------------------------------------
+   Drawing helpers
+   ---------------------------------------------------------------------------
+   The Playdate equivalents of these live in lib/util.lua. "Grey" is a dither
+   pattern there because the screen is 1-bit; it is a dither pattern here
+   because that is what the app looks like. */
+var _dicePatterns = {};
+
+function dicePattern(ctx, name) {
+  if (_dicePatterns[name]) return _dicePatterns[name];
+  // The same bytes the Lua passes to gfx.setPattern, one bit per pixel.
+  const bytes = name === 'dim'
+    ? [0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x55]
+    : [0x88, 0x22, 0x88, 0x22, 0x88, 0x22, 0x88, 0x22];
+  const tile = document.createElement('canvas');
+  tile.width = 8; tile.height = 8;
+  const tctx = tile.getContext('2d');
+  tctx.fillStyle = DICE_INK;
+  for (let row = 0; row < 8; row++) {
+    for (let bit = 0; bit < 8; bit++) {
+      if (bytes[row] & (0x80 >> bit)) tctx.fillRect(bit, row, 1, 1);
+    }
+  }
+  _dicePatterns[name] = ctx.createPattern(tile, 'repeat');
+  return _dicePatterns[name];
+}
+
+/* 50% checkerboard over the whole screen, used to knock back the dice while the
+   result panel is on top of them. */
+function diceDim(ctx) {
+  ctx.fillStyle = dicePattern(ctx, 'dim');
+  ctx.fillRect(0, 0, DICE_SCREEN_W, DICE_SCREEN_H);
+}
+
+function diceRoundPath(ctx, x, y, w, h, r) {
+  r = Math.min(r, w / 2, h / 2);
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+
+/* A pale card with a fat dark border: the only "chrome" this app uses. */
+function dicePanel(ctx, x, y, w, h, radius) {
+  diceRoundPath(ctx, x, y, w, h, radius === undefined ? 6 : radius);
+  ctx.fillStyle = DICE_PAPER;
+  ctx.fill();
+  ctx.strokeStyle = DICE_INK;
+  ctx.lineWidth = 3;
+  ctx.lineJoin = 'round';
+  ctx.stroke();
+}
+
+/* Solid bar, for headers and the hint strip along the bottom. */
+function diceBar(ctx, x, y, w, h) {
+  ctx.fillStyle = DICE_INK;
+  ctx.fillRect(x, y, w, h);
+}
+
+function diceText(ctx, text, x, y, align, size, inverted) {
+  ctx.font = 'bold ' + (size || 13) + 'px ' + DICE_FONT;
+  ctx.textAlign = align || 'left';
+  ctx.textBaseline = 'top';
+  ctx.fillStyle = inverted ? DICE_PAPER : DICE_INK;
+  ctx.fillText(text, x, y);
+}
+
+function diceTextWidth(ctx, text, size) {
+  ctx.font = 'bold ' + (size || 13) + 'px ' + DICE_FONT;
+  return ctx.measureText(text).width;
+}
+
+/* Wrapped and truncated with an ellipsis, the way drawTextInRect does it. */
+function diceTextInRect(ctx, text, x, y, w, h, align, size, inverted) {
+  size = size || 13;
+  const lineH = size + 3;
+  const maxLines = Math.max(1, Math.floor(h / lineH));
+  const words = String(text).split(/\s+/).filter(Boolean);
+  const lines = [];
+  let line = '', i = 0;
+
+  while (i < words.length && lines.length < maxLines) {
+    const test = line ? line + ' ' + words[i] : words[i];
+    // A word wider than the whole box still has to go somewhere, so an empty
+    // line takes it regardless and the ellipsis below cuts it down.
+    if (!line || diceTextWidth(ctx, test, size) <= w) { line = test; i++; }
+    else { lines.push(line); line = ''; }
+  }
+  const truncated = i < words.length || (line !== '' && lines.length >= maxLines);
+  if (line !== '' && lines.length < maxLines) lines.push(line);
+
+  if (truncated && lines.length) {
+    let last = lines[lines.length - 1];
+    while (last.length > 1 && diceTextWidth(ctx, last + '...', size) > w) last = last.slice(0, -1);
+    lines[lines.length - 1] = last + '...';
+  }
+
+  const ax = align === 'center' ? x + w / 2 : (align === 'right' ? x + w : x);
+  for (let n = 0; n < lines.length; n++) {
+    diceText(ctx, lines[n], ax, y + n * lineH, align, size, inverted);
+  }
+}
+
+/* Small solid triangles used as "press this direction" hints, and as the
+   touch targets that replace left/right on the d-pad. */
+function diceTriangle(ctx, cx, cy, size, dir, inverted, hollow) {
+  ctx.beginPath();
+  if (dir === 'left') {
+    ctx.moveTo(cx - size, cy); ctx.lineTo(cx + size, cy - size); ctx.lineTo(cx + size, cy + size);
+  } else {
+    ctx.moveTo(cx + size, cy); ctx.lineTo(cx - size, cy - size); ctx.lineTo(cx - size, cy + size);
+  }
+  ctx.closePath();
+  if (hollow) {
+    ctx.strokeStyle = inverted ? DICE_PAPER : DICE_INK;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  } else {
+    ctx.fillStyle = inverted ? DICE_PAPER : DICE_INK;
+    ctx.fill();
+  }
+}
+
+/* Playdate's easingFunctions.outCubic, which the result panel slides in on. */
+function diceOutCubic(t, b, c, d) {
+  t = t / d - 1;
+  return c * (t * t * t + 1) + b;
+}
+
+/* ---------------------------------------------------------------------------
+   Scene 1: describe the throw
+   ---------------------------------------------------------------------------
+   With four things to set, this is a field list rather than a set of fixed
+   controls: pick a field, then nudge it left or right. On the device that was
+   up/down and left/right; here a row is tapped to select it and the arrows
+   either side of its value are the nudges. The arrow keys still work. */
+const DiceSetupScene = { id: 'setup' };
+
+const DICE_ROW_X = 118, DICE_ROW_W = 276, DICE_ROW_H = 34;
+const DICE_ROW_TOP = 34, DICE_ROW_GAP = 6;
+const DICE_MODES = ['normal', 'advantage', 'disadvantage'];
+
+function diceIndexOf(list, value) {
+  const i = list.indexOf(value);
+  return i < 0 ? 0 : i;
+}
+
+DiceSetupScene.enter = function () {
+  if (!this.config) this.config = DiceLib.newConfig();
+  if (this.typeIndex === undefined) this.typeIndex = diceIndexOf(DICE_TYPES, this.config.spec);
+  if (this.selected === undefined) this.selected = 0;
+  this.previewAngle = 0;
+  this.refresh();
+};
+
+/* Take on a throw described elsewhere — the history page handing back a past
+   roll — so that backing out of it lands on a setup screen that matches. */
+DiceSetupScene.adopt = function (config) {
+  this.config = config;
+  this.typeIndex = diceIndexOf(DICE_TYPES, config.spec);
+  this.selected = 0;
+  this.refresh();
+};
+
+/* The advantage row only exists for die types that support it, so the field
+   list is rebuilt rather than fixed. */
+DiceSetupScene.fields = function () {
+  const fields = [
+    { id: 'type', label: 'DIE' },
+    { id: 'count', label: 'HOW MANY' },
+    { id: 'mod', label: 'MODIFIER' }
+  ];
+  if (this.config.spec.allowAdvantage) fields.push({ id: 'adv', label: 'D20 ROLL' });
+  return fields;
+};
+
+DiceSetupScene.refresh = function () {
+  const config = this.config;
+  config.spec = DICE_TYPES[this.typeIndex];
+  config.count = diceClamp(config.count, 1, config.spec.maxCount);
+  config.modifier = diceClamp(config.modifier, DiceLib.MOD_MIN, DiceLib.MOD_MAX);
+  if (!config.spec.allowAdvantage) config.mode = 'normal';
+  this.selected = diceClamp(this.selected, 0, this.fields().length - 1);
+
+  // A single static die, drawn with the same code the rolling scene uses.
+  const die = new Die(config.spec, config.spec.percentile ? 'tens' : 'normal');
+  die.size = 76;
+  die.x = 58; die.y = 100;
+  die.settled = true;
+  die.angle = 0;
+  die.value = config.spec.percentile ? 20 : config.spec.sides;
+  this.previewDie = die;
+};
+
+DiceSetupScene.valueText = function (id) {
+  const config = this.config;
+  if (id === 'type') return config.spec.key;
+  if (id === 'count') return String(config.count);
+  if (id === 'mod') return config.modifier > 0 ? '+' + config.modifier : String(config.modifier);
+  return config.mode;
+};
+
+/* delta is +1 or -1. Type, count and mode wrap around; the modifier clamps,
+   because sliding from +20 straight to -20 is never what anyone meant. */
+DiceSetupScene.adjust = function (id, delta) {
+  const config = this.config;
+  if (id === 'type') {
+    this.typeIndex = (this.typeIndex + delta + DICE_TYPES.length) % DICE_TYPES.length;
+  } else if (id === 'count') {
+    config.count = (config.count - 1 + delta + config.spec.maxCount) % config.spec.maxCount + 1;
+  } else if (id === 'mod') {
+    config.modifier = diceClamp(config.modifier + delta, DiceLib.MOD_MIN, DiceLib.MOD_MAX);
+  } else if (id === 'adv') {
+    const i = diceIndexOf(DICE_MODES, config.mode);
+    config.mode = DICE_MODES[(i + delta + DICE_MODES.length) % DICE_MODES.length];
+  }
+  this.refresh();
+};
+
+DiceSetupScene.select = function (index) {
+  const fields = this.fields();
+  this.selected = (index + fields.length) % fields.length;
+  DiceSfx.move();
+};
+
+DiceSetupScene.button = function (btn) {
+  const fields = this.fields();
+  if (btn === 'up') this.select(this.selected - 1);
+  else if (btn === 'down') this.select(this.selected + 1);
+  else if (btn === 'left' || btn === 'right') {
+    this.adjust(fields[this.selected].id, btn === 'right' ? 1 : -1);
+    DiceSfx.move();
+  } else if (btn === 'a') {
+    DiceSfx.select();
+    DiceGame.switchTo(DiceRollScene, this.config);
+  } else if (btn === 'b') {
+    DiceSfx.select();
+    DiceGame.switchTo(DiceHistoryScene);
+  }
+};
+
+DiceSetupScene.update = function () {
+  // Idle wobble on the preview die so the screen isn't completely static.
+  this.previewAngle += 0.9;
+  this.previewDie.angle = Math.sin(this.previewAngle * Math.PI / 180) * 7;
+};
+
+DiceSetupScene.draw = function (ctx) {
+  const config = this.config;
+
+  // Header
+  diceBar(ctx, 0, 0, 400, 22);
+  diceText(ctx, 'DICE ROLLER', 8, 4, 'left', 13, true);
+  const last = DiceHistory.latest();
+  if (last) {
+    diceText(ctx, 'last: ' + last.notation + ' = ' + last.total, 392, 4, 'right', 12, true);
+  }
+
+  // Preview column
+  this.previewDie.draw(ctx);
+
+  diceRoundPath(ctx, 6, 142, 104, 22, 4);
+  ctx.fillStyle = DICE_INK;
+  ctx.fill();
+  diceText(ctx, DiceLib.notation(config), 58, 146, 'center', 12, true);
+
+  const range = DiceLib.range(config);
+  diceText(ctx, range[0] + ' to ' + range[1], 58, 168, 'center', 12);
+
+  // Field rows. Where each row's arrows land depends on how wide its value is,
+  // so the row records them as it draws and the hit test reads them back.
+  const fields = this.fields();
+  this.arrows = [];
+  for (let i = 0; i < fields.length; i++) {
+    this.drawRow(ctx, fields[i], i, DICE_ROW_TOP + i * (DICE_ROW_H + DICE_ROW_GAP),
+      i === this.selected);
+  }
+
+  // Hints
+  diceBar(ctx, 0, 196, 400, 44);
+  diceText(ctx, 'tap a row to choose', 8, 201, 'left', 12, true);
+  diceText(ctx, 'ROLL', 392, 201, 'right', 12, true);
+  diceText(ctx, 'tap an arrow to change', 8, 221, 'left', 12, true);
+  diceText(ctx, 'HISTORY', 392, 221, 'right', 12, true);
+};
+
+DiceSetupScene.drawRow = function (ctx, field, index, y, selected) {
+  const value = this.valueText(field.id);
+  const textY = y + 10;
+  const valueRight = DICE_ROW_X + DICE_ROW_W - 24;
+  const valueWidth = diceTextWidth(ctx, value, 13);
+  const leftX = valueRight - valueWidth - 12, rightX = valueRight + 12;
+  this.arrows[index] = [leftX, rightX];
+
+  if (selected) {
+    diceRoundPath(ctx, DICE_ROW_X, y, DICE_ROW_W, DICE_ROW_H, 6);
+    ctx.fillStyle = DICE_INK;
+    ctx.fill();
+    diceText(ctx, field.label, DICE_ROW_X + 12, textY, 'left', 13, true);
+    diceText(ctx, value, valueRight, textY, 'right', 13, true);
+
+    // Arrows bracket the value to show which way it can be nudged.
+    diceTriangle(ctx, leftX, y + DICE_ROW_H / 2, 5, 'left', true);
+    diceTriangle(ctx, rightX, y + DICE_ROW_H / 2, 5, 'right', true);
+  } else {
+    dicePanel(ctx, DICE_ROW_X, y, DICE_ROW_W, DICE_ROW_H, 6);
+    diceText(ctx, field.label, DICE_ROW_X + 12, textY, 'left', 13);
+    diceText(ctx, value, valueRight, textY, 'right', 13);
+    // The device only drew arrows on the selected row, because the d-pad was
+    // always pointed at it. A finger needs to see where it can press, so an
+    // unselected row shows them hollow.
+    diceTriangle(ctx, leftX, y + DICE_ROW_H / 2, 5, 'left', false, true);
+    diceTriangle(ctx, rightX, y + DICE_ROW_H / 2, 5, 'right', false, true);
+  }
+};
+
+/* Rows, and the arrow zones either side of each row's value. A tap anywhere on
+   a row selects it; a tap that also landed on one of its arrows nudges it. */
+DiceSetupScene.hit = function (x, y) {
+  const fields = this.fields();
+  for (let i = 0; i < fields.length; i++) {
+    const top = DICE_ROW_TOP + i * (DICE_ROW_H + DICE_ROW_GAP);
+    if (y < top || y > top + DICE_ROW_H) continue;
+    if (x < DICE_ROW_X - 6 || x > DICE_ROW_X + DICE_ROW_W + 6) continue;
+
+    const moved = i !== this.selected;
+    if (moved) this.selected = i;
+
+    // A fingertip is a good deal wider than a 10px triangle, so the arrows are
+    // given the whole gap between the value and the end of the row.
+    const arrows = this.arrows && this.arrows[i];
+    let nudged = 0;
+    if (arrows) {
+      if (x >= arrows[1] - 16) nudged = 1;
+      else if (x >= arrows[0] - 16 && x <= arrows[0] + 16) nudged = -1;
+    }
+    if (nudged) this.adjust(fields[i].id, nudged);
+    if (moved || nudged) DiceSfx.move();
+    return true;
+  }
+  return false;
+};
+
+/* ---------------------------------------------------------------------------
+   Scene 2: throw the dice, then show the total on an overlay
+   --------------------------------------------------------------------------- */
+const DiceRollScene = { id: 'roll' };
+
+/* How far the throw has to be wound (in crank degrees, or the pixels of finger
+   travel that stand in for them) before the dice are allowed to land. 540 is
+   one and a half turns: enough to feel deliberate, short enough that rolling
+   twenty times in a session isn't a chore. */
+const DICE_CRANK_TARGET = 540;
+const DICE_SETTLE_GAP = 4;      // frames between one die landing and the next
+const DICE_REVEAL_DELAY = 14;   // frames between the last die and the overlay
+const DICE_OVERLAY_FRAMES = 10;
+const DICE_CLATTER_GAP = 3;     // frames between clatters, however many dice hit
+const DICE_PLAY_BOTTOM = 197;   // the dice are clipped off just above the meter
+const DICE_PANEL_X = 24, DICE_PANEL_W = 352;
+const DICE_PANEL_Y = 40, DICE_PANEL_H = 168;
+
+/* The rate the Roll button winds at, which is the rate holding A wound at when
+   the crank was docked. */
+const DICE_AUTO_CRANK = 13;
+
+DiceRollScene.enter = function (config) {
+  this.config = config;
+  const built = DiceLib.build(config);
+  this.dice = built[0];
+  this.groups = built[1];
+  DiceLayout.arrange(this.groups, 8, 28, 384, 164);
+  this.reset();
+};
+
+DiceRollScene.reset = function () {
+  this.state = 'ready';        // ready -> tumbling -> settling -> result
+  this.energy = 0;
+  this.cranked = 0;
+  this.frame = 0;
+  this.settleIndex = 0;
+  this.settleTimer = 0;
+  this.revealTimer = 0;
+  this.overlayFrames = 0;
+  this.result = null;
+  this.hintAngle = 0;
+  this.clatterFrame = -DICE_CLATTER_GAP;
+  this.feed = 0;               // wind-up fed in by finger or wheel since last frame
+  this.auto = false;           // the Roll button winding the throw up by itself
+  for (const die of this.dice) die.rest();
+  for (const group of this.groups) group.marked = false;
+};
+
+DiceRollScene.button = function (btn) {
+  if (btn === 'b') {
+    DiceSfx.back();
+    DiceGame.switchTo(DiceSetupScene);
+  } else if (btn === 'a') {
+    // On the device, A on the result cleared the tray and you cranked the next
+    // throw yourself. A button that says "roll again" has to actually roll, so
+    // it hands the fresh throw straight to the winder.
+    if (this.state === 'result') { DiceSfx.select(); this.reset(); }
+    this.auto = true;
+  }
+};
+
+/* Finger travel across the tray, or a turn of the scroll wheel, in the same
+   units the crank reported: how far it moved, never which way. */
+DiceRollScene.wind = function (amount) {
+  if (this.state === 'ready' || this.state === 'tumbling') this.feed += amount;
+};
+
+DiceRollScene.update = function () {
+  this.frame += 1;
+
+  if (this.state === 'ready' || this.state === 'tumbling') this.updateThrow();
+  else if (this.state === 'settling') this.updateSettle();
+  else this.updateResult();
+
+  for (const die of this.dice) die.update(this.energy);
+
+  // Dice hitting each other and the walls of the tray, and the sound of it.
+  // Driving the clatter off real impacts rather than off a timer is what ties
+  // what you hear to what you can see happening.
+  const impacts = DiceLib.collide(this.dice);
+  if (impacts > 0 && this.frame - this.clatterFrame >= DICE_CLATTER_GAP) {
+    this.clatterFrame = this.frame;
+    DiceSfx.tumble();
+  }
+};
+
+DiceRollScene.updateThrow = function () {
+  let magnitude = this.feed;
+  this.feed = 0;
+  if (this.auto) magnitude = Math.max(magnitude, DICE_AUTO_CRANK);
+
+  if (magnitude > 1.5) {
+    this.cranked += magnitude;
+    this.energy = Math.min(this.energy + magnitude * 0.05, 14);
+    if (this.state === 'ready') this.state = 'tumbling';
+  }
+
+  // Energy bleeds away every frame, so the dice slow down the moment you stop.
+  this.energy *= 0.93;
+
+  // Once the throw is wound, the button stops feeding it and lets go.
+  if (this.cranked >= DICE_CRANK_TARGET) this.auto = false;
+
+  if (this.state === 'tumbling' && this.cranked >= DICE_CRANK_TARGET && this.energy < 1.5) {
+    this.state = 'settling';
+    this.settleTimer = DICE_SETTLE_GAP;
+  }
+};
+
+DiceRollScene.updateSettle = function () {
+  // Keep a little energy in the pot so the dice still in the air keep moving.
+  this.energy = 1.6;
+
+  if (this.settleIndex < this.dice.length) {
+    this.settleTimer += 1;
+    if (this.settleTimer >= DICE_SETTLE_GAP) {
+      this.settleTimer = 0;
+      const die = this.dice[this.settleIndex];
+      this.settleIndex += 1;
+      die.settle(die.randomValue());
+      DiceSfx.land();
+      // Cross out a discarded die as soon as its partner has landed, rather
+      // than waiting for the whole handful.
+      DiceLib.markDropped(this.config, this.groups);
+    }
+    return;
+  }
+
+  this.energy = 0;
+  this.revealTimer += 1;
+  if (this.revealTimer >= DICE_REVEAL_DELAY) {
+    this.computeResult();
+    DiceSfx.reveal();
+    this.state = 'result';
+  }
+};
+
+DiceRollScene.updateResult = function () {
+  this.energy = 0;
+  this.overlayFrames = Math.min(this.overlayFrames + 1, DICE_OVERLAY_FRAMES);
+};
+
+DiceRollScene.computeResult = function () {
+  const config = this.config;
+  const parts = [];
+  let high = null, low = null;
+
+  for (const group of this.groups) {
+    const value = DiceLib.groupValue(config, group);
+    parts.push(DiceLib.groupLabel(config, group));
+    if (high === null || value > high) high = value;
+    if (low === null || value < low) low = value;
+  }
+
+  const totals = DiceLib.total(config, this.groups);
+  const total = totals[0], diceTotal = totals[1];
+
+  // A natural 20 is a property of the die, not of the total, so this reads the
+  // dice subtotal and ignores the modifier. Under advantage it is the kept die
+  // that counts, which groupValue has already picked.
+  let banner = null;
+  if (config.spec.key === 'd20' && config.count === 1) {
+    if (diceTotal === 20) banner = 'NATURAL 20!';
+    else if (diceTotal === 1) banner = 'NATURAL 1';
+  }
+
+  this.result = {
+    notation: DiceLib.notation(config),
+    total: total, diceTotal: diceTotal, modifier: config.modifier,
+    parts: parts, high: high, low: low, banner: banner
+  };
+  DiceHistory.record(config, this.result);
+};
+
+DiceRollScene.draw = function (ctx) {
+  diceBar(ctx, 0, 0, 400, 24);
+  diceText(ctx, DiceLib.notation(this.config), 8, 5, 'left', 13, true);
+  diceText(ctx, 'BACK: change dice', 392, 5, 'right', 12, true);
+
+  // Clipped to the play area: a die that hops high near the back of the tray
+  // passes behind the header rather than over the top of it.
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(0, 24, 400, DICE_PLAY_BOTTOM - 24);
+  ctx.clip();
+  for (const die of this.dice) die.draw(ctx);
+  ctx.restore();
+
+  if (this.state === 'result') this.drawOverlay(ctx);
+  else this.drawThrowUI(ctx);
+};
+
+DiceRollScene.drawThrowUI = function (ctx) {
+  // Progress toward a legal throw.
+  const progress = Math.min(this.cranked / DICE_CRANK_TARGET, 1);
+  const x = 60, y = 198, w = 280, h = 12;
+
+  diceRoundPath(ctx, x, y, w, h, 4);
+  ctx.strokeStyle = DICE_INK;
+  ctx.lineWidth = 2;
+  ctx.stroke();
+  if (progress > 0) {
+    diceRoundPath(ctx, x + 2, y + 2, Math.max((w - 4) * progress, 2), h - 4, 2);
+    ctx.fillStyle = DICE_INK;
+    ctx.fill();
+  }
+
+  this.drawCrankHint(ctx, 28, 204);
+
+  diceBar(ctx, 0, 218, 400, 22);
+  let message;
+  if (this.state === 'ready') message = 'drag across the tray to roll';
+  else if (progress < 1) message = 'keep going...';
+  else message = 'let go - the dice are landing';
+  diceText(ctx, message, 200, 222, 'center', 12, true);
+};
+
+/* A little crank that spins along with the throw, so it is obvious what the
+   tray expects you to do to it. */
+DiceRollScene.drawCrankHint = function (ctx, cx, cy) {
+  this.hintAngle += 4 + this.energy * 12;
+  const a = this.hintAngle * Math.PI / 180;
+
+  ctx.strokeStyle = DICE_INK;
+  ctx.fillStyle = DICE_INK;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.arc(cx, cy, 11, 0, Math.PI * 2);
+  ctx.stroke();
+  const hx = cx + Math.cos(a) * 11, hy = cy + Math.sin(a) * 11;
+  ctx.beginPath();
+  ctx.moveTo(cx, cy);
+  ctx.lineTo(hx, hy);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(hx, hy, 3, 0, Math.PI * 2);
+  ctx.fill();
+};
+
+DiceRollScene.drawOverlay = function (ctx) {
+  const r = this.result;
+  diceDim(ctx);
+
+  // Slide the panel up from below the screen.
+  const y = diceOutCubic(this.overlayFrames, 240, DICE_PANEL_Y - 240, DICE_OVERLAY_FRAMES);
+  dicePanel(ctx, DICE_PANEL_X, y, DICE_PANEL_W, DICE_PANEL_H);
+
+  // The notation already carries the modifier and adv/dis, so the right-hand
+  // slot is free for whatever is most worth saying about this particular roll.
+  diceText(ctx, r.notation, DICE_PANEL_X + 16, y + 13, 'left', 13);
+  let aside = r.banner;
+  if (aside === null && this.config.count > 1) aside = 'high ' + r.high + '   low ' + r.low;
+  if (aside) diceText(ctx, aside, DICE_PANEL_X + DICE_PANEL_W - 16, y + 13, 'right', 13);
+
+  // Big, but shrunk to fit once a total runs to four digits.
+  const total = String(r.total);
+  const height = diceNumFit(total, DICE_PANEL_W - 80, 62);
+  diceNumDraw(ctx, total, 200, y + 40 + height / 2, height);
+
+  // The individual dice, wrapped and truncated if there are a lot of them.
+  diceTextInRect(ctx, DiceLib.breakdownText(this.config, r.parts),
+    DICE_PANEL_X + 14, y + 112, DICE_PANEL_W - 28, 44, 'center', 12);
+
+  diceBar(ctx, 0, 218, 400, 22);
+  diceText(ctx, 'tap the tray: roll again', 8, 222, 'left', 12, true);
+  diceText(ctx, 'BACK: change dice', 392, 222, 'right', 12, true);
+};
+
+/* The whole tray winds the throw up, and once the result is showing, a tap on
+   it throws the same dice again. */
+DiceRollScene.hit = function (x, y) {
+  if (this.state === 'result') { this.button('a'); return true; }
+  return false;
+};
+
+/* ---------------------------------------------------------------------------
+   Scene 3: the last few rolls, newest first. Pick one and throw it again.
+   --------------------------------------------------------------------------- */
+const DiceHistoryScene = { id: 'history' };
+
+const DICE_LIST_X = 6, DICE_LIST_Y = 26;
+const DICE_HROW_H = 33;
+const DICE_HROWS = 5;            // how many fit between the header and the hints
+const DICE_FULL_W = 388;
+const DICE_NARROW_W = 378;       // leaves room for the scrollbar
+
+DiceHistoryScene.enter = function () {
+  this.selected = 0;
+  this.offset = 0;
+  this.dragAccum = 0;
+};
+
+DiceHistoryScene.move = function (delta) {
+  const n = DiceHistory.entries.length;
+  if (n === 0) return;
+  this.selected = (this.selected + delta + n) % n;
+  // Scroll only as far as it takes to bring the selection back into view.
+  if (this.selected < this.offset) this.offset = this.selected;
+  else if (this.selected >= this.offset + DICE_HROWS) this.offset = this.selected - DICE_HROWS + 1;
+  DiceSfx.move();
+};
+
+/* Dragging the list scrolls it without moving the selection, which is what a
+   finger expects and what the crank did on the device by moving both. */
+DiceHistoryScene.scroll = function (dy) {
+  const n = DiceHistory.entries.length;
+  if (n <= DICE_HROWS) return;
+  this.dragAccum += dy;
+  while (Math.abs(this.dragAccum) >= DICE_HROW_H) {
+    const step = this.dragAccum > 0 ? 1 : -1;
+    this.dragAccum -= step * DICE_HROW_H;
+    this.offset = diceClamp(this.offset + step, 0, n - DICE_HROWS);
+  }
+};
+
+DiceHistoryScene.rollSelected = function () {
+  const entry = DiceHistory.entries[this.selected];
+  const config = entry && DiceHistory.configOf(entry);
+  if (!config) return;
+  DiceSfx.select();
+  // Leave the setup screen showing this throw, so backing out of the roll lands
+  // somewhere that matches what was just rolled.
+  DiceSetupScene.adopt(config);
+  DiceGame.switchTo(DiceRollScene, config);
+};
+
+DiceHistoryScene.button = function (btn) {
+  if (btn === 'b') { DiceSfx.back(); DiceGame.switchTo(DiceSetupScene); }
+  else if (btn === 'up') this.move(-1);
+  else if (btn === 'down') this.move(1);
+  else if (btn === 'a') this.rollSelected();
+};
+
+DiceHistoryScene.update = function () {};
+
+DiceHistoryScene.draw = function (ctx) {
+  const n = DiceHistory.entries.length;
+
+  diceBar(ctx, 0, 0, 400, 22);
+  diceText(ctx, 'HISTORY', 8, 4, 'left', 13, true);
+  if (n > 0) diceText(ctx, (this.selected + 1) + ' of ' + n, 392, 4, 'right', 12, true);
+
+  if (n === 0) {
+    diceText(ctx, 'No rolls yet.', 200, 96, 'center', 13);
+    diceText(ctx, 'Throw some dice and they turn up here.', 200, 118, 'center', 13);
+  } else {
+    const width = n > DICE_HROWS ? DICE_NARROW_W : DICE_FULL_W;
+    const last = Math.min(this.offset + DICE_HROWS, n);
+    for (let i = this.offset; i < last; i++) {
+      this.drawRow(ctx, DiceHistory.entries[i], DICE_LIST_Y + (i - this.offset) * DICE_HROW_H,
+        width, i === this.selected);
+    }
+    if (n > DICE_HROWS) this.drawScrollbar(ctx, n);
+  }
+
+  diceBar(ctx, 0, 196, 400, 44);
+  diceText(ctx, 'tap a roll to pick it', 8, 201, 'left', 12, true);
+  if (n > 0) diceText(ctx, 'ROLL: throw it again', 392, 201, 'right', 12, true);
+  diceText(ctx, 'drag the list to scroll', 8, 221, 'left', 12, true);
+  diceText(ctx, 'BACK', 392, 221, 'right', 12, true);
+};
+
+DiceHistoryScene.drawRow = function (ctx, entry, y, width, selected) {
+  const textY = y + 9;
+  const total = String(entry.total);
+
+  if (selected) {
+    diceRoundPath(ctx, DICE_LIST_X, y, width, DICE_HROW_H - 2, 5);
+    ctx.fillStyle = DICE_INK;
+    ctx.fill();
+  } else {
+    ctx.strokeStyle = DICE_INK;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(DICE_LIST_X + 6, y + DICE_HROW_H - 2);
+    ctx.lineTo(DICE_LIST_X + width - 6, y + DICE_HROW_H - 2);
+    ctx.stroke();
+  }
+
+  diceText(ctx, entry.notation, DICE_LIST_X + 10, textY, 'left', 13, selected);
+  diceText(ctx, total, DICE_LIST_X + width - 10, textY, 'right', 13, selected);
+
+  // Whatever room is left between the two goes to the dice themselves, cut
+  // short with an ellipsis when there are more than will fit.
+  const totalWidth = diceTextWidth(ctx, total, 13);
+  const x = DICE_LIST_X + 112;
+  const room = (DICE_LIST_X + width - 10 - totalWidth - 10) - x;
+  if (room > 40) {
+    diceTextInRect(ctx, entry.breakdown, x, textY + 1, room, 18, 'left', 12, selected);
+  }
+};
+
+DiceHistoryScene.drawScrollbar = function (ctx, n) {
+  const x = 388, w = 8;
+  const trackH = DICE_HROWS * DICE_HROW_H - 2;
+
+  ctx.strokeStyle = DICE_INK;
+  ctx.lineWidth = 1;
+  diceRoundPath(ctx, x, DICE_LIST_Y, w, trackH, 4);
+  ctx.stroke();
+
+  const thumbH = Math.max(trackH * DICE_HROWS / n, 12);
+  const maxOffset = n - DICE_HROWS;
+  const travel = maxOffset > 0 ? this.offset / maxOffset : 0;
+  diceRoundPath(ctx, x + 2, DICE_LIST_Y + 2 + (trackH - 4 - thumbH) * travel, w - 4, thumbH, 2);
+  ctx.fillStyle = DICE_INK;
+  ctx.fill();
+};
+
+/* A tap picks a roll; a tap on the one already picked throws it again. */
+DiceHistoryScene.hit = function (x, y) {
+  const n = DiceHistory.entries.length;
+  if (n === 0) return false;
+  const row = Math.floor((y - DICE_LIST_Y) / DICE_HROW_H);
+  if (row < 0 || row >= DICE_HROWS) return false;
+  const index = this.offset + row;
+  if (index >= n) return false;
+  if (index === this.selected) this.rollSelected();
+  else { this.selected = index; DiceSfx.move(); }
+  return true;
+};
+
+/* ---------------------------------------------------------------------------
+   The game: scene switching, the frame loop, and the overlay it lives in
+   --------------------------------------------------------------------------- */
+const DiceGame = { scene: null, canvas: null, ctx: null, open: false, mounted: false };
+
+DiceGame.switchTo = function (scene, arg) {
+  DiceGame.scene = scene;
+  scene.enter(arg);
+  diceUpdateControls();
+};
+
+/* The canvas is a 400x240 screen drawn at whatever size the overlay gives it,
+   so every coordinate in the scenes above is the one the device used. */
+function diceResize() {
+  const canvas = DiceGame.canvas;
+  if (!canvas) return;
+  const rect = canvas.getBoundingClientRect();
+  if (!rect.width) return;
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = Math.round(rect.width * dpr);
+  canvas.height = Math.round(rect.width * dpr * DICE_SCREEN_H / DICE_SCREEN_W);
+  DiceGame.scale = canvas.width / DICE_SCREEN_W;
+  // A pattern belongs to the context it was made in, and the context is reset
+  // by a resize, so the dither tiles are rebuilt with it.
+  _dicePatterns = {};
+  diceDraw();
+}
+
+function diceDraw() {
+  const ctx = DiceGame.ctx;
+  if (!ctx || !DiceGame.scene) return;
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.fillStyle = DICE_PAPER;
+  ctx.fillRect(0, 0, DiceGame.canvas.width, DiceGame.canvas.height);
+  ctx.scale(DiceGame.scale, DiceGame.scale);
+  ctx.lineJoin = 'miter';
+  DiceGame.scene.draw(ctx);
+}
+
+/* 30fps, the refresh rate the physics constants were tuned at, stepped off a
+   clock rather than off the frame rate so a 120Hz tablet throws the dice at the
+   same speed a 60Hz one does. */
+const DICE_STEP_MS = 1000 / 30;
+var _diceRaf = null, _diceLastTime = 0, _diceAccum = 0;
+
+function diceLoop(now) {
+  if (!DiceGame.open) { _diceRaf = null; return; }
+  _diceRaf = requestAnimationFrame(diceLoop);
+
+  const dt = Math.min(now - _diceLastTime, 200);
+  _diceLastTime = now;
+  _diceAccum += dt;
+
+  let steps = 0;
+  while (_diceAccum >= DICE_STEP_MS && steps < 3) {
+    _diceAccum -= DICE_STEP_MS;
+    steps++;
+    if (DiceGame.scene) DiceGame.scene.update();
+  }
+  if (steps) { diceDraw(); diceUpdateControls(); }
+}
+
+function diceStartLoop() {
+  if (_diceRaf) return;
+  _diceLastTime = performance.now();
+  _diceAccum = 0;
+  _diceRaf = requestAnimationFrame(diceLoop);
+}
+
+/* ---------------------------------------------------------------------------
+   Input
+   --------------------------------------------------------------------------- */
+function dicePoint(evt) {
+  const rect = DiceGame.canvas.getBoundingClientRect();
+  return {
+    x: (evt.clientX - rect.left) / rect.width * DICE_SCREEN_W,
+    y: (evt.clientY - rect.top) / rect.height * DICE_SCREEN_H
+  };
+}
+
+var _diceDrag = null;
+
+function diceMount() {
+  if (DiceGame.mounted) return;
+  const canvas = document.getElementById('diceCanvas');
+  if (!canvas) return;
+  DiceGame.canvas = canvas;
+  DiceGame.ctx = canvas.getContext('2d');
+  DiceGame.mounted = true;
+
+  DiceSettings.load();
+  DiceHistory.load();
+  // Whichever way the dice were last thrown, that is how they are thrown now.
+  // setStyle ignores anything it does not recognise, so an edited setting
+  // cannot leave the dice in a style nothing can draw.
+  DiceLib.setStyle(DiceSettings.get('rollStyle', DiceLib.SCATTER));
+  DiceSfx.enabled = DiceSettings.get('sound', true) !== false;
+
+  canvas.addEventListener('pointerdown', function (e) {
+    canvas.setPointerCapture(e.pointerId);
+    const p = dicePoint(e);
+    _diceDrag = { x: p.x, y: p.y, moved: 0 };
+    // The tray is the crank, so a press on it is never a text selection or a
+    // page drag. That also swallows the focus the press would have given the
+    // canvas, so take it explicitly and keep the keyboard working.
+    e.preventDefault();
+    canvas.focus({ preventScroll: true });
+  });
+
+  canvas.addEventListener('pointermove', function (e) {
+    if (!_diceDrag) return;
+    const p = dicePoint(e);
+    const dx = p.x - _diceDrag.x, dy = p.y - _diceDrag.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    _diceDrag.x = p.x; _diceDrag.y = p.y;
+    _diceDrag.moved += dist;
+
+    const scene = DiceGame.scene;
+    if (scene === DiceRollScene) {
+      // Finger travel stands in for crank degrees, a little under one each, so
+      // a full scrub across the tray is about two thirds of a wound throw --
+      // one and a half of them for the one and a half turns the crank wanted.
+      scene.wind(dist * 0.9);
+      e.preventDefault();
+    } else if (scene === DiceHistoryScene) {
+      scene.scroll(-dy);
+    }
+  });
+
+  function endDrag(e) {
+    if (!_diceDrag) return;
+    const drag = _diceDrag;
+    _diceDrag = null;
+    // A press that went nowhere is a tap; anything else was a drag, and a drag
+    // has already done its work.
+    if (drag.moved > 6) return;
+    const p = dicePoint(e);
+    const scene = DiceGame.scene;
+    if (scene && scene.hit) scene.hit(p.x, p.y);
+    diceUpdateControls();
+  }
+  canvas.addEventListener('pointerup', endDrag);
+  canvas.addEventListener('pointercancel', function () { _diceDrag = null; });
+
+  // A scroll wheel is the closest thing a desktop has to a crank.
+  canvas.addEventListener('wheel', function (e) {
+    const scene = DiceGame.scene;
+    if (scene === DiceRollScene && scene.state !== 'result') {
+      scene.wind(Math.min(Math.abs(e.deltaY), 80) * 0.9);
+      e.preventDefault();
+    } else if (scene === DiceHistoryScene) {
+      scene.scroll(e.deltaY * 0.5);
+      e.preventDefault();
+    }
+  }, { passive: false });
+
+  canvas.addEventListener('keydown', function (e) {
+    const map = {
+      ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right',
+      ' ': 'a', Enter: 'a', Backspace: 'b'
+    };
+    const btn = map[e.key];
+    if (!btn) return;
+    e.preventDefault();
+    diceButton(btn);
+  });
+
+  DiceGame.switchTo(DiceSetupScene);
+  window.addEventListener('resize', diceResize);
+}
+
+/* The A and B buttons, wherever they are pressed from. */
+function diceButton(btn) {
+  if (!DiceGame.scene) return;
+  DiceGame.scene.button(btn);
+  diceUpdateControls();
+  diceDraw();
+}
+
+/* The two buttons under the tray say what A and B do in the scene that is up,
+   the way the hint strip along the bottom of the screen did on the device. */
+function diceUpdateControls() {
+  const a = document.getElementById('diceBtnA');
+  const b = document.getElementById('diceBtnB');
+  if (!a || !b) return;
+  const scene = DiceGame.scene;
+  let aLabel = '🎲 Roll', bLabel = '🕘 History';
+
+  if (scene === DiceRollScene) {
+    aLabel = scene.state === 'result' ? '🎲 Roll again' : '🎲 Roll';
+    bLabel = '← Change dice';
+  } else if (scene === DiceHistoryScene) {
+    aLabel = '🎲 Throw it again';
+    bLabel = '← Back';
+  }
+  if (a.textContent !== aLabel) a.textContent = aLabel;
+  if (b.textContent !== bLabel) b.textContent = bLabel;
+  a.disabled = (scene === DiceHistoryScene && DiceHistory.entries.length === 0);
+}
+
+/* ---------------------------------------------------------------------------
+   The three things that were on the Playdate's system menu
+   --------------------------------------------------------------------------- */
+function diceToggleSound() {
+  DiceSfx.enabled = !DiceSfx.enabled;
+  DiceSettings.set('sound', DiceSfx.enabled);
+  if (DiceSfx.enabled) DiceSfx.select();
+  diceMenuLabels();
+}
+
+function diceToggleStyle() {
+  const next = DiceLib.style === DiceLib.SCATTER ? DiceLib.IN_PLACE : DiceLib.SCATTER;
+  DiceSettings.set('rollStyle', DiceLib.setStyle(next));
+  DiceSfx.select();
+  diceMenuLabels();
+}
+
+function diceClearHistory() {
+  if (!DiceHistory.entries.length) return;
+  if (!confirm('Clear the last ' + DiceHistory.entries.length + ' rolls?')) return;
+  DiceHistory.clear();
+  if (DiceGame.scene === DiceHistoryScene) DiceHistoryScene.enter();
+  diceDraw();
+  diceUpdateControls();
+}
+
+function diceMenuLabels() {
+  const sound = document.getElementById('diceSoundBtn');
+  const style = document.getElementById('diceStyleBtn');
+  if (sound) sound.textContent = DiceSfx.enabled ? '🔊 Sound: on' : '🔇 Sound: off';
+  if (style) style.textContent = 'Roll: ' + DiceLib.style;
+}
+
+/* ---------------------------------------------------------------------------
+   Opening and closing
+   --------------------------------------------------------------------------- */
+function diceOpen() {
+  const overlay = document.getElementById('diceOverlay');
+  if (!overlay) return;
+  overlay.classList.add('open');
+  DiceGame.open = true;
+  diceMount();
+  diceMenuLabels();
+  diceUpdateControls();
+  // Lay the canvas out before measuring it: the overlay was display:none until
+  // a moment ago, so it had no size at all.
+  requestAnimationFrame(function () {
+    diceResize();
+    diceStartLoop();
+    if (DiceGame.canvas) DiceGame.canvas.focus({ preventScroll: true });
+  });
+}
+
+function diceClose(e) {
+  if (e && e.target !== document.getElementById('diceOverlay')) return;
+  const overlay = document.getElementById('diceOverlay');
+  if (overlay) overlay.classList.remove('open');
+  DiceGame.open = false;   // the loop stops itself on the next frame
+}
+
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape' && DiceGame.open) diceClose();
+});
 
 const CAMPAIGN_KEY = 'twsc-campaign-v1';
 const CAMPAIGNS = Object.keys(CAMPAIGN_TITLES);
