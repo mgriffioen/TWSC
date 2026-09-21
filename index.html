@@ -665,15 +665,16 @@
     }
     .dice-body { padding: 12px 14px 14px; }
 
-    /* The screen itself: 400x240, drawn at whatever size it ends up. */
+    /* The tray itself: a 400x240 screen drawn at whatever size it ends up. It
+       paints its own table and lighting, so all this gives it is the frame. */
     .dice-screen {
       display: block; width: 100%;
       aspect-ratio: 400 / 240;
-      background: #b7bba9;
-      border: 3px solid #0d0906;
-      border-radius: 6px;
-      box-shadow: inset 0 0 14px rgba(0,0,0,.28), 0 4px 14px rgba(0,0,0,.5);
-      /* Every gesture on the tray is the crank; none of them scroll the page. */
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 6px 18px rgba(0,0,0,.55);
+      /* Every gesture on the tray winds the throw; none of them scroll the page. */
       touch-action: none;
       cursor: grab;
       outline: none;
@@ -3779,6 +3780,13 @@ function pulseFire() {
    fallback used. There is no system menu either, so sound, roll style and
    clearing the history are the row of buttons under the tray.
 
+   Nor did the look. The device was 1-bit — dark ink on a pale green LCD, with
+   dither where it wanted grey — and none of that belongs on a page set in gold
+   on brown. So the tray is the dark table the rest of the site is printed on,
+   the dice are cut from the same parchment as the stat blocks, and the panels,
+   rows and bars are the ones the initiative tracker uses. The dice move exactly
+   as they did; they are simply drawn in this page's colours.
+
    Drawing is immediate-mode on a canvas, as it was on the device: clear, then
    draw everything, once per frame. A dozen polygons do not need anything
    cleverer. The canvas is scaled up from a 400x240 coordinate space, so every
@@ -3786,11 +3794,65 @@ function pulseFire() {
 
 const DICE_SCREEN_W = 400, DICE_SCREEN_H = 240;
 
-/* The Playdate's reflective LCD: dark ink on a pale grey-green, no greys in
-   between. "Grey" here is a dither pattern, same as it was there. */
-const DICE_PAPER = '#b7bba9';
-const DICE_INK = '#1e1c17';
-const DICE_FONT = '"Courier New", ui-monospace, monospace';
+/* A die is a piece of the same parchment the stat blocks are printed on, with
+   its number in the deep red their headings are set in. Those do not come from
+   the theme: bone dice look like bone dice on any table. */
+const DICE_FACE_LIGHT = '#fbf1da';
+const DICE_FACE_DARK = '#e2cea6';
+const DICE_FACE_EDGE = '#2a1d0d';
+const DICE_FACE_INK = '#58180d';
+const DICE_FACET = 'rgba(88,24,13,.30)';
+const DICE_FONT = 'Georgia, "Times New Roman", serif';
+
+/* Everything else does come from the theme. Reading the CSS custom properties
+   rather than repeating their values here means the tray follows whichever
+   chapter is on — forest for the Sheep Chase, royal purple for the Murkmire —
+   with no second copy of the palette to keep in step. */
+var DPAL = null;
+
+function dicePalette() {
+  const cs = getComputedStyle(document.body);
+  function v(name, fallback) {
+    const value = cs.getPropertyValue(name).trim();
+    return value || fallback;
+  }
+  DPAL = {
+    felt: v('--bg', '#13170b'),         // the table the dice are thrown on
+    feltLit: v('--bg3', '#2a3319'),     // and the pool of light on it
+    panel: v('--bg2', '#1d2411'),
+    tag: v('--tag-bg', '#2a3218'),
+    border: v('--border', '#4d5e26'),
+    gold: v('--gold', '#cda92f'),
+    goldLight: v('--gold-light', '#e9d15a'),
+    text: v('--text', '#e9e4cc'),
+    dim: v('--text-dim', '#9aa274'),
+    red: v('--red', '#b5472b')
+  };
+  return DPAL;
+}
+
+/* Whose dice these are. The tray takes the open chapter's name as well as its
+   colours, so it reads as part of the chapter rather than as a tool parked on
+   top of it. */
+function diceChapter() {
+  try { return CAMPAIGN_TITLES[activeCampaign()] || 'Dice Roller'; }
+  catch (e) { return 'Dice Roller'; }
+}
+
+/* The themes are written as hex, so a translucent version of one is a short
+   conversion rather than a reason to carry a colour library. */
+function diceAlpha(color, alpha) {
+  let hex = String(color).trim();
+  if (hex.charAt(0) !== '#') return color;
+  hex = hex.slice(1);
+  if (hex.length === 3) {
+    hex = hex.charAt(0) + hex.charAt(0) + hex.charAt(1) + hex.charAt(1) +
+          hex.charAt(2) + hex.charAt(2);
+  }
+  const n = parseInt(hex, 16);
+  if (isNaN(n)) return color;
+  return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + alpha + ')';
+}
 
 /* ---------------------------------------------------------------------------
    Dice types
@@ -3809,77 +3871,59 @@ const DICE_TYPES = [
 ];
 
 /* ---------------------------------------------------------------------------
-   Numerals
+   Numbers
    ---------------------------------------------------------------------------
-   Digits as polylines on a unit-height grid: x runs 0..WIDTH, y runs 0..1 with
-   0 at the top. The dice faces and the result total use these rather than text,
-   because a number that has to fit inside a die whose size the layout picks
-   freely needs to be drawable at any height — and because chamfered corners and
-   no curves sit properly with the faceted dice. */
-const DNUM_W = 0.62, DNUM_GAP = 0.18, DNUM_C = 0.20;
+   The Playdate version drew its digits as stroke paths, because the system font
+   only enlarged in whole multiples and a die whose size the layout picks freely
+   needs any height at all. A canvas has no such limit, so the faces and the
+   total are set in the page's own Georgia and fitted to the space they have.
 
-const DICE_GLYPHS = (function () {
-  const W = DNUM_W, C = DNUM_C;
-  return {
-    '0': [[[C,0],[W-C,0],[W,C],[W,1-C],[W-C,1],[C,1],[0,1-C],[0,C],[C,0]]],
-    '1': [[[0.04,0.26],[W*0.5,0]], [[W*0.5,0],[W*0.5,1]], [[W*0.14,1],[W*0.86,1]]],
-    '2': [[[0,C],[C,0],[W-C,0],[W,C],[W,0.36],[0.02,1],[W,1]]],
-    '3': [[[0,C],[C,0],[W-C,0],[W,C],[W,0.36],[W-C,0.5],[W,0.64],[W,1-C],[W-C,1],[C,1],[0,1-C]],
-          [[W*0.32,0.5],[W-C,0.5]]],
-    '4': [[[W*0.74,0],[0,0.68],[W,0.68]], [[W*0.74,0],[W*0.74,1]]],
-    '5': [[[W,0],[0,0],[0,0.40],[W-C,0.40],[W,0.40+C],[W,1-C],[W-C,1],[C,1],[0,1-C]]],
-    '6': [[[W,C*0.9],[W-C,0],[C,0],[0,C],[0,1-C],[C,1],[W-C,1],[W,1-C],[W,0.60],[W-C,0.46],[C,0.46],[0,0.58]]],
-    '7': [[[0,0],[W,0],[W*0.30,1]]],
-    '8': [[[C,0],[W-C,0],[W,C],[W,0.38],[W-C,0.5],[W,0.62],[W,1-C],[W-C,1],[C,1],[0,1-C],[0,0.62],[C,0.5],[0,0.38],[0,C],[C,0]],
-          [[C,0.5],[W-C,0.5]]],
-    '9': [[[0,1-C*0.9],[C,1],[W-C,1],[W,1-C],[W,C],[W-C,0],[C,0],[0,C],[0,0.40],[C,0.54],[W-C,0.54],[W,0.42]]],
-    /* The Playdate version has no minus: a total can only go negative here
-       because the modifier can, and a total drawn without its sign is a lie. */
-    '-': [[[0.06,0.52],[W-0.06,0.52]]]
-  };
-})();
-
-function diceNumWidth(text, height) {
-  const n = text.length;
-  if (n === 0) return 0;
-  return (n * DNUM_W + (n - 1) * DNUM_GAP) * height;
+   Georgia's numerals are old-style — 4 and 9 hang below the line, 6 and 8 rise
+   above it — so a label is fitted and centred by the box its ink actually fills
+   rather than by its nominal size. That is what keeps a 4 and a 20 reading as
+   the same weight on two dice side by side. */
+function diceFontOf(size, weight) {
+  return (weight ? weight + ' ' : '') + size.toFixed(2) + 'px ' + DICE_FONT;
 }
 
-/* The largest height at which `text` fits the given box. */
-function diceNumFit(text, maxWidth, maxHeight) {
-  const perUnit = diceNumWidth(text, 1);
-  if (perUnit > 0 && diceNumWidth(text, maxHeight) > maxWidth) return maxWidth / perUnit;
-  return maxHeight;
+/* The box a label paints, measured at a reference size. Width and height both
+   scale with the font size from there, so one measurement answers both
+   "how big can this be" and "where is its middle". */
+function diceInkBox(ctx, text, weight) {
+  ctx.font = diceFontOf(100, weight);
+  // measureText reports the box relative to the current alignment and baseline,
+  // so both have to be pinned down before asking — otherwise whatever the last
+  // piece of text left them at silently shifts the answer.
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'alphabetic';
+  const m = ctx.measureText(text);
+  const asc = m.actualBoundingBoxAscent || 70;
+  const desc = m.actualBoundingBoxDescent || 0;
+  return { w: m.width || 1, h: asc + desc, asc: asc, desc: desc };
 }
 
-/* Centred on (cx, cy). Round caps and joins do the job the Playdate version
-   needed a dot at every corner for: thick strokes meeting without notches. */
-function diceNumDraw(ctx, text, cx, cy, height) {
-  if (!text.length) return;
-  const weight = Math.max(2, Math.floor(height * 0.17));
-  let x = cx - diceNumWidth(text, height) / 2;
-  const top = cy - height / 2;
+/* The largest size at which `text` fits the given box. */
+function diceFitSize(ctx, text, maxWidth, maxHeight, weight) {
+  if (!text.length) return 0;
+  const box = diceInkBox(ctx, text, weight);
+  return Math.min(maxWidth / box.w, maxHeight / box.h) * 100;
+}
 
-  ctx.save();
-  ctx.strokeStyle = DICE_INK;
-  ctx.lineWidth = weight;
-  ctx.lineCap = 'round';
-  ctx.lineJoin = 'round';
-  for (let i = 0; i < text.length; i++) {
-    const glyph = DICE_GLYPHS[text.charAt(i)];
-    if (glyph) {
-      ctx.beginPath();
-      for (const stroke of glyph) {
-        ctx.moveTo(x + stroke[0][0] * height, top + stroke[0][1] * height);
-        for (let p = 1; p < stroke.length; p++) {
-          ctx.lineTo(x + stroke[p][0] * height, top + stroke[p][1] * height);
-        }
-      }
-      ctx.stroke();
-    }
-    x += (DNUM_W + DNUM_GAP) * height;
+/* Centred on (cx, cy) by its ink rather than by its baseline. */
+function diceNumber(ctx, text, cx, cy, size, color, weight, glow) {
+  if (!text.length || size <= 0) return;
+  const box = diceInkBox(ctx, text, weight);
+  ctx.font = diceFontOf(size, weight);
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillStyle = color;
+  if (glow) {
+    ctx.shadowColor = glow;
+    ctx.shadowBlur = size * 0.35;
   }
-  ctx.restore();
+  ctx.fillText(text, cx, cy + (box.asc - box.desc) * (size / 100) / 2);
+  ctx.shadowBlur = 0;
+  ctx.shadowColor = 'transparent';
 }
 
 /* ---------------------------------------------------------------------------
@@ -3906,6 +3950,43 @@ const DICE_SHAPES = {
   // The classic pentagonal-trapezohedron silhouette of a d10.
   kite:     [[0,-1],[0.74,-0.14],[0.45,0.94],[-0.45,0.94],[-0.74,-0.14]]
 };
+
+/* Each silhouette as a set of outward edge normals, so a number can be fitted
+   to the shape it actually sits in rather than to the box around it. A d20 is
+   nearly a circle and a d4 is mostly corner, and a face sized as though they
+   were the same thing spills over the outline of the narrow ones. */
+const DICE_EDGES = (function () {
+  const out = {};
+  for (const name in DICE_SHAPES) {
+    const pts = DICE_SHAPES[name], edges = [];
+    for (let i = 0; i < pts.length; i++) {
+      const p = pts[i], q = pts[(i + 1) % pts.length];
+      let nx = q[1] - p[1], ny = p[0] - q[0];
+      const len = Math.sqrt(nx * nx + ny * ny) || 1;
+      nx /= len; ny /= len;
+      let d = nx * p[0] + ny * p[1];
+      // Point it away from the centre, whichever way round the shape is wound.
+      if (d < 0) { nx = -nx; ny = -ny; d = -d; }
+      edges.push([Math.abs(nx), Math.abs(ny), d]);
+    }
+    out[name] = edges;
+  }
+  return out;
+})();
+
+/* The largest centred box of the given proportions that fits inside a
+   silhouette, in unit space: for a convex shape it is simply the tightest of
+   its edges. `hx` and `hy` are the box's half-extents per unit of scale. */
+function diceShapeFit(shape, hx, hy) {
+  const edges = DICE_EDGES[shape];
+  if (!edges) return 1 / Math.sqrt(hx * hx + hy * hy);   // the d2 coin, a circle
+  let k = Infinity;
+  for (const e of edges) {
+    const reach = e[0] * hx + e[1] * hy;
+    if (reach > 1e-6) k = Math.min(k, e[2] / reach);
+  }
+  return k;
+}
 
 /* Interior detail. A die reads as a die because of its facets, not its
    silhouette — an outline on its own is just a polygon. */
@@ -4278,16 +4359,28 @@ class Die {
     if (this.spec.shape === 'coin') this.drawCoin(ctx, cx, cy, r, squash);
     else this.drawPolygonDie(ctx, cx, cy, r, squash);
 
-    // Advantage and disadvantage each throw one of the pair away. Crossing it
-    // out is the clearest way to show which face actually counted.
+    // Advantage and disadvantage each throw one of the pair away. Striking it
+    // through is the clearest way to show which face actually counted.
     if (this.dropped) {
-      ctx.strokeStyle = DICE_INK;
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = DPAL.red;
+      ctx.lineWidth = 2.5;
+      ctx.lineCap = 'round';
       ctx.beginPath();
-      ctx.moveTo(cx - r * 0.85, cy - r * 0.85);
-      ctx.lineTo(cx + r * 0.85, cy + r * 0.85);
+      ctx.moveTo(cx - r * 0.82, cy - r * 0.82);
+      ctx.lineTo(cx + r * 0.82, cy + r * 0.82);
       ctx.stroke();
+      ctx.lineCap = 'butt';
     }
+  }
+
+  /* Parchment, lighter at the top. The gradient is fixed to the screen rather
+     than to the die, so a tumbling die turns under the light instead of
+     carrying its own highlight around with it. */
+  faceFill(ctx, cx, cy, r) {
+    const g = ctx.createLinearGradient(cx, cy - r, cx, cy + r);
+    g.addColorStop(0, DICE_FACE_LIGHT);
+    g.addColorStop(1, DICE_FACE_DARK);
+    return g;
   }
 
   /* A d2 is a coin, so it flips instead of tumbling: squeeze its width by the
@@ -4299,16 +4392,17 @@ class Die {
 
     ctx.beginPath();
     ctx.ellipse(cx, cy, w / 2, h / 2, 0, 0, Math.PI * 2);
-    ctx.fillStyle = DICE_PAPER;
+    ctx.fillStyle = this.faceFill(ctx, cx, cy, r);
     ctx.fill();
-    ctx.strokeStyle = DICE_INK;
-    ctx.lineWidth = 2;
+    ctx.strokeStyle = DICE_FACE_EDGE;
+    ctx.lineWidth = 1.8;
     ctx.stroke();
 
     // The coin's equivalent of a facet: a rim just inside the edge.
     if (DICE_SHOW_FACETS && flip > 0.4) {
       ctx.beginPath();
       ctx.ellipse(cx, cy, w * 0.39, h * 0.39, 0, 0, Math.PI * 2);
+      ctx.strokeStyle = DICE_FACET;
       ctx.lineWidth = 1;
       ctx.stroke();
     }
@@ -4316,17 +4410,27 @@ class Die {
     if (flip > 0.55) this.drawFace(ctx, cx, cy);
   }
 
-  /* A dithered ellipse on the ground that stays put while the die hops above it.
-     Shrinking it as the die rises is what makes the hop read as height rather
-     than as the whole die sliding up the screen. */
+  /* A soft pool under the die that stays put while it hops above, shrinking as
+     it rises: that is what makes the hop read as height rather than as the die
+     sliding up the screen. The device dithered this because it had two colours
+     to work with; here it can simply fade out at its edge. */
   drawShadow(ctx, r, dy) {
     const lift = Math.min(-dy / (r * 0.9), 1);
-    const w = r * (1.5 - lift * 0.5);
-    const h = r * 0.34 * (1 - lift * 0.4);
+    const w = Math.max(r * (1.5 - lift * 0.5), 0.02);
+    const h = Math.max(r * 0.34 * (1 - lift * 0.4), 0.01);
+
+    ctx.save();
+    ctx.translate(this.x, this.y + r * 0.86);
+    ctx.scale(1, h / w);
+    const g = ctx.createRadialGradient(0, 0, 0, 0, 0, w / 2);
+    g.addColorStop(0, 'rgba(0,0,0,' + (0.52 - lift * 0.22).toFixed(3) + ')');
+    g.addColorStop(0.6, 'rgba(0,0,0,' + (0.34 - lift * 0.16).toFixed(3) + ')');
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g;
     ctx.beginPath();
-    ctx.ellipse(this.x, this.y + r * 0.86, w / 2, h / 2, 0, 0, Math.PI * 2);
-    ctx.fillStyle = dicePattern(ctx, 'shadow');
+    ctx.arc(0, 0, w / 2, 0, Math.PI * 2);
     ctx.fill();
+    ctx.restore();
   }
 
   drawPolygonDie(ctx, cx, cy, r, squash) {
@@ -4351,17 +4455,17 @@ class Die {
     const body = DICE_SHAPES[this.spec.shape];
 
     path(body);
-    ctx.fillStyle = DICE_PAPER;
+    ctx.fillStyle = this.faceFill(ctx, cx, cy, r);
     ctx.fill();
 
     // Facets first and thin, then the silhouette over them and thick: the
     // outline stays the strongest edge, which is what holds the shape together
     // at the sizes a crowded roll uses.
-    ctx.strokeStyle = DICE_INK;
-    ctx.lineJoin = 'miter';
     if (DICE_SHOW_FACETS) {
       const facets = DICE_FACETS[this.spec.shape];
+      ctx.strokeStyle = DICE_FACET;
       ctx.lineWidth = 1;
+      ctx.lineJoin = 'round';
       path(facets.face);
       ctx.stroke();
       ctx.beginPath();
@@ -4373,25 +4477,33 @@ class Die {
       ctx.stroke();
     }
 
+    ctx.strokeStyle = DICE_FACE_EDGE;
     ctx.lineWidth = 2;
+    ctx.lineJoin = 'round';
     path(body);
     ctx.stroke();
 
     this.drawFace(ctx, cx, cy);
   }
 
-  /* How much of the die the number takes up. Drawing numerals as shapes means
-     any height is available, so these are a look rather than a compromise: the
-     number should read as sitting on the die, not filling it. Two digits are
-     nearly twice the width of one, so a wide label is shrunk to fit rather than
-     allowed to spill over the outline. */
-  faceHeight(text) {
-    return diceNumFit(text, this.size * 0.56, this.size * 0.40);
+  /* How big this die's number is drawn. Two limits, whichever bites first: it
+     should read as sitting on the die rather than filling it, and it must stay
+     inside the silhouette — which for a d4 or a d10 is a good deal tighter than
+     the die's width, and for the d2 coin is not tight at all. */
+  faceSize(ctx, text) {
+    const box = diceInkBox(ctx, text, 'bold');
+    const loose = Math.min(this.size * 0.56 / box.w, this.size * 0.40 / box.h) * 100;
+    // The label's half-extents per 1px of font size, in units of the die's
+    // radius, which is the space the silhouette is described in.
+    const r = this.size / 2;
+    const fitted = diceShapeFit(this.spec.shape, box.w / (200 * r), box.h / (200 * r));
+    // A hair inside the outline rather than exactly on it.
+    return Math.min(loose, fitted * 0.94);
   }
 
   drawFace(ctx, cx, cy) {
     const text = this.label();
-    diceNumDraw(ctx, text, cx, cy, this.faceHeight(text));
+    diceNumber(ctx, text, cx, cy, this.faceSize(ctx, text), DICE_FACE_INK, 'bold');
   }
 }
 
@@ -4806,34 +4918,14 @@ DiceHistory.configOf = function (entry) {
 /* ---------------------------------------------------------------------------
    Drawing helpers
    ---------------------------------------------------------------------------
-   The Playdate equivalents of these live in lib/util.lua. "Grey" is a dither
-   pattern there because the screen is 1-bit; it is a dither pattern here
-   because that is what the app looks like. */
-var _dicePatterns = {};
+   The Playdate equivalents of these live in lib/util.lua, where a panel was a
+   white card with a fat black border and "grey" was a checkerboard. These are
+   the page's own furniture instead: the card of a stat block, the bar of a
+   section heading, the gold-tinted row of the initiative tracker. */
 
-function dicePattern(ctx, name) {
-  if (_dicePatterns[name]) return _dicePatterns[name];
-  // The same bytes the Lua passes to gfx.setPattern, one bit per pixel.
-  const bytes = name === 'dim'
-    ? [0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x55]
-    : [0x88, 0x22, 0x88, 0x22, 0x88, 0x22, 0x88, 0x22];
-  const tile = document.createElement('canvas');
-  tile.width = 8; tile.height = 8;
-  const tctx = tile.getContext('2d');
-  tctx.fillStyle = DICE_INK;
-  for (let row = 0; row < 8; row++) {
-    for (let bit = 0; bit < 8; bit++) {
-      if (bytes[row] & (0x80 >> bit)) tctx.fillRect(bit, row, 1, 1);
-    }
-  }
-  _dicePatterns[name] = ctx.createPattern(tile, 'repeat');
-  return _dicePatterns[name];
-}
-
-/* 50% checkerboard over the whole screen, used to knock back the dice while the
-   result panel is on top of them. */
+/* Knocks the tray back while the result panel is on top of it. */
 function diceDim(ctx) {
-  ctx.fillStyle = dicePattern(ctx, 'dim');
+  ctx.fillStyle = 'rgba(0,0,0,.66)';
   ctx.fillRect(0, 0, DICE_SCREEN_W, DICE_SCREEN_H);
 }
 
@@ -4848,40 +4940,59 @@ function diceRoundPath(ctx, x, y, w, h, r) {
   ctx.closePath();
 }
 
-/* A pale card with a fat dark border: the only "chrome" this app uses. */
-function dicePanel(ctx, x, y, w, h, radius) {
+/* A card: the page's panel, in whatever weight of border it is asked for. */
+function dicePanel(ctx, x, y, w, h, radius, fill, stroke, width) {
   diceRoundPath(ctx, x, y, w, h, radius === undefined ? 6 : radius);
-  ctx.fillStyle = DICE_PAPER;
+  ctx.fillStyle = fill || DPAL.panel;
   ctx.fill();
-  ctx.strokeStyle = DICE_INK;
-  ctx.lineWidth = 3;
+  ctx.strokeStyle = stroke || DPAL.border;
+  ctx.lineWidth = width || 1;
   ctx.lineJoin = 'round';
   ctx.stroke();
 }
 
-/* Solid bar, for headers and the hint strip along the bottom. */
-function diceBar(ctx, x, y, w, h) {
-  ctx.fillStyle = DICE_INK;
+/* The header and hint strips, ruled off the way a section heading is. */
+function diceBar(ctx, x, y, w, h, rule) {
+  ctx.fillStyle = DPAL.panel;
   ctx.fillRect(x, y, w, h);
+  if (rule) {
+    const ry = rule === 'top' ? y + 0.5 : y + h - 0.5;
+    ctx.strokeStyle = DPAL.border;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x, ry);
+    ctx.lineTo(x + w, ry);
+    ctx.stroke();
+  }
 }
 
-function diceText(ctx, text, x, y, align, size, inverted) {
-  ctx.font = 'bold ' + (size || 13) + 'px ' + DICE_FONT;
+function diceText(ctx, text, x, y, align, size, color, weight) {
+  ctx.font = diceFontOf(size || 12, weight);
   ctx.textAlign = align || 'left';
   ctx.textBaseline = 'top';
-  ctx.fillStyle = inverted ? DICE_PAPER : DICE_INK;
+  ctx.fillStyle = color || DPAL.text;
   ctx.fillText(text, x, y);
 }
 
-function diceTextWidth(ctx, text, size) {
-  ctx.font = 'bold ' + (size || 13) + 'px ' + DICE_FONT;
+/* The same, centred on a line rather than hung from its top, which is what
+   anything sharing a row with something of a different size wants. */
+function diceTextMid(ctx, text, x, cy, align, size, color, weight) {
+  ctx.font = diceFontOf(size || 12, weight);
+  ctx.textAlign = align || 'left';
+  ctx.textBaseline = 'middle';
+  ctx.fillStyle = color || DPAL.text;
+  ctx.fillText(text, x, cy);
+}
+
+function diceTextWidth(ctx, text, size, weight) {
+  ctx.font = diceFontOf(size || 12, weight);
   return ctx.measureText(text).width;
 }
 
 /* Wrapped and truncated with an ellipsis, the way drawTextInRect does it. */
-function diceTextInRect(ctx, text, x, y, w, h, align, size, inverted) {
-  size = size || 13;
-  const lineH = size + 3;
+function diceTextInRect(ctx, text, x, y, w, h, align, size, color, weight) {
+  size = size || 12;
+  const lineH = size + 4;
   const maxLines = Math.max(1, Math.floor(h / lineH));
   const words = String(text).split(/\s+/).filter(Boolean);
   const lines = [];
@@ -4891,7 +5002,7 @@ function diceTextInRect(ctx, text, x, y, w, h, align, size, inverted) {
     const test = line ? line + ' ' + words[i] : words[i];
     // A word wider than the whole box still has to go somewhere, so an empty
     // line takes it regardless and the ellipsis below cuts it down.
-    if (!line || diceTextWidth(ctx, test, size) <= w) { line = test; i++; }
+    if (!line || diceTextWidth(ctx, test, size, weight) <= w) { line = test; i++; }
     else { lines.push(line); line = ''; }
   }
   const truncated = i < words.length || (line !== '' && lines.length >= maxLines);
@@ -4899,19 +5010,21 @@ function diceTextInRect(ctx, text, x, y, w, h, align, size, inverted) {
 
   if (truncated && lines.length) {
     let last = lines[lines.length - 1];
-    while (last.length > 1 && diceTextWidth(ctx, last + '...', size) > w) last = last.slice(0, -1);
-    lines[lines.length - 1] = last + '...';
+    while (last.length > 1 && diceTextWidth(ctx, last + '…', size, weight) > w) {
+      last = last.slice(0, -1);
+    }
+    lines[lines.length - 1] = last + '…';
   }
 
   const ax = align === 'center' ? x + w / 2 : (align === 'right' ? x + w : x);
   for (let n = 0; n < lines.length; n++) {
-    diceText(ctx, lines[n], ax, y + n * lineH, align, size, inverted);
+    diceText(ctx, lines[n], ax, y + n * lineH, align, size, color, weight);
   }
 }
 
-/* Small solid triangles used as "press this direction" hints, and as the
-   touch targets that replace left/right on the d-pad. */
-function diceTriangle(ctx, cx, cy, size, dir, inverted, hollow) {
+/* Small triangles either side of a value: on the device they showed which way
+   the d-pad could nudge it, and here they are also what a finger presses. */
+function diceTriangle(ctx, cx, cy, size, dir, color, hollow) {
   ctx.beginPath();
   if (dir === 'left') {
     ctx.moveTo(cx - size, cy); ctx.lineTo(cx + size, cy - size); ctx.lineTo(cx + size, cy + size);
@@ -4920,11 +5033,12 @@ function diceTriangle(ctx, cx, cy, size, dir, inverted, hollow) {
   }
   ctx.closePath();
   if (hollow) {
-    ctx.strokeStyle = inverted ? DICE_PAPER : DICE_INK;
-    ctx.lineWidth = 1;
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1.2;
+    ctx.lineJoin = 'round';
     ctx.stroke();
   } else {
-    ctx.fillStyle = inverted ? DICE_PAPER : DICE_INK;
+    ctx.fillStyle = color;
     ctx.fill();
   }
 }
@@ -5057,23 +5171,22 @@ DiceSetupScene.draw = function (ctx) {
   const config = this.config;
 
   // Header
-  diceBar(ctx, 0, 0, 400, 22);
-  diceText(ctx, 'DICE ROLLER', 8, 4, 'left', 13, true);
+  diceBar(ctx, 0, 0, 400, 26, 'bottom');
+  diceTextMid(ctx, diceChapter(), 12, 13, 'left', 12.5, DPAL.gold, 'bold');
   const last = DiceHistory.latest();
   if (last) {
-    diceText(ctx, 'last: ' + last.notation + ' = ' + last.total, 392, 4, 'right', 12, true);
+    diceTextMid(ctx, 'last: ' + last.notation + ' = ' + last.total, 388, 13,
+      'right', 11, DPAL.dim);
   }
 
-  // Preview column
+  // Preview column: the die you are about to throw, and what it can come to.
   this.previewDie.draw(ctx);
 
-  diceRoundPath(ctx, 6, 142, 104, 22, 4);
-  ctx.fillStyle = DICE_INK;
-  ctx.fill();
-  diceText(ctx, DiceLib.notation(config), 58, 146, 'center', 12, true);
+  dicePanel(ctx, 10, 142, 96, 24, 5, DPAL.tag, DPAL.border, 1);
+  diceTextMid(ctx, DiceLib.notation(config), 58, 154, 'center', 12, DPAL.gold, 'bold');
 
   const range = DiceLib.range(config);
-  diceText(ctx, range[0] + ' to ' + range[1], 58, 168, 'center', 12);
+  diceTextMid(ctx, range[0] + ' to ' + range[1], 58, 178, 'center', 11, DPAL.dim);
 
   // Field rows. Where each row's arrows land depends on how wide its value is,
   // so the row records them as it draws and the hit test reads them back.
@@ -5085,41 +5198,41 @@ DiceSetupScene.draw = function (ctx) {
   }
 
   // Hints
-  diceBar(ctx, 0, 196, 400, 44);
-  diceText(ctx, 'tap a row to choose', 8, 201, 'left', 12, true);
-  diceText(ctx, 'ROLL', 392, 201, 'right', 12, true);
-  diceText(ctx, 'tap an arrow to change', 8, 221, 'left', 12, true);
-  diceText(ctx, 'HISTORY', 392, 221, 'right', 12, true);
+  diceBar(ctx, 0, 196, 400, 44, 'top');
+  diceTextMid(ctx, 'tap a row to choose', 12, 209, 'left', 11, DPAL.dim);
+  diceTextMid(ctx, 'ROLL', 388, 209, 'right', 11, DPAL.gold, 'bold');
+  diceTextMid(ctx, 'tap an arrow to change', 12, 228, 'left', 11, DPAL.dim);
+  diceTextMid(ctx, 'HISTORY', 388, 228, 'right', 11, DPAL.gold, 'bold');
 };
 
+/* One field: its name, its value, and the two arrows that change it. The
+   selected row is lit gold the way the initiative tracker lights the combatant
+   whose turn it is. */
 DiceSetupScene.drawRow = function (ctx, field, index, y, selected) {
   const value = this.valueText(field.id);
-  const textY = y + 10;
-  const valueRight = DICE_ROW_X + DICE_ROW_W - 24;
-  const valueWidth = diceTextWidth(ctx, value, 13);
-  const leftX = valueRight - valueWidth - 12, rightX = valueRight + 12;
+  const mid = y + DICE_ROW_H / 2;
+  const valueRight = DICE_ROW_X + DICE_ROW_W - 28;
+  const valueWidth = diceTextWidth(ctx, value, 13.5, 'bold');
+  const leftX = valueRight - valueWidth - 14, rightX = valueRight + 14;
   this.arrows[index] = [leftX, rightX];
 
   if (selected) {
-    diceRoundPath(ctx, DICE_ROW_X, y, DICE_ROW_W, DICE_ROW_H, 6);
-    ctx.fillStyle = DICE_INK;
-    ctx.fill();
-    diceText(ctx, field.label, DICE_ROW_X + 12, textY, 'left', 13, true);
-    diceText(ctx, value, valueRight, textY, 'right', 13, true);
-
-    // Arrows bracket the value to show which way it can be nudged.
-    diceTriangle(ctx, leftX, y + DICE_ROW_H / 2, 5, 'left', true);
-    diceTriangle(ctx, rightX, y + DICE_ROW_H / 2, 5, 'right', true);
+    dicePanel(ctx, DICE_ROW_X, y, DICE_ROW_W, DICE_ROW_H, 6,
+      diceAlpha(DPAL.gold, 0.16), DPAL.gold, 1.6);
   } else {
-    dicePanel(ctx, DICE_ROW_X, y, DICE_ROW_W, DICE_ROW_H, 6);
-    diceText(ctx, field.label, DICE_ROW_X + 12, textY, 'left', 13);
-    diceText(ctx, value, valueRight, textY, 'right', 13);
-    // The device only drew arrows on the selected row, because the d-pad was
-    // always pointed at it. A finger needs to see where it can press, so an
-    // unselected row shows them hollow.
-    diceTriangle(ctx, leftX, y + DICE_ROW_H / 2, 5, 'left', false, true);
-    diceTriangle(ctx, rightX, y + DICE_ROW_H / 2, 5, 'right', false, true);
+    dicePanel(ctx, DICE_ROW_X, y, DICE_ROW_W, DICE_ROW_H, 6, DPAL.panel, DPAL.border, 1);
   }
+
+  diceTextMid(ctx, field.label, DICE_ROW_X + 14, mid, 'left', 11.5,
+    selected ? DPAL.goldLight : DPAL.dim, 'bold');
+  diceTextMid(ctx, value, valueRight, mid, 'right', 13.5,
+    selected ? DPAL.goldLight : DPAL.text, 'bold');
+
+  // The device only drew arrows on the selected row, because the d-pad was
+  // always pointed at it. A finger needs to see where it can press, so an
+  // unselected row keeps them, outlined and in the quieter colour.
+  diceTriangle(ctx, leftX, mid, 5, 'left', selected ? DPAL.gold : DPAL.dim, !selected);
+  diceTriangle(ctx, rightX, mid, 5, 'right', selected ? DPAL.gold : DPAL.dim, !selected);
 };
 
 /* Rows, and the arrow zones either side of each row's value. A tap anywhere on
@@ -5165,7 +5278,10 @@ const DICE_OVERLAY_FRAMES = 10;
 const DICE_CLATTER_GAP = 3;     // frames between clatters, however many dice hit
 const DICE_PLAY_BOTTOM = 197;   // the dice are clipped off just above the meter
 const DICE_PANEL_X = 24, DICE_PANEL_W = 352;
-const DICE_PANEL_Y = 40, DICE_PANEL_H = 168;
+/* Shorter than the device's panel: its three rows of content sat in the top of
+   a 168-tall card with a band of nothing under them, which the 1-bit version
+   got away with and a lit gold card does not. */
+const DICE_PANEL_Y = 44, DICE_PANEL_H = 146;
 
 /* The rate the Roll button winds at, which is the rate holding A wound at when
    the crank was docked. */
@@ -5325,15 +5441,15 @@ DiceRollScene.computeResult = function () {
 };
 
 DiceRollScene.draw = function (ctx) {
-  diceBar(ctx, 0, 0, 400, 24);
-  diceText(ctx, DiceLib.notation(this.config), 8, 5, 'left', 13, true);
-  diceText(ctx, 'BACK: change dice', 392, 5, 'right', 12, true);
+  diceBar(ctx, 0, 0, 400, 26, 'bottom');
+  diceTextMid(ctx, DiceLib.notation(this.config), 12, 13, 'left', 13, DPAL.gold, 'bold');
+  diceTextMid(ctx, 'back: change dice', 388, 13, 'right', 11, DPAL.dim);
 
   // Clipped to the play area: a die that hops high near the back of the tray
   // passes behind the header rather than over the top of it.
   ctx.save();
   ctx.beginPath();
-  ctx.rect(0, 24, 400, DICE_PLAY_BOTTOM - 24);
+  ctx.rect(0, 26, 400, DICE_PLAY_BOTTOM - 26);
   ctx.clip();
   for (const die of this.dice) die.draw(ctx);
   ctx.restore();
@@ -5347,34 +5463,37 @@ DiceRollScene.drawThrowUI = function (ctx) {
   const progress = Math.min(this.cranked / DICE_CRANK_TARGET, 1);
   const x = 60, y = 198, w = 280, h = 12;
 
-  diceRoundPath(ctx, x, y, w, h, 4);
-  ctx.strokeStyle = DICE_INK;
-  ctx.lineWidth = 2;
-  ctx.stroke();
+  dicePanel(ctx, x, y, w, h, 6, diceAlpha(DPAL.felt, 0.85), DPAL.border, 1);
   if (progress > 0) {
-    diceRoundPath(ctx, x + 2, y + 2, Math.max((w - 4) * progress, 2), h - 4, 2);
-    ctx.fillStyle = DICE_INK;
+    const fill = ctx.createLinearGradient(x, 0, x + w, 0);
+    fill.addColorStop(0, DPAL.gold);
+    fill.addColorStop(1, DPAL.goldLight);
+    diceRoundPath(ctx, x + 2, y + 2, Math.max((w - 4) * progress, 3), h - 4, 4);
+    ctx.fillStyle = fill;
     ctx.fill();
   }
 
   this.drawCrankHint(ctx, 28, 204);
 
-  diceBar(ctx, 0, 218, 400, 22);
+  diceBar(ctx, 0, 218, 400, 22, 'top');
   let message;
   if (this.state === 'ready') message = 'drag across the tray to roll';
-  else if (progress < 1) message = 'keep going...';
-  else message = 'let go - the dice are landing';
-  diceText(ctx, message, 200, 222, 'center', 12, true);
+  else if (progress < 1) message = 'keep going…';
+  else message = 'let go — the dice are landing';
+  diceTextMid(ctx, message, 200, 229, 'center', 11,
+    progress >= 1 ? DPAL.goldLight : DPAL.dim);
 };
 
-/* A little crank that spins along with the throw, so it is obvious what the
-   tray expects you to do to it. */
+/* A little dial that spins along with the throw, so it is obvious what the tray
+   expects you to do to it. It was a picture of the crank on the device; here it
+   is just a winding handle, which is the same idea and no longer a lie about
+   the hardware. */
 DiceRollScene.drawCrankHint = function (ctx, cx, cy) {
   this.hintAngle += 4 + this.energy * 12;
   const a = this.hintAngle * Math.PI / 180;
 
-  ctx.strokeStyle = DICE_INK;
-  ctx.fillStyle = DICE_INK;
+  ctx.strokeStyle = diceAlpha(DPAL.gold, this.energy > 0.5 ? 0.95 : 0.5);
+  ctx.fillStyle = ctx.strokeStyle;
   ctx.lineWidth = 2;
   ctx.beginPath();
   ctx.arc(cx, cy, 11, 0, Math.PI * 2);
@@ -5395,27 +5514,32 @@ DiceRollScene.drawOverlay = function (ctx) {
 
   // Slide the panel up from below the screen.
   const y = diceOutCubic(this.overlayFrames, 240, DICE_PANEL_Y - 240, DICE_OVERLAY_FRAMES);
-  dicePanel(ctx, DICE_PANEL_X, y, DICE_PANEL_W, DICE_PANEL_H);
+  dicePanel(ctx, DICE_PANEL_X, y, DICE_PANEL_W, DICE_PANEL_H, 8, DPAL.panel, DPAL.border, 2);
 
   // The notation already carries the modifier and adv/dis, so the right-hand
   // slot is free for whatever is most worth saying about this particular roll.
-  diceText(ctx, r.notation, DICE_PANEL_X + 16, y + 13, 'left', 13);
+  diceTextMid(ctx, r.notation, DICE_PANEL_X + 18, y + 19, 'left', 12.5, DPAL.gold, 'bold');
   let aside = r.banner;
   if (aside === null && this.config.count > 1) aside = 'high ' + r.high + '   low ' + r.low;
-  if (aside) diceText(ctx, aside, DICE_PANEL_X + DICE_PANEL_W - 16, y + 13, 'right', 13);
+  if (aside) {
+    const loud = r.banner !== null;
+    diceTextMid(ctx, aside, DICE_PANEL_X + DICE_PANEL_W - 18, y + 19, 'right', 12.5,
+      loud ? (r.diceTotal === 1 ? DPAL.red : DPAL.goldLight) : DPAL.dim, loud ? 'bold' : '');
+  }
 
-  // Big, but shrunk to fit once a total runs to four digits.
+  // The total, lit the way the chapter titles are. Shrunk to fit once it runs
+  // to four digits.
   const total = String(r.total);
-  const height = diceNumFit(total, DICE_PANEL_W - 80, 62);
-  diceNumDraw(ctx, total, 200, y + 40 + height / 2, height);
+  const size = diceFitSize(ctx, total, DICE_PANEL_W - 90, 54, 'bold');
+  diceNumber(ctx, total, 200, y + 70, size, DPAL.goldLight, 'bold', diceAlpha(DPAL.gold, 0.55));
 
   // The individual dice, wrapped and truncated if there are a lot of them.
   diceTextInRect(ctx, DiceLib.breakdownText(this.config, r.parts),
-    DICE_PANEL_X + 14, y + 112, DICE_PANEL_W - 28, 44, 'center', 12);
+    DICE_PANEL_X + 16, y + 106, DICE_PANEL_W - 32, 32, 'center', 12, DPAL.text);
 
-  diceBar(ctx, 0, 218, 400, 22);
-  diceText(ctx, 'tap the tray: roll again', 8, 222, 'left', 12, true);
-  diceText(ctx, 'BACK: change dice', 392, 222, 'right', 12, true);
+  diceBar(ctx, 0, 218, 400, 22, 'top');
+  diceTextMid(ctx, 'tap the tray: roll again', 12, 229, 'left', 11, DPAL.dim);
+  diceTextMid(ctx, 'back: change dice', 388, 229, 'right', 11, DPAL.dim);
 };
 
 /* The whole tray winds the throw up, and once the result is showing, a tap on
@@ -5488,13 +5612,13 @@ DiceHistoryScene.update = function () {};
 DiceHistoryScene.draw = function (ctx) {
   const n = DiceHistory.entries.length;
 
-  diceBar(ctx, 0, 0, 400, 22);
-  diceText(ctx, 'HISTORY', 8, 4, 'left', 13, true);
-  if (n > 0) diceText(ctx, (this.selected + 1) + ' of ' + n, 392, 4, 'right', 12, true);
+  diceBar(ctx, 0, 0, 400, 26, 'bottom');
+  diceTextMid(ctx, 'HISTORY', 12, 13, 'left', 12.5, DPAL.gold, 'bold');
+  if (n > 0) diceTextMid(ctx, (this.selected + 1) + ' of ' + n, 388, 13, 'right', 11, DPAL.dim);
 
   if (n === 0) {
-    diceText(ctx, 'No rolls yet.', 200, 96, 'center', 13);
-    diceText(ctx, 'Throw some dice and they turn up here.', 200, 118, 'center', 13);
+    diceTextMid(ctx, 'No rolls yet.', 200, 100, 'center', 14, DPAL.text);
+    diceTextMid(ctx, 'Throw some dice and they turn up here.', 200, 124, 'center', 11.5, DPAL.dim);
   } else {
     const width = n > DICE_HROWS ? DICE_NARROW_W : DICE_FULL_W;
     const last = Math.min(this.offset + DICE_HROWS, n);
@@ -5505,57 +5629,52 @@ DiceHistoryScene.draw = function (ctx) {
     if (n > DICE_HROWS) this.drawScrollbar(ctx, n);
   }
 
-  diceBar(ctx, 0, 196, 400, 44);
-  diceText(ctx, 'tap a roll to pick it', 8, 201, 'left', 12, true);
-  if (n > 0) diceText(ctx, 'ROLL: throw it again', 392, 201, 'right', 12, true);
-  diceText(ctx, 'drag the list to scroll', 8, 221, 'left', 12, true);
-  diceText(ctx, 'BACK', 392, 221, 'right', 12, true);
+  diceBar(ctx, 0, 196, 400, 44, 'top');
+  diceTextMid(ctx, 'tap a roll to pick it', 12, 209, 'left', 11, DPAL.dim);
+  if (n > 0) diceTextMid(ctx, 'ROLL: throw it again', 388, 209, 'right', 11, DPAL.gold, 'bold');
+  diceTextMid(ctx, 'drag the list to scroll', 12, 228, 'left', 11, DPAL.dim);
+  diceTextMid(ctx, 'BACK', 388, 228, 'right', 11, DPAL.gold, 'bold');
 };
 
+/* One past roll, as a card in a list — the shape the initiative tracker uses
+   for a combatant, down to the gold lighting on the one that is picked. */
 DiceHistoryScene.drawRow = function (ctx, entry, y, width, selected) {
-  const textY = y + 9;
+  const mid = y + (DICE_HROW_H - 3) / 2;
   const total = String(entry.total);
 
   if (selected) {
-    diceRoundPath(ctx, DICE_LIST_X, y, width, DICE_HROW_H - 2, 5);
-    ctx.fillStyle = DICE_INK;
-    ctx.fill();
+    dicePanel(ctx, DICE_LIST_X, y, width, DICE_HROW_H - 3, 6,
+      diceAlpha(DPAL.gold, 0.16), DPAL.gold, 1.6);
   } else {
-    ctx.strokeStyle = DICE_INK;
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(DICE_LIST_X + 6, y + DICE_HROW_H - 2);
-    ctx.lineTo(DICE_LIST_X + width - 6, y + DICE_HROW_H - 2);
-    ctx.stroke();
+    dicePanel(ctx, DICE_LIST_X, y, width, DICE_HROW_H - 3, 6, DPAL.panel, DPAL.border, 1);
   }
 
-  diceText(ctx, entry.notation, DICE_LIST_X + 10, textY, 'left', 13, selected);
-  diceText(ctx, total, DICE_LIST_X + width - 10, textY, 'right', 13, selected);
+  diceTextMid(ctx, entry.notation, DICE_LIST_X + 12, mid, 'left', 12.5,
+    selected ? DPAL.goldLight : DPAL.text, 'bold');
+  diceTextMid(ctx, total, DICE_LIST_X + width - 12, mid, 'right', 15,
+    selected ? DPAL.goldLight : DPAL.gold, 'bold');
 
   // Whatever room is left between the two goes to the dice themselves, cut
   // short with an ellipsis when there are more than will fit.
-  const totalWidth = diceTextWidth(ctx, total, 13);
+  const totalWidth = diceTextWidth(ctx, total, 15, 'bold');
   const x = DICE_LIST_X + 112;
-  const room = (DICE_LIST_X + width - 10 - totalWidth - 10) - x;
+  const room = (DICE_LIST_X + width - 12 - totalWidth - 12) - x;
   if (room > 40) {
-    diceTextInRect(ctx, entry.breakdown, x, textY + 1, room, 18, 'left', 12, selected);
+    diceTextInRect(ctx, entry.breakdown, x, mid - 7, room, 16, 'left', 11, DPAL.dim);
   }
 };
 
 DiceHistoryScene.drawScrollbar = function (ctx, n) {
   const x = 388, w = 8;
-  const trackH = DICE_HROWS * DICE_HROW_H - 2;
+  const trackH = DICE_HROWS * DICE_HROW_H - 3;
 
-  ctx.strokeStyle = DICE_INK;
-  ctx.lineWidth = 1;
-  diceRoundPath(ctx, x, DICE_LIST_Y, w, trackH, 4);
-  ctx.stroke();
+  dicePanel(ctx, x, DICE_LIST_Y, w, trackH, 4, diceAlpha(DPAL.felt, 0.8), DPAL.border, 1);
 
-  const thumbH = Math.max(trackH * DICE_HROWS / n, 12);
+  const thumbH = Math.max(trackH * DICE_HROWS / n, 14);
   const maxOffset = n - DICE_HROWS;
   const travel = maxOffset > 0 ? this.offset / maxOffset : 0;
   diceRoundPath(ctx, x + 2, DICE_LIST_Y + 2 + (trackH - 4 - thumbH) * travel, w - 4, thumbH, 2);
-  ctx.fillStyle = DICE_INK;
+  ctx.fillStyle = DPAL.gold;
   ctx.fill();
 };
 
@@ -5594,20 +5713,29 @@ function diceResize() {
   canvas.width = Math.round(rect.width * dpr);
   canvas.height = Math.round(rect.width * dpr * DICE_SCREEN_H / DICE_SCREEN_W);
   DiceGame.scale = canvas.width / DICE_SCREEN_W;
-  // A pattern belongs to the context it was made in, and the context is reset
-  // by a resize, so the dither tiles are rebuilt with it.
-  _dicePatterns = {};
   diceDraw();
 }
 
 function diceDraw() {
   const ctx = DiceGame.ctx;
   if (!ctx || !DiceGame.scene) return;
+  if (!DPAL) dicePalette();
+
   ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.fillStyle = DICE_PAPER;
-  ctx.fillRect(0, 0, DiceGame.canvas.width, DiceGame.canvas.height);
   ctx.scale(DiceGame.scale, DiceGame.scale);
+
+  // The table, with a pool of light over the middle of it so the tray has some
+  // depth to throw dice across.
+  ctx.fillStyle = DPAL.felt;
+  ctx.fillRect(0, 0, DICE_SCREEN_W, DICE_SCREEN_H);
+  const glow = ctx.createRadialGradient(200, 106, 8, 200, 106, 250);
+  glow.addColorStop(0, diceAlpha(DPAL.feltLit, 0.75));
+  glow.addColorStop(1, diceAlpha(DPAL.feltLit, 0));
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, DICE_SCREEN_W, DICE_SCREEN_H);
+
   ctx.lineJoin = 'miter';
+  ctx.lineCap = 'butt';
   DiceGame.scene.draw(ctx);
 }
 
@@ -5661,6 +5789,7 @@ function diceMount() {
   DiceGame.canvas = canvas;
   DiceGame.ctx = canvas.getContext('2d');
   DiceGame.mounted = true;
+  dicePalette();
 
   DiceSettings.load();
   DiceHistory.load();
@@ -5814,6 +5943,9 @@ function diceOpen() {
   overlay.classList.add('open');
   DiceGame.open = true;
   diceMount();
+  // The chapter may have been switched since the tray was last up, and each one
+  // has its own palette.
+  dicePalette();
   diceMenuLabels();
   diceUpdateControls();
   // Lay the canvas out before measuring it: the overlay was display:none until
