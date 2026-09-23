@@ -20,6 +20,7 @@ A single-file, mobile-friendly DM reference site for running [A Wild Sheep Chase
 | File | Description |
 |---|---|
 | `index.html` | Entire site — open this in a browser |
+| `CNAME` | Custom domain for GitHub Pages (`dm.mgriffioen.com`) |
 | `scroll-seal.jpg` | Scroll seal image shown to players |
 | `player_cheat_sheet.pdf` | Beginner cheat sheet for new players |
 | `make_cheatsheet.py` | ReportLab script used to generate the cheat sheet PDF |
@@ -30,7 +31,7 @@ A single-file, mobile-friendly DM reference site for running [A Wild Sheep Chase
 
 ## Usage
 
-Open `index.html` in any modern browser. Everything is self-contained — no build step, no dependencies, no server needed.
+The site is live at **https://dm.mgriffioen.com/** (GitHub Pages; the domain is set by `CNAME`). You can also open `index.html` in any modern browser. Everything is self-contained — no build step, no dependencies, no server needed.
 
 The dice roller needs nothing either — it draws to a canvas and keeps its settings and roll history in `localStorage`. For tablet use at the table, add it to your home screen or bookmark it locally. The initiative tracker's full-screen mode (`⛶ Full Screen`) is designed for keeping the tracker visible during combat without the rest of the page.
 
