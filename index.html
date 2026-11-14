@@ -3740,6 +3740,7 @@ function pulseToggle() {
     clearInterval(_pulseTimer); _pulseTimer = null;
     btn.textContent = '▶ Start';
   } else {
+    pulseAudio(); // unlock audio while we still have the click
     _pulseTimer = setInterval(pulseTick, 1000);
     btn.textContent = '⏸ Pause';
   }
@@ -3756,16 +3757,41 @@ function pulseFire() {
   el.classList.remove('pulsing'); void el.offsetWidth; el.classList.add('pulsing');
   setTimeout(function(){ el.classList.remove('pulsing'); }, 3600);
   document.getElementById('pulseStatus').textContent = '⚡ Pulse! DC 10 Wis save — failures roll on the table.';
-  try {
-    const ac = new (window.AudioContext || window.webkitAudioContext)();
+  pulseSound();
+}
+/* Browsers only let an AudioContext play if it was created or resumed during a
+   click, so the context is unlocked when Start is pressed and reused when the
+   countdown reaches zero from inside the interval. */
+var _pulseAudio = null;
+function pulseAudio() {
+  if (!_pulseAudio) {
+    try { _pulseAudio = new (window.AudioContext || window.webkitAudioContext)(); }
+    catch (e) { return null; }
+  }
+  if (_pulseAudio.state === 'suspended') _pulseAudio.resume();
+  return _pulseAudio;
+}
+// Two low heartbeat throbs, then a dissonant ringing chime.
+function pulseSound() {
+  const ac = pulseAudio();
+  if (!ac) return;
+  const t0 = ac.currentTime + 0.05;
+  function note(freq, type, start, vol, len) {
     const o = ac.createOscillator(), g = ac.createGain();
+    o.type = type; o.frequency.setValueAtTime(freq, start);
     o.connect(g); g.connect(ac.destination);
-    o.frequency.value = 440; o.type = 'sine';
-    g.gain.setValueAtTime(0.001, ac.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.3, ac.currentTime + 0.05);
-    g.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 0.9);
-    o.start(); o.stop(ac.currentTime + 0.95);
-  } catch (e) {}
+    g.gain.setValueAtTime(0.0001, start);
+    g.gain.exponentialRampToValueAtTime(vol, start + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, start + len);
+    o.start(start); o.stop(start + len + 0.05);
+    return o;
+  }
+  [0, 0.32].forEach(function (d) {
+    note(70, 'sine', t0 + d, 0.6, 0.28).frequency.exponentialRampToValueAtTime(40, t0 + d + 0.25);
+  });
+  note(659, 'sine', t0 + 0.7, 0.22, 2.2);
+  note(698, 'sine', t0 + 0.7, 0.14, 2.2);
+  note(1318, 'triangle', t0 + 0.7, 0.06, 1.2);
 }
 
 /* ══ DICE ROLLER ══════════════════════════════════════════════════════════════
