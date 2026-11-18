@@ -272,7 +272,9 @@ button.mon strong { color: inherit; }
 .btn.print { display: inline-flex; align-items: center; text-decoration: none; color: var(--fg); }
 .print-toast { position: fixed; z-index: 80; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); width: min(560px, calc(100% - 32px)); display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--gold); background: var(--panel); box-shadow: 0 12px 40px rgba(0,0,0,.4); }
 .print-toast span { flex: 1; min-width: 12em; }
-.print-toast a.btn { display: inline-flex; align-items: center; text-decoration: none; color: var(--fg); }
+.print-toast { padding-right: 46px; }
+#ptClose { position: absolute; top: 6px; right: 6px; }
+.print-toast .pt-alt { flex-basis: 100%; font-size: 0.82em; color: var(--muted); }
 .loot-roll { margin-top: 8px; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
 .loot-roll p { margin: 0; }
 .sb-init { position: sticky; bottom: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 12px 20px; border-top: 1px solid var(--line); background: var(--raise); }
@@ -408,7 +410,7 @@ button.mon strong { color: inherit; }
   <div class="scrim" id="scrim"></div>
   <div class="print-toast" id="printToast" role="status" aria-live="polite" hidden>
     <span id="ptMsg"></span>
-    <a id="ptOpen" class="btn" href="https://spellmaster.mgriffioen.com/" target="spellmaster" rel="noopener">Open in a new tab</a>
+    <a id="ptOpen" class="pt-alt" href="https://spellmaster.mgriffioen.com/" target="spellmaster" rel="noopener">Or open a new SpellMaster here (printer must reconnect)</a>
     <button class="xbtn" id="ptClose" type="button" aria-label="Dismiss">×</button>
   </div>
   <div class="sheet" id="statSheet" hidden>
@@ -1088,7 +1090,7 @@ button.mon strong { color: inherit; }
     if (link) open.href = link;
     $("#printToast").hidden = false;
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => { $("#printToast").hidden = true; }, 8000);
+    toastTimer = setTimeout(() => { $("#printToast").hidden = true; }, 10000);
   }
   $("#ptClose").addEventListener("click", () => { $("#printToast").hidden = true; });
   $("#ptOpen").addEventListener("click", () => { $("#printToast").hidden = true; });
@@ -1098,8 +1100,8 @@ button.mon strong { color: inherit; }
     const link = b.dataset.link;
     if (!link) { printToast(b.id === "printInit" ? "Add combatants before printing the initiative strip." : "Nothing to print here.", ""); return; }
     const what = b.id === "printInit" ? "Initiative strip" : b.id === "sbPrint" ? (sheetMon ? sheetMon.n : "Stat block") : (handouts()[+b.dataset.ho] || {}).title || "Card";
-    const done = () => printToast(`${what} copied. Switch to SpellMaster to print it.`, link);
-    const fail = () => printToast(`Couldn't copy ${what}. Open it in SpellMaster instead:`, link);
+    const done = () => printToast(`${what} is copied. Now switch to SpellMaster (recent apps button). It picks the card up there, printer and all.`, link);
+    const fail = () => printToast(`Couldn't copy ${what}. Use the link below to open it in a new SpellMaster window instead.`, link);
     // Older copy route, for views that refuse the Clipboard API.
     const legacyCopy = () => {
       const ta = document.createElement("textarea");
