@@ -1,40 +1,47 @@
-# A Wild Sheep Chase – DM Reference
+# Shangri-La: The Last Resort — DM Screen
 
-A single-file, mobile-friendly DM reference site for running [A Wild Sheep Chase](https://www.drivethrurpg.com/product/149267/A-Wild-Sheep-Chase) by Winghorn Press. Built for use on a tablet at the table — no internet required once loaded.
+A tablet DM screen for **Shangri-La: The Last Resort**, a three-session D&D 5e adventure for a weekend away (January 29–31, 2027). It installs as an app on the tablet's home screen and works offline once it has been opened.
 
-## Features
+Live at **https://dm.mgriffioen.com/** (GitHub Pages; the domain is set by `CNAME`).
 
-- **Scene guide** — full walkthrough of each encounter with notes and optional full PDF text
-- **NPC & Monster stat blocks** — clickable cards with full stats in a modal overlay, including custom entries (Bed Dragon Wyrmling, polymorphed wolves and rats, Gibbering Mouther, drunk patron, seagull, and more)
-- **Live HP trackers** — per-creature HP tracking with +/− buttons, persisted to `localStorage`; supports multiple tokens for grouped creatures (wolves, giant rats)
-- **Player character sheets** — quick-reference cards for Bram, Dusty, and Medrick with key stats, abilities, and equipment
-- **Initiative tracker** — add combatants manually or via quick-add buttons (one per PC and common monster); numeric keypad auto-opens on mobile/tablet; full-screen mode hides the rest of the page
-- **Virtual dice** — `🎲 Dice` in the top-right corner opens a port of the [Playdate dice roller](https://github.com/mgriffioen/dice-roller): choose the die, how many, a `+N` modifier and advantage or disadvantage on a d20, then drag across the tray to throw. The dice scatter, bounce off the walls and off each other, land one by one and the total slides up on an overlay. d100 rolls as a tens/units pair, a natural 20 gets a banner, and the last 20 rolls are kept and can be thrown again. The throw is the device's, down to the physics constants; the look is the page's — parchment dice on a dark table, in whichever chapter's colours are on
-- **Print the turn order** — `🖨 Print` hands the current initiative order to [SpellMaster](https://spellmaster.mgriffioen.com/), which prints it on a Bluetooth thermal printer as a strip with a writable rule under each combatant; the encounter travels in the URL fragment, so nothing is sent to a server
-- **Print any stat block** — every NPC, monster, spell and item modal has a `🖨 Print card` button that sends it to SpellMaster to print as a card; DM-only notes are held back unless you tick the box
-- **Key items** — Scroll of Speak With Animals (with player-facing seal image), Modified Wand of True Polymorph with full d20 misfire table
-- **Beginner cheat sheet** — embedded PDF link for new players
+## Install on the tablet
+
+1. Open https://dm.mgriffioen.com/ in Chrome.
+2. Menu (⋮) → **Install app** (or **Add to Home screen**).
+3. Launch it from the home screen. It opens full-screen, like SpellMaster.
+
+Open it once while online so the campaign is cached for offline play. After an update, close the app fully and reopen it to pick up the new version.
+
+## What it does
+
+- **The whole campaign**: three sessions, roll tables, handouts, NPCs, monsters, puzzles, story bible, table guide, prep timeline and overview, rendered from the Markdown files in `content/`. Includes search, section chips, and links between files that jump to the right section.
+- **Tap-to-roll**: every d-numbered table, every dice expression in the text, and a dice tray with advantage and disadvantage.
+- **Stat blocks**: tap a monster or NPC name for its full stat block, its loot, a **Roll loot** button, and **Roll & add** to send it to initiative.
+- **Initiative tracker** with HP bars, Hit and Heal, and downed monsters skipped. Also a party tracker with Contentment and Memory Tokens, a puzzle timer, and session notes.
+- **Printing with [SpellMaster](https://spellmaster.mgriffioen.com/)**: **🖨 Print** on any handout card, stat block or the initiative strip copies the card. Switch to the SpellMaster app, already connected to the printer, and it picks the card up from the clipboard. "Open in a new tab" is the fallback.
+
+Party, initiative and notes are saved in the browser on the tablet (`localStorage`).
 
 ## Files
 
-| File | Description |
+| Path | What it is |
 |---|---|
-| `index.html` | Entire site — open this in a browser |
-| `CNAME` | Custom domain for GitHub Pages (`dm.mgriffioen.com`) |
-| `scroll-seal.jpg` | Scroll seal image shown to players |
-| `player_cheat_sheet.pdf` | Beginner cheat sheet for new players |
-| `make_cheatsheet.py` | ReportLab script used to generate the cheat sheet PDF |
-| `Bram_Thornvale.pdf` | Bram's full character sheet |
-| `Dusty_Fleetwood.pdf` | Dusty's full character sheet |
-| `Medrick_Bendelroot.pdf` | Medrick's full character sheet |
-| `the_wild_sheep_chase_v2.pdf` | The adventure PDF (Winghorn Press) |
+| `index.html` | The DM screen: one page, no build step |
+| `content/*.md` | The campaign. Edit these to change what the screen shows |
+| `manifest.webmanifest`, `icons/` | Home-screen install (name, colours, icons) |
+| `sw.js` | Service worker: offline cache; network-first for the page and campaign files |
+| `archive/the-wild-sheep-chase/` | The previous DM screen, for *A Wild Sheep Chase*, kept as it was. It's still live at https://dm.mgriffioen.com/archive/the-wild-sheep-chase/ |
+| `CNAME` | Custom domain for GitHub Pages |
+| `.nojekyll` | Serve files as-is (no Jekyll processing of the Markdown) |
 
-## Usage
+The last commit of the Wild Sheep Chase site at the root is tagged `wild-sheep-chase-final`.
 
-The site is live at **https://dm.mgriffioen.com/** (GitHub Pages; the domain is set by `CNAME`). You can also open `index.html` in any modern browser. Everything is self-contained — no build step, no dependencies, no server needed.
+## Editing the campaign
 
-The dice roller needs nothing either — it draws to a canvas and keeps its settings and roll history in `localStorage`. For tablet use at the table, add it to your home screen or bookmark it locally. The initiative tracker's full-screen mode (`⛶ Full Screen`) is designed for keeping the tracker visible during combat without the rest of the page.
+Change the Markdown in `content/` and merge to `main`; GitHub Pages publishes it. The page reads several formats from these files, so keep them when editing:
 
-## Adventure
+- **Loot:** NPCs use `- **Loot:** …` lines in `05_NPCs.md`. Monsters use the `## 💰 Loot` table in `06_Monsters.md`.
+- **Handouts:** each card in `10_Handouts.md` is a `###` heading with `**Type** / **Value** / **Weight** / **Charges** / **Found** / **Also called** / **DM**` lines and quoted player text.
+- **Stat block links:** monster names in *italics* (e.g. `*Mimic*`) open stat blocks.
 
-*A Wild Sheep Chase* is a short D&D 5E adventure by Winghorn Press, designed for 3–5 characters of level 3. The party must rescue a wizard who has been polymorphed into a sheep by a rival. Available free at [Winghorn Press](https://winghornpress.com/).
+If you add or rename a file in `content/`, add it to `DOCS` in `index.html` and to `CONTENT` in `sw.js`, and bump `VERSION` in `sw.js`.
