@@ -3,11 +3,11 @@
 
 **Weekend:** Friday, Jan 29 – Sunday, Jan 31, 2027
 **DM:** Mark  **Players:** Sean (new), Carl (new), Erik (new, remote via FaceTime), Dusty (experienced), + possible 5th
-**Levels:** Everyone plays at level 3 all weekend (no leveling up; rewards come as gear and boons instead)
+**Levels:** Everyone plays at level 3 all weekend (no leveling up; Morning Boons and Gate Gifts take its place)
 
 > **Design principle:** A classic D&D adventure: a frozen city, a dungeon crawl, a paradise with teeth. A few personal touches are tucked in quietly (listed at the end of the Story Bible), and the rest is straight fantasy.
 
-**At the table:** use the DM screen at [dm.mgriffioen.com](https://dm.mgriffioen.com/), installed as an app on the tablet. It shows these same files.
+**At the table:** use the DM screen at [dm.mgriffioen.com](https://dm.mgriffioen.com/), installed as an app on the tablet. It shows these same files. The site's copy lives in `~/Documents/dm-screen/content/`; keep the two in sync when you edit.
 
 ---
 
@@ -26,6 +26,12 @@
 | [09_Table_Guide.md](09_Table_Guide.md) | Running it: new players, remote Erik, Dusty's secret, rewards, props, tools |
 | [10_Handouts.md](10_Handouts.md) | **Player handouts**: loot, potions, scrolls, letters and tokens, ready to print as cards |
 | [11_Prep_Timeline.md](11_Prep_Timeline.md) | Countdown checklist from now until the weekend |
+| [12_Magic_Items.md](12_Magic_Items.md) | Reference: 20 uncommon magic items that fit the adventure, for swaps, loot and rewards (PCs don't start with one) |
+
+**Also in the folder (not in the DM screen):**
+- `PROJECT_LOG.md`: how the adventure got here, chapter by chapter, and what's still open
+- `handouts/`: the three maps (harbor city, dungeon, lakeside vale)
+- `app/dm-screen.html`: the old claude.ai version of the DM screen, superseded by the site
 
 ## Markers used throughout
 
@@ -48,3 +54,13 @@ heist, a sinkhole.              of memories, the Golden Gate.     the Hound's He
 Ends: falling into the dark.    Ends: the Gate opens.             Ends: escape, epilogue.
 Level 3                         Level 3                           Level 3
 ```
+
+**Between sessions:** Morning Boons at Saturday breakfast, Gate Gifts (a Memory Token and one uncommon magic item) at Saturday dinner. See the [Table Guide](09_Table_Guide.md).
+
+## Still to decide
+
+- Your 2–3 twists from the Twist Menu in the [Story Bible](01_Story_Bible.md)
+- 2014 or 2024 rules
+- Whether there's a 5th player
+
+The full checklist is in the [Prep Timeline](11_Prep_Timeline.md).
