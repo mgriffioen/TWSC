@@ -250,6 +250,8 @@ textarea#notes { width: 100%; min-height: 7em; padding: 8px 10px; border-radius:
 /* ---------- monster links + stat block sheet ---------- */
 button.mon { border: 0; padding: 0; background: none; color: var(--frost); font: inherit; text-decoration: underline dotted; text-underline-offset: 3px; cursor: pointer; }
 button.mon strong { color: inherit; }
+a.ho-link { color: var(--gold); text-decoration: underline dotted; text-underline-offset: 3px; }
+a.ho-link strong, a.ho-link em { color: inherit; }
 .sheet { position: fixed; inset: 0; z-index: 60; background: rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: center; padding: calc(16px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
 .sheet-card { position: relative; width: min(560px, 100%); max-height: 100%; overflow: auto; background: var(--panel); border: 1px solid var(--line); border-top: 4px solid var(--gold); border-radius: 12px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45); }
 .sb-close { position: absolute; top: 6px; right: 6px; }
@@ -623,6 +625,7 @@ button.mon strong { color: inherit; }
       const f = a.getAttribute("href").split(/[#:]/)[0];
       if (byFile[f]) { a.setAttribute("href", "#" + byFile[f].id); a.dataset.doc = byFile[f].id; a.dataset.file = f; }
     });
+    linkHandouts(doc);
     linkMonsters(doc);
     const used = {};
     const heads = [...doc.querySelectorAll("h2, h3")];
@@ -1067,6 +1070,57 @@ button.mon strong { color: inherit; }
     b.textContent = label; b.title = "Copy this card for SpellMaster";
     return b;
   }
+  // Mentions of a handout on any other page link to its card on the Handouts page.
+  // Aliases that also name a place, a puzzle or a spell are left out so they don't link by mistake.
+  const HO_SKIP = new Set(["glass mere", "five doors", "misty step", "magic missiles", "greater healing", "coral", "bracelet", "gilding", "chestnuts", "festival prize", "+1 weapon", "glows without fuel", "crude map", "house thane", "sewer grate", "lodge keys"]);
+  let hoRe = null, hoBy = null;
+  function handoutIndex() {
+    if (hoRe) return;
+    const heads = mdHeadings(text["10_Handouts.md"] || "");
+    hoBy = new Map();
+    handouts().forEach(o => {
+      const h = heads.indexOf(o.title);
+      if (h < 0) return;
+      o.aliases.forEach(a => { if (a.length >= 4 && !HO_SKIP.has(a) && !hoBy.has(a)) hoBy.set(a, { title: o.title, h }); });
+    });
+    const keys = [...hoBy.keys()].sort((a, b) => b.length - a.length);
+    hoRe = keys.length ? new RegExp("(?<![\\w])(" + keys.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|") + ")(?![\\w])", "gi") : null;
+  }
+  function linkHandouts(root) {
+    if (current === "handouts") return;
+    handoutIndex();
+    if (!hoRe) return;
+    // Link the first mention of each handout per paragraph, list item or table cell.
+    root.querySelectorAll("p, li, td").forEach(block => {
+      if (block.querySelector("p, li")) return;
+      const seen = new Set();
+      const walker = document.createTreeWalker(block, NodeFilter.SHOW_TEXT, { acceptNode: n => n.parentElement.closest("button, a, code, h1, h2, h3, h4, th") ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
+      const nodes = []; while (walker.nextNode()) nodes.push(walker.currentNode);
+      for (const node of nodes) {
+        const s = node.nodeValue; hoRe.lastIndex = 0;
+        let m, last = 0, frag = null;
+        while ((m = hoRe.exec(s))) {
+          const hit = hoBy.get(m[1].toLowerCase());
+          if (!hit || seen.has(hit.title)) continue;
+          seen.add(hit.title);
+          frag = frag || document.createDocumentFragment();
+          frag.append(s.slice(last, m.index));
+          const a = document.createElement("a");
+          a.href = "#handouts"; a.className = "ho-link"; a.dataset.hoH = hit.h; a.textContent = m[1];
+          a.title = `Open the ${hit.title} handout`;
+          frag.append(a); last = m.index + m[1].length;
+        }
+        if (frag) { frag.append(s.slice(last)); node.parentNode.replaceChild(frag, node); }
+      }
+    });
+  }
+  document.addEventListener("click", e => {
+    const a = e.target.closest("a.ho-link");
+    if (!a) return;
+    e.preventDefault();
+    pendingJump = { h: +a.dataset.hoH };
+    location.hash = "handouts";
+  });
   function addHandoutButtons(root) {
     const list = handouts();
     root.querySelectorAll("h3").forEach((h, i) => { h.append(" ", printChip(i, "🖨 Print", list)); });
