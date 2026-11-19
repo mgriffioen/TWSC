@@ -104,6 +104,9 @@ body.rail-hidden .rail, body.table-hidden .table { display: none; }
   body.table-hidden .app { grid-template-columns: 210px minmax(0, 1fr); grid-template-areas: "bar bar" "rail main"; }
   body.rail-hidden.table-hidden .app { grid-template-columns: minmax(0, 1fr); grid-template-areas: "bar" "main"; }
 }
+/* With the left rail collapsed, let the story fill the whole main column. */
+body.rail-hidden .page, body.rail-hidden .outline-inner { max-width: none; }
+body.rail-hidden .md p, body.rail-hidden .md li { max-width: none; }
 
 /* ---------- rail ---------- */
 .rail { grid-area: rail; overflow: auto; padding: 16px 10px 24px max(10px, env(safe-area-inset-left, 0px)); border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 18px; }
