@@ -4,7 +4,7 @@
 
 **Recommendation: build characters *before* the weekend** (a short video call or one-on-one chats in December). Friday night is precious, so don't spend 90 minutes on character creation with three new players.
 
-- **Rules:** 5e (2014 or 2024; pick one and stick to it). Free D&D Beyond accounts for everyone; share characters into a D&D Beyond campaign so you can see all the sheets.
+- **Rules:** 5e **2014 rules** (decided Nov 19). Characters use the 2014 *Player's Handbook*; monsters use the 2014 *Monster Manual* stat blocks this folder already cites. Exhaustion uses the 2014 six-level table (level 1 = disadvantage on ability checks). Inspiration is the 2014 kind: spend it for advantage. Free D&D Beyond accounts only include the 2014 Basic Rules (one subclass per class), so share your books through the campaign if a player wants anything more. Everyone needs a free D&D Beyond account; share characters into a D&D Beyond campaign so you can see all the sheets.
 - **Everyone plays at level 3 for the whole weekend. Nobody levels up.** Level 3 is sturdy enough that new players won't die to one bad roll, and everyone already has their subclass, so the characters feel complete from the first scene. With no level-ups, new players learn one character sheet and keep it all weekend.
 - **Level 3 means picking a subclass up front.** Do this together at Session Zero, not at the table. Steer new players to simple, fun options:
   - **Fighter (Champion)** or **Barbarian (Berserker)**: easy and satisfying. Great for Carl or Sean.
@@ -100,7 +100,7 @@ Remote play works if you plan for it.
 - [ ] The Mayor's letter to the Gilded Hand Captain
 - [ ] Two halves of the Undercroft map (tear it!)
 - [ ] Hall of Doors handout (the five sigils)
-- [ ] Seer's Floor: 25 rune cards + Erik's key (photo)
+- [ ] Seer's Floor: the Rm 09 battle map (runes are on the tiles) + Erik's key (`handouts/04-Seer's Floor key (Erik only).png`, ready to text)
 - [ ] Seven **lodge keys** with carved or drawn sigils (open book, spiral, eye, wave, heart, sun, hound)
 - [ ] Small glass vials with red liquid for **Emberoak Sap**
 - [ ] A rubber fish or a tiny treasure chest for the baby mimic

@@ -226,7 +226,7 @@ A picture for every NPC and monster, to hold up or put on the table when the par
 
 ## Stat-block art
 
-Official art for each standard stat block, from D&D Beyond's free 2024 rules (the 2014 kobold where 2024 has none). Bullywug, Kuo-toa and Crawling Claw have no free art.
+Official art for each standard stat block, from D&D Beyond's free 2024 rules (the 2014 kobold where 2024 has none). The art is only for looks; the game uses the 2014 stat blocks. Bullywug, Kuo-toa and Crawling Claw have no free art.
 
 | Stat block | Art | Page |
 |---|---|---|

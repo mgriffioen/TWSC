@@ -68,11 +68,11 @@ Three hundred years ago, the city's founders struck a bargain. The Host gives Mi
 
 ## 💥 Twist Menu — pick 2–3, save the rest
 
-**Chosen: ________**
+**Chosen: 1, 2 and 3** (Nov 19). Everything below #3 is saved for a sequel or an emergency.
 
-1. **Paradise is the monster.** *(Core; recommended.)* Mid-Session 3 the lake drains, the yellow chute uncurls into a tongue, and the lodges lean inward like teeth.
-2. **The quest-giver is in on it.** Mayor Vell sent the invitations. Reveal it through a letter found in the Undercroft, or have the Mayor appear in the vale, lounging by the water.
-3. **Dusty's character has been here before.** (See his secret envelope in [09_Table_Guide.md](09_Table_Guide.md).) The Keeper greets him: *"Welcome back. Your old lodge is just as you left it."*
+1. ✅ **Paradise is the monster.** *(Core.)* Mid-Session 3 the lake drains, the yellow chute uncurls into a tongue, and the lodges lean inward like teeth.
+2. ✅ **The quest-giver is in on it.** Mayor Vell sent the invitations. Do both halves: the party finds **the Mayor's letter** in the Undercroft (Session 2, the Fishfolk Camp), and then **the Mayor himself** is in the vale at the Reveal, lounging by the water.
+3. ✅ **Dusty's character has been here before.** (See his secret envelope in [09_Table_Guide.md](09_Table_Guide.md).) The Keeper greets him: *"Welcome back. Your old lodge is just as you left it."*
 4. **The missing person doesn't want to be rescued.** Tobias Vell is blissfully happy and fights to stay.
 5. **The rival captain is a former guest.** Captain Saye escaped years ago and is desperate to get *back in*.
 6. **Time ran differently.** In the epilogue, roll 1d10 in front of them for the years that have passed outside. Or it was five minutes.
