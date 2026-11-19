@@ -578,3 +578,57 @@ Player-facing cards for everything the party can find, win or be given. On the D
 - **Also called:** keeper's favor
 > A smooth wooden bowling ball, small enough for your palm, with a gold spiral painted on it. *"Well played, well played! I owe you one, friend."* **The Keeper owes you one favor.**
 - **DM:** He keeps his word, as long as the favor doesn't mean letting anyone leave.
+
+## Map Labels (DM only)
+
+What to hand-letter on the blank scrolls of the three maps in `handouts/`. This section has no cards, so nothing here prints. Use brown or sepia ink on the two parchment maps, and anything bold on the vale map.
+
+**Millhaven (Snowbound Harbor City Map)**
+
+| Where on the map | Write |
+|---|---|
+| Top cartouche | **Millhaven** (smaller beneath: *The Winter Festival*) |
+| Scroll under the beached ship, left | **The Two Decks** |
+| Scroll below the bell tower and bonfires | **Bell Square** |
+| Scroll beside the big hall with steps | **Lantern Council Hall** |
+| Scroll under the striped stalls | **Festival Stalls** (small: *Fisherman's Luck*) |
+| Upper scroll on the cliff road, top right | **Ham Point** |
+| Lower scroll on the cliff road | **Sled Race Road** |
+| Scroll by the houseboat on pilings | **The Frost Docks** |
+| Scroll by the round grate | **The Old Grate** |
+| Scroll under the giant hammer | **The Great Hammer** |
+| Scroll by the walled gate, bottom left | **The Old Gate** (pen in small beside the tall tower: *Cartographers' Guild*) |
+
+**The Undercroft (Revised Parchment Dungeon Map)**
+
+This is Ilsabet Quill's map, so write the notes in a small, precise, slightly fussy hand. They nudge without spoiling.
+
+| Where on the map | Write |
+|---|---|
+| Top-left title banner | **The Undercroft beneath Millhaven** |
+| Lines by the stair sketch | *Sea-stair from Ham Point. Sealed?* |
+| Lines by the lily pads | *Frog-folk. Vain. Flatter them.* |
+| Lines by the net sketch | *Fisher camp. Friendly. Do NOT eat the fish.* |
+| Lines by the oak sketch | *Three oaks, turned to stone. Very hot. Copy the carvings!* |
+| Lines by the stone-hut sketch | *Steam hall. Older than the city.* |
+| Lines by the bridge sketch | *Toll bridge. Bring coin, or a good joke.* |
+| Lines by the skull sketch | *Bones of some great beast. Do not linger.* |
+| Lines by the crystals | *Still water. Don't look too long.* |
+| Lines under the runes | *Undercroft script. See my notes.* |
+| Lines by the five-door ring | *Five doors.* |
+| Lines by the grid sketch | *Mind your step.* |
+| Lines by the door sketch | *"Rest here, and be content."* |
+| Bottom-right scroll | *Only one door lies. Find the liar and you've found the way.* |
+
+**Tearing it in half:** tear across the map just below the rope bridge. Captain Saye's stolen half is the **top** (the Landing, the three caves, the bridge). Ilsabet's half is the **bottom** (the Mother's Grave to the Golden Gate), with her riddle on the bottom scroll, as in *Half of the Undercroft Map*.
+
+**Shangri-La (Vintage Lakeside Resort Map)**
+
+Hand this one out as the Keeper's welcome brochure when the party arrives.
+
+| Where on the map | Write |
+|---|---|
+| Top banner | **Welcome to Shangri-La** |
+| Bottom banner | *Rest here, and be content.* |
+
+The same words as the Golden Gate's inscription; let the players notice. Before printing, cover the **horse** sign on the seventh lodge (far right, set apart) with a small drawn **hound**: it's the Hound's Hearth.
