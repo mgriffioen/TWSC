@@ -6,7 +6,8 @@
 - [x] Tone passes (Nov 18): a classic D&D adventure with only a few personal touches; In-Joke Bank and Lore Map retired
 - [ ] Read through the whole folder once; mark what you love and what you'd cut
 - [x] Pick your **twists** (Nov 19: #1 Paradise is the monster, #2 the Mayor is in on it, #3 Dusty has been here before) from the Twist Menu ([01_Story_Bible.md](01_Story_Bible.md)) and write them in
-- [ ] Decide: 2014 or 2024 rules; set up the D&D Beyond campaign
+- [x] Decide: 2014 or 2024 rules (Nov 19: **2014**)
+- [ ] Set up the D&D Beyond campaign (2014 content; share your books)
 - [ ] Confirm the 5th player (yes/no) and adjust encounter sizes if yes
 
 ## Phase 2 — Players (Dec 1 – Dec 20)

@@ -59,7 +59,6 @@ Level 3                         Level 3                           Level 3
 
 ## Still to decide
 
-- 2014 or 2024 rules
 - Whether there's a 5th player
 
 The full checklist is in the [Prep Timeline](11_Prep_Timeline.md).
