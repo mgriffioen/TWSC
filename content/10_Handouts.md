@@ -15,7 +15,7 @@ Player-facing cards for everything the party can find, win or be given. On the D
 - **Type:** Potion, common
 - **Value:** 50 gp
 - **Weight:** 1/2 lb
-- **Found:** The Luggage, the Gibbering Mouther, Captain Saye, the Morning Boons
+- **Found:** The Luggage, the Gibbering Mouther, Captain Saye, the Healer's Satchel Morning Boon (two)
 - **Also called:** potions of healing
 > A small flask of red liquid that glimmers when shaken. When you drink it (an action), you regain **2d4 + 2** hit points.
 
@@ -93,6 +93,20 @@ Player-facing cards for everything the party can find, win or be given. On the D
 - **Found:** Snik's salvage sack
 - **Also called:** +1 shield
 > A dented steel shield, its old heraldry scratched away and a kobold's tooth-marks along the rim. **+1 AC** on top of the normal shield bonus (+3 total).
+
+### Festival Prize Weapon
+- **Type:** Weapon (your choice), uncommon
+- **Found:** Morning Boons
+- **Also called:** festival prize, +1 weapon
+> Your own weapon, returned from the festival smiths overnight with a winner's ribbon tied to it. The edge is keener and the balance is perfect. **+1 to attack and damage rolls.** Its attacks count as magical.
+- **DM:** Write the weapon's name on the card before you hand it over. A player who'd rather have ammunition gets Festival Prize Arrows instead.
+
+### Festival Prize Arrows
+- **Type:** Ammunition (20 pieces), uncommon
+- **Found:** Morning Boons
+- **Also called:** +1 ammunition, +1 arrows, +1 bolts
+> A quiver of twenty arrows (or bolts, or sling stones) fletched in festival colors. **+1 to attack and damage rolls** with them. Once one hits its target, it's no longer magical.
+- **DM:** Track the count on the back of the card.
 
 ### Bag of Holding
 - **Type:** Wondrous item, uncommon
