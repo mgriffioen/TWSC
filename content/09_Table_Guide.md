@@ -38,7 +38,7 @@ Each player picks one, or rolls d6 for a surprise. Flavor each one with somethin
 ### Gate Gifts (Saturday dinner, before Session 3)
 Everyone gets both:
 - **A Memory Token** 📜 (a real coin or trinket to hold). In Session 3, spend it to drop your Contentment by 2, or to gain advantage on one save against the Keeper. *It makes remembering something they can hold.*
-- **One uncommon magic item** from this list (or the Undercroft loot they found): *Wand of Magic Missiles*, *Boots of Striding and Springing*, *Gauntlets of Ogre Power*, *Pearl of Power*, *Periapt of Wound Closure*, *Potion of Greater Healing* ×2, *Bag of Holding*.
+- **One uncommon magic item** from this list (or the Undercroft loot they found): *Wand of Magic Missiles*, *Boots of Striding and Springing*, *Gauntlets of Ogre Power*, *Pearl of Power*, *Periapt of Wound Closure*, *Potion of Greater Healing* ×2, *Bag of Holding*. If a player has their heart set on something else, the [Magic Items reference](12_Magic_Items.md) has 20 more that fit.
 
 Make sure the party also leaves Session 2 with **at least two doses of Emberoak Sap**. If they don't have it, the Gate Gifts include one vial, "found in a dead Gilded Hand scout's pack."
 
