@@ -1455,11 +1455,36 @@ button.mon strong { color: inherit; }
   const fmt = s => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
   const paint = () => { tEl.textContent = fmt(tLeft); tEl.classList.toggle("done", tLeft === 0); };
   function stopT() { clearInterval(tRun); tRun = null; $("#timerGo").textContent = "Start"; }
+  // Synthesized bell chime, so there is no audio file to cache. The context is
+  // created/resumed on the Start click because browsers only allow audio that a
+  // user gesture unlocked.
+  let actx = null;
+  function unlockAudio() {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    try { actx = actx || new AC(); if (actx.state === "suspended") actx.resume(); } catch (e) { actx = null; }
+  }
+  function chime() {
+    if (!actx) return;
+    const t0 = actx.currentTime + 0.05;
+    [[659.25, 0], [783.99, 0.28], [1046.5, 0.56], [659.25, 1.3], [783.99, 1.58], [1046.5, 1.86]].forEach(([f, at]) => {
+      const t = t0 + at;
+      [[1, 0.25], [2.76, 0.06]].forEach(([mult, peak]) => { // fundamental + bell-like overtone
+        const o = actx.createOscillator(), g = actx.createGain();
+        o.type = "sine"; o.frequency.value = f * mult;
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(peak, t + 0.01);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 1.2);
+        o.connect(g).connect(actx.destination); o.start(t); o.stop(t + 1.25);
+      });
+    });
+  }
   $("#timerGo").addEventListener("click", () => {
     if (tRun) return stopT();
+    unlockAudio();
     if (tLeft === 0) tLeft = tTotal;
     $("#timerGo").textContent = "Pause";
-    tRun = setInterval(() => { tLeft = Math.max(0, tLeft - 1); paint(); if (!tLeft) stopT(); }, 1000);
+    tRun = setInterval(() => { tLeft = Math.max(0, tLeft - 1); paint(); if (!tLeft) { stopT(); chime(); } }, 1000);
   });
   $("#timerReset").addEventListener("click", () => { stopT(); tLeft = tTotal; paint(); });
   document.querySelectorAll("[data-min]").forEach(b => b.addEventListener("click", () => { stopT(); tTotal = tLeft = +b.dataset.min * 60; paint(); }));
