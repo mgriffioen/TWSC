@@ -1632,7 +1632,15 @@ a.ho-link strong, a.ho-link em { color: inherit; }
       for (const [f, title] of g.items) {
         const n = i++;
         const b = document.createElement("button"); b.type = "button"; b.className = "map-card";
-        const img = document.createElement("img"); img.src = `maps/thumbs/${f}.jpg`; img.alt = ""; img.loading = "lazy";
+        const img = document.createElement("img"); img.alt = ""; img.loading = "lazy";
+        // If a thumbnail fails (a dropped download, or a bad copy in the tablet's cache), try once more
+        // past the cache, then fall back to the full-size map.
+        img.addEventListener("error", () => {
+          const n = +(img.dataset.retry || 0); img.dataset.retry = n + 1;
+          if (n === 0) img.src = `maps/thumbs/${f}.jpg?r=${Date.now()}`;
+          else if (n === 1) img.src = `maps/${f}.jpg`;
+        });
+        img.src = `maps/thumbs/${f}.jpg?v=2`;
         const cap = document.createElement("span"); cap.textContent = title;
         b.append(img, cap); b.addEventListener("click", () => openViewer(n));
         grid.appendChild(b);
