@@ -101,7 +101,7 @@ Remote play works if you plan for it.
 - [ ] Two halves of the Undercroft map (tear it!)
 - [ ] Hall of Doors handout (the five sigils)
 - [ ] Seer's Floor: 25 rune cards + Erik's key (photo)
-- [ ] Seven **lodge keys** with carved or drawn sigils (pointing hand, spiral, eye, wave, heart, sun, hound)
+- [ ] Seven **lodge keys** with carved or drawn sigils (open book, spiral, eye, wave, heart, sun, hound)
 - [ ] Small glass vials with red liquid for **Emberoak Sap**
 - [ ] A rubber fish or a tiny treasure chest for the baby mimic
 - [ ] The troll's toll ledger (a real notebook: write down the secrets players tell!)

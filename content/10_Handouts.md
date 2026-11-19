@@ -72,6 +72,13 @@ Player-facing cards for everything the party can find, win or be given. On the D
 > A bundle of pale dried fish wrapped in reed string. Counts as a day's rations. It tastes wonderful. It tastes like a summer cookout.
 - **DM:** Anyone who eats it makes a DC 12 CON save or is poisoned for 1 hour.
 
+### Pocketful of Chestnuts
+- **Type:** Food, common
+- **Found:** The "What did you do last night?" table
+- **Also called:** chestnuts
+> Your pockets are stuffed with roasted chestnuts from the festival carts, still faintly warm. Enough for **10 days of rations**.
+- **DM:** One of them is not a chestnut. Decide what it is when someone finally eats it.
+
 ## Magic Items
 
 ### Oakheart Mace
@@ -107,6 +114,12 @@ Player-facing cards for everything the party can find, win or be given. On the D
 - **Also called:** +1 ammunition, +1 arrows, +1 bolts
 > A quiver of twenty arrows (or bolts, or sling stones) fletched in festival colors. **+1 to attack and damage rolls** with them. Once one hits its target, it's no longer magical.
 - **DM:** Track the count on the back of the card.
+
+### Gourd Archery Arrows
+- **Type:** Ammunition (5 pieces), uncommon
+- **Found:** The Gourd Archery contest, Winter Festival
+- **Also called:** 5 arrows +1
+> Five arrows with silver-painted fletching, the champion's prize from the Gourd Archery booth. **+1 to attack and damage rolls** with them. Once one hits its target, it's no longer magical.
 
 ### Bag of Holding
 - **Type:** Wondrous item, uncommon
@@ -267,6 +280,42 @@ Player-facing cards for everything the party can find, win or be given. On the D
 > A brass ring of seven keys, each with a carved wooden tag: an open book, a spiral, an eye, a wave, a heart, a sun… The seventh tag, a hound, has been snapped off.
 - **DM:** Opens every lodge except the Hound's Hearth.
 
+### Lodge Key: Open Book
+- **Type:** Key item
+- **Found:** Given by the Keeper, Session 3
+> A warm brass key on a wooden tag carved with **an open book**. It opens the lodge with the same sign over its door. The Keeper pressed it into your hand himself: *"This one's yours. It always was."*
+- **DM:** Inside: A reading nook holding every book you ever loved. Using it: Advantage on one INT check. +1 Contentment. The tell: Past the middle, every book's pages are blank.
+
+### Lodge Key: Spiral
+- **Type:** Key item
+- **Found:** Given by the Keeper, Session 3
+> A warm brass key on a wooden tag carved with **a perfect spiral**. It opens the lodge with the same sign over its door. The Keeper pressed it into your hand himself: *"This one's yours. It always was."*
+- **DM:** Inside: A yard where every thrown thing flies true. Using it: +1 to ranged attacks for the session. +1 Contentment. The tell: The spiral matches the invitations, and the Mayor's ring.
+
+### Lodge Key: Eye
+- **Type:** Key item
+- **Found:** Given by the Keeper, Session 3
+> A warm brass key on a wooden tag carved with **an open, watchful eye**. It opens the lodge with the same sign over its door. The Keeper pressed it into your hand himself: *"This one's yours. It always was."*
+- **DM:** Inside: A bunk room of old cloaks, masks and a crate of sky-rockets. Using it: 10 temporary HP. +1 Contentment. The tell: The crate is stenciled "Confiscated from guests."
+
+### Lodge Key: Wave
+- **Type:** Key item
+- **Found:** Given by the Keeper, Session 3
+> A warm brass key on a wooden tag carved with **a wave beneath a roof**. It opens the lodge with the same sign over its door. The Keeper pressed it into your hand himself: *"This one's yours. It always was."*
+- **DM:** Inside: A deck with a steaming hot spring. Using it: Remove all conditions and exhaustion. +1 Contentment. The tell: The water is a little too warm, and slightly thick.
+
+### Lodge Key: Heart
+- **Type:** Key item
+- **Found:** Given by the Keeper, Session 3
+> A warm brass key on a wooden tag carved with **a heart, with a line of verse beneath it**. It opens the lodge with the same sign over its door. The Keeper pressed it into your hand himself: *"This one's yours. It always was."*
+- **DM:** Inside: Dusty's character's lodge; the lintel reads "I hear it in the deep heart's core." Using it: Advantage on WIS saves. +1 Contentment. The tell: His own initials are carved into the bedpost from years ago. Give this key to Dusty's character.
+
+### Lodge Key: Sun
+- **Type:** Key item
+- **Found:** Given by the Keeper, Session 3
+> A warm brass key on a wooden tag carved with **a sun that never sets**. It opens the lodge with the same sign over its door. The Keeper pressed it into your hand himself: *"This one's yours. It always was."*
+- **DM:** Inside: A porch facing a perfect sunset. Using it: Regain all spell slots. +1 Contentment. The tell: The sunset never finishes setting, and the same bird crosses it every minute. Text Erik first.
+
 ### Iron Key to the Sewer Grate
 - **Type:** Key item
 - **Found:** Auntie Grell
@@ -320,6 +369,31 @@ Player-facing cards for everything the party can find, win or be given. On the D
 > *The rest of your fee on delivery. See that they reach the Gate. The Keeper grows hungry, and the harbor ice must break on time.*
 > *— C.V.*
 
+### Gilded Hand Map Scrap
+- **Type:** Map fragment
+- **Found:** The Banner Run contest; a dropped Gilded Hand pack in the Undercroft
+- **Also called:** map scrap, crude map
+> A torn corner of a hand-copied map, smudged with tallow. An arrow points down from a grate marked **"FROST DOCKS"** to a scrawl of tunnels, and someone has circled a spot near the bottom and written ***"GATE?? — ask C.V."***
+- **DM:** "C.V." is Mayor Corwin Vell. A clue that the Gilded Hand and the Mayor are working together.
+
+### Hall of Five Doors
+- **Type:** Puzzle handout
+- **Found:** The Undercroft, room 8
+- **Also called:** five doors
+> Above the doors: **FOUR DOORS TELL THE TRUTH. ONE DOOR LEADS THROUGH.**
+>
+> **I (a coiled serpent):** "The way is Door II."
+> **II (a tongue of flame):** "I am not the way."
+> **III (a lit lantern):** "Door I is lying."
+> **IV (a snowflake):** "The way is an odd-numbered door."
+> **V (a ship):** "The way is neither Door I nor Door V."
+- **DM:** The answer is Door III, the lantern. Door I is the liar.
+
+### Dead Adventurer's Journal
+- **Type:** Journal
+- **Found:** Behind Door I (the serpent), Hall of Five Doors
+> A mildewed journal, most of it unreadable. The last page is scrawled in a shaking hand: ***"Not the serpent. The light."***
+
 ### The Council Ledger
 - **Type:** Document
 - **Found:** Mayor Corwin Vell
@@ -344,6 +418,40 @@ Player-facing cards for everything the party can find, win or be given. On the D
 - **Found:** The Luggage
 - **Also called:** traveler's journal
 > A water-stained journal. The last entry: *"Day 3 (I think). Everything here is perfect. Mara says we should go home, but I don't see why. I think I'll stay just one more"* — and nothing after.
+
+### The Guest Ledger
+- **Type:** Ledger
+- **Found:** The Welcome Hall counter
+- **Also called:** guest ledger
+> A heavy leather register on a polished counter, open to a fresh page. Hundreds of signatures run back through the years, every one in a different hand, every one followed by the same word in the *Length of stay* column: ***Forever.***
+- **DM:** One of the signatures is in Dusty's character's handwriting. Further back: Mira Grell, sixty years ago.
+
+### A Letter from Home
+- **Type:** Letter
+- **Found:** The Shangri-La Pleasures table
+> A folded letter, addressed to you, in **your own handwriting**. It says only one word:
+>
+> ***Stay.***
+- **DM:** +2 Contentment, and no other benefit. Never explain it.
+
+### A Note in Your Own Handwriting
+- **Type:** Note
+- **Found:** The "What did you do last night?" table
+> A crumpled scrap from your own pocket, in your own handwriting, underlined twice:
+>
+> ***DON'T TRUST THE MAYOR.***
+>
+> You don't remember writing it.
+
+### Dusty's Secret
+- **Type:** Sealed envelope (for Dusty only)
+- **Found:** Given before the weekend
+> Your character doesn't remember the last three years. You woke on the frozen riverbank outside Millhaven in a white robe with a gold spiral stitched on it, an empty glass vial in your fist, your mouth burning like you'd swallowed a coal.
+>
+> Sometimes you dream of a hill, a row of cabins, warm water, and a kind old man who never stops smiling. A line of verse comes to you at odd moments, though you don't know where you learned it: *"I hear it in the deep heart's core."*
+>
+> You have never told anyone. Don't tell the others — yet.
+- **DM:** Seal it in an envelope. See the Table Guide for his flashbacks and how he escaped.
 
 ### Bastian's Letter
 - **Type:** Letter
@@ -400,6 +508,38 @@ Player-facing cards for everything the party can find, win or be given. On the D
 - **Also called:** glass mere
 > A palm-sized sliver of dark, glassy stone. When you look into it, you see your own face as it was exactly one year ago.
 
+### Fine Fur Hat
+- **Type:** Clothing, prize
+- **Found:** The Frozen Fish Toss, Winter Festival
+- **Also called:** fur hat
+> A magnificent hat of silver fox fur with flaps that tie under the chin, won by hurling a frozen fish farther than anyone else. Your ears will never be cold again. **Gain Inspiration.**
+
+### Sled Race Trophy
+- **Type:** Trophy
+- **Found:** The "What did you do last night?" table
+> A small tin cup on a wooden base, engraved ***WINTER FESTIVAL SLED RACE — CHAMPION***. You were the only entrant. It still counts.
+
+### Captain Saye's Boots
+- **Type:** Clothing
+- **Found:** The "What did you do last night?" table
+> You woke up wearing someone else's boots. They're nicer than yours: polished black leather with gilded buckles. They belong to **Captain Roderic Saye** of the Gilded Hand.
+- **DM:** Saye wants them back, and he'll be insufferable about it.
+
+### Engagement Ring
+- **Type:** Ring
+- **Found:** The "What did you do last night?" table
+> A simple silver band with a tiny fish engraved inside. Apparently, at some point last night, you got engaged to **Dagny Hale**, the fish-toss champion.
+
+### Paper Crown
+- **Type:** Crown (paper)
+- **Found:** The "What did you do last night?" table
+> A gold paper crown, slightly crushed. Apparently you're **the Winter King**. Millhaven folk bow as you pass and call you "Majesty."
+
+### Gourd with an Arrow Through It
+- **Type:** Trophy
+- **Found:** The "What did you do last night?" table
+> A dried festival gourd, pierced clean through by a single arrow. You don't know whose arrow. You will not let anyone take it from you.
+
 ## Prizes, Boons & Tokens
 
 ### Winter King's Luck
@@ -431,3 +571,10 @@ Player-facing cards for everything the party can find, win or be given. On the D
 - **Type:** Token (one use)
 - **Found:** The Toll Bridge (a terrible song)
 > A small grey pebble, still damp with troll tears. Add **+1** to any one roll.
+
+### The Keeper's Favor
+- **Type:** Token (one use)
+- **Found:** Beating the Keeper at lawn bowls, Session 3
+- **Also called:** keeper's favor
+> A smooth wooden bowling ball, small enough for your palm, with a gold spiral painted on it. *"Well played, well played! I owe you one, friend."* **The Keeper owes you one favor.**
+- **DM:** He keeps his word, as long as the favor doesn't mean letting anyone leave.
