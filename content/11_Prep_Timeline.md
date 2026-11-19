@@ -5,7 +5,7 @@
 ## Phase 1 — Foundation (Nov 17 – Nov 30)
 - [x] Tone passes (Nov 18): a classic D&D adventure with only a few personal touches; In-Joke Bank and Lore Map retired
 - [ ] Read through the whole folder once; mark what you love and what you'd cut
-- [ ] Pick your **twists** from the Twist Menu ([01_Story_Bible.md](01_Story_Bible.md)) and write them in
+- [x] Pick your **twists** (Nov 19: #1 Paradise is the monster, #2 the Mayor is in on it, #3 Dusty has been here before) from the Twist Menu ([01_Story_Bible.md](01_Story_Bible.md)) and write them in
 - [ ] Decide: 2014 or 2024 rules; set up the D&D Beyond campaign
 - [ ] Confirm the 5th player (yes/no) and adjust encounter sizes if yes
 
@@ -26,7 +26,7 @@
 
 ## Phase 4 — Props & Production (Jan 11 – Jan 22)
 - [ ] Make the golden invitations; **mail Erik's by Jan 15**
-- [ ] Make the seven lodge keys, the Emberoak Sap vials, and the Seer's Floor rune cards
+- [ ] Make the seven lodge keys and the Emberoak Sap vials (Erik's Seer's Floor key is done: `handouts/04-Seer's Floor key (Erik only).png`)
 - [ ] Prepare the Morning Boon cards and the Gate Gift items; find a Memory Token for each player (a coin or trinket)
 - [ ] Print: map halves, Hall of Doors handout, player cheat sheets, roll-table cards
 - [ ] Build playlists (festival / cave / summer); hide one real-weekend song in the summer playlist; make a slowed-down track for the reveal

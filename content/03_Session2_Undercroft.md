@@ -55,7 +55,7 @@ Through the Mudlark sewers lies a busy underground fishing camp of **fishfolk** 
 - The fishfolk are friendly traders and will cook you a meal. 🎲 It's delicious. DC 12 CON or poisoned for 1 hour. (They never get sick. They've adapted.)
 - 💥 **Clue:** the stream flows *up* from below. It's warm and smells faintly of roasting meat. They call their catch "the Keeper's fish" and leave offerings for "the Old Man of the Lake."
 - **Gorm the Garbage Oracle:** in a side chamber lives an *Otyugh*. It's telepathic and *chatty*, and it trades information for interesting garbage. Fighting it is optional and dangerous (CR 5; make that clear, or halve its HP).
-- If the Gilded Hand came this way: their camp, a dead scout, and the Mayor's letter 💥 (if not already found).
+- 💥 **Twist #2 clue: the Mayor's letter.** Whichever way the party came, they find the Gilded Hand's abandoned camp here: a cold fire, a dead scout, and in his coat, the Mayor's letter 📜 (if they didn't already take it off Captain Saye). Signed only *"C.V."* Let the players make the connection.
 
 ## [4] The Three Oaks
 Three enormous **petrified oaks** grow from the cavern floor, their roots wrapped around an ancient stone **steam hall** built by a forgotten people. Steam pours out. It's *too hot.*

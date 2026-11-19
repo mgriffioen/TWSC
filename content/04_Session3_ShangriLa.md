@@ -49,7 +49,7 @@ Track each PC's Contentment on a card in front of them (0–5). Players can SEE 
 
 ### Finding the Missing
 The party finds **Tobias Vell** lounging in a hot spring with a drink, deliriously happy, his skin a little… translucent. He's been here "a long weekend" (actually three weeks; some guests have been here eighty years).
-- 🔀 Twist #4: he refuses to leave and argues convincingly. 🎲 Persuasion DC 15, or roleplay it out. Reminding him of home gives advantage.
+- 🔀 *(Saved twist #4, not chosen; skip by default.)* He refuses to leave and argues convincingly. 🎲 Persuasion DC 15, or roleplay it out. Reminding him of home gives advantage.
 - Auntie Grell's sister, Mira, is here too: twenty years old, sixty years after she arrived.
 
 ### Clues that something's wrong (drop 1–2 every 10 minutes)
@@ -60,7 +60,7 @@ The party finds **Tobias Vell** lounging in a hot spring with a drink, delirious
 - A guest's hand has partly grown into the arm of his lawn chair.
 - The ice in the drinks never melts.
 - The baby mimic (if it's with the party) is terrified and hides in someone's pack.
-- 💥 Twist #3: the Keeper greets **Dusty's** character: *"Welcome back. Your old lodge is just as you left it."*
+- 💥 **Twist #3 (always use it):** the Keeper greets **Dusty's** character: *"Welcome back. Your old lodge is just as you left it."*
 
 ## Movement 2 — 💥 The Reveal (≈20 min)
 
@@ -68,8 +68,9 @@ Triggers when someone forces the Hound's Hearth, tries to leave with the missing
 
 > The music slows… and slows… until the bright tune is a long, low groan. Every guest, every groundskeeper, every smiling face turns toward you at once. The Keeper sighs and takes off his hat. "Leaving early? Ah, that's a shame." Then the hill beneath you **breathes.** The lake drains in a great gurgling swirl. The yellow chute on the raft *uncurls*, wet and pink, and tastes the air. The seven lodges creak and lean inward like teeth. You are not in a valley. You are in a *mouth.*
 
-💥 Optional layers:
-- **Twist #2:** Mayor Vell is here, lounging by the water and "renewing the bargain," and is horrified, or perfectly happy to sacrifice them.
+💥 **Twist #2: the Mayor is here.** As the lake drains, the party spots **Mayor Vell** on a lounger at the water's edge in a white robe with a gold spiral, a drink in his hand. He came down by his own road to "renew the bargain" and deliver them in person. Play him tragic (horrified: *"It was supposed to be painless!"*) or slimy (*"Nothing personal, friends. Millhaven needs its luck."*), whichever you picked in [05_NPCs.md](05_NPCs.md). In the fight, **The Bargain** protects him from the Heart; he flees for the Gate when it starts to go badly. If the party catches him, his ledger and signet ring set up the epilogue.
+
+💥 Saved twists (not chosen; use only if the table needs a jolt):
 - **Twist #5:** Captain Saye is in a hot spring, half-dissolved and smiling: *"I got out once. I came back. You will too."*
 - **Twist #7:** The Keeper offers a deal: *"Leave one behind, and the rest of you can go. I'll even let you take the boy."*
 - **Twist #8:** The Keeper, quietly: *"Mother always said a place is only a home if somebody stays."*
@@ -111,11 +112,11 @@ When the Heart drops, the vale convulses, gags, and starts to **spit everything 
 ## Epilogue
 
 They burst out into the Undercroft and climb up into Millhaven just as the festival ends. The harbor ice, broken by the hammer, is drifting out to sea. For the first time in three hundred years, the city will have to make its own luck.
-- What happens to Mayor Vell and the Lantern Council? (Justice, a mob, a trial, or the Mayor flees.)
+- What happens to Mayor Vell and the Lantern Council? They saw him in the vale, so this is the big question. (Justice, a mob, a trial, or the Mayor flees.)
 - Millhaven's luck starts to run out. Did they doom the city or free it?
 - Auntie Grell meets her sister again, if they brought Mira home.
 - Each player gets a closing moment: *"What does your character do the next morning?"*
-- 🔀 If they took the peaceful route (Twist #8), the vale might still send invitations: just a long weekend, once a year.
+- 🔀 If they took the peaceful route (saved Twist #8, only if you used it), the vale might still send invitations: just a long weekend, once a year.
 
 **Final stinger** (pick one):
 - **Twist #6:** roll 1d10 in front of everyone. That's how many years have passed outside.
