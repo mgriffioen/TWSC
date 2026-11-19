@@ -19,6 +19,13 @@ Player-facing cards for everything the party can find, win or be given. On the D
 - **Also called:** potions of healing
 > A small flask of red liquid that glimmers when shaken. When you drink it (an action), you regain **2d4 + 2** hit points.
 
+### Potion of Greater Healing
+- **Type:** Potion, uncommon
+- **Weight:** 1/2 lb
+- **Found:** Gate Gifts (a pair)
+- **Also called:** potions of greater healing, greater healing
+> A heavy flask of deep red liquid that glows faintly, like an ember. When you drink it (an action), you regain **4d4 + 4** hit points.
+
 ### Potion of Water Breathing
 - **Type:** Potion, uncommon
 - **Value:** 100 gp
@@ -90,7 +97,7 @@ Player-facing cards for everything the party can find, win or be given. On the D
 ### Bag of Holding
 - **Type:** Wondrous item, uncommon
 - **Weight:** 15 lb
-- **Found:** The Heart's final hoard; the "What did you do last night?" table
+- **Found:** The Heart's final hoard; the "What did you do last night?" table; Gate Gifts
 > A plain cloth sack that's far bigger on the inside: it holds up to **500 lb** of gear, but never weighs more than 15 lb. Retrieving an item takes an action. If it is overloaded, pierced or torn, it ruptures and its contents are lost to another plane.
 
 ### Cloak of Protection
@@ -99,6 +106,40 @@ Player-facing cards for everything the party can find, win or be given. On the D
 - **Found:** The Heart's final hoard; the Warden's Cloak Morning Boon
 - **Also called:** warden's cloak
 > A heavy grey cloak lined with silver thread. While you wear it, you gain **+1 to AC and saving throws**.
+
+### Wand of Magic Missiles
+- **Type:** Wand, uncommon
+- **Weight:** 1 lb
+- **Charges:** 7
+- **Found:** Gate Gifts
+- **Also called:** magic missiles
+> A slim wand of pale birch, warm to the touch. As an action, spend charges to cast ***magic missile***: 1 charge for three darts (**1d4 + 1** force damage each), plus one more dart for each extra charge. The darts never miss. Anyone can use it. It regains **1d6 + 1** charges each dawn.
+- **DM:** Each extra charge raises the spell's level by 1. If you spend the last charge, roll a d20: on a 1, the wand crumbles to ash.
+
+### Boots of Striding and Springing
+- **Type:** Wondrous item, uncommon (requires attunement)
+- **Weight:** 1 lb
+- **Found:** Gate Gifts
+- **Also called:** boots of striding
+> Soft boots of grey sealskin with springy cork soles. While you wear them, your walking speed is at least **30 feet**, and heavy armor or a heavy load never slows you. You can jump **three times** your normal distance.
+- **DM:** A jump still can't carry you farther than your remaining movement.
+
+### Gauntlets of Ogre Power
+- **Type:** Wondrous item, uncommon (requires attunement)
+- **Weight:** 2 lb
+- **Found:** Gate Gifts
+> Thick iron-banded gauntlets, scarred from someone else's fights. While you wear them, your **Strength score is 19**.
+- **DM:** No effect if the wearer's Strength is already 19 or higher. Remember to update their attack, damage, Athletics and carrying capacity.
+
+### Pearl of Power
+- **Type:** Wondrous item, uncommon (requires attunement by a spellcaster)
+- **Found:** Gate Gifts
+> A lustrous pearl that hums softly when held near magic. As an action, speak its command word to **regain one spent spell slot** of up to 3rd level. Once used, it rests until the next dawn.
+
+### Periapt of Wound Closure
+- **Type:** Wondrous item, uncommon (requires attunement)
+- **Found:** Gate Gifts
+> A smooth red stone on a leather cord, stitched with a single thread of gold. While you wear it, you **stabilize automatically** at the start of your turn whenever you're dying. When you spend Hit Dice to heal, you regain **twice** the hit points.
 
 ### Spell Scroll of Misty Step
 - **Type:** Spell scroll (2nd level), uncommon
