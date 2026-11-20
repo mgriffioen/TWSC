@@ -13,7 +13,7 @@ Feel free to *rig* a roll if a better story is obvious. The dice are there to in
 | d12 | Rumor |
 |---|---|
 | 1 | ✅ "Folk who go looking for Shangri-La don't come back. Except a few who did. They live out on Ham Point and they're not right." |
-| 2 | ✅ "The Mudlarks hold a sewer grate on the Frost Docks nobody's opened in fifty years. Auntie Grell will play you cards for it." |
+| 2 | ✅ "The Mudlarks hold a sewer grate on the Frost Docks nobody's opened in fifty years. Auntie Grell will play you cards for it. Not that it's any use till the ice breaks." |
 | 3 | ⚠️ "Shangri-La's a treasure vault. The Gilded Hand are going after it tonight." |
 | 4 | ❌ "Shangri-La is up in the mountains. Everyone knows that." |
 | 5 | ✅ "The Mayor's nephew vanished three weeks back. Mayor doesn't seem *that* upset." |
