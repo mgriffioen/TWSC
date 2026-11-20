@@ -12,11 +12,11 @@
  * Bump VERSION when adding or renaming a campaign file so the new list is
  * precached; ordinary edits to existing files arrive on their own.
  */
-const VERSION = "last-resort-v6";
+const VERSION = "last-resort-v7";
 const CONTENT = [
   "00_README.md", "01_Story_Bible.md", "02_Session1_Millhaven.md", "03_Session2_Undercroft.md",
   "04_Session3_ShangriLa.md", "05_NPCs.md", "06_Monsters.md", "07_Puzzles.md", "08_Roll_Tables.md",
-  "09_Table_Guide.md", "10_Handouts.md", "11_Prep_Timeline.md", "12_Magic_Items.md", "13_Portraits.md",
+  "09_Table_Guide.md", "10_Handouts.md", "11_Prep_Timeline.md", "12_Magic_Items.md",
 ].map(f => "content/" + f);
 // Battlemaps and handout art for the Maps page (keep in step with MAPS in index.html).
 const MAPS = [
@@ -25,7 +25,7 @@ const MAPS = [
   "rm09-welcome-hall-seers-floor", "scn5-gilded-hand-fight",
   "ho01-millhaven", "ho02-undercroft", "ho03-shangri-la", "ho04-seers-floor-key",
 ].flatMap(f => ["maps/" + f + ".jpg", "maps/thumbs/" + f + ".jpg"]);
-// Generated NPC and monster portraits (keep in step with the image lines in content/13_Portraits.md).
+// Generated NPC and monster portraits (keep in step with the image lines in content/05_NPCs.md and 06_Monsters.md).
 const PORTRAITS = [
   "alric-thane", "auntie-grell", "baby-mimic", "bastian", "brother-ansel",
   "bullywugs", "content-guests", "corwin-vell", "feast-mimics", "fishfolk",
