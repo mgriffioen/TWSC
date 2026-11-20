@@ -85,6 +85,13 @@ Quick roll-offs. Encourage every player to try one.
 ### 🔍 The Three Clue Rule
 The party needs to learn: **(A)** Shangri-La lies below the city, through the Undercroft; **(B)** there are ways in (the Mudlarks' sewer grate, or the sea-stair under Ham Point); **(C)** the Golden Gate only opens for someone holding an invitation. Every thread gives at least two.
 
+### 🧊 The Ice Is the Lock
+**Both ways in are under the harbor ice, and neither opens until the Mayor breaks it at midnight.** The grate and the sea-stair are real, and the party can earn them tonight, but what they come away with is a *plan for midnight*, not a door they can use now. This keeps the Cartographers' Guild, the Gilded Hand and the sinkhole in play however fast they find an entrance.
+- The NPCs who control each entrance say so up front (see Threads 1 and 3), so it reads as winter, not as a wall the DM put up.
+- Both of them also say a door isn't enough: **you need a map.** That points the party to Ilsabet.
+- 💥 Breaking the ice is what opens the way down. The Mayor's ritual is what feeds the Keeper. Don't explain this; let them notice.
+- At midnight the party is waiting at their chosen entrance with a careful plan… and the Undercroft takes them first (Scene 6).
+
 ### Thread 1 — Ham Point & the Brotherhood of the Returned
 **Ham Point** is a rocky headland at the north end of the harbor, crowded with **smokehouses**. The whole point smells of curing ham, hence the name. Its oldest building is a squat stone smokehouse, now home to the **Brotherhood of the Returned**: a handful of hollow-eyed, oddly sunburned people who went to Shangri-La and came back. Leader: **Brother Ansel**.
 - They live among the smell of roasting meat on purpose: it disgusts them, and that reminds them what happened.
@@ -92,6 +99,8 @@ The party needs to learn: **(A)** Shangri-La lies below the city, through the Un
 - One of them stares at **Dusty's character** as if he's seen a ghost (Twist #3 setup).
 - Brother Ansel gives them his last, nearly empty **vial of Emberoak Sap**: *"This is how I got out. Don't ask me how; I don't remember. I just know it burns, and it hated that."* (One use. See Session 3.)
 - **The sea-stair:** beneath their smokehouse, a sealed stone stair leads down into the Undercroft. They guard it. They will open it only if the party convinces them they're going down to *end* this, not to enjoy it.
+- 🧊 **Not tonight, not yet.** The stair ends at a sea-cave, and the cave mouth is frozen solid; the stair dead-ends at a wall of black ice. Ansel: *"We sealed it from above. Winter sealed it from below. When the ice breaks at midnight, the tide comes back and the way opens. Come back then."*
+- 🗺️ **The map push.** Ansel: *"We got in easy. Getting out cost us everything. Don't go down there without a map."* If they ask, he's heard the mapmaker by the Old Gate has one.
 - **Gives:** A, B, C, and the warning: *"Don't eat the feast. Don't bathe in the springs. And whatever the Keeper offers you, say no."*
 
 ### Thread 2 — The Cartographers' Guild (by the Old Gate)
@@ -100,10 +109,13 @@ A cramped tower of maps by the old city gate, run by **Ilsabet Quill**, a pedant
 - 🎲 Persuasion or Investigation gets the half-map. Or trade: she wants the Gilded Hand's half back, or a promise to map Shangri-La for her.
 - She can read the old Undercroft script. Remember this: she can translate carvings in Session 2 if the party brings back rubbings or sketches.
 - **Gives:** A, B, and the **Hall of Doors** hint.
+- 🛟 **If they skip her:** she comes to them. Word gets around that invitation-holders are in town, and she corners the party at a food stall, map case under her arm, because she wants someone to map Shangri-La for her. Run it as a Festival Event whenever the party is heading toward their entrance without a map. That way the half-map and her Session 2 translations still happen.
 
 ### Thread 3 — The Mudlarks (the Frost Docks)
 Out on the frozen harbor, **Auntie Grell** runs the river thieves from a houseboat locked in the ice.
 - She controls the old sewer grate into the Undercroft. Passage costs coin (50 gp), a favor, or **beating her at cards** (team Insight + Sleight of Hand, best of 3; she cheats, and a DC 14 Perception catches it).
+- 🧊 **Not tonight, not yet.** The grate sits under the frozen harbor beside her houseboat, iced shut. Grell: *"Pay me now and the grate's yours, duckling, soon as His Worship cracks the ice. Not a minute before, unless you fancy chipping through ten feet of harbor with a spoon."*
+- 🗺️ **The map push.** *"My grate gets you in. It doesn't tell you where you are. Go see the fussy one with the maps."*
 - **Gives:** B, and a **Mudlark whistle** (once, it calls a swarm of river rats to help).
 
 ### Festival Events
@@ -111,7 +123,9 @@ Out on the frozen harbor, **Auntie Grell** runs the river thieves from a housebo
 
 ## Scene 5 — The Gilded Hand Makes Its Move (Ham Point)
 
-Late in the night, the Gilded Hand go for the **sea-stair under Ham Point**. They plan to force their way past the Returned with the stolen half-map.
+Late in the night, the Gilded Hand go for the **sea-stair under Ham Point**. They plan to force their way past the Returned with the stolen half-map, so they're in position when the ice breaks at midnight.
+
+This scene comes to the party whatever they did. If they're waiting at Ham Point for midnight, the Gilded Hand walk in on them. If they're waiting at the Frost Docks, a runner from the Returned comes sprinting across the ice: *"They're at the smokehouse. They've got knives."*
 
 🔀 **Party's choice:**
 - **Stop them**: a fight among the smoke racks and hanging hams (smoke gives light obscurement; a cut rope drops a rack of hams on someone: DEX DC 12 or 1d6 and prone). Captain + 3 thugs (*Bandit Captain* at full 65 HP, *Thug* ×1, *Bandits* ×2). Winning gets them the second map half and a note from the Mayor to the Captain 💥: *"See that they reach the Gate. The Keeper grows hungry."*
@@ -123,5 +137,7 @@ Late in the night, the Gilded Hand go for the **sea-stair under Ham Point**. The
 At midnight, the Mayor swings the great iron hammer that breaks the harbor ice, the ritual that ends the Winter Festival. The ice cracks in a long line from the harbor straight up into the city… and under the party's feet. The cobblestones sag, then **collapse.** The Undercroft is opening. It *wants* them.
 
 > The world drops out from under you. Bonfire embers tumble past like falling stars. As you fall, the air grows warmer, much warmer. And from somewhere very deep below, faint and impossible, you hear music… and polite applause.
+
+🛟 **If they broke through early anyway** (magic through the ice, say): let it work and move the cliffhanger. They get partway down the stair or tunnel, then hear the hammer ring out far above at midnight. The passage shakes, the way behind them collapses in a roar of ice and stone, and warm air and polite applause rise from the dark ahead. It's the same ending, just from inside.
 
 **End session.** No level-up. Hand out the **Morning Boons** at breakfast on Saturday (see [09_Table_Guide.md](09_Table_Guide.md)).

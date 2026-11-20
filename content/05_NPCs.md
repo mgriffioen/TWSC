@@ -78,6 +78,7 @@ Every NPC has a **voice/mannerism hook** (something easy to perform), a **want**
 - **Stats:** *Spy* with **22 HP**, plus:
   - **Mudlark Whistle.** Once per day, as a bonus action, she calls a *Swarm of Rats* that arrives at the start of her next turn.
   - **Card Sharp.** Advantage on Sleight of Hand checks to cheat at cards.
+- **The grate is iced shut** until the Mayor breaks the harbor ice at midnight. She'll happily sell passage now for "the minute it opens."
 - **Loot:** The **iron key to the sewer grate**. A **marked deck of cards** (advantage on checks to cheat with it). A strongbox with 60 gp. Robbing her makes every Mudlark in Millhaven an enemy.
 
 ### Brother Ansel — *Leader of the Brotherhood of the Returned, Ham Point*
@@ -86,6 +87,7 @@ Every NPC has a **voice/mannerism hook** (something easy to perform), a **want**
 - **Voice:** Whispers, then suddenly shouts. Flinches at laughter.
 - **Want:** For someone to finally end it.
 - **Gives:** His last vial of Emberoak Sap.
+- **The sea-stair is frozen** at the bottom until the ice breaks at midnight. He insists they find a map before going down.
 - **Secret:** Recognizes Dusty's character. *"You… you were in the lodge with the verse over the door. Two down from mine."*
 - **Stats:** *Acolyte* (9 HP; *bless*, *cure wounds*, *sanctuary*), plus:
   - **Returned.** Immune to being charmed by the Keeper.
