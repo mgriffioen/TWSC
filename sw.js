@@ -12,7 +12,7 @@
  * Bump VERSION when adding or renaming a campaign file so the new list is
  * precached; ordinary edits to existing files arrive on their own.
  */
-const VERSION = "last-resort-v7";
+const VERSION = "last-resort-v8";
 const CONTENT = [
   "00_README.md", "01_Story_Bible.md", "02_Session1_Millhaven.md", "03_Session2_Undercroft.md",
   "04_Session3_ShangriLa.md", "05_NPCs.md", "06_Monsters.md", "07_Puzzles.md", "08_Roll_Tables.md",
@@ -23,6 +23,7 @@ const MAPS = [
   "scn2-fish-toss-fight", "rm02-bullywug-hollow", "rm03-fishfolk-camp", "rm04-three-oaks-steam-hall",
   "rm05-toll-bridge", "rm06-mothers-grave", "rm07-grotto-portal", "rm08-hall-of-five-doors",
   "rm09-welcome-hall-seers-floor", "scn5-gilded-hand-fight",
+  "sla1-the-vale", "sla2-vale-revealed", "sla3-heart-beneath", "sla4-escape-across",
   "ho01-millhaven", "ho02-undercroft", "ho03-shangri-la", "ho04-seers-floor-key",
 ].flatMap(f => ["maps/" + f + ".jpg", "maps/thumbs/" + f + ".jpg"]);
 // Generated NPC and monster portraits (keep in step with the image lines in content/05_NPCs.md and 06_Monsters.md).
