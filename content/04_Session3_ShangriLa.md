@@ -1,4 +1,4 @@
-# Session 3 — Shangri-La (Saturday Evening)
+# Session 3 — Shangri-La
 
 **Length:** 3–4 hours  **Level:** 3  **Goal:** Wonder → creeping unease → dread → 💥 REVEAL → the Heart beneath the Hound's Hearth → escape across the lake → epilogue.
 

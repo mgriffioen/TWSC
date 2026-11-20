@@ -3,8 +3,10 @@
  *
  * - The app and the campaign files are cached on install, so the screen works
  *   offline at the table once it has been opened once.
- * - The page and campaign files are network-first: when online you always get
- *   the latest version, and the cached copy is the fallback.
+ * - The page, campaign files, maps and portraits are network-first: when online
+ *   you always get the latest version, and the cached copy is the fallback.
+ *   Requests skip the browser's HTTP cache (GitHub Pages lets it keep images for
+ *   hours), so a replaced portrait or map shows up on the next load.
  * - Fonts and the markdown library (other sites) are served from cache and
  *   refreshed in the background.
  * - The archived Wild Sheep Chase site under /archive/ is left alone.
@@ -12,7 +14,7 @@
  * Bump VERSION when adding or renaming a campaign file so the new list is
  * precached; ordinary edits to existing files arrive on their own.
  */
-const VERSION = "last-resort-v8";
+const VERSION = "last-resort-v13";
 const CONTENT = [
   "00_README.md", "01_Story_Bible.md", "02_Session1_Millhaven.md", "03_Session2_Undercroft.md",
   "04_Session3_ShangriLa.md", "05_NPCs.md", "06_Monsters.md", "07_Puzzles.md", "08_Roll_Tables.md",
@@ -44,7 +46,7 @@ const SHELL = [
 ];
 
 self.addEventListener("install", event => {
-  event.waitUntil(caches.open(VERSION).then(cache => cache.addAll(SHELL)).then(() => self.skipWaiting()));
+  event.waitUntil(caches.open(VERSION).then(cache => cache.addAll(SHELL.map(u => new Request(u, { cache: "reload" })))).then(() => self.skipWaiting()));
 });
 
 self.addEventListener("activate", event => {
@@ -58,7 +60,8 @@ self.addEventListener("activate", event => {
 async function networkFirst(request) {
   const cache = await caches.open(VERSION);
   try {
-    const response = await fetch(request);
+    // "no-cache" revalidates with the server (a cheap 304 when nothing changed) instead of trusting the HTTP cache.
+    const response = await fetch(request, { cache: "no-cache" });
     if (response.ok) cache.put(request, response.clone());
     return response;
   } catch {

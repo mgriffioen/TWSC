@@ -705,20 +705,20 @@ a.ho-link strong, a.ho-link em { color: inherit; }
 (() => {
   // ---------- campaign files ----------
   const DOCS = [
-    { id: "s1", file: "02_Session1_Millhaven.md", label: "Millhaven", sub: "Fri night", group: "Play" },
-    { id: "s2", file: "03_Session2_Undercroft.md", label: "The Undercroft", sub: "Sat afternoon", group: "Play" },
-    { id: "s3", file: "04_Session3_ShangriLa.md", label: "Shangri-La", sub: "Sat evening", group: "Play" },
-    { id: "tables", file: "08_Roll_Tables.md", label: "Roll Tables", group: "Play" },
-    { id: "handouts", file: "10_Handouts.md", label: "Handouts", sub: "Print for players", group: "Play" },
-    { id: "maps", label: "Maps", sub: "Battlemaps & handout art", group: "Play", maps: true },
+    { id: "s1", file: "02_Session1_Millhaven.md", label: "Millhaven", group: "Story" },
+    { id: "s2", file: "03_Session2_Undercroft.md", label: "The Undercroft", group: "Story" },
+    { id: "s3", file: "04_Session3_ShangriLa.md", label: "Shangri-La", group: "Story" },
+    { id: "tables", file: "08_Roll_Tables.md", label: "Roll Tables", group: "Reference" },
+    { id: "handouts", file: "10_Handouts.md", label: "Items", group: "Reference" },
+    { id: "maps", label: "Maps", group: "Reference", maps: true },
     { id: "npcs", file: "05_NPCs.md", label: "NPCs", group: "Reference" },
     { id: "monsters", file: "06_Monsters.md", label: "Monsters", group: "Reference" },
     { id: "puzzles", file: "07_Puzzles.md", label: "Puzzles", group: "Reference" },
-    { id: "bible", file: "01_Story_Bible.md", label: "Story Bible", group: "Reference" },
     { id: "guide", file: "09_Table_Guide.md", label: "Table Guide", group: "Prep" },
     { id: "items", file: "12_Magic_Items.md", label: "Magic Items", group: "Reference" },
     { id: "timeline", file: "11_Prep_Timeline.md", label: "Prep Timeline", group: "Prep" },
     { id: "overview", file: "00_README.md", label: "Overview", group: "Prep" },
+    { id: "bible", file: "01_Story_Bible.md", label: "Story Bible", group: "Prep" },
   ];
   const byFile = Object.fromEntries(DOCS.filter(d => d.file).map(d => [d.file, d]));
   const text = {};
@@ -730,7 +730,7 @@ a.ho-link strong, a.ho-link em { color: inherit; }
 
   // ---------- rail ----------
   const rail = $("#rail");
-  for (const g of ["Play", "Reference", "Prep"]) {
+  for (const g of ["Story", "Reference", "Prep"]) {
     const wrap = document.createElement("div");
     const h = document.createElement("h3"); h.textContent = g; wrap.appendChild(h);
     for (const d of DOCS.filter(x => x.group === g)) {
@@ -1364,7 +1364,7 @@ a.ho-link strong, a.ho-link em { color: inherit; }
     b.textContent = label; b.title = "Copy this card for SpellMaster";
     return b;
   }
-  // Mentions of a handout on any other page link to its card on the Handouts page.
+  // Mentions of a handout on any other page link to its card on the Items page.
   // Aliases that also name a place, a puzzle or a spell are left out so they don't link by mistake.
   const HO_SKIP = new Set(["glass mere", "five doors", "misty step", "magic missiles", "greater healing", "coral", "bracelet", "gilding", "chestnuts", "festival prize", "+1 weapon", "glows without fuel", "crude map", "house thane", "sewer grate", "lodge keys"]);
   let hoRe = null, hoBy = null;
@@ -1502,7 +1502,7 @@ a.ho-link strong, a.ho-link em { color: inherit; }
       return { n: name.slice(0, 60), i: row.roll ?? 0, ...(pc ? { p: true } : { ...(row.ac != null ? { ac: row.ac } : {}), ...(row.hp != null ? { hp: row.hp } : {}) }) };
     });
     const doc = DOCS.find(d => d.id === current);
-    const t = doc && doc.group === "Play" && doc.id !== "tables" ? doc.label : "Encounter";
+    const t = doc && doc.group === "Story" ? doc.label : "Encounter";
     return `${SPELLMASTER}#init=${b64url(JSON.stringify({ t, c }))}`;
   }
   // LOOT-ROLL (experimental)

@@ -24,13 +24,15 @@
 | [07_Puzzles.md](07_Puzzles.md) | Puzzles with multiple good *and* bad outcomes |
 | [08_Roll_Tables.md](08_Roll_Tables.md) | DM tables and **player-rolled** tables |
 | [09_Table_Guide.md](09_Table_Guide.md) | Running it: new players, remote Erik, Dusty's secret, rewards, props, tools |
-| [10_Handouts.md](10_Handouts.md) | **Player handouts**: loot, potions, scrolls, letters and tokens, ready to print as cards |
+| [10_Handouts.md](10_Handouts.md) | **Items** (the Items page on the DM screen): loot, potions, scrolls, letters and tokens, ready to print as cards |
 | [11_Prep_Timeline.md](11_Prep_Timeline.md) | Countdown checklist from now until the weekend |
 | [12_Magic_Items.md](12_Magic_Items.md) | Reference: 20 uncommon magic items that fit the adventure, for swaps, loot and rewards (PCs don't start with one) |
 
 **Also in the folder (not in the DM screen):**
 - `PROJECT_LOG.md`: how the adventure got here, chapter by chapter, and what's still open
-- `handouts/`: the three maps (harbor city, dungeon, lakeside vale)
+- `handouts/`: the three player maps (harbor city, dungeon, lakeside vale) and Erik's Seer's Floor key
+- `battlemaps/`: the encounter maps (Session 1 fights, Undercroft rooms 2–9, the four Shangri-La maps). The site's Maps page shows JPEG copies, so re-export to `~/Documents/dm-screen/maps/` when one changes
+- `portraits/`: NPC and creature art (PNG originals; the site uses JPEG copies on the NPCs and Monsters pages)
 - `app/dm-screen.html`: the old claude.ai version of the DM screen, superseded by the site
 
 ## Markers used throughout

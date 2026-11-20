@@ -23,7 +23,9 @@ Three petrified oaks surround an ancient stone steam hall. Inside are a sealed c
 
 **The heat:** At the start of each round inside, everyone makes a CON save, DC 10 + the number of rounds they've been inside. On a failure they take 1d6 fire damage. On a failure by 5 or more they also gain 1 level of exhaustion.
 
-**The levers:** The three root-levers cool the hall if pulled in the right order. A clue is carved over the door: *"The youngest first. The eldest last. Then breathe."* Each oak outside has a clean, polished cut showing its rings: **Left Oak: 7 rings. Center Oak: 12 rings. Right Oak: 3 rings.** The correct order is **Right, Left, Center** (3 → 7 → 12).
+**The levers:** The three root-levers cool the hall if pulled in the right order. A clue is carved over the door: *"The youngest first. The eldest last. Then breathe."* Each oak outside has a clean, polished cut showing its rings: **Left Oak: 7 rings. Door Oak: 12 rings. Right Oak: 3 rings.** The correct order is **Right, Left, Door** (3 → 7 → 12).
+
+*On the map* (Rm 04; the party enters from the bottom, so their left is the map's left): the **Left Oak** and **Right Oak** stand behind the hall at its back corners, and the **Door Oak** stands just in front of the entrance steps. Inside, the **left lever** and **right lever** are the roots reaching in from the Left and Right Oaks. The **back lever**, which comes through the rear wall, belongs to the Door Oak: its root runs under the hall and surfaces at the back. Players can trace each root with Investigation or Survival DC 10, or just by looking. The stump tops on the map show dozens of rings, so give the 7 / 12 / 3 counts by description.
 
 | Approach | Outcome |
 |---|---|
@@ -102,29 +104,33 @@ Five doors in a circular hall, each carved with a sigil. Above them: **"FOUR DOO
 
 The Welcome Hall floor is a 5×5 grid of stone tiles, each carved with a rune. The counter is across the room. **Only the Seer can see which tiles are safe**: in his visions, they glow.
 
-**Setup:** 📜 Lay out the grid on the table with index cards. **Text Erik a photo of the key.** The party must cross from the entrance row to the counter row stepping only orthogonally (no diagonals). The rule: **Erik may only whisper one rune name per turn.** The party chooses where to step.
+**Setup:** 📜 Use the battle map (*Rm 09 - The Welcome Hall & the Seer's Floor*): the runes are carved right into the tiles. **Text Erik the key image** ([handouts/04-Seer's Floor key (Erik only).png](handouts/04-Seer's%20Floor%20key%20(Erik%20only).png)). The party must cross from the entrance row to the counter row stepping only orthogonally (no diagonals). The rule: **Erik may only whisper one rune name per turn.** The party chooses where to step.
 
-**The grid** (row 1 is beside the counter; row 5 is the entrance)
+**The grid** as drawn on the map (row 1 is beside the counter; row 5 is by the entrance doors)
 
 | | A | B | C | D | E |
 |---|---|---|---|---|---|
-| **1** | Crown | Key | Moon | Bell | Tower |
-| **2** | Spiral | Lantern | Hound | Eye | Cup |
-| **3** | Wave | Oak | Fish | Serpent | Star |
-| **4** | Hand | Leaf | Shield | Wheel | Arrow |
-| **5** | Flame | Sun | Stone | Feather | Ship |
+| **1** | Star | Moon | Mountain | Pine | Spiral |
+| **2** | Waves | Flame | Anvil | Hammers | Scales |
+| **3** | Wheat | Eye | Sun | Hourglass | Key |
+| **4** | Knot (triquetra) | Tower | Lyre | Stag | Compass |
+| **5** | Book | Feather | Knot (square) | Horseshoe | Crystals |
+
+*Two knots:* call the row 4 one the **Triple Knot** and the row 5 one the **Square Knot** so Erik's whispers are never ambiguous.
 
 **Key (Erik only):**
-- 🟦 **Safe path (6):** STONE → SHIELD → LEAF → OAK → LANTERN → KEY
-- 🟥 **Traps:** FLAME, FISH, SERPENT, SPIRAL, EYE. Each deals 1d6 damage (steam or acid) and a groundskeeper (*Thug*) appears.
-- ⬛ **The worst tile:** HOUND. The floor tips the stepper into **the Luggage** mimic, and the Steward is alerted (no peaceful check-in).
+- 🟦 **Safe path (6):** HORSESHOE → STAG → HOURGLASS → HAMMERS → ANVIL → MOUNTAIN *(D5 → D4 → D3 → D2 → C2 → C1)*
+- 🟥 **Traps:** BOOK, WHEAT, EYE, SUN, WAVES. Each deals 1d6 damage (steam or acid) and a groundskeeper (*Thug*) appears.
+- ⬛ **The worst tile:** SPIRAL, the Keeper's own mark. The floor tips the stepper down a chute into **the Luggage** mimic, and the Steward is alerted (no peaceful check-in).
 - ⬜ **Everything else:** the tile cracks under you. Nothing happens, but you step back and lose your turn.
+
+**The logic (for you, or for a sharp player who asks):** the safe runes are things **Shangri-La doesn't have**: the road away (horseshoe), the wild (stag), time passing (hourglass), honest work (hammers, anvil), and the cold mountains of home. The traps are the vale's lures: the open book, the eye, the sun and the waves are four of the seven **lodge sigils** (players will recognize them in Session 3), and the wheat is the feast. The **Key** tile is a deliberate temptation: it's harmless, but stepping up the right-hand column from it leads through Scales to the Spiral.
 
 | Result | Outcome |
 |---|---|
 | Clean crossing | ✅ The bell rings by itself: *"Honored guests!"* Everyone starts Session 3 with a free pleasure. |
 | Crossing with some traps | ✅ A normal check-in. |
-| The Hound tile | ❌ Luggage fight and Steward fight together. |
+| The Spiral tile | ❌ Luggage fight and Steward fight together. |
 
 ⏱️ Five minutes max. After that, the safe tiles start glowing for everyone.
 

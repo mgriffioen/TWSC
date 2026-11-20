@@ -1,4 +1,4 @@
-# Session 1 — Millhaven (Friday Night)
+# Session 1 — Millhaven
 
 **Length:** 3–4 hours  **Level:** 3  **Goal:** Teach the game, make the frozen city feel alive, gather clues, end on a cliffhanger.
 

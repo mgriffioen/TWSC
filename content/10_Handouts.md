@@ -1,4 +1,4 @@
-# Handouts & Loot Cards
+# Items
 
 Player-facing cards for everything the party can find, win or be given. On the DM screen, every entry has a **🖨 Print** button that sends it to SpellMaster as a card you can tear off and hand across the table. Each stat block's Loot section links to the cards it drops.
 
