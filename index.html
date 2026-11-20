@@ -375,6 +375,25 @@ a.ho-link strong, a.ho-link em { color: inherit; }
   </div>
 
   <aside class="table" id="table" aria-label="Table tools">
+    <section class="sec" id="diceSec">
+      <header><h2>Dice</h2>
+        <div class="seg" role="group" aria-label="d20 mode">
+          <button data-mode="dis" aria-pressed="false">Dis</button>
+          <button data-mode="norm" aria-pressed="true">Normal</button>
+          <button data-mode="adv" aria-pressed="false">Adv</button>
+        </div>
+      </header>
+      <div class="body">
+        <div class="result" aria-live="polite"><span class="big" id="dieBig">—</span><span class="detail" id="dieDetail">Tap a die, a table, or any dice notation in the text.</span></div>
+        <div class="dicegrid">
+          <button data-die="4">d4</button><button data-die="6">d6</button><button data-die="8">d8</button><button data-die="10">d10</button>
+          <button data-die="12">d12</button><button data-die="100">d100</button><button data-die="20" class="d20">d20</button>
+        </div>
+        <form class="custom" id="customForm"><input id="customExpr" placeholder="2d6+3" aria-label="Dice expression"><button class="btn primary" type="submit">Roll</button></form>
+        <ul class="log" id="log"></ul>
+      </div>
+    </section>
+
     <section class="sec">
       <header><h2>Initiative</h2><span class="round" id="roundN">Round 1</span></header>
       <div class="body">
@@ -393,25 +412,6 @@ a.ho-link strong, a.ho-link em { color: inherit; }
           <button class="btn ghost" id="clearInit">Clear</button>
           <button class="btn print" type="button" id="printInit" title="Copy the initiative strip for SpellMaster">🖨 Print strip</button>
         </div>
-      </div>
-    </section>
-
-    <section class="sec">
-      <header><h2>Dice</h2>
-        <div class="seg" role="group" aria-label="d20 mode">
-          <button data-mode="dis" aria-pressed="false">Dis</button>
-          <button data-mode="norm" aria-pressed="true">Normal</button>
-          <button data-mode="adv" aria-pressed="false">Adv</button>
-        </div>
-      </header>
-      <div class="body">
-        <div class="result" aria-live="polite"><span class="big" id="dieBig">—</span><span class="detail" id="dieDetail">Tap a die, a table, or any dice notation in the text.</span></div>
-        <div class="dicegrid">
-          <button data-die="4">d4</button><button data-die="6">d6</button><button data-die="8">d8</button><button data-die="10">d10</button>
-          <button data-die="12">d12</button><button data-die="100">d100</button><button data-die="20" class="d20">d20</button>
-        </div>
-        <form class="custom" id="customForm"><input id="customExpr" placeholder="2d6+3" aria-label="Dice expression"><button class="btn primary" type="submit">Roll</button></form>
-        <ul class="log" id="log"></ul>
       </div>
     </section>
 
@@ -1283,8 +1283,18 @@ a.ho-link strong, a.ho-link em { color: inherit; }
   }
   document.addEventListener("click", e => {
     const b = e.target.closest("button.dice");
-    if (b) rollExpr(b.dataset.expr, b.dataset.label || sectionLabel(b.closest("p,li,td,blockquote") || b).replace(/^[^\w[]+/, "").slice(0, 40));
+    if (!b) return;
+    rollExpr(b.dataset.expr, b.dataset.label || sectionLabel(b.closest("p,li,td,blockquote") || b).replace(/^[^\w[]+/, "").slice(0, 40));
+    if (!b.closest("#statSheet")) showDice();
   });
+  // Slide the table out (or un-hide the panel) and bring the Dice result into view.
+  function showDice() {
+    if (wide.matches) { if (tableHidden) { tableHidden = false; store.set("lr-table-hidden", false); } }
+    else document.body.classList.add("table-open");
+    applyPanels();
+    $("#table").scrollTop = 0;
+    const res = $("#diceSec .result"); res.classList.remove("flash"); void res.offsetWidth; res.classList.add("flash");
+  }
 
   function route() {
     const id = location.hash.slice(1);
