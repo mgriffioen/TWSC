@@ -20,6 +20,8 @@ Open it once while online so the campaign is cached for offline play. After an u
 - **Initiative tracker** with HP bars, Hit and Heal, and downed monsters skipped. Also a party tracker with Contentment and Memory Tokens, a puzzle timer, and session notes.
 - **Printing with [SpellMaster](https://spellmaster.mgriffioen.com/)**: **🖨 Print** on any handout card, stat block or the initiative strip copies the card. Switch to the SpellMaster app, already connected to the printer, and it picks the card up from the clipboard. "Open in a new tab" is the fallback.
 
+- **Skins**: 🎨 in the top bar switches the look: *Night* (the original), *Tome* (parchment rulebook), *Grimoire* (leather and gilt) or *Lido* (1930s resort poster). Add `?skin=tome` to the URL to preview one without saving it. Skins are the `[data-skin=…]` rules in `index.html`.
+
 Party, initiative and notes are saved in the browser on the tablet (`localStorage`).
 
 ## Files

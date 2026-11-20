@@ -12,6 +12,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Spline+Sans+Mono:wght@400;600&display=swap">
+<!-- Fonts for the alternative skins. Browsers only download the faces a skin actually uses. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cinzel+Decorative:wght@700&family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=Alegreya:ital,wght@0,400;0,700;1,400&family=Josefin+Sans:wght@600;700&family=Limelight&family=Work+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap">
+<script>
+/* Apply the chosen skin before first paint (?skin=tome in the URL overrides the saved one for a quick look). */
+(function () {
+  var skins = { night: "#0e1317", tome: "#3a2715", grimoire: "#140d0a", lido: "#0f4f50" }, s = "night";
+  try { s = new URLSearchParams(location.search).get("skin") || JSON.parse(localStorage.getItem("lr-skin") || '"night"'); } catch (e) {}
+  if (!skins[s]) s = "night";
+  document.documentElement.dataset.skin = s;
+  document.querySelector('meta[name="theme-color"]').content = skins[s];
+})();
+</script>
 <style>
 /* Base reset (the same small reset the page had when hosted as a claude.ai artifact). */
 :root { box-sizing: border-box; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
@@ -192,6 +204,7 @@ button.dice { border: 0; padding: 0 4px; border-radius: 4px; background: var(--h
 .result .big.fumble { color: var(--ember); }
 .result .detail { font-family: var(--font-mono); font-size: 0.8em; color: var(--muted); min-width: 0; overflow-wrap: anywhere; }
 .custom { display: flex; gap: 6px; }
+.field { padding: 7px 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--raise); }
 .custom input { flex: 1; min-width: 0; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--raise); font-family: var(--font-mono); }
 .log { list-style: none; margin: 0; padding: 0; font-family: var(--font-mono); font-size: 0.76em; color: var(--muted); display: flex; flex-direction: column; gap: 2px; max-height: 8.5em; overflow: auto; }
 .log b { color: var(--fg); }
@@ -334,6 +347,223 @@ a.ho-link strong, a.ho-link em { color: inherit; }
   .table { transition: none; }
 }
 </style>
+<style>
+/* ==========================================================================
+   Skins. "night" is the base stylesheet above. Each other skin sets the same
+   tokens and then reshapes the furniture (corners, rules, frames, type).
+   Pick one with the 🎨 button; it's saved per tablet as lr-skin.
+   ========================================================================== */
+
+/* ---------- picker ---------- */
+.skinwrap { position: relative; }
+.skinmenu { position: absolute; top: calc(100% + 8px); right: 0; z-index: 50; width: 280px; padding: 6px; display: grid; gap: 4px; background: var(--panel); color: var(--fg); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,.35); }
+.skinmenu button { display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 2px 12px; align-items: center; padding: 8px; border: 1px solid transparent; border-radius: 8px; background: none; text-align: left; }
+.skinmenu button:hover { background: var(--raise); }
+.skinmenu button[aria-checked="true"] { border-color: var(--gold); }
+.skinmenu .sw { grid-row: span 2; height: 40px; border-radius: 6px; border: 1px solid rgba(0,0,0,.25); }
+.skinmenu b { font-weight: 700; }
+.skinmenu small { color: var(--muted); font-size: 0.78em; line-height: 1.3; }
+
+/* ==========================================================================
+   TOME: the rulebook. Parchment page, red rubrics, PHB-style tables and a
+   classic stat block with tapered rules.
+   ========================================================================== */
+:root[data-skin="tome"] {
+  --bg: #efe3c8; --panel: #f6eedb; --raise: #e7d8b6; --line: #cbb48a;
+  --fg: #2a1c10; --muted: #6c5638; --gold: #8c2a14; --gold-ink: #fbf4e4;
+  --frost: #2f5470; --ember: #a3261a; --ok: #3f6b2f; --hit: rgba(140, 42, 20, 0.12);
+  --leaf: #c9a34e; --cover: #3a2715; --cover-ink: #f0dfb8;
+  --font-display: "Cinzel", "Trajan Pro", Georgia, serif;
+  --font-body: "EB Garamond", "Iowan Old Style", Georgia, serif;
+  color-scheme: light;
+}
+[data-skin="tome"] body {
+  font-size: calc(19px * var(--scale)); line-height: 1.45;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(255,250,235,.7), transparent 55%),
+    radial-gradient(ellipse at 100% 100%, rgba(160,120,60,.18), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .1 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+[data-skin="tome"] .app * { border-radius: 2px; }
+[data-skin="tome"] :is(.pip, .chip) { border-radius: 50%; }
+[data-skin="tome"] .chip { border-radius: 999px; }
+/* the bar is the book's leather spine */
+[data-skin="tome"] .bar { background: var(--cover); color: var(--cover-ink); border-bottom: 3px double var(--leaf); }
+[data-skin="tome"] .brand svg path { stroke: var(--leaf); }
+[data-skin="tome"] .brand b { font-weight: 700; letter-spacing: 0.08em; color: var(--cover-ink); }
+[data-skin="tome"] .bar .iconbtn { background: transparent; border-color: rgba(201,163,78,.5); color: var(--cover-ink); }
+[data-skin="tome"] .bar .iconbtn[aria-pressed="true"] { border-color: var(--leaf); color: var(--leaf); }
+[data-skin="tome"] .search input { background: var(--panel); color: var(--fg); border-color: var(--leaf); }
+[data-skin="tome"] .results, [data-skin="tome"] .skinmenu { color: var(--fg); }
+/* rail: a table of contents with a ribbon bookmark */
+[data-skin="tome"] .rail { border-right: 1px solid var(--line); background: rgba(120, 85, 40, 0.06); }
+[data-skin="tome"] .rail h3 { font-family: var(--font-display); font-weight: 700; color: var(--gold); letter-spacing: 0.12em; }
+[data-skin="tome"] .rail a:hover { background: rgba(140,42,20,.06); }
+[data-skin="tome"] .rail a[aria-current="page"] { background: none; box-shadow: none; color: var(--gold); font-weight: 700; position: relative; }
+[data-skin="tome"] .rail a[aria-current="page"]::before { content: ""; position: absolute; left: -10px; top: 4px; bottom: 4px; width: 8px; background: var(--gold); clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%); }
+/* page */
+[data-skin="tome"] .outline { background: var(--bg); border-bottom-color: var(--line); }
+[data-skin="tome"] .outline button { background: transparent; border-color: var(--line); font-family: var(--font-display); font-size: 0.72em; letter-spacing: 0.06em; }
+[data-skin="tome"] .md h1 { font-weight: 700; color: var(--gold); font-size: 2.2em; letter-spacing: 0.02em; }
+[data-skin="tome"] .md h2 { font-weight: 700; color: var(--gold); border-top: 0; padding-top: 0; padding-bottom: 0.15em; border-bottom: 2px solid var(--leaf); font-size: 1.5em; }
+[data-skin="tome"] .md h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.05em; letter-spacing: 0.03em; border-bottom: 1px solid var(--line); padding-bottom: 2px; }
+[data-skin="tome"] .md h1 + p::first-letter { float: left; font-family: var(--font-display); font-weight: 700; font-size: 3.3em; line-height: 0.85; padding: 0.06em 0.08em 0 0; color: var(--gold); }
+[data-skin="tome"] .md blockquote { font-style: italic; background: #e9dcc0; border: 0; border-top: 3px solid #5c4326; border-bottom: 3px solid #5c4326; border-radius: 0; box-shadow: 0 2px 6px rgba(60,40,15,.18); }
+[data-skin="tome"] .md hr { border-top: 2px solid var(--leaf); }
+[data-skin="tome"] .tw { border: 0; border-radius: 0; }
+[data-skin="tome"] .md th { background: transparent; font-family: var(--font-display); font-size: 0.78em; letter-spacing: 0.04em; border-bottom: 1px solid var(--gold); }
+[data-skin="tome"] .md td { border-bottom: 0; }
+[data-skin="tome"] .md tbody tr:nth-child(odd) td { background: rgba(170, 130, 60, 0.18); }
+[data-skin="tome"] .md tr.hit td { background: rgba(140, 42, 20, 0.2); }
+[data-skin="tome"] .md code { background: rgba(170,130,60,.18); }
+[data-skin="tome"] .rollbtn { font-family: var(--font-display); letter-spacing: 0.04em; }
+/* table pane: a second leaf of the book, sections in double frames */
+[data-skin="tome"] .table { background: rgba(120, 85, 40, 0.08); border-left: 1px solid var(--line); gap: 20px; padding-top: 18px; }
+[data-skin="tome"] .sec { background: var(--panel); border: 1px solid var(--line); margin: 0 3px; box-shadow: 0 0 0 3px var(--panel), 0 0 0 4px var(--line), 0 4px 12px rgba(60,40,15,.15); }
+[data-skin="tome"] .sec > header { border-bottom: 1px solid var(--leaf); }
+[data-skin="tome"] .sec > header h2 { font-weight: 700; color: var(--gold); letter-spacing: 0.04em; }
+[data-skin="tome"] :is(.btn, .dicegrid button, .seg, .custom input, .field, .result, .stat input, .stat button, .init input, .sec textarea, .sap, .pc) { background: rgba(255,250,238,.55); }
+[data-skin="tome"] .btn.primary, [data-skin="tome"] .seg button[aria-pressed="true"] { background: var(--gold); color: var(--gold-ink); }
+[data-skin="tome"] .dicegrid button.d20 { border-width: 2px; }
+[data-skin="tome"] .result .big { font-family: var(--font-display); font-weight: 700; }
+/* the classic stat block */
+[data-skin="tome"] .sheet-card { background: #fbf0d9; border: 0; border-radius: 0; box-shadow: 0 0 0 1px #9c7a3c, 0 20px 60px rgba(0,0,0,.45); }
+[data-skin="tome"] .sheet-card::before, [data-skin="tome"] .sheet-card::after { content: ""; display: block; height: 6px; background: #e69a28; border-block: 1px solid #7a5520; }
+[data-skin="tome"] .statblock h3 { font-family: var(--font-display); font-weight: 700; color: #7a200d; letter-spacing: 0.02em; }
+[data-skin="tome"] .statblock h4 { font-family: var(--font-display); font-weight: 700; color: #7a200d; border-bottom: 1px solid #7a200d; font-size: 1.05em; }
+[data-skin="tome"] .statblock hr { height: 5px; border: 0; opacity: 1; background: #922610; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+[data-skin="tome"] .statblock .sb-abil, [data-skin="tome"] .statblock p b { color: #7a200d; }
+[data-skin="tome"] .sb-init { background: #f1e2c2; }
+
+/* ==========================================================================
+   GRIMOIRE: a dark, leather-bound spellbook. Oxblood and gold leaf, gilt
+   double frames, ornamental rules.
+   ========================================================================== */
+:root[data-skin="grimoire"] {
+  --bg: #160e0b; --panel: #20150f; --raise: #2c1d14; --line: #4b3522;
+  --fg: #ecdfc4; --muted: #a8937a; --gold: #d8ae55; --gold-ink: #1c1206;
+  --frost: #9cc4a8; --ember: #e0603e; --ok: #93c27e; --hit: rgba(216, 174, 85, 0.16);
+  --gilt: rgba(216, 174, 85, 0.45); --oxblood: #4a1513;
+  --font-display: "Cinzel", "Trajan Pro", Georgia, serif;
+  --font-body: "Alegreya", "Iowan Old Style", Georgia, serif;
+  color-scheme: dark;
+}
+[data-skin="grimoire"] body {
+  font-size: calc(18px * var(--scale));
+  background: radial-gradient(ellipse at 50% 30%, #23160f, var(--bg) 70%) fixed;
+}
+[data-skin="grimoire"] .app * { border-radius: 3px; }
+[data-skin="grimoire"] :is(.pip) { border-radius: 50%; }
+[data-skin="grimoire"] .chip { border-radius: 999px; }
+[data-skin="grimoire"] .bar { background: linear-gradient(#2a1510, #1b0e0a); border-bottom: 1px solid var(--gold); box-shadow: 0 3px 0 -1px var(--bg), 0 4px 0 -1px var(--gilt); }
+[data-skin="grimoire"] .brand b { font-family: "Cinzel Decorative", var(--font-display); font-weight: 700; color: var(--gold); letter-spacing: 0.04em; }
+[data-skin="grimoire"] .iconbtn { background: transparent; border-color: var(--gilt); }
+[data-skin="grimoire"] .search input { background: rgba(0,0,0,.3); border-color: var(--gilt); }
+[data-skin="grimoire"] .rail { background: rgba(74, 21, 19, 0.18); border-right: 1px solid var(--gilt); }
+[data-skin="grimoire"] .rail h3 { font-family: var(--font-display); color: var(--gold); letter-spacing: 0.2em; }
+[data-skin="grimoire"] .rail h3::before { content: "✦ "; }
+[data-skin="grimoire"] .rail a[aria-current="page"] { background: linear-gradient(90deg, rgba(216,174,85,.18), transparent); box-shadow: inset 2px 0 0 var(--gold); color: var(--gold); }
+[data-skin="grimoire"] .outline { background: rgba(22, 14, 11, .92); backdrop-filter: blur(4px); border-bottom-color: var(--gilt); }
+[data-skin="grimoire"] .outline button { background: transparent; border-color: var(--gilt); font-family: var(--font-display); font-size: 0.7em; letter-spacing: 0.08em; }
+[data-skin="grimoire"] .md h1 { font-family: "Cinzel Decorative", var(--font-display); font-weight: 700; color: var(--gold); text-shadow: 0 1px 0 #000, 0 0 18px rgba(216,174,85,.25); }
+[data-skin="grimoire"] .md h1::after { content: "❧ ✦ ☙"; display: block; margin-top: 0.2em; font-family: var(--font-body); font-size: 0.42em; letter-spacing: 0.4em; color: var(--gold); opacity: 0.7; text-shadow: none; }
+[data-skin="grimoire"] .md h2 { font-weight: 500; color: var(--fg); letter-spacing: 0.04em; border-top: 0; padding-top: 1em; background: linear-gradient(90deg, transparent, var(--gold) 15%, var(--gold) 85%, transparent) top / 100% 1px no-repeat; }
+[data-skin="grimoire"] .md h3 { font-family: var(--font-display); font-weight: 700; font-size: 1em; letter-spacing: 0.06em; }
+[data-skin="grimoire"] .md blockquote { background: rgba(74, 21, 19, .35); border-left: 0; border-radius: 3px; box-shadow: inset 0 0 0 1px var(--gilt), inset 0 0 0 4px var(--bg), inset 0 0 0 5px rgba(216,174,85,.2); padding: 14px 20px; }
+[data-skin="grimoire"] .tw { border-color: var(--gilt); }
+[data-skin="grimoire"] .md th { background: var(--oxblood); color: var(--gold); font-family: var(--font-display); font-size: 0.75em; letter-spacing: 0.08em; }
+[data-skin="grimoire"] .md td { border-bottom-color: rgba(216,174,85,.15); }
+[data-skin="grimoire"] .table { background: rgba(0,0,0,.25); border-left: 1px solid var(--gilt); }
+[data-skin="grimoire"] .sec { background: var(--panel); border: 1px solid var(--gold); box-shadow: inset 0 0 0 3px var(--panel), inset 0 0 0 4px var(--gilt), 0 6px 18px rgba(0,0,0,.5); }
+[data-skin="grimoire"] .sec > header { border-bottom-color: var(--gilt); margin: 0 4px; }
+[data-skin="grimoire"] .sec > header h2 { font-weight: 700; color: var(--gold); letter-spacing: 0.06em; }
+[data-skin="grimoire"] .sec .body { padding: 12px 14px 14px; }
+[data-skin="grimoire"] :is(.btn.primary, .rollbtn, .seg button[aria-pressed="true"]) { background: linear-gradient(#ecc66e, #b8883a); color: var(--gold-ink); border-color: #8a6426; text-shadow: 0 1px 0 rgba(255,240,200,.4); }
+[data-skin="grimoire"] .result .big { font-family: var(--font-display); font-weight: 700; color: var(--gold); }
+[data-skin="grimoire"] .sheet-card { background: var(--panel); border: 1px solid var(--gold); border-top: 1px solid var(--gold); box-shadow: inset 0 0 0 4px var(--panel), inset 0 0 0 5px var(--gilt), 0 20px 60px rgba(0,0,0,.6); }
+[data-skin="grimoire"] .statblock h3, [data-skin="grimoire"] .statblock h4 { font-family: var(--font-display); font-weight: 700; }
+[data-skin="grimoire"] .statblock hr { border-top: 1px solid var(--gold); }
+
+/* ==========================================================================
+   LIDO: the resort brochure. A 1930s travel poster: teal, coral and
+   mustard, an awning-striped header, flat ink-outlined cards with hard
+   shadows.
+   ========================================================================== */
+:root[data-skin="lido"] {
+  --bg: #f3ead7; --panel: #fbf5e8; --raise: #ece0c6; --line: #1d3a3b;
+  --fg: #1b2a2b; --muted: #5a6964; --gold: #d4532f; --gold-ink: #fff8ec;
+  --frost: #0e6a6a; --ember: #c2321f; --ok: #2d7a55; --hit: rgba(232, 176, 52, 0.38);
+  --teal: #0f4f50; --mustard: #e8b034; --cream: #fbf5e8; --hair: rgba(29, 58, 59, 0.22);
+  --font-display: "Limelight", "Didot", Georgia, serif;
+  --font-label: "Josefin Sans", "Futura", "Century Gothic", sans-serif;
+  --font-body: "Work Sans", "Avenir Next", system-ui, sans-serif;
+  color-scheme: light;
+}
+[data-skin="lido"] body { font-size: calc(16.5px * var(--scale)); }
+[data-skin="lido"] .app * { border-radius: 0; }
+[data-skin="lido"] .pip { border-radius: 50%; }
+/* awning header */
+[data-skin="lido"] .bar { color: var(--cream); border-bottom: 0; padding-bottom: 20px;
+  background:
+    repeating-linear-gradient(90deg, var(--gold) 0 28px, var(--cream) 28px 56px) bottom / 100% 10px no-repeat,
+    var(--teal); }
+[data-skin="lido"] .brand svg path { stroke: var(--mustard); }
+[data-skin="lido"] .brand b { font-family: var(--font-display); font-size: 1.45em; letter-spacing: 0.04em; color: var(--cream); }
+[data-skin="lido"] .bar .iconbtn { background: transparent; color: var(--cream); border: 2px solid rgba(251,245,232,.6); }
+[data-skin="lido"] .bar .iconbtn[aria-pressed="true"] { background: var(--mustard); color: var(--teal); border-color: var(--mustard); }
+[data-skin="lido"] .search input { background: var(--cream); color: var(--fg); border: 2px solid var(--line); }
+[data-skin="lido"] .results, [data-skin="lido"] .skinmenu { color: var(--fg); border: 2px solid var(--line); box-shadow: 5px 5px 0 var(--line); }
+[data-skin="lido"] .rail { border-right: 2px solid var(--line); }
+[data-skin="lido"] .rail h3 { font-family: var(--font-label); font-weight: 700; color: var(--frost); letter-spacing: 0.2em; }
+[data-skin="lido"] .rail a { font-weight: 500; }
+[data-skin="lido"] .rail a:hover { background: var(--raise); }
+[data-skin="lido"] .rail a[aria-current="page"] { background: var(--teal); color: var(--cream); box-shadow: 4px 4px 0 var(--gold); }
+[data-skin="lido"] .rail a[aria-current="page"] .l small { color: var(--mustard); }
+[data-skin="lido"] .outline { background: var(--bg); border-bottom: 2px solid var(--line); }
+[data-skin="lido"] .outline button { font-family: var(--font-label); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.72em; padding-top: 8px; border: 2px solid var(--line); background: var(--panel); }
+[data-skin="lido"] .outline button:hover { background: var(--mustard); border-color: var(--line); }
+[data-skin="lido"] .md h1 { font-family: var(--font-display); color: var(--teal); font-size: 2.3em; letter-spacing: 0.01em; }
+[data-skin="lido"] .md h1::after { content: ""; display: block; width: 120px; height: 8px; margin-top: 0.3em; background: linear-gradient(90deg, var(--gold) 0 33%, var(--mustard) 33% 66%, var(--frost) 66%); }
+[data-skin="lido"] .md h2 { font-family: var(--font-label); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; font-size: 1.3em; color: var(--teal); border-top: 2px solid var(--line); padding-top: 0.9em; }
+[data-skin="lido"] .md h3 { font-family: var(--font-label); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 1em; }
+[data-skin="lido"] .md strong { font-weight: 700; }
+[data-skin="lido"] .md blockquote { font-style: normal; background: var(--teal); color: var(--cream); border-left: 0; box-shadow: 6px 6px 0 var(--mustard); padding: 16px 20px; }
+[data-skin="lido"] .md blockquote strong { color: var(--mustard); }
+[data-skin="lido"] .md blockquote a { color: var(--mustard); }
+[data-skin="lido"] .tw { border: 2px solid var(--line); box-shadow: 5px 5px 0 var(--hair); }
+[data-skin="lido"] .md th { background: var(--teal); color: var(--cream); font-family: var(--font-label); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.75em; padding-top: 10px; }
+[data-skin="lido"] .md td { border-bottom: 1px solid var(--hair); }
+[data-skin="lido"] .md code { background: var(--raise); }
+[data-skin="lido"] .md hr { border-top: 2px solid var(--line); }
+/* chunky printed buttons */
+[data-skin="lido"] :is(.btn, .rollbtn, .dicegrid button, .iconbtn) { border: 2px solid var(--line); box-shadow: 3px 3px 0 var(--line); font-weight: 600; transition: transform .05s, box-shadow .05s; }
+[data-skin="lido"] .bar .iconbtn { box-shadow: none; }
+[data-skin="lido"] :is(.btn, .rollbtn, .dicegrid button):active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--line); }
+[data-skin="lido"] :is(.btn, .dicegrid button) { background: var(--panel); }
+[data-skin="lido"] .btn.primary, [data-skin="lido"] .rollbtn { background: var(--gold); color: var(--gold-ink); border-color: var(--line); }
+[data-skin="lido"] .dicegrid button.d20 { background: var(--mustard); color: var(--teal); border-color: var(--line); }
+[data-skin="lido"] .seg { border: 2px solid var(--line); }
+[data-skin="lido"] .seg button[aria-pressed="true"] { background: var(--teal); color: var(--cream); }
+[data-skin="lido"] .table { background: var(--raise); border-left: 2px solid var(--line); gap: 18px; }
+[data-skin="lido"] .sec { background: var(--panel); border: 2px solid var(--line); box-shadow: 6px 6px 0 var(--line); margin-right: 6px; }
+[data-skin="lido"] .sec > header { background: var(--teal); color: var(--cream); border-bottom: 2px solid var(--line); }
+[data-skin="lido"] .sec > header h2 { font-family: var(--font-label); font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.95em; padding-top: 3px; }
+[data-skin="lido"] .sec > header :is(.round, .save, .small) { color: var(--mustard); }
+[data-skin="lido"] .sec > header .seg { border-color: var(--cream); }
+[data-skin="lido"] .sec > header .seg button { color: var(--cream); }
+[data-skin="lido"] .sec > header .seg button[aria-pressed="true"] { background: var(--mustard); color: var(--teal); }
+[data-skin="lido"] .sec > header :is(.btn, .xbtn) { color: var(--fg); }
+[data-skin="lido"] .result { background: var(--cream); border: 2px dashed var(--hair); }
+[data-skin="lido"] .result .big { font-family: var(--font-display); font-weight: 400; color: var(--teal); }
+[data-skin="lido"] :is(.custom input, .field, .stat input, .init input, .sec textarea) { background: var(--cream); border: 2px solid var(--hair); }
+[data-skin="lido"] .sheet-card { border: 2px solid var(--line); border-top: 10px solid var(--teal); box-shadow: 10px 10px 0 var(--gold); }
+[data-skin="lido"] .statblock h3 { font-family: var(--font-display); color: var(--teal); }
+[data-skin="lido"] .statblock h4 { font-family: var(--font-label); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); font-size: 0.95em; }
+[data-skin="lido"] .statblock hr { border-top: 3px solid var(--mustard); opacity: 1; }
+[data-skin="lido"] .map-card { border: 2px solid var(--line); box-shadow: 4px 4px 0 var(--line); }
+@media (max-width: 1099px) { [data-skin="lido"] .sec { margin-right: 6px; } }
+</style>
 </head>
 <body>
 
@@ -349,6 +579,10 @@ a.ho-link strong, a.ho-link em { color: inherit; }
       <div class="results" id="results" hidden></div>
     </div>
     <div class="tools">
+      <div class="skinwrap">
+        <button class="iconbtn" id="skinBtn" aria-haspopup="true" aria-expanded="false" aria-controls="skinMenu" title="Change the look" aria-label="Change the look"><span class="ic">🎨</span></button>
+        <div class="skinmenu" id="skinMenu" role="radiogroup" aria-label="Look" hidden></div>
+      </div>
       <button class="iconbtn" id="wakeBtn" aria-pressed="false" title="Keep the screen awake" aria-label="Keep the screen awake"><span class="ic">☀</span></button>
       <button class="iconbtn" id="tableToggle" aria-expanded="false" aria-controls="table" title="Show or hide the dice and trackers" aria-label="Show or hide the dice and trackers"><span class="ic">🎲</span></button>
     </div>
@@ -399,9 +633,9 @@ a.ho-link strong, a.ho-link em { color: inherit; }
       <div class="body">
         <ul class="init" id="init"></ul>
         <form class="row" id="initForm">
-          <input id="initName" placeholder="Name" aria-label="Combatant name" style="flex:1;min-width:0;padding:7px 8px;border-radius:8px;border:1px solid var(--line);background:var(--raise)">
-          <input id="initRoll" placeholder="Init" inputmode="numeric" aria-label="Initiative" style="width:4.2em;padding:7px 8px;border-radius:8px;border:1px solid var(--line);background:var(--raise);text-align:center">
-          <input id="initHp" placeholder="HP" inputmode="numeric" aria-label="Hit points" style="width:4.2em;padding:7px 8px;border-radius:8px;border:1px solid var(--line);background:var(--raise);text-align:center">
+          <input id="initName" placeholder="Name" aria-label="Combatant name" class="field" style="flex:1;min-width:0">
+          <input id="initRoll" placeholder="Init" inputmode="numeric" aria-label="Initiative" class="field" style="width:4.2em;text-align:center">
+          <input id="initHp" placeholder="HP" inputmode="numeric" aria-label="Hit points" class="field" style="width:4.2em;text-align:center">
           <button class="btn" type="submit">Add</button>
         </form>
         <div class="row">
@@ -1370,6 +1604,31 @@ a.ho-link strong, a.ho-link em { color: inherit; }
     try { wake = await navigator.wakeLock.request("screen"); $("#wakeBtn").setAttribute("aria-pressed", "true"); wake.addEventListener("release", () => { if (!wantWake) $("#wakeBtn").setAttribute("aria-pressed", "false"); }); }
     catch { wantWake = false; $("#wakeBtn").setAttribute("aria-pressed", "false"); $("#wakeBtn").title = "This browser won't keep the screen awake. Turn off auto-lock in the tablet's settings instead."; }
   }
+  // ---------- skins (the stylesheets are in <head>; the early script there applies the saved one) ----------
+  const SKINS = [
+    { id: "night", name: "Night", note: "Slate, gold and frost. The original.", color: "#0e1317", sw: ["#0e1317", "#1c252d", "#d8b25a", "#8cc2d5"] },
+    { id: "tome", name: "Tome", note: "Parchment rulebook, red rubrics, classic stat blocks.", color: "#3a2715", sw: ["#efe3c8", "#3a2715", "#8c2a14", "#c9a34e"] },
+    { id: "grimoire", name: "Grimoire", note: "Leather-bound spellbook with gilt frames.", color: "#140d0a", sw: ["#160e0b", "#4a1513", "#d8ae55", "#9cc4a8"] },
+    { id: "lido", name: "Lido", note: "1930s resort poster: awnings, teal and coral.", color: "#0f4f50", sw: ["#f3ead7", "#0f4f50", "#d4532f", "#e8b034"] },
+  ];
+  const skinBtn = $("#skinBtn"), skinMenu = $("#skinMenu");
+  skinMenu.innerHTML = SKINS.map(k => `<button role="radio" data-id="${k.id}" aria-checked="false"><span class="sw" style="background:linear-gradient(135deg, ${k.sw[0]} 0 40%, ${k.sw[1]} 40% 60%, ${k.sw[2]} 60% 80%, ${k.sw[3]} 80%)"></span><b>${k.name}</b><small>${k.note}</small></button>`).join("");
+  function applySkin(id) {
+    const k = SKINS.find(k => k.id === id) || SKINS[0];
+    document.documentElement.dataset.skin = k.id;
+    document.querySelector('meta[name="theme-color"]').content = k.color;
+    skinMenu.querySelectorAll("button").forEach(b => b.setAttribute("aria-checked", String(b.dataset.id === k.id)));
+  }
+  function closeSkinMenu() { skinMenu.hidden = true; skinBtn.setAttribute("aria-expanded", "false"); }
+  applySkin(document.documentElement.dataset.skin);
+  skinBtn.addEventListener("click", e => { e.stopPropagation(); skinMenu.hidden = !skinMenu.hidden; skinBtn.setAttribute("aria-expanded", String(!skinMenu.hidden)); });
+  skinMenu.addEventListener("click", e => {
+    const b = e.target.closest("button[data-id]"); if (!b) return;
+    e.stopPropagation(); store.set("lr-skin", b.dataset.id); applySkin(b.dataset.id);
+  });
+  document.addEventListener("click", e => { if (!skinMenu.hidden && !e.target.closest(".skinwrap")) closeSkinMenu(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !skinMenu.hidden) { closeSkinMenu(); skinBtn.focus(); } });
+
   $("#wakeBtn").addEventListener("click", () => {
     if (wantWake) { wantWake = false; wake && wake.release(); wake = null; $("#wakeBtn").setAttribute("aria-pressed", "false"); }
     else { wantWake = true; getWake(); }
