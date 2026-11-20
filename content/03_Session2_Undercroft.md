@@ -1,4 +1,4 @@
-# Session 2 — The Undercroft (Saturday Afternoon)
+# Session 2 — The Undercroft
 
 **Length:** 3–4 hours  **Level:** 3  **Goal:** A classic dungeon crawl with strange monsters, puzzles, choices and rising dread. Every room is a little *warmer* and a little more like summer. It ends at the Golden Gate.
 
