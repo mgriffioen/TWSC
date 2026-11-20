@@ -191,7 +191,7 @@ Player-facing cards for everything the party can find, win or be given. On the D
 
 ## More Magic Items (not placed)
 
-Fifteen more official **uncommon** items from the *Dungeon Master's Guide* that fit the adventure. None is placed in the story, and none would unbalance a level 3 party. PCs don't start with a magic item: theirs comes from the **Gate Gifts** at dinner before Session 3 (see the [Table Guide](09_Table_Guide.md)).
+Eighteen more official **uncommon** items from the *Dungeon Master's Guide* that fit the adventure. None is placed in the story, and none would unbalance a level 3 party. PCs don't start with a magic item: theirs comes from the **Gate Gifts** at dinner before Session 3 (see the [Table Guide](09_Table_Guide.md)).
 
 **If you hand one out:**
 - **Where they fit:** a swap if a player wants something off the Gate Gift list, a find in the Undercroft, or a reward from an NPC (the Mudlarks' favor, the Returned's thanks).
@@ -300,6 +300,26 @@ Fifteen more official **uncommon** items from the *Dungeon Master's Guide* that 
 - **Found:** Not placed: a swap, find or reward
 > Bone pipes that play a thin, cold tune. As an action, spend 1 charge: each creature you choose within **30 feet** that can hear them must make a **DC 15 Wisdom save** or be **frightened** of you for 1 minute. It regains **1d3** charges each dawn.
 - **DM:** A frightened creature repeats the save at the end of each of its turns. Fear makes guests "indigestible." Optional ruling: playing them on allies drops everyone's Contentment by 1, once per session.
+
+### Goggles of Night
+- **Type:** Wondrous item, uncommon
+- **Found:** Not placed: a swap, find or reward
+> Smoked-glass goggles in a frame of blackened brass. While you wear them, you have **darkvision out to 60 feet**. If you already have darkvision, its range grows by 60 feet.
+- **DM:** The Undercroft is dark all the way down. Gives a human or halfling PC a reason to scout ahead.
+
+### Rope of Climbing
+- **Type:** Wondrous item, uncommon
+- **Weight:** 3 lb
+- **Found:** Not placed: a swap, find or reward
+> Sixty feet of thin, silky rope that holds up to **3,000 lb**. Hold one end and speak the command word (an action), and the rope **moves on its own** toward a spot you choose, 10 feet per turn, and fastens itself there. On command it can tie knots every foot to climb by, or untie and coil back to you.
+- **DM:** Chasms, the Toll Bridge and the yellow chute. AC 20 and 20 HP; it repairs itself if it isn't destroyed.
+
+### Cloak of Elvenkind
+- **Type:** Wondrous item, uncommon (requires attunement)
+- **Weight:** 1 lb
+- **Found:** Not placed: a swap, find or reward
+> A grey-green cloak whose color shifts to match whatever is behind you. While you wear it with the hood up, creatures have **disadvantage on Wisdom (Perception) checks to see you**, and you have **advantage on Dexterity (Stealth) checks** to hide.
+- **DM:** Slip past the Gilded Hand in Millhaven, or the groundskeepers in the vale.
 
 ## Treasure & Valuables
 
