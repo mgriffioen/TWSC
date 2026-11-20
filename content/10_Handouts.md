@@ -189,6 +189,118 @@ Player-facing cards for everything the party can find, win or be given. On the D
 - **Also called:** glows without fuel
 > A festival paper lantern that kept glowing after the imp inside it died. It sheds bright light in a 15-foot radius **without fuel** until the next dawn, then goes dark forever.
 
+## More Magic Items (not placed)
+
+Fifteen more official **uncommon** items from the *Dungeon Master's Guide* that fit the adventure. None is placed in the story, and none would unbalance a level 3 party. PCs don't start with a magic item: theirs comes from the **Gate Gifts** at dinner before Session 3 (see the [Table Guide](09_Table_Guide.md)).
+
+**If you hand one out:**
+- **Where they fit:** a swap if a player wants something off the Gate Gift list, a find in the Undercroft, or a reward from an NPC (the Mudlarks' favor, the Returned's thanks).
+- **New players:** steer them to items with one obvious use, like *Sentinel Shield* or *Immovable Rod* (or the Gate Gift *Wand*, *Boots* and *Gauntlets* above).
+- **Dusty:** *Ring of Mind Shielding* or *Eyes of Minute Seeing* will surface his secret in interesting ways.
+- **Erik (the Seer):** *Medallion of Thoughts* or *Eyes of Minute Seeing* give him more secrets to text about.
+- **No duplicates.** First pick wins; let them roll d20 for order if two want the same one.
+
+### Sentinel Shield
+- **Type:** Armor (shield), uncommon
+- **Weight:** 6 lb
+- **Found:** Not placed: a swap, find or reward
+> A round shield with a wide-open eye painted on its face, the paint still bright. While you hold it, you have **advantage on initiative rolls** and **Wisdom (Perception) checks**.
+- **DM:** The mimics' whole trick is surprise. This is the anti-ambush item.
+
+### Bracers of Archery
+- **Type:** Wondrous item, uncommon (requires attunement)
+- **Weight:** 1 lb
+- **Found:** Not placed: a swap, find or reward
+> Leather bracers stitched with a pattern of fletching. While you wear them, you're proficient with the **longbow and shortbow**, and you gain **+2 to damage rolls** with them.
+- **DM:** Built for the ranged duel with the kobold sappers across the chasm.
+
+### Immovable Rod
+- **Type:** Rod, uncommon
+- **Weight:** 2 lb
+- **Found:** Not placed: a swap, find or reward
+> A flat iron rod with a button on one end. Press the button (an action) and the rod **locks in place** in midair, holding up to **8,000 lb**. Press it again to release it. Moving it while it's locked takes a DC 30 Strength check.
+- **DM:** Brace a closing jaw, pin a mimic lid, wedge the yellow chute. New players love it.
+
+### Helm of Comprehending Languages
+- **Type:** Wondrous item, uncommon
+- **Weight:** 3 lb
+- **Found:** Not placed: a swap, find or reward
+> A dented bronze helm with tiny letters from a dozen alphabets etched around the brim. While you wear it, you can cast ***comprehend languages*** at will.
+- **DM:** Lets them read the old Undercroft carvings without hauling rubbings back to Ilsabet Quill.
+
+### Lantern of Revealing
+- **Type:** Wondrous item, uncommon
+- **Weight:** 2 lb
+- **Found:** Not placed: a swap, find or reward
+> A hooded lantern with clear crystal panes. Lit, it sheds bright light in a **30-foot radius** for 6 hours on a pint of oil, and **invisible creatures and objects** in that light become visible.
+- **DM:** A lantern that sees the truth, carried into a city run by the *Lantern* Council.
+
+### Necklace of Adaptation
+- **Type:** Wondrous item, uncommon (requires attunement)
+- **Found:** Not placed: a swap, find or reward
+> A chain of tiny glass beads, each holding a bubble of air. While you wear it, you can **breathe normally in any environment**, and you have **advantage on saving throws against harmful gases and vapors**.
+- **DM:** The steam of the Three Oaks hall, and the fumes off the "hot springs."
+
+### Gloves of Thievery
+- **Type:** Wondrous item, uncommon
+- **Found:** Not placed: a swap, find or reward
+> Thin black gloves that vanish the moment you pull them on. While you wear them, they're **invisible**, and you gain **+5 to Dexterity (Sleight of Hand) checks** and to checks to pick locks.
+- **DM:** Lifting a lodge key off a groundskeeper, or the Mayor's signet ring.
+
+### Ring of Mind Shielding
+- **Type:** Ring, uncommon (requires attunement)
+- **Found:** Not placed: a swap, find or reward
+> A plain silver band that feels cool against the skin. While you wear it, you're **immune to magic that would read your thoughts**, tell whether you're lying, or learn your nature. Telepathy reaches you only if you allow it.
+- **DM:** **The Host reads its guests to build their paradise.** Suggested ruling: it can't read this PC, so their lodge is strangely *blank* and the Keeper gets their name wrong. A great early tell.
+
+### Eyes of Minute Seeing
+- **Type:** Wondrous item, uncommon
+- **Found:** Not placed: a swap, find or reward
+> Two crystal lenses that fit over the eyes. While you wear them, you have **advantage on Intelligence (Investigation) checks** that rely on sight when you're searching an area or studying an object within **1 foot** of you.
+- **DM:** The vale is an imperfect copy. These spot the carvings that change and the cart that leaves no tracks.
+
+### Medallion of Thoughts
+- **Type:** Wondrous item, uncommon (requires attunement)
+- **Weight:** 1 lb
+- **Charges:** 3
+- **Found:** Not placed: a swap, find or reward
+> A bronze medallion with an open eye on one side and a closed one on the other. As an action, spend 1 charge to cast ***detect thoughts*** (save DC 13). It regains **1d3** charges each dawn.
+- **DM:** A natural fit for the Seer. Read the Keeper and find… nothing human behind the smile.
+
+### Stone of Good Luck
+- **Type:** Wondrous item, uncommon (requires attunement)
+- **Found:** Not placed: a swap, find or reward
+- **Also called:** luckstone
+> A smooth agate, worn shiny by nervous thumbs. While it's on your person, you gain **+1 to ability checks and saving throws**.
+- **DM:** A pocket of the luck Millhaven has been buying for 300 years, and real help against "Stay a While."
+
+### Hat of Disguise
+- **Type:** Wondrous item, uncommon (requires attunement)
+- **Found:** Not placed: a swap, find or reward
+> A battered felt hat that never looks quite the same twice. While you wear it, you can cast ***disguise self*** at will. The spell ends if the hat comes off.
+- **DM:** Pass as a Gilded Hand mercenary in town, or as a groundskeeper in the vale.
+
+### Ring of Warmth
+- **Type:** Ring, uncommon (requires attunement)
+- **Found:** Not placed: a swap, find or reward
+> A copper ring that's always warm, like a mug of cider. While you wear it, you have **resistance to cold damage**, and you and everything you wear and carry are unharmed by temperatures as low as **−50°F**.
+- **DM:** A frozen harbor city at midwinter. Also a reminder that it *should* be cold, wherever you are.
+
+### Eversmoking Bottle
+- **Type:** Wondrous item, uncommon
+- **Weight:** 1 lb
+- **Found:** Not placed: a swap, find or reward
+> A brass bottle that's always faintly warm, with smoke curling inside the glass. As an action, unstopper it and thick smoke pours out in a **60-foot radius**, heavily obscuring the area. Stopper it again (an action) and the smoke clears after 10 minutes.
+- **DM:** The cloud grows 10 ft for each minute it stays open, to 120 ft. Smoke from Ham Point, the smell the Returned use to keep from forgetting. Great cover for an escape.
+
+### Pipes of Haunting
+- **Type:** Wondrous item, uncommon (requires proficiency with wind instruments)
+- **Weight:** 2 lb
+- **Charges:** 3
+- **Found:** Not placed: a swap, find or reward
+> Bone pipes that play a thin, cold tune. As an action, spend 1 charge: each creature you choose within **30 feet** that can hear them must make a **DC 15 Wisdom save** or be **frightened** of you for 1 minute. It regains **1d3** charges each dawn.
+- **DM:** A frightened creature repeats the save at the end of each of its turns. Fear makes guests "indigestible." Optional ruling: playing them on allies drops everyone's Contentment by 1, once per session.
+
 ## Treasure & Valuables
 
 ### Gold Leaf from the Golden Cart
