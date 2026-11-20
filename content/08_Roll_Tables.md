@@ -155,7 +155,10 @@ Feel free to *rig* a roll if a better story is obvious. The dice are there to in
 | 13 | **Ring of Warmth** 🔗 | Resistance to cold damage; comfortable down to −50°F |
 | 14 | **Eversmoking Bottle** | Pours out a 60-ft cloud of heavy smoke |
 | 15 | **Pipes of Haunting** | 3 charges; frighten creatures within 30 ft. (DC 15 WIS) |
-| 16–20 | **Player's choice** | Pick any item on this table |
+| 16 | **Goggles of Night** | Darkvision out to 60 ft. |
+| 17 | **Rope of Climbing** | 60 ft. of rope that climbs, fastens and knots itself on command |
+| 18 | **Cloak of Elvenkind** 🔗 | Hood up: hard to see; advantage on Stealth to hide |
+| 19–20 | **Reroll** | Roll again |
 
 ## 🎩 Escape Complications (d8) — Session 3 Chase
 
