@@ -114,7 +114,7 @@ Feel free to *rig* a roll if a better story is obvious. The dice are there to in
 | 2 | **The Hot Spring** | Remove all conditions and exhaustion |
 | 3 | **The Yellow Chute** off the raft | Gain Inspiration (+2 Contentment instead of +1) |
 | 4 | **The Bonfire Leap** | 10 temp HP |
-| 5 | **The Keeper's Gift** | Choose one uncommon magic item from the [Magic Items reference](12_Magic_Items.md) (it's made of the Host…) |
+| 5 | **The Keeper's Gift** | Choose one uncommon magic item from the [Items page](10_Handouts.md) (it's made of the Host…) |
 | 6 | **A Nap in the Lodge** | Regain all spell slots and features. Lose an hour. Dream of staying forever (+2 Contentment) |
 | 7 | **A cordial at the Driftwood Hut** | Roll on the Driftwood Cordial table |
 | 8 | **A swim in the lake** | Advantage on CHA checks for 1 hour |

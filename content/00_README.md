@@ -26,7 +26,6 @@
 | [09_Table_Guide.md](09_Table_Guide.md) | Running it: new players, remote Erik, Dusty's secret, rewards, props, tools |
 | [10_Handouts.md](10_Handouts.md) | **Items** (the Items page on the DM screen): loot, potions, scrolls, letters and tokens, ready to print as cards |
 | [11_Prep_Timeline.md](11_Prep_Timeline.md) | Countdown checklist from now until the weekend |
-| [12_Magic_Items.md](12_Magic_Items.md) | Reference: 20 uncommon magic items that fit the adventure, for swaps, loot and rewards (PCs don't start with one) |
 
 **Also in the folder (not in the DM screen):**
 - `PROJECT_LOG.md`: how the adventure got here, chapter by chapter, and what's still open

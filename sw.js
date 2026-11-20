@@ -18,7 +18,7 @@ const VERSION = "last-resort-v13";
 const CONTENT = [
   "00_README.md", "01_Story_Bible.md", "02_Session1_Millhaven.md", "03_Session2_Undercroft.md",
   "04_Session3_ShangriLa.md", "05_NPCs.md", "06_Monsters.md", "07_Puzzles.md", "08_Roll_Tables.md",
-  "09_Table_Guide.md", "10_Handouts.md", "11_Prep_Timeline.md", "12_Magic_Items.md",
+  "09_Table_Guide.md", "10_Handouts.md", "11_Prep_Timeline.md",
 ].map(f => "content/" + f);
 // Battlemaps and handout art for the Maps page (keep in step with MAPS in index.html).
 const MAPS = [
