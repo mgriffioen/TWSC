@@ -24,8 +24,6 @@ Open it once while online so the campaign is cached for offline play. After an u
 
 - **Skins**: 🎨 in the top bar switches the look: *Night* (the original), *Tome* (parchment rulebook), *Grimoire* (leather and gilt) or *Lido* (1930s resort poster). Add `?skin=tome` to the URL to preview one without saving it. Skins are the `[data-skin=…]` rules in `index.html`.
 
-- **Skins**: 🎨 in the top bar switches the look: *Night* (the original), *Tome* (parchment rulebook), *Grimoire* (leather and gilt) or *Lido* (1930s resort poster). Add `?skin=tome` to the URL to preview one without saving it. Skins are the `[data-skin=…]` rules in `index.html`.
-
 Party, initiative and notes are saved in the browser on the tablet (`localStorage`).
 
 ## Files
