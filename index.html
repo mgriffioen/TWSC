@@ -480,7 +480,6 @@ a.ho-link strong, a.ho-link em { color: inherit; }
     { id: "bible", file: "01_Story_Bible.md", label: "Story Bible", group: "Reference" },
     { id: "guide", file: "09_Table_Guide.md", label: "Table Guide", group: "Prep" },
     { id: "items", file: "12_Magic_Items.md", label: "Magic Items", group: "Reference" },
-    { id: "portraits", file: "13_Portraits.md", label: "Portraits", sub: "Art & image prompts", group: "Reference" },
     { id: "timeline", file: "11_Prep_Timeline.md", label: "Prep Timeline", group: "Prep" },
     { id: "overview", file: "00_README.md", label: "Overview", group: "Prep" },
   ];
@@ -989,21 +988,25 @@ a.ho-link strong, a.ho-link em { color: inherit; }
     if (out) out.innerHTML = lines.join("") || `<p class="small">Nothing to roll.</p>`;
     if (gp) { show(gp, `${m.n} loot: ${gp} gp`); pushLog(`${m.n} loot (gp)`, gp); }
   }
-  // Portraits come from 13_Portraits.md: a "### Name" entry's first image, or the stat-block art table.
+  // Portraits come from the NPCs page (the first image under an NPC's heading), the Monsters page
+  // (the first image under a heading named for a stat block, like the boss), or the Monsters page's stat-block art table.
   let portraitIdx = null;
   function portraits() {
     if (portraitIdx) return portraitIdx;
     const named = {}, blocks = {};
-    let head = null;
-    for (const line of (text["13_Portraits.md"] || "").split("\n")) {
-      const h = line.match(/^###\s+(.+)/);
-      if (h) { head = h[1].trim().toLowerCase(); continue; }
-      if (/^##\s/.test(line)) head = null;
-      const row = line.match(/^\|\s*([^|]+?)\s*\|\s*!\[[^\]]*\]\(([^)\s]+)\)/);
-      if (row) { blocks[row[1].toLowerCase()] = row[2]; continue; }
-      const img = line.match(/^!\[[^\]]*\]\(([^)\s]+)\)/);
-      if (img && head && !named[head]) named[head] = img[1];
-    }
+    const scan = (file, keyOf) => {
+      let head = null;
+      for (const line of (text[file] || "").split("\n")) {
+        const h = line.match(/^#{2,4}\s+(.+)/);
+        if (h) { head = keyOf(h[1]); continue; }
+        const row = line.match(/^\|\s*([^|]+?)\s*\|\s*!\[[^\]]*\]\(([^)\s]+)\)/);
+        if (row) { blocks[row[1].toLowerCase()] = row[2]; continue; }
+        const img = line.match(/^!\[[^\]]*\]\(([^)\s]+)\)/);
+        if (img && head && !named[head]) named[head] = img[1];
+      }
+    };
+    scan("05_NPCs.md", t => { NPC_RE.lastIndex = 0; const m = NPC_RE.exec(t); return m ? NPC_BY[m[1]].toLowerCase() : null; });
+    scan("06_Monsters.md", t => t.replace(/^[^A-Za-z]+/, "").replace(/\s*\([^)]*\)\s*$/, "").trim().toLowerCase());
     return (portraitIdx = { named, blocks });
   }
   function portraitFor(m) {

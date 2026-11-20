@@ -53,6 +53,104 @@ Five kobolds dug into foxholes on the far ledge of the chasm at the Toll Bridge,
 
 ---
 
+## 🖼️ What they look like
+
+A picture of each creature to show the table, with a **Look** to read out where we made our own art. Named NPCs (Snik, the Steward, Gorm, the Baby Mimic and the rest) are in [05_NPCs.md](05_NPCs.md). **Official art** is linked from D&D Beyond at full size; it belongs to Wizards of the Coast and needs an internet connection.
+
+**Session 1 — Millhaven**
+
+### Lantern Imps
+![Lantern Imps](portraits/lantern-imps.jpg)
+- **Look:** Tiny living paper festival lanterns in red, gold and orange, each with a grinning face burning inside, a flickering flame tail and thin wiry arms. They swoop and cackle over the snowy festival street, clutching stolen purses, earrings and spoons.
+- **Stat block:** *Sprite* or *Flying Snake* · [standard sprite art](https://www.dndbeyond.com/monsters/4775845-sprite) for reference
+
+### Half-grown Owlbear
+![Half-grown Owlbear](https://www.dndbeyond.com/avatars/47139/138/638741964495949233.jpeg)
+- **Stat block:** *Brown Bear* · official art is the adult: [Owlbear on D&D Beyond](https://www.dndbeyond.com/monsters/5195152-owlbear)
+
+### The Gilded Hand crew
+![The Gilded Hand crew](portraits/gilded-hand-crew.jpg)
+- **Look:** A cocky rival adventuring company in matching uniforms: navy cloaks with bright gold trim and a golden open hand on the shoulder, studded leather, scimitars and crossbows. They pose in the smokehouse yard like a sports team having its picture taken.
+- **Stat block:** *Bandit* · *Thug* · *Scout*
+
+**Session 2 — The Undercroft**
+
+### Bullywugs of the Hollow
+![Bullywugs of the Hollow](portraits/bullywugs.jpg)
+- **Look:** Squat, warty green-brown frog-folk with wide mouths and bulging eyes, in crude hide armor with spears and round reed shields. One roasts unidentifiable skewers over a smoky fire; the rest preen in shards of a broken mirror.
+- **Stat block:** *Bullywug*
+
+### Giant Frog
+![Giant Frog](https://www.dndbeyond.com/avatars/58417/101/639226714224349673.jpeg)
+- **Stat block:** *Giant Frog* · official art: [Giant Frog on D&D Beyond](https://www.dndbeyond.com/monsters/5195020-giant-frog)
+
+### Fishfolk
+![Fishfolk](portraits/fishfolk.jpg)
+- **Look:** A hunched fishfolk fisherman with the head of a big-eyed fish, glistening silver-grey scales, fin crests and webbed hands, wearing a coral-and-bone amulet and a frayed apron. Grinning proudly with a mouthful of needle teeth, it offers you a skewer of dubious grilled fish.
+- **Stat block:** *Kuo-toa*
+
+### Kobold Sappers
+![Kobold Sappers](https://www.dndbeyond.com/avatars/30832/207/638063832924455756.png)
+- **Stat block:** *Kobold* · official art: [Kobold on D&D Beyond](https://www.dndbeyond.com/monsters/16939-kobold) (their leader is Snik, above)
+
+### The Mourners
+![The Mourners](https://www.dndbeyond.com/avatars/47139/255/638741964656536353.jpeg)
+- **Stat block:** *Specter* · official art: [Specter on D&D Beyond](https://www.dndbeyond.com/monsters/5195210-specter)
+
+### The Gibbering Mouther of Old Voices
+![The Gibbering Mouther of Old Voices](https://www.dndbeyond.com/avatars/47138/894/638741964160332846.png)
+- **Stat block:** *Gibbering Mouther* · official art: [Gibbering Mouther on D&D Beyond](https://www.dndbeyond.com/monsters/5195034-gibbering-mouther)
+
+### Darkmantles
+![Darkmantles](https://www.dndbeyond.com/avatars/47138/740/638741963947652691.png)
+- **Stat block:** *Darkmantle* · official art: [Darkmantle on D&D Beyond](https://www.dndbeyond.com/monsters/5194959-darkmantle)
+
+### The Tidy Hands
+![The Tidy Hands](portraits/tidy-hands.jpg)
+- **Look:** Six disembodied hands in spotless white butler's gloves, scuttling on their fingertips like spiders. Each cuff is crisp and buttoned, with a frayed dark stump showing above it. They fold your cloak, stack your coins in tidy columns and carry off your things. Creepy, but fussy and polite.
+- **Stat block:** *Crawling Claw*
+
+### The Luggage
+![The Luggage](portraits/the-luggage.jpg)
+- **Look:** An elegant old steamer trunk with brass corners, leather straps and faded travel stickers, waiting beside the welcome desk. Its lid creaks open on rows of teeth, a long purple tongue and sticky strands, with a traveler's journal and coins visible down its throat.
+- **Stat block:** *Mimic* · [standard mimic art](https://www.dndbeyond.com/monsters/5195123-mimic) for reference
+
+### Rust Monster
+![Rust Monster](https://www.dndbeyond.com/avatars/47139/206/638741964589980801.jpeg)
+- **Stat block:** *Rust Monster* · official art: [Rust Monster on D&D Beyond](https://www.dndbeyond.com/monsters/5195186-rust-monster)
+
+### Mirror Doubles
+![Mirror Doubles](https://www.dndbeyond.com/avatars/46992/21/638736097258490209.png)
+- **Stat block:** *Shadow* · official art: [Shadow on D&D Beyond](https://www.dndbeyond.com/monsters/5174958-shadow)
+
+**Session 3 — Shangri-La**
+
+### Groundskeepers
+![Groundskeepers](portraits/groundskeepers.jpg)
+- **Look:** Three identical groundskeepers in a row on a sunny lawn: the same pleasant middle-aged face, the same fixed, empty, too-wide smile, the same straw hat and pressed green apron. Each holds a long iron rake like a weapon. The cheerful sunshine makes the sameness worse.
+- **Stat block:** *Thug*
+
+### Feast Mimics
+![Feast Mimics](portraits/feast-mimics.jpg)
+- **Look:** A long outdoor feast table under string lights, piled with roasts, pies and fruit on silver platters. One great roast has split open into a toothy maw with a lolling tongue, and the pie beside it is reaching sticky pseudopods toward a hungry hand.
+- **Stat block:** *Mimic* · [standard mimic art](https://www.dndbeyond.com/monsters/5195123-mimic) for reference
+
+### Towel Golems
+![Towel Golems](portraits/towel-golems.jpg)
+- **Look:** A figure made of thick, damp, fluffy white spa towels twisted into a body, with towel-roll arms and a neatly folded towel swan for a head, but no face. It drips as it lurches out of the bathhouse steam, arms spread wide to wrap someone up.
+- **Stat block:** *Animated Armor* · [standard animated armor art](https://www.dndbeyond.com/monsters/5194893-animated-armor) for reference
+
+### Pool Horrors
+![Pool Horrors](https://www.dndbeyond.com/avatars/47138/948/638741964231690861.png)
+- **Stat block:** *Grick* · official art: [Grick on D&D Beyond](https://www.dndbeyond.com/monsters/5195061-grick). Describe them with bright stripes, like pool toys.
+
+### Content Guests
+![Content Guests](portraits/content-guests.jpg)
+- **Look:** Blissfully happy guests from many races and many centuries (a powdered-wig nobleman, a dwarf in old armor, a halfling in a flower crown) lounging in hot springs and sipping cordials. They all have the same glassy, faraway eyes, and they all turn to look at you at the same moment, still smiling.
+- **Stat block:** *Commoner*
+
+---
+
 ## 💰 Loot
 
 What the party finds when they search a defeated monster. Mindless or bodiless creatures (darkmantles, rust monsters, gricks) carry nothing; whatever they guard is listed in the room. Named NPCs' loot is in [05_NPCs.md](05_NPCs.md).
@@ -82,6 +180,10 @@ What the party finds when they search a defeated monster. Mindless or bodiless c
 
 ## 👑 The Heart of Shangri-La (Boss)
 
+![The Heart of Shangri-La](portraits/heart-of-shangri-la.jpg)
+
+**Look:** Under the torn-open floor of a ruined lodge, a vast cavern of wet pink-and-grey flesh. At its center pulses an enormous heart ringed with teeth and veined with golden light. Thick pseudopods coil out of it, some still shaped like pieces of the resort: a lodge door, a lantern post, a stretch of picnic table. A long yellow tongue curls off into the dark, and above it all, on a pale fleshy cord, hangs the limp puppet of a smiling old groundskeeper in a straw hat.
+
 *Gargantuan monstrosity (shapechanger)*, tuned for 4–5 level-3 PCs (who should have Emberoak Sap and a few magic items by then), plus the lair actions in [04_Session3_ShangriLa.md](04_Session3_ShangriLa.md).
 
 **AC** 13 **HP** 110 (two phases) **Speed** 0 ft. (it IS the place)
@@ -103,3 +205,35 @@ What the party finds when they search a defeated monster. Mindless or bodiless c
 **Phase 2 (at 55 HP):** The Keeper tears free of his cord and fights separately (use *Doppelganger*, 40 HP; he rams people with the golden cart: +4, 2d6+2). The Heart's AC drops to 11 because it's exposed. The lodges collapse inward, and lair actions now happen *twice* per round.
 
 **Victory:** At 0 HP, the Heart doesn't die. It **spits everything out.** Cue the Escape.
+
+## Stat-block art
+
+Official art for each standard stat block, shown on its **Stats** sheet in the DM screen, from D&D Beyond's free 2024 rules (the 2014 kobold where 2024 has none). The art is only for looks; the game uses the 2014 stat blocks. Bullywug, Kuo-toa and Crawling Claw have no free art.
+
+| Stat block | Art | Page |
+|---|---|---|
+| Mimic | ![Mimic](https://www.dndbeyond.com/avatars/47139/75/638741964409641787.png) | [D&D Beyond](https://www.dndbeyond.com/monsters/5195123-mimic) |
+| Sprite | ![Sprite](https://www.dndbeyond.com/avatars/47158/673/638742824960143576.png) | [D&D Beyond](https://www.dndbeyond.com/monsters/4775845-sprite) |
+| Flying Snake | ![Flying Snake](https://www.dndbeyond.com/avatars/47138/822/638741964059822322.png) | [D&D Beyond](https://www.dndbeyond.com/monsters/5194999-flying-snake) |
+| Brown Bear | ![Brown Bear](https://www.dndbeyond.com/avatars/43939/60/638607413478213174.png) | [D&D Beyond](https://www.dndbeyond.com/monsters/4775806-brown-bear) |
+| Bandit Captain | ![Bandit Captain](https://www.dndbeyond.com/avatars/47138/642/638741963813840884.jpeg) | [D&D Beyond](https://www.dndbeyond.com/monsters/5194912-bandit-captain) |
+| Thug | ![Thug](https://www.dndbeyond.com/avatars/47139/305/638741964728695305.png) | [D&D Beyond (Tough)](https://www.dndbeyond.com/monsters/5195235-tough) |
+| Bandit | ![Bandit](https://www.dndbeyond.com/avatars/47144/652/638742155709646763.jpeg) | [D&D Beyond](https://www.dndbeyond.com/monsters/5194915-bandit) |
+| Scout | ![Scout](https://www.dndbeyond.com/avatars/46992/19/638736097252250502.jpeg) | [D&D Beyond](https://www.dndbeyond.com/monsters/5174957-scout) |
+| Giant Frog | ![Giant Frog](https://www.dndbeyond.com/avatars/58417/101/639226714224349673.jpeg) | [D&D Beyond](https://www.dndbeyond.com/monsters/5195020-giant-frog) |
+| Otyugh | ![Otyugh](https://www.dndbeyond.com/avatars/47139/136/638741964493568072.jpeg) | [D&D Beyond](https://www.dndbeyond.com/monsters/5195151-otyugh) |
+| Kobold | ![Kobold](https://www.dndbeyond.com/avatars/30832/207/638063832924455756.png) | [D&D Beyond](https://www.dndbeyond.com/monsters/16939-kobold) |
+| Specter | ![Specter](https://www.dndbeyond.com/avatars/47139/255/638741964656536353.jpeg) | [D&D Beyond](https://www.dndbeyond.com/monsters/5195210-specter) |
+| Shadow | ![Shadow](https://www.dndbeyond.com/avatars/46992/21/638736097258490209.png) | [D&D Beyond](https://www.dndbeyond.com/monsters/5174958-shadow) |
+| Gibbering Mouther | ![Gibbering Mouther](https://www.dndbeyond.com/avatars/47138/894/638741964160332846.png) | [D&D Beyond](https://www.dndbeyond.com/monsters/5195034-gibbering-mouther) |
+| Darkmantle | ![Darkmantle](https://www.dndbeyond.com/avatars/47138/740/638741963947652691.png) | [D&D Beyond](https://www.dndbeyond.com/monsters/5194959-darkmantle) |
+| Doppelganger | ![Doppelganger](https://www.dndbeyond.com/avatars/46992/14/638736097241154130.png) | [D&D Beyond](https://www.dndbeyond.com/monsters/5174955-doppelganger) |
+| Rust Monster | ![Rust Monster](https://www.dndbeyond.com/avatars/47139/206/638741964589980801.jpeg) | [D&D Beyond](https://www.dndbeyond.com/monsters/5195186-rust-monster) |
+| Animated Armor | ![Animated Armor](https://www.dndbeyond.com/avatars/47138/604/638741963762360011.png) | [D&D Beyond](https://www.dndbeyond.com/monsters/5194893-animated-armor) |
+| Grick | ![Grick](https://www.dndbeyond.com/avatars/47138/948/638741964231690861.png) | [D&D Beyond](https://www.dndbeyond.com/monsters/5195061-grick) |
+| Troll | ![Troll](https://www.dndbeyond.com/avatars/47139/317/638741964746539203.jpeg) | [D&D Beyond](https://www.dndbeyond.com/monsters/5195241-troll) |
+| Commoner | ![Commoner](https://www.dndbeyond.com/avatars/47138/724/638741963925927652.png) | [D&D Beyond](https://www.dndbeyond.com/monsters/5194951-commoner) |
+| Noble | ![Noble](https://www.dndbeyond.com/avatars/47139/123/638741964474145271.png) | [D&D Beyond](https://www.dndbeyond.com/monsters/5195145-noble) |
+| Spy | ![Spy](https://www.dndbeyond.com/avatars/47139/269/638741964677812374.jpeg) | [D&D Beyond](https://www.dndbeyond.com/monsters/5195217-spy) |
+| Acolyte | ![Acolyte](https://www.dndbeyond.com/avatars/47139/172/638741964543177987.png) | [D&D Beyond (Priest Acolyte)](https://www.dndbeyond.com/monsters/5195169-priest-acolyte) |
+| Swarm of Rats | ![Swarm of Rats](https://www.dndbeyond.com/avatars/47139/291/638741964709600525.jpeg) | [D&D Beyond](https://www.dndbeyond.com/monsters/5195228-swarm-of-rats) |
