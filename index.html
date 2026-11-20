@@ -705,9 +705,9 @@ a.ho-link strong, a.ho-link em { color: inherit; }
 (() => {
   // ---------- campaign files ----------
   const DOCS = [
-    { id: "s1", file: "02_Session1_Millhaven.md", label: "Millhaven", group: "Story" },
-    { id: "s2", file: "03_Session2_Undercroft.md", label: "The Undercroft", group: "Story" },
-    { id: "s3", file: "04_Session3_ShangriLa.md", label: "Shangri-La", group: "Story" },
+    { id: "s1", file: "02_Session1_Millhaven.md", label: "Millhaven", group: "Story", skin: "tome" },
+    { id: "s2", file: "03_Session2_Undercroft.md", label: "The Undercroft", group: "Story", skin: "grimoire" },
+    { id: "s3", file: "04_Session3_ShangriLa.md", label: "Shangri-La", group: "Story", skin: "lido" },
     { id: "npcs", file: "05_NPCs.md", label: "NPCs", group: "Reference" },
     { id: "monsters", file: "06_Monsters.md", label: "Monsters", group: "Reference" },
     { id: "handouts", file: "10_Handouts.md", label: "Items", group: "Reference" },
@@ -881,6 +881,7 @@ a.ho-link strong, a.ho-link em { color: inherit; }
   function render(id, focus) {
     const d = DOCS.find(x => x.id === id) || DOCS[0];
     current = d.id;
+    if (d.skin) followStory(d);
     document.querySelectorAll(".rail a").forEach(a => { if (a.dataset.id === d.id) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
     const doc = $("#doc");
     if (d.maps) { renderMaps(doc); if (!focus) $("#main").scrollTop = 0; return; }
@@ -1617,6 +1618,13 @@ a.ho-link strong, a.ho-link em { color: inherit; }
     document.documentElement.dataset.skin = k.id;
     document.querySelector('meta[name="theme-color"]').content = k.color;
     skinMenu.querySelectorAll("button").forEach(b => b.setAttribute("aria-checked", String(b.dataset.id === k.id)));
+  }
+  // Each story part has its own look. Switch only on arriving at a different story, so Reference and
+  // Prep pages keep the current look, and a skin picked by hand stays until the next story is opened.
+  function followStory(d) {
+    if (new URLSearchParams(location.search).has("skin")) return; // ?skin= previews stay put
+    if (store.get("lr-skin-story", null) === d.id) return;
+    store.set("lr-skin-story", d.id); store.set("lr-skin", d.skin); applySkin(d.skin);
   }
   function closeSkinMenu() { skinMenu.hidden = true; skinBtn.setAttribute("aria-expanded", "false"); }
   applySkin(document.documentElement.dataset.skin);
