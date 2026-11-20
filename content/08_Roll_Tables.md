@@ -114,7 +114,7 @@ Feel free to *rig* a roll if a better story is obvious. The dice are there to in
 | 2 | **The Hot Spring** | Remove all conditions and exhaustion |
 | 3 | **The Yellow Chute** off the raft | Gain Inspiration (+2 Contentment instead of +1) |
 | 4 | **The Bonfire Leap** | 10 temp HP |
-| 5 | **The Keeper's Gift** | Choose one uncommon magic item from the [Items page](10_Handouts.md) (it's made of the Host…) |
+| 5 | **The Keeper's Gift** | Roll on the More Magic Items table, or choose one uncommon magic item from the [Items page](10_Handouts.md) (it's made of the Host…) |
 | 6 | **A Nap in the Lodge** | Regain all spell slots and features. Lose an hour. Dream of staying forever (+2 Contentment) |
 | 7 | **A cordial at the Driftwood Hut** | Roll on the Driftwood Cordial table |
 | 8 | **A swim in the lake** | Advantage on CHA checks for 1 hour |
@@ -134,6 +134,28 @@ Feel free to *rig* a roll if a better story is obvious. The dice are there to in
 | 4 | +2 Contentment. You feel *so* relaxed. |
 | 5 | You see the truth for one minute: the lodges have teeth. −2 Contentment, and you are frightened until the end of your next turn. |
 | 6 | Resistance to acid for 1 hour. (Remember this one…) |
+
+## 🎩 More Magic Items (d20) — swaps, finds and rewards
+*For an Undercroft find, an NPC's reward or the Keeper's Gift. Tap an item's name to open its card on the Items page, ready to print. 🔗 = requires attunement.*
+
+| d20 | Item | What it does |
+|---|---|---|
+| 1 | **Sentinel Shield** | Advantage on initiative and Wisdom (Perception) checks |
+| 2 | **Bracers of Archery** 🔗 | Proficiency with longbows and shortbows; +2 damage with them |
+| 3 | **Immovable Rod** | Locks in place at the press of a button, holding up to 8,000 lb |
+| 4 | **Helm of Comprehending Languages** | *Comprehend languages* at will |
+| 5 | **Lantern of Revealing** | 30-ft light that shows invisible creatures and objects |
+| 6 | **Necklace of Adaptation** 🔗 | Breathe anywhere; advantage on saves against harmful gases |
+| 7 | **Gloves of Thievery** | Invisible while worn; +5 to Sleight of Hand and picking locks |
+| 8 | **Ring of Mind Shielding** 🔗 | Immune to magic that reads your thoughts |
+| 9 | **Eyes of Minute Seeing** | Advantage on Investigation within 1 ft. |
+| 10 | **Medallion of Thoughts** 🔗 | 3 charges of *detect thoughts* |
+| 11 | **Stone of Good Luck** 🔗 | +1 to ability checks and saving throws |
+| 12 | **Hat of Disguise** 🔗 | *Disguise self* at will |
+| 13 | **Ring of Warmth** 🔗 | Resistance to cold damage; comfortable down to −50°F |
+| 14 | **Eversmoking Bottle** | Pours out a 60-ft cloud of heavy smoke |
+| 15 | **Pipes of Haunting** | 3 charges; frighten creatures within 30 ft. (DC 15 WIS) |
+| 16–20 | **Player's choice** | Pick any item on this table |
 
 ## 🎩 Escape Complications (d8) — Session 3 Chase
 
