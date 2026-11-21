@@ -1882,6 +1882,9 @@ a.ho-link strong, a.ho-link em { color: inherit; }
 
   // ---------- maps (battlemaps and handout art, in maps/) ----------
   // Add a file to maps/ and maps/thumbs/, list it here and in MAPS in sw.js (bump VERSION there).
+  // When you replace an existing map image, bump MAP_V here and in sw.js: the CDN caches images
+  // for hours, and the tag gives the new image a fresh address.
+  const MAP_V = 4;
   const MAPS = [
     { group: "Battlemaps", items: [
       ["scn2-fish-toss-fight", "Scene 2 · The fish toss fight"],
@@ -1906,7 +1909,7 @@ a.ho-link strong, a.ho-link em { color: inherit; }
       ["ho04-seers-floor-key", "Seer's Floor key (Erik only)"],
     ] },
   ];
-  const mapList = MAPS.flatMap(g => g.items.map(([f, title]) => ({ src: `maps/${f}.jpg`, title })));
+  const mapList = MAPS.flatMap(g => g.items.map(([f, title]) => ({ src: `maps/${f}.jpg?v=${MAP_V}`, title })));
   let vList = mapList;
   function renderMaps(doc) {
     $("#outlineWrap").hidden = true; $("#status").innerHTML = "";
@@ -1924,9 +1927,9 @@ a.ho-link strong, a.ho-link em { color: inherit; }
         img.addEventListener("error", () => {
           const n = +(img.dataset.retry || 0); img.dataset.retry = n + 1;
           if (n === 0) img.src = `maps/thumbs/${f}.jpg?r=${Date.now()}`;
-          else if (n === 1) img.src = `maps/${f}.jpg`;
+          else if (n === 1) img.src = `maps/${f}.jpg?v=${MAP_V}`;
         });
-        img.src = `maps/thumbs/${f}.jpg?v=3`;
+        img.src = `maps/thumbs/${f}.jpg?v=${MAP_V}`;
         const cap = document.createElement("span"); cap.textContent = title;
         b.append(img, cap); b.addEventListener("click", () => openViewer(n));
         grid.appendChild(b);
