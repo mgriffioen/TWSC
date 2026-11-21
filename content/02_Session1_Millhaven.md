@@ -19,13 +19,15 @@ If you run long, cut a clue thread. Each one is self-contained and the clues ove
 
 ## Scene 0 — The Invitations (before the game starts)
 
-📜 Hand each player (and mail Erik) a **golden invitation** card stamped with a gold spiral:
+📜 Hand each player a **golden invitation** card stamped with a gold spiral:
 
 > *By the hand of the Keeper,*
 > *you are bidden to Shangri-La,*
 > *where summer never ends and no heart is heavy.*
 > *Seek the Golden Gate beneath the city of Millhaven.*
 > *Bring nothing. You will want for nothing.*
+
+🔮 **Erik's invitation** has a tiny rust-red smudge on one corner: the night it arrived, its edge cut his thumb, and that's when the visions began (see *The Seer* in [01_Story_Bible.md](01_Story_Bible.md)). Don't point it out.
 
 Ask each player: **"How did your character come by this invitation, and why did you accept?"** One sentence each. Write their answers down. The Keeper will know them in Session 3.
 
@@ -62,6 +64,7 @@ The city watch arrives, escorting the Mayor.
 > "Invitations! Then the old stories are true. Listen. My nephew, Tobias, received one of those cards three weeks ago. He went looking for Shangri-La and never came back. Find him. Bring him home. The Council will pay you 500 gold, and Millhaven will owe you its thanks."
 
 💥 *Secret:* The Mayor sent the invitations and wants the party to go in, so he'll make the path *easy*, suspiciously easy. Plant one tiny clue: his signet ring bears the same **spiral** as the invitations. (🎲 DC 15 Perception; reward the first player who notices. Confirm nothing.)
+- 🔮 **The Seer's first vision:** when the Mayor shakes hands, pass Erik a note: *"His spiral ring is warm. For a heartbeat you hear something huge breathing, far below the city."*
 
 ## Scene 4 — The Winter Festival (Free Roam)
 

@@ -11,7 +11,7 @@
 | The Toll | S2 room 5 | Everyone (jokes, secrets, songs) |
 | The Glass Mere | S2 room 7 | Storytellers |
 | The Hall of Five Doors | S2 room 8 | Logic fans |
-| The Seer's Floor | S2 room 9 | **Erik** (remote) |
+| The Seer's Floor | S2 room 9 | **Erik** (the Seer) |
 | Leaving the Vale | S3 finale | Everyone |
 | The Scales of Regret *(spare)* | Anywhere | — |
 
@@ -60,7 +60,7 @@ A still lake ringed with pale sand. The only way across is a stone path that's i
 
 **How it works:** Each character looks in and sees a memory from their past. **The player describes it**: where they were, who was with them, what they lost or loved. When they do, a section of the path lights up.
 - New players: prompt with a sensory detail. *"Carl, in the water you see a summer night, a fire, and someone you haven't seen in years. Who is it?"*
-- Erik (remote): his reflection appears on the *underside* of the lake, so he sees things the others can't. Text him a secret about the hidden path.
+- Erik (the Seer): his reflection appears on the *underside* of the lake, so he sees things the others can't. Pass him a note with a secret about the hidden path.
 
 | Result | Outcome |
 |---|---|
@@ -102,9 +102,9 @@ Five doors in a circular hall, each carved with a sigil. Above them: **"FOUR DOO
 
 ## 5. The Seer's Floor (Session 2, room 9 — Erik's puzzle)
 
-The Welcome Hall floor is a 5×5 grid of stone tiles, each carved with a rune. The counter is across the room. **Only the Seer can see which tiles are safe**: in his visions, they glow.
+The Welcome Hall floor is a 5×5 grid of stone tiles, each carved with a rune. The counter is across the room. **Only the Seer can see which tiles are safe**: in his visions, they glow. They're the Host's blind spots, the things it doesn't have and isn't watching, and he's seeing through its eyes.
 
-**Setup:** 📜 Use the battle map (*Rm 09 - The Welcome Hall & the Seer's Floor*): the runes are carved right into the tiles. **Text Erik the key image** ([handouts/04-Seer's Floor key (Erik only).png](handouts/04-Seer's%20Floor%20key%20(Erik%20only).png)). The party must cross from the entrance row to the counter row stepping only orthogonally (no diagonals). The rule: **Erik may only whisper one rune name per turn.** The party chooses where to step.
+**Setup:** 📜 Use the battle map (*Rm 09 - The Welcome Hall & the Seer's Floor*): the runes are carved right into the tiles. **Hand Erik the printed key card** ([handouts/04-Seer's Floor key (Erik only).png](handouts/04-Seer's%20Floor%20key%20(Erik%20only).png)). The party must cross from the entrance row to the counter row stepping only orthogonally (no diagonals). The rule: **Erik may only whisper one rune name per turn.** The party chooses where to step.
 
 **The grid** as drawn on the map (row 1 is beside the counter; row 5 is by the entrance doors)
 

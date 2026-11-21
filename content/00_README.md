@@ -2,7 +2,7 @@
 *A three-session D&D 5e adventure for a weekend away.*
 
 **Weekend:** Friday, Jan 29 – Sunday, Jan 31, 2027
-**DM:** Mark  **Players:** Sean (new), Carl (new), Erik (new, remote via FaceTime), Dusty (experienced), + possible 5th
+**DM:** Mark  **Players:** Sean (new), Carl (new), Erik (new), Dusty (experienced), + possible 5th
 **Levels:** Everyone plays at level 3 all weekend (no leveling up; Morning Boons and Gate Gifts take its place)
 
 > **Design principle:** A classic D&D adventure: a frozen city, a dungeon crawl, a paradise with teeth. A few personal touches are tucked in quietly (listed at the end of the Story Bible), and the rest is straight fantasy.
@@ -23,7 +23,7 @@
 | [06_Monsters.md](06_Monsters.md) | Monsters, mostly reskins of official stat blocks (low prep) |
 | [07_Puzzles.md](07_Puzzles.md) | Puzzles with multiple good *and* bad outcomes |
 | [08_Roll_Tables.md](08_Roll_Tables.md) | DM tables and **player-rolled** tables |
-| [09_Table_Guide.md](09_Table_Guide.md) | Running it: new players, remote Erik, Dusty's secret, rewards, props, tools |
+| [09_Table_Guide.md](09_Table_Guide.md) | Running it: new players, Erik the Seer, Dusty's secret, rewards, props, tools |
 | [10_Handouts.md](10_Handouts.md) | **Items** (the Items page on the DM screen): loot, potions, scrolls, letters and tokens, ready to print as cards |
 | [11_Prep_Timeline.md](11_Prep_Timeline.md) | Countdown checklist from now until the weekend |
 

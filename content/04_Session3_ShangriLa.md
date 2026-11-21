@@ -27,7 +27,7 @@ Each guest is given a lodge key carved with a sigil. Each lodge has its own temp
 | **An open, watchful eye** | A bunk room of old cloaks, masks and a **crate of sky-rockets** | 10 temp HP | The crate is stenciled *"Confiscated from guests."* |
 | **A wave beneath a roof** | A deck with a steaming hot spring | Remove all conditions and exhaustion | The water is a little *too* warm, and slightly thick |
 | **A heart, with verse carved beneath** | *Dusty's character's lodge.* The lintel reads: *"I hear it in the deep heart's core."* | Advantage on WIS saves | His own initials, carved into the bedpost years ago |
-| **A sun that never sets** | A porch facing a perfect sunset | Regain all spell slots | The sunset never finishes setting. The same bird crosses it every minute. (Text Erik first.) |
+| **A sun that never sets** | A porch facing a perfect sunset | Regain all spell slots | The sunset never finishes setting. The same bird crosses it every minute. (Pass Erik a note first.) |
 | **A hound** (the Hound's Hearth) | **Locked.** The Keeper: *"Oh, nobody stays in that one."* | — | It's humming. The floor is warm. The Heart is beneath it. |
 
 ### Pleasures of the vale (each = +1 Contentment and a small benefit; see **Shangri-La Pleasures** in the roll tables)
@@ -61,6 +61,7 @@ The party finds **Tobias Vell** lounging in a hot spring with a drink, delirious
 - The ice in the drinks never melts.
 - The baby mimic (if it's with the party) is terrified and hides in someone's pack.
 - 💥 **Twist #3 (always use it):** the Keeper greets **Dusty's** character: *"Welcome back. Your old lodge is just as you left it."*
+- 🔮 **The Seer is noticed:** the Keeper shakes **Erik's** character's hand, holds it a moment too long, and says softly, *"You see me, don't you?"* He's been seeing through the Host's eyes since his invitation cut him, and now it's looking back. From here on, his visions can come at any time, and they feel warm and welcoming.
 
 ## Movement 2 — 💥 The Reveal (≈20 min)
 
@@ -94,6 +95,7 @@ Introduce it in-world: the first time someone resists or speaks of home, the Hea
 **🔥 Emberoak Sap**
 - **Hurling a vial into the Heart's open maw** takes an action and a ranged attack (or an Athletics check if they get close). On a hit it deals **4d10 fire damage**, and the Heart is **stunned until the end of its next turn.**
 - **Coating weapons** in sap (a bonus action) adds +1d6 fire damage for 1 minute.
+- 🔮 **The Seer feels it coming:** once per round, before the lair action, show Erik the lair action you rolled. If he shouts a warning, one ally has advantage on its save.
 - Dusty's character's buried memory: he *remembers* how he escaped last time. He poured the sap into the hot spring's drain. He decides when to share it.
 
 ### Lair Actions (initiative 20) 🎲 d6
@@ -115,6 +117,7 @@ They burst out into the Undercroft and climb up into Millhaven just as the festi
 - What happens to Mayor Vell and the Lantern Council? They saw him in the vale, so this is the big question. (Justice, a mob, a trial, or the Mayor flees.)
 - Millhaven's luck starts to run out. Did they doom the city or free it?
 - Auntie Grell meets her sister again, if they brought Mira home.
+- 🔮 If Erik's character burns his invitation, the link closes: the visions stop and the cut on his thumb finally heals. (If he keeps it… something on the other side may still be watching.)
 - Each player gets a closing moment: *"What does your character do the next morning?"*
 - 🔀 If they took the peaceful route (saved Twist #8, only if you used it), the vale might still send invitations: just a long weekend, once a year.
 
