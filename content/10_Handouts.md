@@ -715,7 +715,7 @@ Eighteen more official **uncommon** items from the *Dungeon Master's Guide* that
 
 What to hand-letter on the blank scrolls of the three maps in `handouts/`. This section has no cards, so nothing here prints. Use brown or sepia ink on the two parchment maps, and anything bold on the vale map.
 
-**Millhaven (Snowbound Harbor City Map)**
+**Millhaven** (`handouts/01-Millhaven.png`)
 
 | Where on the map | Write |
 |---|---|
@@ -731,7 +731,7 @@ What to hand-letter on the blank scrolls of the three maps in `handouts/`. This 
 | Scroll under the giant hammer | **The Great Hammer** |
 | Scroll by the walled gate, bottom left | **The Old Gate** (pen in small beside the tall tower: *Cartographers' Guild*) |
 
-**The Undercroft (Revised Parchment Dungeon Map)**
+**The Undercroft** (`handouts/02-The Undercroft.png`)
 
 This is Ilsabet Quill's map, so write the notes in a small, precise, slightly fussy hand. They nudge without spoiling.
 
@@ -754,7 +754,7 @@ This is Ilsabet Quill's map, so write the notes in a small, precise, slightly fu
 
 **Tearing it in half:** tear across the map just below the rope bridge. Captain Saye's stolen half is the **top** (the Landing, the three caves, the bridge). Ilsabet's half is the **bottom** (the Mother's Grave to the Golden Gate), with her riddle on the bottom scroll, as in *Half of the Undercroft Map*.
 
-**Shangri-La (Vintage Lakeside Resort Map)**
+**Shangri-La** (`handouts/03-Shangri-La.png`)
 
 Hand this one out as the Keeper's welcome brochure when the party arrives.
 
