@@ -48,29 +48,24 @@ Dusty is the experienced player. Give him a secret, sealed before the weekend:
 
 > 📜 *Your character doesn't remember the last three years. You woke on the frozen riverbank outside Millhaven in a white robe with a gold spiral stitched on it, an empty glass vial in your fist, your mouth burning like you'd swallowed a coal. Sometimes you dream of a hill, a row of cabins, warm water, and a kind old man who never stops smiling. A line of verse comes to you at odd moments, though you don't know where you learned it: "I hear it in the deep heart's core." You have never told anyone. Don't tell the others — yet.*
 
-- Pass him notes (or texts) with flashbacks at key moments: the Returned recognize him (S1), his handwriting in the Welcome Hall ledger and his reflection at the Glass Mere (S2), the Keeper's *"Your old lodge is just as you left it"* (S3).
+- Pass him notes with flashbacks at key moments: the Returned recognize him (S1), his handwriting in the Welcome Hall ledger and his reflection at the Glass Mere (S2), the Keeper's *"Your old lodge is just as you left it"* (S3).
 - 🔀 In the finale he **remembers how he escaped**: he poured burning sap into the hot spring's drain. He decides when to tell the others. (If the party is floundering, slip him a note: "You remember now.")
 - Ask Dusty to quietly be your **co-pilot** as well: help the new players with their sheets, model good play, and don't steamroll. Experienced players love having a job.
 
-## 📱 Erik on FaceTime
+## 🔮 Erik, the Seer
 
-Remote play works if you plan for it.
+Erik is at the table in person, and his character keeps a special role: **the Seer.** His character has occasional visions, and you pass him **secret notes** during play (a hidden door, a lie an NPC is telling, a puzzle clue). He chooses when and how to share it, which makes a new player *the most informed person at the table*.
 
 **Setup**
-- A **dedicated device** (an iPad on a stand) for Erik, placed at the head of the table so he sees faces and the map, not one person's ear.
-- A **second camera** (a phone on a gooseneck or overhead mount) pointed at the map and minis.
-- A **Bluetooth speaker** for his audio so everyone hears him.
-- **Digital dice:** D&D Beyond's dice roller shares rolls into the campaign log. Or let him roll on camera.
-- A **shared group text** for handouts: send him a photo of every 📜 prop as you hand it out.
-- Mail him his **golden invitation** ahead of time.
+- Seat him **next to you** (on your left or right) so notes slide across without the whole table watching.
+- Write the visions ahead of time on **folded index cards** or sticky notes, numbered by scene, and keep a few blanks for improvised ones.
+- A small **"vision" signal** helps: tap the table or ring a bell when you pass a note, so the others know the Seer just saw something.
 
-**Making him central, not peripheral**
-- 🔮 **Give Erik's character a special role: The Seer.** His character has occasional visions. You **text him secret info** during play (a hidden door, a lie an NPC is telling, a puzzle clue). He chooses when and how to share it. This makes the remote player *the most informed person at the table*.
-- 🔮 **The Seer's Floor** (S2, room 9) is built for him: he alone sees the safe runes and whispers one rune name per turn. Test sending him a photo mid-game during your tech check.
-- 🌅 In S3, text him first when the sunset loops: *"The same bird just crossed the sun again."*
-- **Call on him by name** every round in combat and every scene in roleplay. Remote players get talked over, so be deliberate.
-- Keep the **initiative order on a card or whiteboard** in his camera view.
-- Break every ~75 minutes. Screen fatigue is real.
+**Moments built for him**
+- 🔮 **The Seer's Floor** (S2, room 9): he alone holds the printed key card and whispers one rune name per turn. Let him actually lean in and whisper.
+- 🪞 **The Glass Mere** (S2, room 7): his reflection appears on the *underside* of the lake. Slip him a note about the hidden path.
+- 🌅 In S3, pass him the first note when the sunset loops: *"The same bird just crossed the sun again."*
+- If he goes quiet, **call on him by name**. A vision note is the easiest way to hand him the spotlight.
 
 ## 🧭 Teaching New Players (Sean, Carl, Erik)
 
@@ -88,21 +83,23 @@ Remote play works if you plan for it.
 - [ ] Index cards, one per major NPC (name, voice, catchphrase), placed face-up when introduced
 - [ ] Whiteboard or big paper for the Undercroft node map (reveal as they go)
 - [ ] Battle map/grid with minis or tokens (or theater-of-the-mind for small fights)
-- [ ] Initiative tracker, visible to Erik's camera
+- [ ] Initiative tracker, visible to the whole table
 - [ ] Extra dice sets for the new players (let them keep them as a souvenir)
 - [ ] Inspiration tokens
 - [ ] **Contentment trackers** for Session 3 (a d6 per player set face-up, or a card with 0–5 boxes)
 - [ ] Timer (for puzzle hints and the Gate closing)
 
 **Props 📜**
-- [ ] Golden invitations (gold cardstock, wax seal, spiral stamp), one per player + mail Erik's
+- [ ] Golden invitations (gold cardstock, wax seal, spiral stamp), one per player
 - [ ] Dusty's sealed envelope
 - [ ] The Mayor's letter to the Gilded Hand Captain
 - [ ] Two halves of the Undercroft map (tear it!)
 - [ ] Hall of Doors handout (the five sigils)
-- [ ] Seer's Floor: the Rm 09 battle map (runes are on the tiles) + Erik's key (`handouts/04-Seer's Floor key (Erik only).png`, ready to text)
+- [ ] Seer's Floor: the Rm 09 battle map (runes are on the tiles) + Erik's key (`handouts/04-Seer's Floor key (Erik only).png`, printed as a card for him)
+- [ ] **Seer vision notes**: folded index cards, numbered by scene, plus a few blanks
 - [ ] Seven **lodge keys** with carved or drawn sigils (open book, spiral, eye, wave, heart, sun, hound)
-- [ ] Small glass vials with red liquid for **Emberoak Sap**
+- [ ] **7 small glass vials** (corked or screw-cap) for **Emberoak Sap**: 5 filled with red liquid (Three Oaks ×3, Gate Gift backup ×1, spare ×1), 1 with just a little (Brother Ansel's "nearly empty" vial), 1 left **empty** for Dusty's character
+- [ ] **6 poker chips** for **Memory Tokens**: one per player (up to 5) + 1 spare
 - [ ] A rubber fish or a tiny treasure chest for the baby mimic
 - [ ] The troll's toll ledger (a real notebook: write down the secrets players tell!)
 
@@ -112,9 +109,8 @@ Remote play works if you plan for it.
 - [ ] Themed food: festival fare Friday (fried fish, skewers, flatbreads); **ribs and corn Saturday night** for Session 3. Watch the players hesitate once the Keeper serves the feast in-game.
 
 **Apps**
-- D&D Beyond (sheets, rules, dice log, shared campaign)
+- D&D Beyond (sheets, rules, shared campaign)
 - A soundboard app (Syrinscape, Tabletop Audio, or a Spotify playlist)
-- Owlbear Rodeo (a free web map) if Erik needs to see the map clearly
 
 ## Safety & Comfort (light-touch)
 The adventure uses real memories. Jokes everyone laughs *with* are great; anything that might sting someone at the table, skip it. A quick "anything off-limits?" at the start of Friday is enough.

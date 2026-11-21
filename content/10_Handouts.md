@@ -197,7 +197,7 @@ Eighteen more official **uncommon** items from the *Dungeon Master's Guide* that
 - **Where they fit:** a swap if a player wants something off the Gate Gift list, a find in the Undercroft, or a reward from an NPC (the Mudlarks' favor, the Returned's thanks).
 - **New players:** steer them to items with one obvious use, like *Sentinel Shield* or *Immovable Rod* (or the Gate Gift *Wand*, *Boots* and *Gauntlets* above).
 - **Dusty:** *Ring of Mind Shielding* or *Eyes of Minute Seeing* will surface his secret in interesting ways.
-- **Erik (the Seer):** *Medallion of Thoughts* or *Eyes of Minute Seeing* give him more secrets to text about.
+- **Erik (the Seer):** *Medallion of Thoughts* or *Eyes of Minute Seeing* give him more secrets to pass notes about.
 - **No duplicates.** First pick wins; let them roll d20 for order if two want the same one.
 
 ### Sentinel Shield
@@ -446,7 +446,7 @@ Eighteen more official **uncommon** items from the *Dungeon Master's Guide* that
 - **Type:** Key item
 - **Found:** Given by the Keeper, Session 3
 > A warm brass key on a wooden tag carved with **a sun that never sets**. It opens the lodge with the same sign over its door. The Keeper pressed it into your hand himself: *"This one's yours. It always was."*
-- **DM:** Inside: A porch facing a perfect sunset. Using it: Regain all spell slots. +1 Contentment. The tell: The sunset never finishes setting, and the same bird crosses it every minute. Text Erik first.
+- **DM:** Inside: A porch facing a perfect sunset. Using it: Regain all spell slots. +1 Contentment. The tell: The sunset never finishes setting, and the same bird crosses it every minute. Pass Erik a note first.
 
 ### Iron Key to the Sewer Grate
 - **Type:** Key item

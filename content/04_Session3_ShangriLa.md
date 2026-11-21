@@ -27,7 +27,7 @@ Each guest is given a lodge key carved with a sigil. Each lodge has its own temp
 | **An open, watchful eye** | A bunk room of old cloaks, masks and a **crate of sky-rockets** | 10 temp HP | The crate is stenciled *"Confiscated from guests."* |
 | **A wave beneath a roof** | A deck with a steaming hot spring | Remove all conditions and exhaustion | The water is a little *too* warm, and slightly thick |
 | **A heart, with verse carved beneath** | *Dusty's character's lodge.* The lintel reads: *"I hear it in the deep heart's core."* | Advantage on WIS saves | His own initials, carved into the bedpost years ago |
-| **A sun that never sets** | A porch facing a perfect sunset | Regain all spell slots | The sunset never finishes setting. The same bird crosses it every minute. (Text Erik first.) |
+| **A sun that never sets** | A porch facing a perfect sunset | Regain all spell slots | The sunset never finishes setting. The same bird crosses it every minute. (Pass Erik a note first.) |
 | **A hound** (the Hound's Hearth) | **Locked.** The Keeper: *"Oh, nobody stays in that one."* | — | It's humming. The floor is warm. The Heart is beneath it. |
 
 ### Pleasures of the vale (each = +1 Contentment and a small benefit; see **Shangri-La Pleasures** in the roll tables)

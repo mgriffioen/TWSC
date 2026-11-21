@@ -19,7 +19,7 @@ If you run long, cut a clue thread. Each one is self-contained and the clues ove
 
 ## Scene 0 — The Invitations (before the game starts)
 
-📜 Hand each player (and mail Erik) a **golden invitation** card stamped with a gold spiral:
+📜 Hand each player a **golden invitation** card stamped with a gold spiral:
 
 > *By the hand of the Keeper,*
 > *you are bidden to Shangri-La,*
