@@ -15,7 +15,7 @@
 - [ ] Session Zero: a short group call or 1-on-1s to build level 3 characters, including subclasses
 - [ ] Ask each player the 3 character questions (see [09_Table_Guide.md](09_Table_Guide.md))
 - [ ] Brief Dusty on his secret and co-pilot role; write his sealed envelope
-- [ ] Brief Erik on the Seer role (secret notes, the Seer's Floor)
+- [ ] Brief Erik on the Seer role: read him the Session Zero hook in [09_Table_Guide.md](09_Table_Guide.md) (the cut thumb), explain the secret notes. Don't tell him where the visions come from
 
 ## Phase 3 — Fill the Slots (Dec 21 – Jan 10)
 - [ ] Read the NPC list and rename anyone you want
@@ -26,7 +26,7 @@
 - [ ] Rehearse 2–3 NPC voices (the Keeper, the Mayor, the Troll)
 
 ## Phase 4 — Props & Production (Jan 11 – Jan 22)
-- [ ] Make the golden invitations, one per player
+- [ ] Make the golden invitations, one per player (Erik's gets a tiny rust-red smudge on one corner)
 - [ ] Write the Seer's vision notes (folded cards numbered by scene) and print Erik's Seer's Floor key card
 - [ ] Make the seven lodge keys and the **7 Emberoak Sap vials** (5 full, 1 with just a little for Ansel, 1 empty for Dusty) (Erik's Seer's Floor key is done: `handouts/04-Seer's Floor key (Erik only).png`)
 - [ ] Prepare the Morning Boon cards and the Gate Gift items; get **6 poker chips** for Memory Tokens (one per player + 1 spare)

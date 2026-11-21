@@ -56,15 +56,27 @@ Dusty is the experienced player. Give him a secret, sealed before the weekend:
 
 Erik is at the table in person, and his character keeps a special role: **the Seer.** His character has occasional visions, and you pass him **secret notes** during play (a hidden door, a lie an NPC is telling, a puzzle clue). He chooses when and how to share it, which makes a new player *the most informed person at the table*.
 
+**Why he can see:** his golden invitation cut his thumb when he opened it, and the scale *took*. He's seeing through the Host's own eyes, and he doesn't know it. (The full truth is in [01_Story_Bible.md](01_Story_Bible.md), under *The Seer*.)
+
+**At Session Zero, tell Erik only this:**
+> *When your invitation arrived, its golden edge cut your thumb. The cut has never quite healed. Since that night, you've been seeing things: flashes, warm glows, a slow breathing sound, and they keep turning out to be true. Nobody else knows.*
+
+Let him decide how his character feels about it (a blessing, a curse, a secret he's proud of). Whatever his class, the visions are a story gift, not a class feature.
+
 **Setup**
 - Seat him **next to you** (on your left or right) so notes slide across without the whole table watching.
 - Write the visions ahead of time on **folded index cards** or sticky notes, numbered by scene, and keep a few blanks for improvised ones.
 - A small **"vision" signal** helps: tap the table or ring a bell when you pass a note, so the others know the Seer just saw something.
 
 **Moments built for him**
+- ✉️ **Scene 0 (S1):** his invitation card has one tiny rust-red smudge on its corner. Say nothing about it.
+- 💍 **The Mayor (S1):** his first note: *"When the Mayor shakes your hand, his spiral ring is warm, and for a heartbeat you hear something huge breathing, far below the city."*
 - 🔮 **The Seer's Floor** (S2, room 9): he alone holds the printed key card and whispers one rune name per turn. Let him actually lean in and whisper.
 - 🪞 **The Glass Mere** (S2, room 7): his reflection appears on the *underside* of the lake. Slip him a note about the hidden path.
 - 🌅 In S3, pass him the first note when the sunset loops: *"The same bird just crossed the sun again."*
+- 🤝 **The Keeper notices him (S3):** when the Keeper shakes his hand, he holds it a moment too long and says softly, *"You see me, don't you?"* From then on the link runs both ways.
+- 💓 **The Heart (S3):** once per round, before the lair action, show Erik the lair action you rolled. He can shout a warning, giving one ally advantage on that save.
+- 🔥 **Epilogue:** when he burns his invitation, the cut on his thumb heals and the visions stop.
 - If he goes quiet, **call on him by name**. A vision note is the easiest way to hand him the spotlight.
 
 ## 🧭 Teaching New Players (Sean, Carl, Erik)

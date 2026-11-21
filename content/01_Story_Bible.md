@@ -37,6 +37,13 @@ Sources of Emberoak Sap:
 ### Where it came from: Mother
 Deep in the Undercroft is the fossil of an even larger mimic, with a crude grave marker before it: **HERE LIES MOTHER.** Fresh flowers lie on the stone. The Host is her child. It was alone in the dark for centuries, and it learned that if it becomes the place people love most, they never leave. It isn't only hungry. It's *lonely.* (Use this if you want a sympathetic ending.)
 
+### The Seer: the scale that took
+Every invitation is a shed scale of the Host. Most are just gold leaf. **Erik's character's scale took.** When he opened it, the edge cut his thumb, and the scale drank a drop of blood. Since then he has been seeing in flashes **through the Host's own eyes**: what it knows, what it hides, and where it isn't looking.
+- **What he sees:** lies the Host knows about (the Mayor's spiral ring is warm to his eye), the safe tiles of the Seer's Floor (its blind spots glow), the strain of the illusion (he sees the sunset loop first), and in the end the Heart itself.
+- **What he doesn't know:** where the visions come from. He thinks it's a gift. Let him believe that until the Keeper takes his hand in Session 3.
+- **The link runs both ways.** Once the Keeper notices him (*"You see me, don't you?"*), the Host can feel him too. That makes him the party's best weapon and the Host's favorite guest.
+- **It ends when the invitation burns.** In the epilogue, burning his invitation closes the link, and the little cut on his thumb finally heals.
+
 ## The deal with Millhaven
 
 Three hundred years ago, the city's founders struck a bargain. The Host gives Millhaven luck: the harbor ice always breaks on time, the fishing never fails, the plague passes it by. In return, the city sends it *guests*. The golden invitations are sent by the city's **Lantern Council**, whose current head, **Mayor Corwin Vell**, is the party's quest-giver.
@@ -83,7 +90,7 @@ Three hundred years ago, the city's founders struck a bargain. The Host gives Mi
 ## Continuity notes
 
 - Shangri-La's entrance is the **Golden Gate** at the bottom of the Undercroft. Over it, an old inscription the Cartographer translates as *"Rest here, and be content."* Scratched inside it, by someone who escaped: *"People forget. But they shouldn't."*
-- The invitations are thin gold leaf, actually a **shed scale of the Host**, stamped with the perfect spiral. *Detect magic* shows transmutation and enchantment. Burned, they smell like roasting meat.
+- The invitations are thin gold leaf, actually a **shed scale of the Host** (which is why Erik's character can see; see *The Seer* above), stamped with the perfect spiral. *Detect magic* shows transmutation and enchantment. Burned, they smell like roasting meat.
 - The Host cannot harm guests who are *content*. Anger, fear and homesickness make guests "indigestible," and dangerous to it.
 - The Returned can't stand the smell of roasting meat, which is why they live on Ham Point among the smokehouses: a penance, and a guard against forgetting.
 - Shangri-La copies memories imperfectly: carvings change when you aren't looking, the sunset never quite finishes setting, and the Keeper's cart leaves no tracks.

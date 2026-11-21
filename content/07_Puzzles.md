@@ -102,7 +102,7 @@ Five doors in a circular hall, each carved with a sigil. Above them: **"FOUR DOO
 
 ## 5. The Seer's Floor (Session 2, room 9 — Erik's puzzle)
 
-The Welcome Hall floor is a 5×5 grid of stone tiles, each carved with a rune. The counter is across the room. **Only the Seer can see which tiles are safe**: in his visions, they glow.
+The Welcome Hall floor is a 5×5 grid of stone tiles, each carved with a rune. The counter is across the room. **Only the Seer can see which tiles are safe**: in his visions, they glow. They're the Host's blind spots, the things it doesn't have and isn't watching, and he's seeing through its eyes.
 
 **Setup:** 📜 Use the battle map (*Rm 09 - The Welcome Hall & the Seer's Floor*): the runes are carved right into the tiles. **Hand Erik the printed key card** ([handouts/04-Seer's Floor key (Erik only).png](handouts/04-Seer's%20Floor%20key%20(Erik%20only).png)). The party must cross from the entrance row to the counter row stepping only orthogonally (no diagonals). The rule: **Erik may only whisper one rune name per turn.** The party chooses where to step.
 
